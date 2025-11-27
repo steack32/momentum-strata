@@ -1,0 +1,35 @@
+name: Mise à jour Bourse
+
+on:
+  schedule:
+    - cron: '0 9 * * 1' # Lundi à 9h00 UTC
+  workflow_dispatch: # Permet de lancer manuellement
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run Bot
+        run: python bot.py
+
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name 'GitHub Action'
+          git config --global user.email 'action@github.com'
+          git add data.json
+          git commit -m "Auto update data" || exit 0
+          git push
