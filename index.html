@@ -114,6 +114,57 @@
             </div>
         </section>
 
+        <section class="py-10 bg-slate-950 border-t border-slate-900/80 relative z-20">
+        <div class="max-w-5xl mx-auto px-4 md:px-6 lg:px-0">
+            
+            <div class="bg-gradient-to-br from-blue-900/20 to-slate-900/40 border border-blue-500/20 rounded-2xl p-6 md:p-8 shadow-lg">
+                <h3 class="text-xl font-bold text-white mb-6 flex items-center">
+                    <svg class="w-6 h-6 mr-2 text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    Guide d'exécution : Comment utiliser ces signaux ?
+                </h3>
+                
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="flex flex-col gap-3">
+                        <div class="flex items-center gap-2">
+                            <span class="flex h-8 w-8 items-center justify-center rounded-full bg-blue-500/20 text-sm font-bold text-blue-300 ring-1 ring-blue-500/40">1</span>
+                            <h4 class="font-semibold text-slate-100">L'Entrée (Timing)</h4>
+                        </div>
+                        <p class="text-sm text-slate-400 leading-relaxed">
+                            Les signaux sont calculés pour l'ouverture du lundi.
+                            <br><br>
+                            Visez une entrée dans la <span class="text-blue-300 font-medium">"Zone cible"</span> indiquée. Si le prix ouvre bien au-dessus, attendez un léger repli (pullback) vers cette zone pour améliorer votre ratio risque/rendement.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-col gap-3 border-t md:border-t-0 md:border-l border-slate-800 pt-6 md:pt-0 md:pl-6">
+                        <div class="flex items-center gap-2">
+                            <span class="flex h-8 w-8 items-center justify-center rounded-full bg-rose-500/20 text-sm font-bold text-rose-300 ring-1 ring-rose-500/40">2</span>
+                            <h4 class="font-semibold text-slate-100">Le Stop Suiveur (Gestion)</h4>
+                        </div>
+                        <p class="text-sm text-slate-400 leading-relaxed">
+                            La valeur "Stop loss" affichée est un <strong class="text-slate-200">Stop Suiveur théorique</strong> à date.
+                            <br><br>
+                            Placez votre stop initial à ce niveau. <strong>Ne le baissez jamais.</strong> Chaque lundi, si la nouvelle valeur calculée par le bot est plus haute, remontez votre stop chez votre courtier pour sécuriser les gains latents.
+                        </p>
+                    </div>
+
+                    <div class="flex flex-col gap-3 border-t md:border-t-0 md:border-l border-slate-800 pt-6 md:pt-0 md:pl-6">
+                        <div class="flex items-center gap-2">
+                            <span class="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500/20 text-sm font-bold text-emerald-300 ring-1 ring-emerald-500/40">3</span>
+                            <h4 class="font-semibold text-slate-100">La Sortie (Take Profit)</h4>
+                        </div>
+                        <p class="text-sm text-slate-400 leading-relaxed">
+                            En Momentum, <strong>on ne fixe pas d'objectif de gain</strong>. On laisse courir la tendance au maximum.
+                            <br><br>
+                            La sortie se fait automatiquement lorsque le prix touche votre <span class="text-rose-300 font-medium">Stop Suiveur</span>, ou si l'actif disparaît de la sélection hebdomadaire (rotation).
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
         <section id="method" class="py-14 md:py-18 bg-slate-950 border-t border-slate-900/80">
             <div class="max-w-5xl mx-auto px-4 md:px-6 lg:px-0">
                 <div class="text-center mb-10">
