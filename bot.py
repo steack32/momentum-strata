@@ -2,109 +2,115 @@ import yfinance as yf
 import pandas as pd
 import json
 from datetime import datetime
+import numpy as np
 
-# --- FONCTION POUR RÉCUPÉRER LE S&P 500 ---
+# --- FONCTION S&P 500 ---
 def get_sp500_tickers():
     try:
-        # Lecture du tableau Wikipedia
         table = pd.read_html('https://en.wikipedia.org/wiki/List_of_S%26P_500_companies')
         df = table[0]
         tickers = df['Symbol'].tolist()
-        # Nettoyage (Yahoo utilise des tirets au lieu des points, ex: BRK.B -> BRK-B)
-        tickers = [t.replace('.', '-') for t in tickers]
-        return tickers
-    except Exception as e:
-        print(f"⚠️ Erreur récupération Wikipedia, utilisation liste de secours. ({e})")
-        # Liste de secours si Wikipedia bloque
-        return ["AAPL", "MSFT", "GOOG", "AMZN", "NVDA", "TSLA", "META", "LLY", "JPM", "V"]
+        return [t.replace('.', '-') for t in tickers]
+    except:
+        return ["AAPL", "MSFT", "NVDA", "AMZN", "GOOG", "META", "LLY", "JPM", "V", "XOM"]
 
-print(f"--- Momentum Strata V4 (S&P 500) ---")
+print(f"--- Momentum Strata V5 (Target & Stop) ---")
 
-# 1. RÉCUPÉRATION DE L'UNIVERS
 tickers = get_sp500_tickers()
-print(f"Universe chargé : {len(tickers)} actions du S&P 500.")
+print(f"Universe : {len(tickers)} actions.")
 
-# 2. TÉLÉCHARGEMENT MASSIF (1 an d'historique)
-print("Téléchargement des données (cela peut prendre 10-20 secondes)...")
+print("Téléchargement des données...")
 try:
-    # On télécharge tout d'un coup (plus rapide)
-    data = yf.download(tickers, period="1y", interval="1wk", group_by='ticker', progress=True, auto_adjust=False, threads=True)
+    # On a besoin des données journalières pour calculer la volatilité (pas weekly)
+    data = yf.download(tickers, period="1y", interval="1d", group_by='ticker', progress=True, auto_adjust=False, threads=True)
 except Exception as e:
     print(f"❌ Erreur critique : {e}")
     exit()
 
-# 3. ANALYSE ET FILTRAGE
 valid_candidates = {}
-
-print("\nAnalyse des tendances en cours...")
+print("\nAnalyse et Filtrage...")
 
 for ticker in tickers:
     try:
-        # Récupération de la colonne 'Adj Close' pour ce ticker
-        # Note: La structure du DataFrame change si on télécharge plusieurs tickers
-        adj_close = data[ticker]['Adj Close'].dropna()
+        # Récupération des données
+        df_ticker = data[ticker]
+        adj_close = df_ticker['Adj Close'].dropna()
 
-        if len(adj_close) < 50: # Pas assez d'historique
-            continue
+        if len(adj_close) < 200: continue
 
         current_price = adj_close.iloc[-1]
         
-        # --- FILTRE 1 : PRIX MINIMUM (> 10$) ---
-        if current_price < 10:
-            continue
+        # --- FILTRE 1 : PRIX > 10$ ---
+        if current_price < 10: continue
 
-        # --- FILTRE 2 : TENDANCE DE FOND (SMA 200 jours / ~40 semaines) ---
-        # Comme on est en données hebdo (1wk), 200 jours = env 40 semaines
-        sma_40w = adj_close.rolling(window=40).mean().iloc[-1]
+        # --- FILTRE 2 : SMA 200 (Tendance Long terme) ---
+        sma_200 = adj_close.rolling(window=200).mean().iloc[-1]
+        if current_price < sma_200: continue
+
+        # --- CALCUL MOMENTUM (6 mois ~ 126 jours de bourse) ---
+        momentum = (current_price / adj_close.iloc[-126]) - 1
         
-        # Si le prix est sous la moyenne mobile, on zappe
-        if current_price < sma_40w:
-            continue
-
-        # --- CALCUL DU MOMENTUM (26 semaines / 6 mois) ---
-        # Formule ROC (Rate of Change)
-        momentum = (current_price / adj_close.iloc[-27]) - 1
-
+        # On stocke le momentum pour le classement
         valid_candidates[ticker] = momentum
 
     except Exception:
-        continue # On ignore silencieusement les erreurs de calculs sur un ticker
+        continue
 
-# 4. CLASSEMENT
+# CLASSEMENT TOP 5
 if not valid_candidates:
-    print("⚠️ Aucun candidat trouvé après filtrage.")
+    print("⚠️ Aucun candidat.")
     exit()
 
-# Conversion en Série pour trier
-ranking = pd.Series(valid_candidates).sort_values(ascending=False)
-top_5 = ranking.head(5)
+top_5 = pd.Series(valid_candidates).sort_values(ascending=False).head(5)
 
-print(f"\n✅ Top 5 trouvé parmi {len(valid_candidates)} candidats valides (filtre SMA200 appliqué).")
-
-# 5. RÉCUPÉRATION DÉTAILLÉE (Pour les graphs du site)
+# EXPORT DÉTAILLÉ AVEC STOP LOSS ET ZONES
 export_data = {}
 
+print(f"\n✅ Top 5 identifié. Calcul des zones d'intervention...")
+
 for ticker, score in top_5.items():
-    print(f"   Traitement final : {ticker}...")
     try:
+        # Récupération info
         stock = yf.Ticker(ticker)
         infos = stock.info
         full_name = infos.get('shortName', infos.get('longName', ticker))
         
-        # On reprend l'historique qu'on a déjà téléchargé pour gagner du temps
-        # On prend les 30 dernières semaines
-        history_series = data[ticker]['Adj Close'].dropna().tail(30).tolist()
-        history_clean = [round(x, 2) for x in history_series]
+        # Récupération Série de prix pour ce ticker
+        prices = data[ticker]['Adj Close'].dropna()
+        current_price = prices.iloc[-1]
+
+        # --- CALCUL TECHNIQUE DU STOP LOSS ---
+        # 1. Calculer les rendements quotidiens
+        daily_returns = prices.pct_change()
+        # 2. Volatilité sur 20 jours (écart-type)
+        volatility = daily_returns.tail(20).std()
+        
+        # STOP LOSS = Prix - (2.5 * Volatilité)
+        # C'est un "Volatility Stop" classique
+        stop_dist = volatility * 2.5
+        stop_loss_price = current_price * (1 - stop_dist)
+
+        # ZONE D'ENTRÉE = Du prix actuel à -1.5%
+        entry_max = current_price
+        entry_min = current_price * 0.985
+
+        # Historique pour le graph (30 derniers jours)
+        history_clean = [round(x, 2) for x in prices.tail(30).tolist()]
 
         export_data[ticker] = {
             "score": score,
             "name": full_name,
-            "history": history_clean
+            "history": history_clean,
+            "price": round(current_price, 2),
+            "stop_loss": round(stop_loss_price, 2),
+            "entry_min": round(entry_min, 2),
+            "entry_max": round(entry_max, 2)
         }
-    except:
-        export_data[ticker] = {"score": score, "name": ticker, "history": []}
+        print(f"   -> {ticker}: Stop à {round(stop_loss_price, 2)}$")
+        
+    except Exception as e:
+        print(f"Erreur {ticker}: {e}")
 
-# 6. EXPORT
 final_payload = {
     "date_mise_a_jour": datetime.now().strftime("%d/%m/%Y"),
     "picks": export_data
@@ -113,4 +119,4 @@ final_payload = {
 with open("data.json", "w") as f:
     json.dump(final_payload, f)
 
-print("\n🚀 Terminé. Données S&P 500 mises à jour.")
+print("\n🚀 Fichier 'data.json' mis à jour avec Stratégie Avancée.")

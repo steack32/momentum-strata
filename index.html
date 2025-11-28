@@ -26,12 +26,12 @@
             Momentum<span class="text-brand-primary">Strata</span>
         </div>
         <div class="flex space-x-6 text-sm font-medium text-slate-600">
-            <a href="#performance" class="hover:text-brand-primary transition">S&P 500</a>
-            <a href="#method" class="hover:text-brand-primary transition">Méthode</a>
+            <a href="index.html" class="text-brand-primary font-bold">S&P 500</a>
+            <a href="crypto.html" class="hover:text-brand-primary transition">Cryptomonnaies</a>
         </div>
     </nav>
 
-    <header class="py-12 px-4 text-center max-w-4xl mx-auto">
+    <header class="py-10 px-4 text-center max-w-4xl mx-auto">
         <div class="inline-block mb-3 px-3 py-1 bg-blue-50 text-brand-primary text-[10px] font-bold uppercase tracking-wider rounded-full">
             Mise à jour Hebdomadaire
         </div>
@@ -39,16 +39,16 @@
             Les Leaders du <span class="text-brand-primary">S&P 500</span> <br>identifiés par Algorithme.
         </h1>
         <p class="text-base text-slate-500 max-w-xl mx-auto">
-            Scan des 500 plus grandes entreprises US. Seules les 5 plus fortes survivent à nos filtres de tendance (SMA200).
+            Scan des 500 plus grandes entreprises US. Sélection basée sur la force relative, avec gestion du risque intégrée.
         </p>
     </header>
 
     <section id="performance" class="px-4 pb-12 relative z-10">
-        <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden">
+        <div class="max-w-5xl mx-auto bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden">
             
             <div class="bg-slate-50 px-6 py-3 border-b border-slate-100 flex justify-between items-center">
                 <div>
-                    <h3 class="font-bold text-brand-dark text-sm">Top 5 Momentum</h3>
+                    <h3 class="font-bold text-brand-dark text-sm">Top 5 Momentum & Plan de Trading</h3>
                     <p class="text-[10px] text-slate-500">Mise à jour : <span id="date-maj" class="font-bold text-brand-primary">...</span></p>
                 </div>
             </div>
@@ -57,40 +57,22 @@
                 <table class="w-full text-left">
                     <thead>
                         <tr class="text-slate-400 text-[10px] uppercase tracking-wider border-b border-slate-100">
-                            <th class="px-6 py-3">Rang</th>
                             <th class="px-6 py-3">Actif</th>
-                            <th class="px-6 py-3">Tendance (1 An)</th>
-                            <th class="px-6 py-3">Perf. (6M)</th>
-                            <th class="px-6 py-3 text-right">Analyse</th>
+                            <th class="px-6 py-3">Tendance</th>
+                            <th class="px-6 py-3">Perf (6M)</th>
+                            <th class="px-6 py-3">Zone d'Achat</th>
+                            <th class="px-6 py-3">Stop Loss</th>
+                            <th class="px-6 py-3 text-right">Action</th>
                         </tr>
                     </thead>
                     <tbody id="tableau-actions" class="text-sm align-middle">
-                        <tr><td colspan="5" class="p-6 text-center text-slate-400 text-xs">Chargement des données...</td></tr>
+                        <tr><td colspan="6" class="p-6 text-center text-slate-400 text-xs">Chargement des données...</td></tr>
                     </tbody>
                 </table>
             </div>
-        </div>
-    </section>
-
-    <section id="method" class="py-12 bg-white border-t border-slate-100">
-        <div class="max-w-4xl mx-auto px-6">
-            <h2 class="text-xl font-bold text-brand-dark mb-6 text-center">Processus de sélection</h2>
-            <div class="grid md:grid-cols-3 gap-6 text-left">
-                <div class="p-4 bg-slate-50 rounded-lg border border-slate-100">
-                    <div class="text-brand-primary font-bold mb-1 text-lg">01. Scan</div>
-                    <h3 class="font-bold text-brand-dark text-sm">Univers S&P 500</h3>
-                    <p class="text-xs text-slate-500 mt-1">Analyse complète des 500 plus grandes capitalisations boursières américaines.</p>
-                </div>
-                <div class="p-4 bg-slate-50 rounded-lg border border-slate-100">
-                    <div class="text-brand-primary font-bold mb-1 text-lg">02. Filtre</div>
-                    <h3 class="font-bold text-brand-dark text-sm">Sécurité SMA 200</h3>
-                    <p class="text-xs text-slate-500 mt-1">Exclusion automatique des actions en tendance baissière (sous leur moyenne mobile).</p>
-                </div>
-                <div class="p-4 bg-slate-50 rounded-lg border border-slate-100">
-                    <div class="text-brand-primary font-bold mb-1 text-lg">03. Élite</div>
-                    <h3 class="font-bold text-brand-dark text-sm">Top 5 Momentum</h3>
-                    <p class="text-xs text-slate-500 mt-1">Classement final basé sur la force relative du prix sur les 6 derniers mois.</p>
-                </div>
+            
+            <div class="bg-slate-50 px-6 py-2 border-t border-slate-100 text-center">
+                 <p class="text-[10px] text-slate-400">Stop Loss calculé sur la volatilité (2.5 x ATR). Ceci n'est pas un conseil financier.</p>
             </div>
         </div>
     </section>
@@ -120,10 +102,7 @@
         }
 
         fetch('data.json')
-            .then(r => {
-                if (!r.ok) throw new Error("Fichier JSON introuvable");
-                return r.json();
-            })
+            .then(r => { if (!r.ok) throw new Error("Erreur JSON"); return r.json(); })
             .then(data => {
                 document.getElementById('date-maj').innerText = data.date_mise_a_jour;
                 const tbody = document.getElementById('tableau-actions');
@@ -131,28 +110,44 @@
                 
                 const sortedPicks = Object.entries(data.picks).sort(([,a], [,b]) => (b.score || 0) - (a.score || 0));
 
-                let rang = 1;
                 for (const [ticker, info] of sortedPicks) {
                     const scorePourcent = ((info.score || 0) * 100).toFixed(2) + '%';
                     const historyData = (info.history && info.history.length > 0) ? info.history : [0, 0];
                     const sparklineSVG = createSparkline(historyData);
-
-                    // CORRECTION DU LIEN : On enlève "NYSE-" pour que ça marche avec NASDAQ aussi
                     const tradingViewLink = `https://www.tradingview.com/symbols/${ticker}/`;
+
+                    // GESTION DES NOUVELLES DONNÉES DE PRIX
+                    // On met des valeurs par défaut au cas où le JSON n'est pas encore à jour
+                    const entryMin = info.entry_min ? info.entry_min.toFixed(2) : "...";
+                    const entryMax = info.entry_max ? info.entry_max.toFixed(2) : "...";
+                    const stopLoss = info.stop_loss ? info.stop_loss.toFixed(2) : "...";
 
                     const ligne = `
                         <tr class="hover:bg-slate-50 transition border-b border-slate-50 h-16">
-                            <td class="px-6 font-bold text-slate-300 text-xs">#${rang}</td>
                             <td class="px-6">
                                 <div class="flex flex-col">
                                     <span class="font-bold text-brand-dark text-sm">${ticker}</span>
-                                    <span class="text-[10px] text-slate-500 truncate w-32 md:w-40" title="${info.name}">${info.name}</span>
+                                    <span class="text-[10px] text-slate-500 truncate w-32" title="${info.name}">${info.name}</span>
                                 </div>
                             </td>
                             <td class="px-6 py-2">${sparklineSVG}</td>
                             <td class="px-6 font-semibold text-green-600 text-xs">
                                 <span class="bg-green-50 px-2 py-1 rounded">+${scorePourcent}</span>
                             </td>
+                            
+                            <td class="px-6">
+                                <div class="flex flex-col text-xs">
+                                    <span class="font-bold text-slate-700">$${entryMin} - $${entryMax}</span>
+                                    <span class="text-[10px] text-slate-400">Zone idéale</span>
+                                </div>
+                            </td>
+
+                            <td class="px-6">
+                                <div class="flex items-center text-xs font-bold text-red-600 bg-red-50 px-2 py-1 rounded w-fit">
+                                    <span>$${stopLoss}</span>
+                                </div>
+                            </td>
+
                             <td class="px-6 text-right">
                                 <a href="${tradingViewLink}" target="_blank" 
                                    class="inline-flex items-center justify-center px-3 py-1.5 bg-white border border-slate-200 rounded text-[10px] font-bold text-brand-dark hover:border-brand-primary hover:text-brand-primary transition">
@@ -162,12 +157,11 @@
                         </tr>
                     `;
                     tbody.innerHTML += ligne;
-                    rang++;
                 }
             })
             .catch(e => {
                 console.error("Erreur:", e);
-                document.getElementById('tableau-actions').innerHTML = '<tr><td colspan="5" class="p-4 text-center text-red-500 text-xs">Erreur chargement données.</td></tr>';
+                document.getElementById('tableau-actions').innerHTML = '<tr><td colspan="6" class="p-4 text-center text-red-500 text-xs">Erreur chargement.</td></tr>';
             });
     </script>
 </body>
