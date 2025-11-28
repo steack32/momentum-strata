@@ -4,247 +4,331 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Momentum Strata | Leaders S&P 500</title>
-    <meta name="description" content="Sélection algorithmique hebdomadaire des actions les plus performantes du S&P 500, avec plan de trading et gestion du risque.">
+    <meta name="description" content="Sélection algorithmique hebdomadaire des actions les plus performantes du S&P 500.">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        brand: { 
-                            dark: '#0f172a', // Slate 900
-                            primary: '#2563eb', // Blue 600
-                            accent: '#1d4ed8', // Blue 700 (hover)
-                            light: '#f8fafc', // Slate 50
-                            surface: '#ffffff' // White
-                        }
-                    },
-                    fontFamily: { sans: ['Inter', 'sans-serif'] },
-                    boxShadow: {
-                        'premium': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
-                        'premium-hover': '0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025)',
-                    },
-                    // Permet d'étendre l'image de fond dans le header
-                    backgroundImage: {
-                        'hero-pattern': "url('assets/img/header-bg.jpg')",
-                    }
-                }
-            }
-        }
-    </script>
+    
+    <script src="assets/js/tailwind-config.js"></script>
+
     <style>
-        /* Petits ajustements pour la finesse des graphiques */
-        .sparkline-path { stroke-linecap: round; stroke-linejoin: round; }
-        /* Effet de verre dépoli subtil */
-        .glassmorphism { backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px); background-color: rgba(255, 255, 255, 0.85); }
+        .sparkline-path {
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
     </style>
 </head>
-<body class="bg-brand-light text-slate-800 antialiased flex flex-col min-h-screen">
+<body class="bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-50 antialiased flex flex-col min-h-screen">
 
-    <div class="relative bg-brand-light border-b border-blue-100/50 overflow-hidden">
-        <div class="absolute inset-0 bg-hero-pattern bg-cover bg-center bg-no-repeat opacity-30 mix-blend-overlay pointer-events-none" aria-hidden="true"></div>
-        <div class="absolute inset-0 bg-gradient-to-b from-white/60 via-white/80 to-brand-light pointer-events-none" aria-hidden="true"></div>
+    <div class="border-b border-slate-800/70 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
+        
+        <div id="navbar-container"></div>
 
-        <div class="relative z-10">
-            <div id="navbar-container"></div>
+        <header class="py-12 md:py-16 px-4 md:px-10 text-center max-w-4xl mx-auto">
+            <div class="inline-flex items-center mb-6 px-4 py-1.5 bg-blue-500/10 border border-blue-400/40 text-blue-200 text-[11px] font-semibold uppercase tracking-[0.2em] rounded-full">
+                <span class="relative flex h-2 w-2 mr-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-400"></span>
+                </span>
+                Mise à jour hebdomadaire • S&P 500
+            </div>
 
-            <header class="py-16 md:py-20 px-4 text-center max-w-4xl mx-auto">
-                <div class="inline-flex items-center mb-6 px-4 py-1.5 glassmorphism border border-blue-100/50 text-brand-primary text-[11px] font-bold uppercase tracking-wider rounded-full shadow-sm">
-                    <span class="relative flex h-2 w-2 mr-2">
-                      <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                      <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-primary"></span>
-                    </span>
-                    Mise à jour Hebdomadaire
-                </div>
-                <h1 class="text-4xl md:text-6xl font-extrabold text-brand-dark leading-tight mb-6">
-                    Les Leaders du <span class="text-brand-primary relative inline-block">S&P 500<svg class="absolute bottom-1 left-0 w-full h-3 text-blue-200/50 -z-10" viewBox="0 0 100 12" preserveAspectRatio="none" fill="currentColor"><path d="M0,12 C20,0 80,0 100,12 L100,12 L0,12 Z"></path></svg></span> <br>identifiés par Algorithme.
-                </h1>
-                <p class="text-base md:text-lg text-slate-600/90 font-medium max-w-2xl mx-auto leading-relaxed">
-                    Scan systématique des 500 plus grandes entreprises US. Sélection basée sur la force relative (momentum), avec gestion du risque intégrée.
-                </p>
-            </header>
-        </div>
+            <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-5">
+                Les leaders du <span class="text-brand-primary relative inline-block">
+                    S&P 500
+                    <svg class="absolute bottom-1 left-0 w-full h-3 text-blue-500/30 -z-10" viewBox="0 0 100 12" preserveAspectRatio="none" fill="currentColor">
+                        <path d="M0,12 C20,0 80,0 100,12 L100,12 L0,12 Z"></path>
+                    </svg>
+                </span><br class="hidden md:block" />
+                détectés par algorithme.
+            </h1>
+
+            <p class="text-sm md:text-base text-slate-300/90 max-w-2xl mx-auto leading-relaxed">
+                Scan systématique des 500 plus grandes capitalisations US. Filtre de tendance par SMA200, puis classement par force relative (momentum 6 mois) pour ne retenir que le <span class="font-semibold text-slate-100">Top 5</span>.
+            </p>
+        </header>
     </div>
 
-    <main class="flex-grow px-4 py-16 relative z-10 -mt-8">
-        <div class="max-w-5xl mx-auto">
-            
-            <div class="flex justify-between items-end mb-4 px-2">
-                <h2 class="font-bold text-xl text-brand-dark">Top 5 Momentum & Plan de Trading</h2>
-                <p class="text-xs text-slate-500 font-medium bg-white px-3 py-1 rounded-full shadow-sm border border-slate-100">
-                    MàJ : <span id="date-maj" class="font-bold text-brand-primary">Chargement...</span>
-                </p>
-            </div>
+    <main class="flex-grow">
 
-            <div class="bg-white rounded-2xl shadow-premium border border-slate-200/80 overflow-hidden">
-                <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
-                        <thead>
-                            <tr class="bg-slate-50/80 text-slate-500 text-[11px] uppercase tracking-widest font-semibold border-b border-slate-200/80">
-                                <th class="px-6 py-4 rounded-tl-2xl">Actif</th>
-                                <th class="px-6 py-4 hidden md:table-cell">Tendance (1 An)</th>
-                                <th class="px-6 py-4">Perf (6M)</th>
-                                <th class="px-6 py-4 hidden sm:table-cell">Zone d'Achat</th>
-                                <th class="px-6 py-4 hidden sm:table-cell">Stop Loss</th>
-                                <th class="px-6 py-4 text-right rounded-tr-2xl">Analyse</th>
-                            </tr>
-                        </thead>
-                        <tbody id="tableau-actions" class="text-sm align-middle divide-y divide-slate-100">
-                            <tr><td colspan="6" class="p-12 text-center text-slate-400 animate-pulse font-medium">Initialisation de l'algorithme...</td></tr>
-                        </tbody>
-                    </table>
+        <section id="performance" class="px-4 md:px-6 lg:px-0 py-10 md:py-14">
+            <div class="max-w-5xl mx-auto">
+
+                <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-5">
+                    <div>
+                        <h2 class="font-bold text-lg md:text-xl text-slate-50">Top 5 Momentum & plan de trading</h2>
+                        <p class="text-xs text-slate-400 mt-1">
+                            Univers S&P 500, filtré par tendance long terme et volatilité.
+                        </p>
+                    </div>
+                    <div class="flex flex-col items-start md:items-end space-y-1 text-xs">
+                        <p class="inline-flex items-center bg-slate-900/80 border border-slate-700/80 px-3 py-1.5 rounded-full text-slate-300">
+                            <span class="text-slate-400 mr-1">MàJ :</span>
+                            <span id="date-maj" class="font-semibold text-blue-300">Chargement...</span>
+                        </p>
+                        <p id="stats-resume" class="hidden text-[11px] text-slate-400"></p>
+                    </div>
                 </div>
-                
-                <div class="bg-slate-50/50 px-6 py-3 border-t border-slate-200/60 text-center flex flex-col md:flex-row justify-center items-center gap-2 text-[11px] text-slate-500">
-                     <span class="flex items-center"><svg class="w-3 h-3 mr-1 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>Stop Loss = Volatilité (2.5 x ATR).</span>
-                     <span class="hidden md:inline text-slate-300">•</span>
-                     <span>Prix arrondis à l'unité.</span>
+
+                <div class="bg-slate-900/80 backdrop-blur rounded-2xl shadow-premium border border-slate-800/80 overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-900 text-[11px] uppercase tracking-[0.18em] text-slate-400 border-b border-slate-800">
+                                    <th class="px-6 py-3.5">Actif</th>
+                                    <th class="px-6 py-3.5 hidden md:table-cell">Tendance (1 an)</th>
+                                    <th class="px-6 py-3.5">Perf 6M</th>
+                                    <th class="px-6 py-3.5 hidden sm:table-cell">Zone d'achat</th>
+                                    <th class="px-6 py-3.5 hidden sm:table-cell">Stop loss</th>
+                                    <th class="px-6 py-3.5 text-right">Analyse</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableau-actions" class="text-sm divide-y divide-slate-800">
+                                <tr>
+                                    <td colspan="6" class="px-6 py-12 text-center">
+                                        <div class="flex flex-col items-center justify-center text-slate-500 text-xs gap-2">
+                                            <div class="flex space-x-1 mb-1">
+                                                <span class="h-1.5 w-5 rounded-full bg-slate-600 animate-pulse"></span>
+                                                <span class="h-1.5 w-5 rounded-full bg-slate-700 animate-pulse delay-75"></span>
+                                                <span class="h-1.5 w-5 rounded-full bg-slate-600 animate-pulse delay-150"></span>
+                                            </div>
+                                            <span class="font-medium">Initialisation de l'algorithme...</span>
+                                            <span class="text-[11px] text-slate-600">Récupération des données et construction du classement.</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="bg-slate-950/80 px-6 py-4 border-t border-slate-800/80 text-[11px] text-slate-400 flex flex-col md:flex-row items-center justify-between gap-2">
+                        <div class="flex items-center gap-2">
+                            <svg class="w-3 h-3 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span>Stop loss basé sur la volatilité (2.5 × ATR). Prix arrondis à l'unité.</span>
+                        </div>
+                        <span class="text-slate-600">Données fournies à titre indicatif uniquement.</span>
+                    </div>
                 </div>
             </div>
-        </div>
+        </section>
+
+        <section id="method" class="py-14 md:py-18 bg-slate-950 border-t border-slate-900/80">
+            <div class="max-w-5xl mx-auto px-4 md:px-6 lg:px-0">
+                <div class="text-center mb-10">
+                    <h2 class="text-2xl font-extrabold text-white">Notre Algorithme</h2>
+                    <p class="text-slate-400 mt-3 max-w-xl mx-auto text-sm">
+                        Une approche systématique, sans biais émotionnel, pour rester aligné sur les leaders du marché.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6 md:gap-8">
+                    <article class="relative p-6 md:p-7 bg-slate-900/70 border border-slate-800/90 rounded-2xl shadow-soft group hover:border-blue-500/60 hover:shadow-[0_0_40px_rgba(37,99,235,0.25)] transition-all duration-300">
+                        <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-400/40 flex items-center justify-center mb-5">
+                            <svg class="w-5 h-5 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-slate-50 font-semibold mb-2 text-base">01. Univers S&P 500</h3>
+                        <p class="text-xs md:text-sm text-slate-400 leading-relaxed">
+                            Scan exhaustif des <span class="font-semibold text-slate-100">500 plus grandes capitalisations US</span> :
+                            liquidité, spreads serrés, et moindre risque de manipulation sur micro-caps.
+                        </p>
+                    </article>
+
+                    <article class="relative p-6 md:p-7 bg-slate-900/70 border border-slate-800/90 rounded-2xl shadow-soft group hover:border-blue-500/60 hover:shadow-[0_0_40px_rgba(37,99,235,0.25)] transition-all duration-300">
+                        <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-400/40 flex items-center justify-center mb-5">
+                            <svg class="w-5 h-5 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4h18M9 8h12M9 12h12M9 16h12M3 8h.01M3 12h.01M3 16h.01"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-slate-50 font-semibold mb-2 text-base">02. Filtre de tendance</h3>
+                        <p class="text-xs md:text-sm text-slate-400 leading-relaxed">
+                            Une action est rejetée si son prix est sous sa <span class="font-semibold text-slate-100">Moyenne Mobile 200 jours</span>.
+                            Objectif : rester dans les tendances structurellement haussières.
+                        </p>
+                    </article>
+
+                    <article class="relative p-6 md:p-7 bg-slate-900/70 border border-slate-800/90 rounded-2xl shadow-soft group hover:border-blue-500/60 hover:shadow-[0_0_40px_rgba(37,99,235,0.25)] transition-all duration-300">
+                        <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-400/40 flex items-center justify-center mb-5">
+                            <svg class="w-5 h-5 text-blue-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3v18h18M7 14l4-4 4 4 4-7"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-slate-50 font-semibold mb-2 text-base">03. Force relative</h3>
+                        <p class="text-xs md:text-sm text-slate-400 leading-relaxed">
+                            Classement des survivants par <span class="font-semibold text-slate-100">performance ajustée sur 6 mois</span>.
+                            Seul le <span class="font-semibold text-slate-100">Top 5</span> est publié : les véritables leaders du moment.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
     </main>
-
-    <section id="method" class="py-20 bg-white border-t border-slate-100">
-        <div class="max-w-5xl mx-auto px-6">
-            <div class="text-center mb-12">
-                <h2 class="text-2xl font-extrabold text-brand-dark">Notre Algorithme</h2>
-                <p class="text-slate-500 mt-3 max-w-xl mx-auto">Une approche purement quantitative pour transformer les données de marché en décisions d'investissement.</p>
-            </div>
-            
-            <div class="grid md:grid-cols-3 gap-8 text-left relative">
-                <div class="hidden md:block absolute top-12 left-[20%] right-[20%] h-0.5 bg-gradient-to-r from-blue-100 via-blue-200 to-blue-100 -z-10"></div>
-
-                <div class="relative p-8 bg-white rounded-2xl shadow-premium border border-slate-100 group hover:-translate-y-1 transition-all duration-300">
-                    <div class="w-12 h-12 bg-blue-100/50 text-brand-primary rounded-xl flex items-center justify-center mb-6 shadow-sm group-hover:scale-110 transition-transform">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
-                    </div>
-                    <h3 class="text-brand-dark font-bold mb-3 text-lg">01. Univers S&P 500</h3>
-                    <p class="text-sm text-slate-600 leading-relaxed">
-                        Scan exhaustif des <strong>500 plus grandes capitalisations US</strong>. Garantit la liquidité et filtre les sociétés fragiles.
-                    </p>
-                </div>
-                <div class="relative p-8 bg-white rounded-2xl shadow-premium border border-slate-100 group hover:-translate-y-1 transition-all duration-300">
-                    <div class="w-12 h-12 bg-blue-100/50 text-brand-primary rounded-xl flex items-center justify-center mb-6 shadow-sm group-hover:scale-110 transition-transform">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
-                    </div>
-                    <h3 class="text-brand-dark font-bold mb-3 text-lg">02. Filtre de Tendance</h3>
-                    <p class="text-sm text-slate-600 leading-relaxed">
-                        Rejet automatique si le prix est sous la <strong>Moyenne Mobile 200 jours</strong>. Protection contre les marchés baissiers.
-                    </p>
-                </div>
-                <div class="relative p-8 bg-white rounded-2xl shadow-premium border border-slate-100 group hover:-translate-y-1 transition-all duration-300">
-                    <div class="w-12 h-12 bg-blue-100/50 text-brand-primary rounded-xl flex items-center justify-center mb-6 shadow-sm group-hover:scale-110 transition-transform">
-                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.783-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>
-                    </div>
-                    <h3 class="text-brand-dark font-bold mb-3 text-lg">03. Force Relative</h3>
-                    <p class="text-sm text-slate-600 leading-relaxed">
-                        Classement final selon la performance ajustée sur 6 mois. Seul le <strong>Top 5 absolu</strong> est retenu.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <div id="footer-container"></div>
 
     <script src="assets/js/main.js"></script>
 
     <script>
-        // Fonction SVG optimisée pour un rendu plus "épais" et clair
-        function createSparkline(data, width = 120, height = 45) {
-            if (!data || data.length < 2) return '<span class="text-xs text-slate-300">Pas de données</span>';
+        function createSparkline(data, width = 130, height = 42) {
+            if (!data || data.length < 2) {
+                return '<span class="text-[11px] text-slate-500">Pas de données</span>';
+            }
+
             const min = Math.min(...data);
             const max = Math.max(...data);
             const range = max - min || 1;
-            const paddingY = 4; 
-            const effectiveHeight = height - (paddingY * 2);
-            
+            const paddingY = 4;
+            const effectiveHeight = height - paddingY * 2;
             const stepX = width / (data.length - 1);
+
             const pathPoints = data.map((val, i) => {
                 const x = i * stepX;
-                const y = (height - paddingY) - ((val - min) / range * effectiveHeight); 
+                const y = (height - paddingY) - ((val - min) / range * effectiveHeight);
                 return `${i === 0 ? 'M' : 'L'} ${x.toFixed(1)},${y.toFixed(1)}`;
             }).join(' ');
 
             const lastX = width;
-            const lastY = (height - paddingY) - ((data[data.length-1] - min) / range * effectiveHeight);
+            const lastY = (height - paddingY) - ((data[data.length - 1] - min) / range * effectiveHeight);
 
             return `
                 <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" class="overflow-visible">
-                    <path d="${pathPoints}" fill="none" stroke="#2563eb" stroke-width="3" opacity="0.15" transform="translate(0, 2)" class="sparkline-path" />
-                    <path d="${pathPoints}" fill="none" stroke="#2563eb" stroke-width="2" class="sparkline-path" vector-effect="non-scaling-stroke" />
-                    <circle cx="${lastX.toFixed(1)}" cy="${lastY.toFixed(1)}" r="2.5" fill="#ffffff" stroke="#2563eb" stroke-width="2" />
+                    <path d="${pathPoints}" fill="none" stroke="#1d4ed8" stroke-width="3" opacity="0.16" transform="translate(0,2)" class="sparkline-path" />
+                    <path d="${pathPoints}" fill="none" stroke="#3b82f6" stroke-width="2" class="sparkline-path" vector-effect="non-scaling-stroke" />
+                    <circle cx="${lastX.toFixed(1)}" cy="${lastY.toFixed(1)}" r="2.6" fill="#020617" stroke="#3b82f6" stroke-width="1.8" />
                 </svg>
             `;
         }
 
-        // Chargement des données spécifiques au S&P 500
-        // NOTE: Le chemin est maintenant 'data/sp500.json' grâce à la nouvelle architecture
+        // MISE À JOUR DU CHEMIN : data/sp500.json
         fetch('data/sp500.json')
-            .then(r => { if (!r.ok) throw new Error("Erreur JSON"); return r.json(); })
+            .then(r => {
+                if (!r.ok) throw new Error('Erreur de chargement JSON');
+                return r.json();
+            })
             .then(data => {
-                document.getElementById('date-maj').innerText = data.date_mise_a_jour;
+                const dateEl = document.getElementById('date-maj');
                 const tbody = document.getElementById('tableau-actions');
-                tbody.innerHTML = ''; 
-                
-                const sortedPicks = Object.entries(data.picks).sort(([,a], [,b]) => (b.score || 0) - (a.score || 0));
+                const statsEl = document.getElementById('stats-resume');
+
+                if (data.date_mise_a_jour) {
+                    dateEl.textContent = data.date_mise_a_jour;
+                } else {
+                    dateEl.textContent = '—';
+                }
+
+                const entries = Object.entries(data.picks || {});
+                if (!entries.length) {
+                    tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-8 text-center text-xs text-slate-400">Aucune valeur disponible pour cette mise à jour.</td></tr>';
+                    return;
+                }
+
+                const sortedPicks = entries.sort(([, a], [, b]) => (b.score || 0) - (a.score || 0));
+
+                // Résumé (nombre de valeurs & perf moyenne)
+                let totalScore = 0;
+                let countScore = 0;
+                sortedPicks.forEach(([, info]) => {
+                    if (typeof info.score === 'number') {
+                        totalScore += info.score;
+                        countScore++;
+                    }
+                });
+                if (countScore > 0) {
+                    const avg = (totalScore / countScore) * 100;
+                    const avgSign = avg >= 0 ? '+' : '';
+                    statsEl.textContent = `${sortedPicks.length} valeurs sélectionnées · Perf moyenne 6 mois : ${avgSign}${avg.toFixed(1)}%`;
+                    statsEl.classList.remove('hidden');
+                }
+
+                tbody.innerHTML = '';
 
                 for (const [ticker, info] of sortedPicks) {
-                    
-                    const scorePourcent = Math.round((info.score || 0) * 100) + '%';
-                    const historyData = (info.history && info.history.length > 0) ? info.history : [0, 0];
-                    const sparklineSVG = createSparkline(historyData, 140, 50);
+                    const rawScore = typeof info.score === 'number' ? info.score : 0;
+                    const perfIsPos = rawScore >= 0;
+                    const perfSign = perfIsPos ? '+' : '';
+                    const perfValue = Math.round(Math.abs(rawScore) * 100);
+                    const perfClass = perfIsPos
+                        ? 'bg-emerald-500/15 text-emerald-300 border border-emerald-500/40'
+                        : 'bg-rose-500/15 text-rose-300 border border-rose-500/40';
+
+                    const historyData = (info.history && info.history.length > 0) ? info.history : null;
+                    const sparklineSVG = createSparkline(historyData, 140, 46);
                     const tradingViewLink = `https://www.tradingview.com/symbols/${ticker}/`;
 
-                    // Gestion des arrondis Prix (Utilisation de Math.round)
-                    const entryMin = info.entry_min ? Math.round(info.entry_min) : "...";
-                    const entryMax = info.entry_max ? Math.round(info.entry_max) : "...";
-                    const stopLoss = info.stop_loss ? Math.round(info.stop_loss) : "...";
+                    const entryMin = info.entry_min ? Math.round(info.entry_min) : '...';
+                    const entryMax = info.entry_max ? Math.round(info.entry_max) : '...';
+                    const stopLoss = info.stop_loss ? Math.round(info.stop_loss) : '...';
 
-                    // Ligne du tableau redesignée avec hover effect et padding
                     const ligne = `
-                        <tr class="hover:bg-slate-50/80 transition-all duration-200 border-b border-slate-100 group">
-                            <td class="px-6 py-5">
+                        <tr class="hover:bg-slate-900/70 transition-colors duration-150">
+                            <td class="px-6 py-4">
                                 <div class="flex flex-col">
-                                    <span class="font-extrabold text-brand-dark text-xl group-hover:text-brand-primary transition-colors">${ticker}</span>
-                                    <span class="text-[11px] text-slate-500 truncate w-36 font-medium" title="${info.name}">${info.name}</span>
+                                    <span class="font-semibold text-slate-50 text-base leading-tight">${ticker}</span>
+                                    <span class="text-[11px] text-slate-400 truncate max-w-[11rem]" title="${info.name || ''}">
+                                        ${info.name || ''}
+                                    </span>
                                 </div>
                             </td>
-                            <td class="px-6 py-3 hidden md:table-cell">${sparklineSVG}</td>
-                            <td class="px-6 py-5">
-                                <span class="bg-green-100/80 text-green-700 px-3 py-1.5 rounded-lg text-sm font-bold inline-block shadow-sm">
-                                    +${scorePourcent}
+
+                            <td class="px-6 py-4 hidden md:table-cell align-middle">
+                                ${sparklineSVG}
+                            </td>
+
+                            <td class="px-6 py-4 align-middle">
+                                <span class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold ${perfClass}">
+                                    <span class="mr-1">
+                                        ${perfIsPos 
+                                            ? '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7 7 7M12 3v18"/></svg>'
+                                            : '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7-7-7M12 3v18"/></svg>'
+                                        }
+                                    </span>
+                                    ${perfSign}${perfValue}%
                                 </span>
                             </td>
-                            
-                            <td class="px-6 py-5 hidden sm:table-cell">
-                                <div class="flex flex-col">
-                                    <span class="font-bold text-slate-700 text-sm">$${entryMin} - $${entryMax}</span>
-                                    <span class="text-[10px] text-slate-400 font-medium">Zone cible</span>
+
+                            <td class="px-6 py-4 hidden sm:table-cell align-middle">
+                                <div class="flex flex-col text-xs">
+                                    <span class="font-semibold text-slate-100">$${entryMin} – $${entryMax}</span>
+                                    <span class="text-[11px] text-slate-500">Zone cible</span>
                                 </div>
                             </td>
 
-                            <td class="px-6 py-5 hidden sm:table-cell">
-                                <span class="font-bold text-red-600 bg-red-50/80 border border-red-100/50 px-3 py-1.5 rounded-lg text-sm inline-block">
+                            <td class="px-6 py-4 hidden sm:table-cell align-middle">
+                                <span class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold bg-rose-500/10 text-rose-300 border border-rose-500/40">
                                     $${stopLoss}
                                 </span>
                             </td>
 
-                            <td class="px-6 py-5 text-right">
-                                <a href="${tradingViewLink}" target="_blank" 
-                                   class="inline-flex items-center justify-center px-4 py-2 bg-brand-primary text-white rounded-lg text-xs font-bold hover:bg-brand-accent hover:shadow-md transition-all active:scale-95">
-                                    Chart <svg class="w-3 h-3 ml-1 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
+                            <td class="px-6 py-4 text-right align-middle">
+                                <a href="${tradingViewLink}" target="_blank" rel="noopener noreferrer"
+                                   class="inline-flex items-center justify-center px-3.5 py-1.5 rounded-full bg-blue-600 text-[11px] font-semibold text-white hover:bg-blue-500 hover:shadow-[0_0_20px_rgba(37,99,235,0.5)] transition-all active:scale-95">
+                                    Chart
+                                    <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h8m0 0v8m0-8L5 19"/>
+                                    </svg>
                                 </a>
                             </td>
                         </tr>
                     `;
-                    tbody.innerHTML += ligne;
+
+                    tbody.insertAdjacentHTML('beforeend', ligne);
                 }
             })
-            .catch(e => {
-                console.error("Erreur:", e);
-                document.getElementById('tableau-actions').innerHTML = '<tr><td colspan="6" class="p-8 text-center text-red-500 font-medium bg-red-50 rounded-b-2xl">Erreur de chargement des données. Vérifiez le fichier data/sp500.json.</td></tr>';
+            .catch(err => {
+                console.error('Erreur :', err);
+                const tbody = document.getElementById('tableau-actions');
+                // Message d'erreur mis à jour avec le bon chemin
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="6" class="px-6 py-8 text-center text-xs bg-rose-950/40 text-rose-200 border-t border-rose-800/60">
+                            Erreur lors du chargement des données. Vérifiez le fichier <code class="font-mono text-[10px] bg-slate-900/80 px-1.5 py-0.5 rounded border border-slate-700/80">data/sp500.json</code>.
+                        </td>
+                    </tr>
+                `;
+                document.getElementById('date-maj').textContent = 'Erreur';
             });
     </script>
 </body>
