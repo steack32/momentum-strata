@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Momentum Strata | Top 5 S&P 500</title>
+    <title>Momentum Strata | S&P 500</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -21,91 +21,86 @@
 </head>
 <body class="bg-brand-light text-slate-800 antialiased">
 
-    <nav class="w-full py-6 px-6 md:px-12 flex justify-between items-center max-w-7xl mx-auto">
-        <div class="text-2xl font-bold tracking-tight text-brand-dark">
+    <nav class="w-full py-4 px-6 md:px-12 flex justify-between items-center max-w-6xl mx-auto">
+        <div class="text-3xl font-bold tracking-tight text-brand-dark">
             Momentum<span class="text-brand-primary">Strata</span>
         </div>
-        <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-600">
-            <a href="#performance" class="hover:text-brand-primary transition">Sélection S&P 500</a>
-            <a href="#method" class="hover:text-brand-primary transition">Notre Méthode</a>
+        <div class="flex space-x-6 text-sm font-medium text-slate-600">
+            <a href="#performance" class="hover:text-brand-primary transition">S&P 500</a>
+            <a href="#method" class="hover:text-brand-primary transition">Méthode</a>
         </div>
-        <a href="#join" class="px-5 py-2.5 bg-brand-dark text-white text-sm font-semibold rounded hover:bg-slate-800 transition">S'inscrire</a>
     </nav>
 
-    <header class="py-16 md:py-24 px-6 text-center max-w-5xl mx-auto">
-        <div class="inline-block mb-4 px-3 py-1 bg-blue-50 text-brand-primary text-xs font-bold uppercase tracking-wider rounded-full">
+    <header class="py-12 px-4 text-center max-w-4xl mx-auto">
+        <div class="inline-block mb-3 px-3 py-1 bg-blue-50 text-brand-primary text-[10px] font-bold uppercase tracking-wider rounded-full">
             Mise à jour Hebdomadaire
         </div>
-        <h1 class="text-4xl md:text-6xl font-bold text-brand-dark leading-tight mb-6">
-            L'Élite du <span class="text-brand-primary">S&P 500</span> <br>détectée par Algorithme.
+        <h1 class="text-4xl md:text-5xl font-bold text-brand-dark leading-tight mb-4">
+            Les Leaders du <span class="text-brand-primary">S&P 500</span> <br>identifiés par Algorithme.
         </h1>
-        <p class="text-lg text-slate-500 mb-8 max-w-2xl mx-auto">
-            Nous scannons les 500 plus grandes entreprises américaines. Seules les 5 plus fortes survivent à nos filtres de tendance.
+        <p class="text-base text-slate-500 max-w-xl mx-auto">
+            Scan des 500 plus grandes entreprises US. Seules les 5 plus fortes survivent à nos filtres de tendance (SMA200).
         </p>
     </header>
 
-    <section id="performance" class="px-4 pb-20 relative z-10">
-        <div class="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+    <section id="performance" class="px-4 pb-12 relative z-10">
+        <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden">
             
-            <div class="bg-slate-50 px-6 py-4 border-b border-slate-100 flex justify-between items-center">
+            <div class="bg-slate-50 px-6 py-3 border-b border-slate-100 flex justify-between items-center">
                 <div>
-                    <h3 class="font-bold text-brand-dark">Top 5 Momentum (S&P 500)</h3>
-                    <p class="text-xs text-slate-500">Mise à jour : <span id="date-maj" class="font-bold text-brand-primary">...</span></p>
+                    <h3 class="font-bold text-brand-dark text-sm">Top 5 Momentum</h3>
+                    <p class="text-[10px] text-slate-500">Mise à jour : <span id="date-maj" class="font-bold text-brand-primary">...</span></p>
                 </div>
             </div>
 
             <div class="overflow-x-auto">
                 <table class="w-full text-left">
                     <thead>
-                        <tr class="text-slate-400 text-xs uppercase tracking-wider border-b border-slate-100">
-                            <th class="px-6 py-4">Rang</th>
-                            <th class="px-6 py-4">Actif</th>
-                            <th class="px-6 py-4">Tendance (1 An)</th>
-                            <th class="px-6 py-4">Perf. (6M)</th>
-                            <th class="px-6 py-4 text-right">Action</th>
+                        <tr class="text-slate-400 text-[10px] uppercase tracking-wider border-b border-slate-100">
+                            <th class="px-6 py-3">Rang</th>
+                            <th class="px-6 py-3">Actif</th>
+                            <th class="px-6 py-3">Tendance (1 An)</th>
+                            <th class="px-6 py-3">Perf. (6M)</th>
+                            <th class="px-6 py-3 text-right">Analyse</th>
                         </tr>
                     </thead>
                     <tbody id="tableau-actions" class="text-sm align-middle">
-                        <tr><td colspan="5" class="p-8 text-center text-slate-400">Chargement des données...</td></tr>
+                        <tr><td colspan="5" class="p-6 text-center text-slate-400 text-xs">Chargement des données...</td></tr>
                     </tbody>
                 </table>
             </div>
-            <div class="bg-slate-50 px-6 py-3 border-t border-slate-100 text-center">
-                <p class="text-xs text-slate-400">Calculs basés sur les cours de clôture ajustés.</p>
+        </div>
+    </section>
+
+    <section id="method" class="py-12 bg-white border-t border-slate-100">
+        <div class="max-w-4xl mx-auto px-6">
+            <h2 class="text-xl font-bold text-brand-dark mb-6 text-center">Processus de sélection</h2>
+            <div class="grid md:grid-cols-3 gap-6 text-left">
+                <div class="p-4 bg-slate-50 rounded-lg border border-slate-100">
+                    <div class="text-brand-primary font-bold mb-1 text-lg">01. Scan</div>
+                    <h3 class="font-bold text-brand-dark text-sm">Univers S&P 500</h3>
+                    <p class="text-xs text-slate-500 mt-1">Analyse complète des 500 plus grandes capitalisations boursières américaines.</p>
+                </div>
+                <div class="p-4 bg-slate-50 rounded-lg border border-slate-100">
+                    <div class="text-brand-primary font-bold mb-1 text-lg">02. Filtre</div>
+                    <h3 class="font-bold text-brand-dark text-sm">Sécurité SMA 200</h3>
+                    <p class="text-xs text-slate-500 mt-1">Exclusion automatique des actions en tendance baissière (sous leur moyenne mobile).</p>
+                </div>
+                <div class="p-4 bg-slate-50 rounded-lg border border-slate-100">
+                    <div class="text-brand-primary font-bold mb-1 text-lg">03. Élite</div>
+                    <h3 class="font-bold text-brand-dark text-sm">Top 5 Momentum</h3>
+                    <p class="text-xs text-slate-500 mt-1">Classement final basé sur la force relative du prix sur les 6 derniers mois.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="method" class="py-16 bg-white border-t border-slate-100">
-        <div class="max-w-6xl mx-auto px-6 text-center">
-            <h2 class="text-2xl font-bold text-brand-dark mb-10">Un processus de sélection rigoureux</h2>
-            <div class="grid md:grid-cols-3 gap-8 text-left">
-                <div class="p-6 bg-slate-50 rounded-xl border border-slate-100">
-                    <div class="w-10 h-10 bg-blue-100 text-brand-primary rounded-lg flex items-center justify-center mb-4 font-bold">1</div>
-                    <h3 class="font-bold text-brand-dark mb-2">Scan Universel</h3>
-                    <p class="text-sm text-slate-600">Nous analysons chaque lundi l'intégralité de l'indice <strong>S&P 500</strong>, éliminant automatiquement les actifs illiquides.</p>
-                </div>
-                <div class="p-6 bg-slate-50 rounded-xl border border-slate-100">
-                    <div class="w-10 h-10 bg-blue-100 text-brand-primary rounded-lg flex items-center justify-center mb-4 font-bold">2</div>
-                    <h3 class="font-bold text-brand-dark mb-2">Filtre de Tendance</h3>
-                    <p class="text-sm text-slate-600">Sécurité avant tout. Une action n'est éligible que si son prix est supérieur à sa <strong>Moyenne Mobile 200 jours</strong> (SMA200).</p>
-                </div>
-                <div class="p-6 bg-slate-50 rounded-xl border border-slate-100">
-                    <div class="w-10 h-10 bg-blue-100 text-brand-primary rounded-lg flex items-center justify-center mb-4 font-bold">3</div>
-                    <h3 class="font-bold text-brand-dark mb-2">Ranking Momentum</h3>
-                    <p class="text-sm text-slate-600">Nous classons les survivants selon leur force relative sur 6 mois et ne gardons que le <strong>Top 5</strong>.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <footer class="py-8 text-center text-slate-400 text-xs bg-slate-900 border-t border-slate-800">
-        <p class="mb-2">&copy; 2024 Momentum Strata. Données fournies à titre indicatif.</p>
-        <p>L'investissement en bourse comporte des risques de perte en capital.</p>
+    <footer class="py-6 text-center text-slate-400 text-[10px] bg-slate-900 border-t border-slate-800">
+        <p>&copy; 2024 Momentum Strata. Données à titre indicatif.</p>
     </footer>
 
     <script>
-        function createSparkline(data, width = 120, height = 40) {
+        function createSparkline(data, width = 100, height = 30) {
             if (!data || data.length < 2) return '';
             const min = Math.min(...data);
             const max = Math.max(...data);
@@ -118,8 +113,8 @@
             }).join(' ');
             return `
                 <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" class="overflow-visible">
-                    <path d="${pathPoints}" fill="none" stroke="#2563eb" stroke-width="2" vector-effect="non-scaling-stroke" />
-                    <circle cx="${width}" cy="${height - ((data[data.length-1] - min) / range * height)}" r="2" fill="#ef4444" />
+                    <path d="${pathPoints}" fill="none" stroke="#2563eb" stroke-width="1.5" vector-effect="non-scaling-stroke" />
+                    <circle cx="${width}" cy="${height - ((data[data.length-1] - min) / range * height)}" r="1.5" fill="#ef4444" />
                 </svg>
             `;
         }
@@ -142,22 +137,25 @@
                     const historyData = (info.history && info.history.length > 0) ? info.history : [0, 0];
                     const sparklineSVG = createSparkline(historyData);
 
+                    // CORRECTION DU LIEN : On enlève "NYSE-" pour que ça marche avec NASDAQ aussi
+                    const tradingViewLink = `https://www.tradingview.com/symbols/${ticker}/`;
+
                     const ligne = `
-                        <tr class="hover:bg-slate-50 transition border-b border-slate-50 h-20">
-                            <td class="px-6 font-bold text-slate-300">#${rang}</td>
+                        <tr class="hover:bg-slate-50 transition border-b border-slate-50 h-16">
+                            <td class="px-6 font-bold text-slate-300 text-xs">#${rang}</td>
                             <td class="px-6">
                                 <div class="flex flex-col">
-                                    <span class="font-bold text-brand-dark text-lg">${ticker}</span>
-                                    <span class="text-xs text-slate-500 truncate w-32 md:w-48" title="${info.name}">${info.name}</span>
+                                    <span class="font-bold text-brand-dark text-sm">${ticker}</span>
+                                    <span class="text-[10px] text-slate-500 truncate w-32 md:w-40" title="${info.name}">${info.name}</span>
                                 </div>
                             </td>
                             <td class="px-6 py-2">${sparklineSVG}</td>
-                            <td class="px-6 font-semibold text-green-600">
-                                <span class="bg-green-50 px-2 py-1 rounded text-sm">+${scorePourcent}</span>
+                            <td class="px-6 font-semibold text-green-600 text-xs">
+                                <span class="bg-green-50 px-2 py-1 rounded">+${scorePourcent}</span>
                             </td>
                             <td class="px-6 text-right">
-                                <a href="https://www.tradingview.com/symbols/NYSE-${ticker}/" target="_blank" 
-                                   class="inline-flex items-center justify-center px-4 py-2 bg-white border border-slate-200 rounded text-xs font-bold text-brand-dark hover:border-brand-primary hover:text-brand-primary transition">
+                                <a href="${tradingViewLink}" target="_blank" 
+                                   class="inline-flex items-center justify-center px-3 py-1.5 bg-white border border-slate-200 rounded text-[10px] font-bold text-brand-dark hover:border-brand-primary hover:text-brand-primary transition">
                                     Chart
                                 </a>
                             </td>
@@ -169,7 +167,7 @@
             })
             .catch(e => {
                 console.error("Erreur:", e);
-                document.getElementById('tableau-actions').innerHTML = '<tr><td colspan="5" class="p-4 text-center text-red-500">Chargement impossible.</td></tr>';
+                document.getElementById('tableau-actions').innerHTML = '<tr><td colspan="5" class="p-4 text-center text-red-500 text-xs">Erreur chargement données.</td></tr>';
             });
     </script>
 </body>
