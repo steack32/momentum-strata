@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Momentum Strata | Leaders Crypto</title>
+    <meta name="description" content="Sélection algorithmique hebdomadaire des cryptomonnaies les plus performantes.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script src="assets/js/tailwind-config.js"></script>
+
+    <style>
+        .sparkline-path {
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+    </style>
+</head>
+<body class="bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-50 antialiased flex flex-col min-h-screen">
+
+    <div class="border-b border-slate-800/70 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
+        
+        <div id="navbar-container"></div>
+
+        <header class="py-12 md:py-16 px-4 md:px-10 text-center max-w-4xl mx-auto">
+            <div class="inline-flex items-center mb-6 px-4 py-1.5 bg-purple-500/10 border border-purple-400/40 text-purple-200 text-[11px] font-semibold uppercase tracking-[0.2em] rounded-full">
+                <span class="relative flex h-2 w-2 mr-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-purple-400"></span>
+                </span>
+                Marché 24/7 • Haute Volatilité
+            </div>
+
+            <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-5">
+                Les leaders du marché <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500 relative inline-block">
+                    Crypto
+                </span><br class="hidden md:block" />
+                détectés par algorithme.
+            </h1>
+
+            <p class="text-sm md:text-base text-slate-300/90 max-w-2xl mx-auto leading-relaxed">
+                Scan systématique du Top 30 des actifs numériques liquides. Sélection purement quantitative basée sur la force relative (momentum) pour identifier les tendances les plus explosives.
+            </p>
+        </header>
+    </div>
+
+    <main class="flex-grow">
+
+        <section id="performance" class="px-4 md:px-6 lg:px-0 py-10 md:py-14">
+            <div class="max-w-5xl mx-auto">
+
+                <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-5">
+                    <div>
+                        <h2 class="font-bold text-lg md:text-xl text-slate-50">Top 5 Momentum Crypto</h2>
+                        <p class="text-xs text-slate-400 mt-1">
+                            Sélection parmi les 30 principales capitalisations (hors stablecoins).
+                        </p>
+                    </div>
+                    <div class="flex flex-col items-start md:items-end space-y-1 text-xs">
+                        <p class="inline-flex items-center bg-slate-900/80 border border-slate-700/80 px-3 py-1.5 rounded-full text-slate-300">
+                            <span class="text-slate-400 mr-1">MàJ :</span>
+                            <span id="date-maj" class="font-semibold text-purple-300">Chargement...</span>
+                        </p>
+                        <p id="stats-resume" class="hidden text-[11px] text-slate-400"></p>
+                    </div>
+                </div>
+
+                <div class="bg-slate-900/80 backdrop-blur rounded-2xl shadow-premium border border-slate-800/80 overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-900 text-[11px] uppercase tracking-[0.18em] text-slate-400 border-b border-slate-800">
+                                    <th class="px-6 py-3.5">Token</th>
+                                    <th class="px-6 py-3.5 hidden md:table-cell">Tendance (30j)</th>
+                                    <th class="px-6 py-3.5">Momentum</th>
+                                    <th class="px-6 py-3.5 text-right">Analyse</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tableau-crypto" class="text-sm divide-y divide-slate-800">
+                                <tr>
+                                    <td colspan="4" class="px-6 py-12 text-center">
+                                        <div class="flex flex-col items-center justify-center text-slate-500 text-xs gap-2">
+                                            <div class="flex space-x-1 mb-1">
+                                                <span class="h-1.5 w-5 rounded-full bg-purple-500 animate-pulse"></span>
+                                                <span class="h-1.5 w-5 rounded-full bg-purple-600 animate-pulse delay-75"></span>
+                                                <span class="h-1.5 w-5 rounded-full bg-purple-500 animate-pulse delay-150"></span>
+                                            </div>
+                                            <span class="font-medium">Scan de la Blockchain...</span>
+                                            <span class="text-[11px] text-slate-600">Récupération des prix et calcul des performances.</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="bg-slate-950/80 px-6 py-4 border-t border-slate-800/80 text-[11px] text-slate-400 flex flex-col md:flex-row items-center justify-between gap-2">
+                        <div class="flex items-center gap-2">
+                            <svg class="w-3 h-3 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                            </svg>
+                            <span>Marché très volatil. Performance passée ≠ Performance future.</span>
+                        </div>
+                        <span class="text-slate-600">Données indicatives vs USD.</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="method" class="py-14 md:py-18 bg-slate-950 border-t border-slate-900/80">
+            <div class="max-w-5xl mx-auto px-4 md:px-6 lg:px-0">
+                <div class="text-center mb-10">
+                    <h2 class="text-2xl font-extrabold text-white">Notre Approche Crypto</h2>
+                    <p class="text-slate-400 mt-3 max-w-xl mx-auto text-sm">
+                        Adapter la stratégie de momentum aux spécificités et à la rapidité des actifs numériques.
+                    </p>
+                </div>
+
+                <div class="grid md:grid-cols-3 gap-6 md:gap-8">
+                    <article class="relative p-6 md:p-7 bg-slate-900/70 border border-slate-800/90 rounded-2xl shadow-soft group hover:border-purple-500/60 hover:shadow-[0_0_40px_rgba(168,85,247,0.25)] transition-all duration-300">
+                        <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-400/40 flex items-center justify-center mb-5">
+                            <svg class="w-5 h-5 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/></svg>
+                        </div>
+                        <h3 class="text-slate-50 font-semibold mb-2 text-base">01. Univers Liquide</h3>
+                        <p class="text-xs md:text-sm text-slate-400 leading-relaxed">
+                            Nous filtrons le bruit. Scan limité au <span class="font-semibold text-slate-100">Top 30 des cryptos majeures</span> (hors stablecoins) pour garantir la liquidité et éviter les projets sans volume.
+                        </p>
+                    </article>
+
+                    <article class="relative p-6 md:p-7 bg-slate-900/70 border border-slate-800/90 rounded-2xl shadow-soft group hover:border-purple-500/60 hover:shadow-[0_0_40px_rgba(168,85,247,0.25)] transition-all duration-300">
+                        <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-400/40 flex items-center justify-center mb-5">
+                            <svg class="w-5 h-5 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                        </div>
+                        <h3 class="text-slate-50 font-semibold mb-2 text-base">02. Momentum Rapide</h3>
+                        <p class="text-xs md:text-sm text-slate-400 leading-relaxed">
+                            Le marché crypto va vite. Nous analysons la force relative sur des périodes adaptées pour capturer les tendances explosives dès leur formation.
+                        </p>
+                    </article>
+
+                    <article class="relative p-6 md:p-7 bg-slate-900/70 border border-slate-800/90 rounded-2xl shadow-soft group hover:border-purple-500/60 hover:shadow-[0_0_40px_rgba(168,85,247,0.25)] transition-all duration-300">
+                        <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-400/40 flex items-center justify-center mb-5">
+                            <svg class="w-5 h-5 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                        </div>
+                        <h3 class="text-slate-50 font-semibold mb-2 text-base">03. Sélection Pure</h3>
+                        <p class="text-xs md:text-sm text-slate-400 leading-relaxed">
+                            Aucun biais émotionnel ou "Hype". Seuls les <span class="font-semibold text-slate-100">5 actifs</span> montrant la plus forte impulsion statistique sont retenus.
+                        </p>
+                    </article>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="footer-container"></div>
+
+    <script src="assets/js/main.js"></script>
+
+    <script>
+        // Fonction SVG adaptée avec des couleurs violettes pour la crypto
+        function createSparkline(data, width = 130, height = 42) {
+            if (!data || data.length < 2) {
+                return '<span class="text-[11px] text-slate-500">Pas de données</span>';
+            }
+
+            const min = Math.min(...data);
+            const max = Math.max(...data);
+            const range = max - min || 1;
+            const paddingY = 4;
+            const effectiveHeight = height - paddingY * 2;
+            const stepX = width / (data.length - 1);
+
+            const pathPoints = data.map((val, i) => {
+                const x = i * stepX;
+                const y = (height - paddingY) - ((val - min) / range * effectiveHeight);
+                return `${i === 0 ? 'M' : 'L'} ${x.toFixed(1)},${y.toFixed(1)}`;
+            }).join(' ');
+
+            const lastX = width;
+            const lastY = (height - paddingY) - ((data[data.length - 1] - min) / range * effectiveHeight);
+
+            // Couleurs VIOLETTES (purple-600/500)
+            return `
+                <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" class="overflow-visible">
+                    <path d="${pathPoints}" fill="none" stroke="#9333ea" stroke-width="3" opacity="0.16" transform="translate(0,2)" class="sparkline-path" />
+                    <path d="${pathPoints}" fill="none" stroke="#a855f7" stroke-width="2" class="sparkline-path" vector-effect="non-scaling-stroke" />
+                    <circle cx="${lastX.toFixed(1)}" cy="${lastY.toFixed(1)}" r="2.6" fill="#020617" stroke="#a855f7" stroke-width="1.8" />
+                </svg>
+            `;
+        }
+
+        // MISE À JOUR DU CHEMIN : data/crypto.json
+        fetch('data/crypto.json')
+            .then(r => {
+                if (!r.ok) throw new Error('Erreur de chargement JSON');
+                return r.json();
+            })
+            .then(data => {
+                const dateEl = document.getElementById('date-maj');
+                const tbody = document.getElementById('tableau-crypto');
+                const statsEl = document.getElementById('stats-resume');
+
+                if (data.date_mise_a_jour) {
+                    dateEl.textContent = data.date_mise_a_jour;
+                } else {
+                    dateEl.textContent = '—';
+                }
+
+                const entries = Object.entries(data.picks || {});
+                if (!entries.length) {
+                    tbody.innerHTML = '<tr><td colspan="4" class="px-6 py-8 text-center text-xs text-slate-400">Aucune crypto sélectionnée pour cette mise à jour.</td></tr>';
+                    return;
+                }
+
+                const sortedPicks = entries.sort(([, a], [, b]) => (b.score || 0) - (a.score || 0));
+
+                // Résumé
+                if (sortedPicks.length > 0) {
+                    statsEl.textContent = `${sortedPicks.length} actifs sélectionnés vs USD`;
+                    statsEl.classList.remove('hidden');
+                }
+
+                tbody.innerHTML = '';
+
+                for (const [token, info] of sortedPicks) {
+                    const rawScore = typeof info.score === 'number' ? info.score : 0;
+                    const perfIsPos = rawScore >= 0;
+                    const perfSign = perfIsPos ? '+' : '';
+                    // Pour les cryptos, on garde parfois des décimales si le mouvement est faible, 
+                    // mais pour le momentum sur 6 mois, un arrondi est généralement ok. 
+                    // Gardons 1 décimale pour plus de précision en crypto.
+                    const perfValue = (Math.abs(rawScore) * 100).toFixed(1); 
+                    
+                    // Couleurs adaptées au thème violet/bleu pour la perf
+                    const perfClass = perfIsPos
+                        ? 'bg-purple-500/15 text-purple-300 border border-purple-500/40'
+                        : 'bg-rose-500/15 text-rose-300 border border-rose-500/40';
+
+                    const historyData = (info.history && info.history.length > 0) ? info.history : null;
+                    // Sparkline un peu plus large
+                    const sparklineSVG = createSparkline(historyData, 140, 46);
+                    
+                    // Lien TradingView : On ajoute 'USD' au token (ex: BTC -> BTCUSD)
+                    const tradingViewLink = `https://www.tradingview.com/symbols/${token}USD/`;
+
+                    const ligne = `
+                        <tr class="hover:bg-slate-900/70 transition-colors duration-150">
+                            <td class="px-6 py-4">
+                                <div class="flex flex-col">
+                                    <span class="font-semibold text-slate-50 text-base leading-tight">${token}</span>
+                                    <span class="text-[11px] text-slate-400 truncate max-w-[11rem]" title="${info.name || ''}">
+                                        ${info.name || '/ USD'}
+                                    </span>
+                                </div>
+                            </td>
+
+                            <td class="px-6 py-4 hidden md:table-cell align-middle">
+                                ${sparklineSVG}
+                            </td>
+
+                            <td class="px-6 py-4 align-middle">
+                                <span class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold ${perfClass}">
+                                    <span class="mr-1">
+                                        ${perfIsPos 
+                                            ? '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7 7 7M12 3v18"/></svg>'
+                                            : '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7-7-7M12 3v18"/></svg>'
+                                        }
+                                    </span>
+                                    ${perfSign}${perfValue}%
+                                </span>
+                            </td>
+
+                            <td class="px-6 py-4 text-right align-middle">
+                                <a href="${tradingViewLink}" target="_blank" rel="noopener noreferrer"
+                                   class="inline-flex items-center justify-center px-3.5 py-1.5 rounded-full bg-purple-600 text-[11px] font-semibold text-white hover:bg-purple-500 hover:shadow-[0_0_20px_rgba(168,85,247,0.5)] transition-all active:scale-95">
+                                    Chart
+                                    <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h8m0 0v8m0-8L5 19"/>
+                                    </svg>
+                                </a>
+                            </td>
+                        </tr>
+                    `;
+
+                    tbody.insertAdjacentHTML('beforeend', ligne);
+                }
+            })
+            .catch(err => {
+                console.error('Erreur :', err);
+                const tbody = document.getElementById('tableau-crypto');
+                tbody.innerHTML = `
+                    <tr>
+                        <td colspan="4" class="px-6 py-8 text-center text-xs bg-rose-950/40 text-rose-200 border-t border-rose-800/60">
+                            Erreur lors du chargement des données. Vérifiez le fichier <code class="font-mono text-[10px] bg-slate-900/80 px-1.5 py-0.5 rounded border border-slate-700/80">data/crypto.json</code>.
+                        </td>
+                    </tr>
+                `;
+                document.getElementById('date-maj').textContent = 'Erreur';
+            });
+    </script>
+</body>
+</html>
