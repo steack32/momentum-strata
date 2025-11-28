@@ -4,7 +4,8 @@ import numpy as np
 import json
 from datetime import datetime
 
-# --- Momentum Strata : Crypto Bot V8 (Wider Safety Ceiling for Volatility) ---
+# --- Momentum Strata : Crypto Bot V9 (Volatility Filter + Safety Ceiling) ---
+# NOUVEAUTÉ V9 : On filtre les actifs trop volatils AVANT de choisir le Top 5.
 
 def get_crypto_universe():
     tickers = [
@@ -25,7 +26,7 @@ def get_crypto_universe():
     ]
     return tickers
 
-print(f"--- Momentum Strata : Crypto Bot V8 (Wider Safety Ceiling) ---")
+print(f"--- Momentum Strata : Crypto Bot V9 (High Volatility Filter) ---")
 tickers = get_crypto_universe()
 print(f"Analyse de {len(tickers)} paires crypto...")
 
@@ -36,45 +37,72 @@ except Exception as e:
     print(f"❌ Erreur critique téléchargement : {e}")
     exit(1)
 
-valid_candidates = {}
-print("\nCalculs en cours...")
+# --- ÉTAPE INTERMÉDIAIRE : Collecte des données pour filtrage ---
+candidates_data = {}
+print("\nPré-analyse : Calcul Momentum et Volatilité pour tous...")
 
 for ticker in tickers:
     try:
         if ticker not in data or 'Adj Close' not in data[ticker]: continue
         adj_close = data[ticker]['Adj Close'].dropna()
 
+        # Filtres de base (Historique, Prix min, SMA200)
         if len(adj_close) < 200: continue
         current_price = adj_close.iloc[-1]
-        
         if current_price < 0.01: continue
-
         sma_200 = adj_close.rolling(window=200).mean().iloc[-1]
         if pd.isna(sma_200) or current_price < sma_200: continue
 
+        # Calcul Momentum
         momentum = (current_price / adj_close.iloc[-180]) - 1
-        valid_candidates[ticker] = momentum
+        
+        # Calcul Volatilité (nécessaire maintenant pour le filtrage)
+        daily_returns = adj_close.pct_change().dropna()
+        volatility = np.nan
+        if len(daily_returns.tail(20)) >= 20:
+            volatility = daily_returns.tail(20).std()
+
+        # On stocke tout si la volatilité est calculable
+        if not pd.isna(volatility):
+            candidates_data[ticker] = {
+                'momentum': momentum,
+                'volatility': volatility
+            }
 
     except Exception:
         continue
 
-if not valid_candidates:
-    print("⚠️ Aucun candidat trouvé.")
-    final_payload = {"date_mise_a_jour": datetime.now().strftime("%d/%m/%Y"), "picks": {}}
-    with open("../data/crypto.json", "w") as f: json.dump(final_payload, f)
-    exit()
+if not candidates_data:
+    print("⚠️ Aucun candidat éligible trouvé.")
+    exit_with_empty_json()
 
-ranking = pd.Series(valid_candidates).sort_values(ascending=False)
-top_5 = ranking.head(5)
+# --- ÉTAPE DE FILTRAGE : Suppression de la volatilité extrême ---
+df_candidates = pd.DataFrame.from_dict(candidates_data, orient='index')
 
-print(f"\n✅ Top 5 Crypto identifié. Calcul des zones...")
+# On définit le seuil : on exclut le top 20% des plus volatils (Percentile 80)
+volatility_threshold = df_candidates['volatility'].quantile(0.80)
+print(f"\nSeuil de volatilité (Top 20% exclus) : > {volatility_threshold:.2%}")
 
+# Filtrage
+filtered_df = df_candidates[df_candidates['volatility'] <= volatility_threshold].copy()
+removed_count = len(df_candidates) - len(filtered_df)
+print(f"-> {removed_count} actifs supprimés car trop volatils.")
+
+# --- CLASSEMENT FINAL ---
+# Tri des survivants par momentum décroissant
+top_5_df = filtered_df.sort_values(by='momentum', ascending=False).head(5)
+print(f"\n✅ Top 5 Momentum (Filtré) identifié. Calcul des zones...")
+
+# --- DÉTAILS ET EXPORT ---
 export_data = {}
-try: tickers_info = yf.Tickers(' '.join(top_5.index))
+try: tickers_info = yf.Tickers(' '.join(top_5_df.index))
 except: tickers_info = None
 
-for ticker, score in top_5.items():
-    print(f"   -> {ticker}...")
+for ticker, row in top_5_df.iterrows():
+    score = row['momentum']
+    volatility_pct = row['volatility'] # On récupère la vol déjà calculée
+    
+    print(f"   -> {ticker} (Vol: {volatility_pct:.2%})...")
     clean_name = ticker.replace("-USD", "")
     full_name = f"{clean_name} / US Dollar"
     history_clean = []
@@ -95,35 +123,25 @@ for ticker, score in top_5.items():
         current_price = prices.iloc[-1]
         decimals = 2 if current_price > 10 else 4
 
-        # --- LOGIQUE STOP LOSS BLINDÉE (Version large pour Crypto) ---
-        if len(prices) > 30:
-            daily_returns = prices.pct_change().dropna()
-            if len(daily_returns.tail(20)) >= 20:
-                volatility_pct = daily_returns.tail(20).std()
-                highest_recent_close = prices.tail(20).max()
-                
-                if not pd.isna(volatility_pct) and not pd.isna(highest_recent_close):
-                    # 1. Calcul des zones brutes
-                    entry_max_raw = current_price
-                    # Zone d'entrée : repli jusqu'à 2%
-                    entry_min_raw = current_price * 0.98
+        # --- CALCULS ZONES & STOP (Logique V8 avec Plafond 5%) ---
+        highest_recent_close = prices.tail(20).max()
+        
+        if not pd.isna(highest_recent_close):
+            entry_max_raw = current_price
+            entry_min_raw = current_price * 0.98
 
-                    # 2. Calcul du Stop Suiveur théorique (basé sur les plus hauts)
-                    stop_dist_pct = volatility_pct * 3.0 # Stop large 3x
-                    trailing_stop_raw = highest_recent_close * (1 - stop_dist_pct)
+            # Stop théorique large (3x)
+            stop_dist_pct = volatility_pct * 3.0
+            trailing_stop_raw = highest_recent_close * (1 - stop_dist_pct)
 
-                    # 3. LE PLAFOND DE SÉCURITÉ (CORRIGÉ POUR CRYPTO)
-                    # Le stop ne peut JAMAIS être supérieur à "Prix d'achat minimum - 5%"
-                    # Cela laisse un coussin de sécurité de 5% sous la zone d'achat pour absorber la volatilité.
-                    safety_ceiling = entry_min_raw * 0.95 
-                    
-                    # On prend la valeur la plus basse entre le calcul théorique et le plafond de sécurité.
-                    final_stop_raw = min(trailing_stop_raw, safety_ceiling)
+            # Plafond de sécurité V8 (Coussin de 5%)
+            safety_ceiling = entry_min_raw * 0.95
+            
+            final_stop_raw = min(trailing_stop_raw, safety_ceiling)
 
-                    # 4. Arrondis finaux
-                    stop_loss_price = round(final_stop_raw, decimals)
-                    entry_max = round(entry_max_raw, decimals)
-                    entry_min = round(entry_min_raw, decimals)
+            stop_loss_price = round(final_stop_raw, decimals)
+            entry_max = round(entry_max_raw, decimals)
+            entry_min = round(entry_min_raw, decimals)
 
         history_series = prices.tail(30).tolist()
         history_clean = [round(x, decimals) for x in history_series if not pd.isna(x)]
@@ -137,6 +155,15 @@ for ticker, score in top_5.items():
         "full_ticker": ticker, "decimals": decimals
     }
 
+# --- SAUVEGARDE ---
+def exit_with_empty_json():
+    final_payload = {"date_mise_a_jour": datetime.now().strftime("%d/%m/%Y"), "picks": {}}
+    with open("../data/crypto.json", "w") as f: json.dump(final_payload, f)
+    exit()
+
+if not export_data:
+     exit_with_empty_json()
+
 final_payload = {
     "date_mise_a_jour": datetime.now().strftime("%d/%m/%Y"),
     "picks": export_data
@@ -145,7 +172,7 @@ final_payload = {
 try:
     with open("../data/crypto.json", "w") as f:
         json.dump(final_payload, f, allow_nan=True)
-    print(f"\n🚀 Terminé. Sauvegarde réussie (Stop Loss avec marge de 5%).")
+    print(f"\n🚀 Terminé. Sauvegarde réussie (Bot V9 - Filtré).")
 except Exception as e:
     print(f"\n❌ Erreur sauvegarde JSON : {e}")
     exit(1)
