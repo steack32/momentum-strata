@@ -1,133 +1,182 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Momentum Strata | S&P 500</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Momentum Strata | Leaders S&P 500</title>
+    <meta name="description" content="Sélection algorithmique hebdomadaire des actions les plus performantes du S&P 500.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
                 extend: {
                     colors: {
-                        brand: { dark: '#0f172a', primary: '#2563eb', light: '#f8fafc' }
+                        brand: { 
+                            dark: '#0f172a', // Slate 900
+                            primary: '#2563eb', // Blue 600
+                            accent: '#1d4ed8', // Blue 700 (hover)
+                            light: '#f8fafc', // Slate 50
+                            surface: '#ffffff' // White
+                        }
                     },
-                    fontFamily: { sans: ['Inter', 'sans-serif'] }
+                    fontFamily: { sans: ['Inter', 'sans-serif'] },
+                    boxShadow: {
+                        'premium': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
+                        'premium-hover': '0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.025)',
+                    }
                 }
             }
         }
     </script>
+    <style>
+        /* Petits ajustements pour la finesse des graphiques */
+        .sparkline-path { stroke-linecap: round; stroke-linejoin: round; }
+    </style>
 </head>
 <body class="bg-brand-light text-slate-800 antialiased">
 
-    <nav class="w-full py-5 px-6 md:px-12 flex justify-between items-center max-w-6xl mx-auto">
-        <div class="text-3xl font-bold tracking-tight text-brand-dark">
-            Momentum<span class="text-brand-primary">Strata</span>
-        </div>
-        <div class="flex space-x-8 text-sm font-medium text-slate-600">
-            <a href="#performance" class="text-brand-primary font-bold">Sélection</a>
-            <a href="#method" class="hover:text-brand-primary transition">Notre Méthode</a>
-        </div>
-    </nav>
+    <div class="bg-gradient-to-b from-slate-100 to-brand-light border-b border-slate-200/60">
+        <nav class="w-full py-5 px-6 md:px-12 flex justify-between items-center max-w-6xl mx-auto">
+            <div class="text-2xl md:text-3xl font-extrabold tracking-tight text-brand-dark flex items-center">
+                Momentum<span class="text-brand-primary">Strata</span>
+            </div>
+            <div class="flex space-x-8 text-sm font-semibold text-slate-600">
+                <a href="#performance" class="text-brand-primary">Sélection</a>
+                <a href="#method" class="hover:text-brand-primary transition-colors">Méthode</a>
+            </div>
+        </nav>
 
-    <header class="py-12 px-4 text-center max-w-4xl mx-auto">
-        <div class="inline-block mb-3 px-3 py-1 bg-blue-50 text-brand-primary text-[10px] font-bold uppercase tracking-wider rounded-full">
-            Mise à jour Hebdomadaire
-        </div>
-        <h1 class="text-4xl md:text-5xl font-bold text-brand-dark leading-tight mb-4">
-            Les Leaders du <span class="text-brand-primary">S&P 500</span> <br>identifiés par Algorithme.
-        </h1>
-        <p class="text-base text-slate-500 max-w-xl mx-auto">
-            Scan des 500 plus grandes entreprises US. Sélection basée sur la force relative, avec gestion du risque intégrée.
-        </p>
-    </header>
+        <header class="py-16 md:py-20 px-4 text-center max-w-4xl mx-auto">
+            <div class="inline-flex items-center mb-6 px-4 py-1.5 bg-blue-50/80 border border-blue-100 text-brand-primary text-[11px] font-bold uppercase tracking-wider rounded-full shadow-sm">
+                <span class="relative flex h-2 w-2 mr-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-brand-primary"></span>
+                </span>
+                Mise à jour Hebdomadaire
+            </div>
+            <h1 class="text-4xl md:text-6xl font-extrabold text-brand-dark leading-tight mb-6">
+                Les Leaders du <span class="text-brand-primary relative inline-block">S&P 500<svg class="absolute bottom-1 left-0 w-full h-3 text-blue-200/50 -z-10" viewBox="0 0 100 12" preserveAspectRatio="none" fill="currentColor"><path d="M0,12 C20,0 80,0 100,12 L100,12 L0,12 Z"></path></svg></span> <br>identifiés par Algorithme.
+            </h1>
+            <p class="text-base md:text-lg text-slate-500 max-w-2xl mx-auto leading-relaxed">
+                Scan systématique des 500 plus grandes entreprises US. Sélection basée sur la force relative (momentum), avec filtre de tendance SMA200 intégré.
+            </p>
+        </header>
+    </div>
 
-    <section id="performance" class="px-4 pb-16 relative z-10">
-        <div class="max-w-5xl mx-auto bg-white rounded-xl shadow-lg border border-slate-200 overflow-hidden">
+    <section id="performance" class="px-4 py-16 relative z-10 -mt-8">
+        <div class="max-w-5xl mx-auto">
             
-            <div class="bg-slate-50 px-6 py-3 border-b border-slate-100 flex justify-between items-center">
-                <div>
-                    <h3 class="font-bold text-brand-dark text-sm">Top 5 Momentum & Plan de Trading</h3>
-                    <p class="text-[10px] text-slate-500">Mise à jour : <span id="date-maj" class="font-bold text-brand-primary">...</span></p>
+            <div class="flex justify-between items-end mb-4 px-2">
+                <h2 class="font-bold text-xl text-brand-dark">Top 5 Momentum & Plan de Trading</h2>
+                <p class="text-xs text-slate-500 font-medium bg-white px-3 py-1 rounded-full shadow-sm border border-slate-100">
+                    MàJ : <span id="date-maj" class="font-bold text-brand-primary">Chargement...</span>
+                </p>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-premium border border-slate-200/80 overflow-hidden">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50/80 text-slate-500 text-[11px] uppercase tracking-widest font-semibold border-b border-slate-200/80">
+                                <th class="px-6 py-4 rounded-tl-2xl">Actif</th>
+                                <th class="px-6 py-4 hidden md:table-cell">Tendance (1 An)</th>
+                                <th class="px-6 py-4">Perf (6M)</th>
+                                <th class="px-6 py-4 hidden sm:table-cell">Zone d'Achat</th>
+                                <th class="px-6 py-4 hidden sm:table-cell">Stop Loss</th>
+                                <th class="px-6 py-4 text-right rounded-tr-2xl">Analyse</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tableau-actions" class="text-sm align-middle divide-y divide-slate-100">
+                            <tr><td colspan="6" class="p-12 text-center text-slate-400 animate-pulse font-medium">Initialisation de l'algorithme...</td></tr>
+                        </tbody>
+                    </table>
                 </div>
-            </div>
-
-            <div class="overflow-x-auto">
-                <table class="w-full text-left">
-                    <thead>
-                        <tr class="text-slate-400 text-[10px] uppercase tracking-wider border-b border-slate-100">
-                            <th class="px-6 py-3">Actif</th>
-                            <th class="px-6 py-3">Tendance</th>
-                            <th class="px-6 py-3">Perf (6M)</th>
-                            <th class="px-6 py-3">Zone d'Achat</th>
-                            <th class="px-6 py-3">Stop Loss</th>
-                            <th class="px-6 py-3 text-right">Action</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tableau-actions" class="text-sm align-middle">
-                        <tr><td colspan="6" class="p-6 text-center text-slate-400 text-xs">Chargement des données...</td></tr>
-                    </tbody>
-                </table>
-            </div>
-            
-            <div class="bg-slate-50 px-6 py-2 border-t border-slate-100 text-center">
-                 <p class="text-[10px] text-slate-400">Stop Loss calculé sur la volatilité (2.5 x ATR). Prix arrondis à l'unité.</p>
+                
+                <div class="bg-slate-50/50 px-6 py-3 border-t border-slate-200/60 text-center flex flex-col md:flex-row justify-center items-center gap-2 text-[11px] text-slate-500">
+                     <span class="flex items-center"><svg class="w-3 h-3 mr-1 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>Stop Loss = Volatilité (2.5 x ATR).</span>
+                     <span class="hidden md:inline text-slate-300">•</span>
+                     <span>Prix arrondis à l'unité.</span>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="method" class="py-16 bg-white border-t border-slate-100">
+    <section id="method" class="py-20 bg-white border-t border-slate-100">
         <div class="max-w-5xl mx-auto px-6">
-            <div class="text-center mb-10">
-                <h2 class="text-xl font-bold text-brand-dark">Notre Algorithme</h2>
-                <p class="text-sm text-slate-500 mt-2">Comment nous transformons les données en décision.</p>
+            <div class="text-center mb-12">
+                <h2 class="text-2xl font-extrabold text-brand-dark">Notre Algorithme</h2>
+                <p class="text-slate-500 mt-3 max-w-xl mx-auto">Une approche purement quantitative pour transformer les données de marché en décisions d'investissement.</p>
             </div>
             
-            <div class="grid md:grid-cols-3 gap-8 text-left">
-                <div class="p-6 bg-slate-50 rounded-xl border border-slate-100 hover:shadow-md transition">
-                    <div class="text-brand-primary font-bold mb-2 text-lg">01. Univers S&P 500</div>
-                    <p class="text-xs text-slate-600 leading-relaxed">
-                        Nous ne cherchons pas d'aiguille dans une botte de foin. Nous scannons uniquement les <strong>500 plus grandes entreprises américaines</strong>. Cela garantit la liquidité et évite les manipulations de marché courantes sur les petites capitalisations.
+            <div class="grid md:grid-cols-3 gap-8 text-left relative">
+                <div class="hidden md:block absolute top-12 left-[20%] right-[20%] h-0.5 bg-gradient-to-r from-blue-100 via-blue-200 to-blue-100 -z-10"></div>
+
+                <div class="relative p-8 bg-white rounded-2xl shadow-premium border border-slate-100 group hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-12 h-12 bg-blue-100/50 text-brand-primary rounded-xl flex items-center justify-center mb-6 shadow-sm group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                    </div>
+                    <h3 class="text-brand-dark font-bold mb-3 text-lg">01. Univers S&P 500</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Scan exhaustif des <strong>500 plus grandes capitalisations US</strong>. Garantit la liquidité et filtre les sociétés fragiles.
                     </p>
                 </div>
-                <div class="p-6 bg-slate-50 rounded-xl border border-slate-100 hover:shadow-md transition">
-                    <div class="text-brand-primary font-bold mb-2 text-lg">02. Filtre de Tendance</div>
-                    <p class="text-xs text-slate-600 leading-relaxed">
-                        C'est notre ceinture de sécurité. Une action est automatiquement rejetée si son prix est inférieur à sa <strong>Moyenne Mobile 200 jours</strong>. Cela nous évite d'acheter des actifs qui sont structurellement baissiers.
+                <div class="relative p-8 bg-white rounded-2xl shadow-premium border border-slate-100 group hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-12 h-12 bg-blue-100/50 text-brand-primary rounded-xl flex items-center justify-center mb-6 shadow-sm group-hover:scale-110 transition-transform">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z"></path></svg>
+                    </div>
+                    <h3 class="text-brand-dark font-bold mb-3 text-lg">02. Filtre de Tendance</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Rejet automatique si le prix est sous la <strong>Moyenne Mobile 200 jours</strong>. Protection contre les marchés baissiers.
                     </p>
                 </div>
-                <div class="p-6 bg-slate-50 rounded-xl border border-slate-100 hover:shadow-md transition">
-                    <div class="text-brand-primary font-bold mb-2 text-lg">03. Force Relative</div>
-                    <p class="text-xs text-slate-600 leading-relaxed">
-                        Parmi les survivants, nous appliquons la formule du Momentum. Nous classons les actions selon leur performance ajustée sur 6 mois. Seul le <strong>Top 5</strong> absolu est présenté ici chaque lundi.
+                <div class="relative p-8 bg-white rounded-2xl shadow-premium border border-slate-100 group hover:-translate-y-1 transition-all duration-300">
+                    <div class="w-12 h-12 bg-blue-100/50 text-brand-primary rounded-xl flex items-center justify-center mb-6 shadow-sm group-hover:scale-110 transition-transform">
+                         <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.783-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"></path></svg>
+                    </div>
+                    <h3 class="text-brand-dark font-bold mb-3 text-lg">03. Force Relative</h3>
+                    <p class="text-sm text-slate-600 leading-relaxed">
+                        Classement final selon la performance ajustée sur 6 mois. Seul le <strong>Top 5 absolu</strong> est retenu.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer class="py-8 text-center text-slate-400 text-[10px] bg-slate-900 border-t border-slate-800">
-        <p class="mb-2">&copy; 2024 Momentum Strata. Données fournies à titre indicatif.</p>
-        <p>L'investissement comporte des risques. Faites vos propres recherches.</p>
+    <footer class="py-10 text-center text-slate-500 text-xs bg-brand-dark border-t border-slate-800/50">
+        <div class="mb-4">
+            <span class="text-xl font-bold tracking-tight text-white">Momentum<span class="text-brand-primary">Strata</span></span>
+        </div>
+        <p class="mb-2 max-w-md mx-auto">&copy; 2024. Données fournies à titre indicatif uniquement.</p>
+        <p class="text-slate-600 max-w-md mx-auto">L'investissement en bourse comporte des risques de perte en capital. Faites vos propres recherches.</p>
     </footer>
 
     <script>
-        function createSparkline(data, width = 100, height = 30) {
-            if (!data || data.length < 2) return '';
+        // Fonction SVG optimisée pour un rendu plus "épais" et clair
+        function createSparkline(data, width = 120, height = 45) {
+            if (!data || data.length < 2) return '<span class="text-xs text-slate-300">Pas de données</span>';
             const min = Math.min(...data);
             const max = Math.max(...data);
             const range = max - min || 1;
+            // Marge de sécurité en haut et en bas pour ne pas couper la ligne épaisse
+            const paddingY = 4; 
+            const effectiveHeight = height - (paddingY * 2);
+            
             const stepX = width / (data.length - 1);
             const pathPoints = data.map((val, i) => {
                 const x = i * stepX;
-                const y = height - ((val - min) / range * height); 
-                return `${i === 0 ? 'M' : 'L'} ${x},${y}`;
+                const y = (height - paddingY) - ((val - min) / range * effectiveHeight); 
+                return `${i === 0 ? 'M' : 'L'} ${x.toFixed(1)},${y.toFixed(1)}`;
             }).join(' ');
+
+            const lastX = width;
+            const lastY = (height - paddingY) - ((data[data.length-1] - min) / range * effectiveHeight);
+
             return `
                 <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" class="overflow-visible">
-                    <path d="${pathPoints}" fill="none" stroke="#2563eb" stroke-width="1.5" vector-effect="non-scaling-stroke" />
-                    <circle cx="${width}" cy="${height - ((data[data.length-1] - min) / range * height)}" r="1.5" fill="#ef4444" />
+                    <path d="${pathPoints}" fill="none" stroke="#2563eb" stroke-width="3" opacity="0.15" transform="translate(0, 2)" class="sparkline-path" />
+                    <path d="${pathPoints}" fill="none" stroke="#2563eb" stroke-width="2" class="sparkline-path" vector-effect="non-scaling-stroke" />
+                    <circle cx="${lastX.toFixed(1)}" cy="${lastY.toFixed(1)}" r="2.5" fill="#ffffff" stroke="#2563eb" stroke-width="2" />
                 </svg>
             `;
         }
@@ -143,46 +192,49 @@
 
                 for (const [ticker, info] of sortedPicks) {
                     
-                    // ARRONDIS (Math.round)
                     const scorePourcent = Math.round((info.score || 0) * 100) + '%';
                     const historyData = (info.history && info.history.length > 0) ? info.history : [0, 0];
-                    const sparklineSVG = createSparkline(historyData);
+                    // Appel avec une largeur un peu plus grande
+                    const sparklineSVG = createSparkline(historyData, 140, 50);
                     const tradingViewLink = `https://www.tradingview.com/symbols/${ticker}/`;
 
-                    // Gestion des arrondis Prix
                     const entryMin = info.entry_min ? Math.round(info.entry_min) : "...";
                     const entryMax = info.entry_max ? Math.round(info.entry_max) : "...";
                     const stopLoss = info.stop_loss ? Math.round(info.stop_loss) : "...";
 
+                    // Ligne du tableau redesignée avec hover effect et padding
                     const ligne = `
-                        <tr class="hover:bg-slate-50 transition border-b border-slate-50 h-16">
-                            <td class="px-6">
+                        <tr class="hover:bg-slate-50/80 transition-all duration-200 border-b border-slate-100 group">
+                            <td class="px-6 py-5">
                                 <div class="flex flex-col">
-                                    <span class="font-bold text-brand-dark text-sm">${ticker}</span>
-                                    <span class="text-[10px] text-slate-500 truncate w-32" title="${info.name}">${info.name}</span>
+                                    <span class="font-extrabold text-brand-dark text-xl group-hover:text-brand-primary transition-colors">${ticker}</span>
+                                    <span class="text-[11px] text-slate-500 truncate w-36 font-medium" title="${info.name}">${info.name}</span>
                                 </div>
                             </td>
-                            <td class="px-6 py-2">${sparklineSVG}</td>
-                            <td class="px-6 font-semibold text-green-600 text-xs">
-                                <span class="bg-green-50 px-2 py-1 rounded">+${scorePourcent}</span>
+                            <td class="px-6 py-3 hidden md:table-cell">${sparklineSVG}</td>
+                            <td class="px-6 py-5">
+                                <span class="bg-green-100/80 text-green-700 px-3 py-1.5 rounded-lg text-sm font-bold inline-block shadow-sm">
+                                    +${scorePourcent}
+                                </span>
                             </td>
                             
-                            <td class="px-6">
-                                <div class="flex flex-col text-xs">
-                                    <span class="font-bold text-slate-700">$${entryMin} - $${entryMax}</span>
+                            <td class="px-6 py-5 hidden sm:table-cell">
+                                <div class="flex flex-col">
+                                    <span class="font-bold text-slate-700 text-sm">$${entryMin} - $${entryMax}</span>
+                                    <span class="text-[10px] text-slate-400 font-medium">Zone cible</span>
                                 </div>
                             </td>
 
-                            <td class="px-6">
-                                <div class="flex items-center text-xs font-bold text-red-600 bg-red-50 px-2 py-1 rounded w-fit">
-                                    <span>$${stopLoss}</span>
-                                </div>
+                            <td class="px-6 py-5 hidden sm:table-cell">
+                                <span class="font-bold text-red-600 bg-red-50/80 border border-red-100/50 px-3 py-1.5 rounded-lg text-sm inline-block">
+                                    $${stopLoss}
+                                </span>
                             </td>
 
-                            <td class="px-6 text-right">
+                            <td class="px-6 py-5 text-right">
                                 <a href="${tradingViewLink}" target="_blank" 
-                                   class="inline-flex items-center justify-center px-3 py-1.5 bg-white border border-slate-200 rounded text-[10px] font-bold text-brand-dark hover:border-brand-primary hover:text-brand-primary transition">
-                                    Chart
+                                   class="inline-flex items-center justify-center px-4 py-2 bg-brand-primary text-white rounded-lg text-xs font-bold hover:bg-brand-accent hover:shadow-md transition-all active:scale-95">
+                                    Chart <svg class="w-3 h-3 ml-1 opacity-70" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path></svg>
                                 </a>
                             </td>
                         </tr>
@@ -192,7 +244,7 @@
             })
             .catch(e => {
                 console.error("Erreur:", e);
-                document.getElementById('tableau-actions').innerHTML = '<tr><td colspan="6" class="p-4 text-center text-red-500 text-xs">Erreur chargement.</td></tr>';
+                document.getElementById('tableau-actions').innerHTML = '<tr><td colspan="6" class="p-8 text-center text-red-500 font-medium bg-red-50 rounded-b-2xl">Erreur de chargement des données.</td></tr>';
             });
     </script>
 </body>
