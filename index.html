@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Momentum Strata | Stratégie d'Investissement Quantitative</title>
+    <title>Momentum Strata | Top 5 S&P 500</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -26,8 +26,8 @@
             Momentum<span class="text-brand-primary">Strata</span>
         </div>
         <div class="hidden md:flex space-x-8 text-sm font-medium text-slate-600">
-            <a href="#performance" class="hover:text-brand-primary transition">Sélection</a>
-            <a href="#method" class="hover:text-brand-primary transition">Méthodologie</a>
+            <a href="#performance" class="hover:text-brand-primary transition">Sélection S&P 500</a>
+            <a href="#method" class="hover:text-brand-primary transition">Notre Méthode</a>
         </div>
         <a href="#join" class="px-5 py-2.5 bg-brand-dark text-white text-sm font-semibold rounded hover:bg-slate-800 transition">S'inscrire</a>
     </nav>
@@ -37,10 +37,10 @@
             Mise à jour Hebdomadaire
         </div>
         <h1 class="text-4xl md:text-6xl font-bold text-brand-dark leading-tight mb-6">
-            L'Élite du NYSE <br>détectée par <span class="text-brand-primary">Algorithme.</span>
+            L'Élite du <span class="text-brand-primary">S&P 500</span> <br>détectée par Algorithme.
         </h1>
         <p class="text-lg text-slate-500 mb-8 max-w-2xl mx-auto">
-            Top 5 des actions à fort momentum. Données temps réel. Zéro émotion.
+            Nous scannons les 500 plus grandes entreprises américaines. Seules les 5 plus fortes survivent à nos filtres de tendance.
         </p>
     </header>
 
@@ -49,7 +49,7 @@
             
             <div class="bg-slate-50 px-6 py-4 border-b border-slate-100 flex justify-between items-center">
                 <div>
-                    <h3 class="font-bold text-brand-dark">Top 5 Momentum (NYSE)</h3>
+                    <h3 class="font-bold text-brand-dark">Top 5 Momentum (S&P 500)</h3>
                     <p class="text-xs text-slate-500">Mise à jour : <span id="date-maj" class="font-bold text-brand-primary">...</span></p>
                 </div>
             </div>
@@ -59,7 +59,9 @@
                     <thead>
                         <tr class="text-slate-400 text-xs uppercase tracking-wider border-b border-slate-100">
                             <th class="px-6 py-4">Rang</th>
-                            <th class="px-6 py-4">Actif</th> <th class="px-6 py-4">Tendance (1 An)</th> <th class="px-6 py-4">Perf. (6M)</th>
+                            <th class="px-6 py-4">Actif</th>
+                            <th class="px-6 py-4">Tendance (1 An)</th>
+                            <th class="px-6 py-4">Perf. (6M)</th>
                             <th class="px-6 py-4 text-right">Action</th>
                         </tr>
                     </thead>
@@ -69,44 +71,51 @@
                 </table>
             </div>
             <div class="bg-slate-50 px-6 py-3 border-t border-slate-100 text-center">
-                <p class="text-xs text-slate-400">Données à titre informatif uniquement.</p>
+                <p class="text-xs text-slate-400">Calculs basés sur les cours de clôture ajustés.</p>
             </div>
         </div>
     </section>
 
     <section id="method" class="py-16 bg-white border-t border-slate-100">
-        <div class="max-w-4xl mx-auto px-6 text-center">
-            <h2 class="text-2xl font-bold text-brand-dark mb-8">Comment ça marche ?</h2>
-            <div class="grid md:grid-cols-3 gap-8">
-                <div class="p-4 bg-slate-50 rounded-lg"><h3 class="font-bold">1. Scan</h3><p class="text-xs text-slate-500 mt-2">Analyse de 30+ Blue Chips US.</p></div>
-                <div class="p-4 bg-slate-50 rounded-lg"><h3 class="font-bold">2. Filtre</h3><p class="text-xs text-slate-500 mt-2">Calcul de la force relative (RS).</p></div>
-                <div class="p-4 bg-slate-50 rounded-lg"><h3 class="font-bold">3. Sélection</h3><p class="text-xs text-slate-500 mt-2">Top 5 des meilleures performances.</p></div>
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <h2 class="text-2xl font-bold text-brand-dark mb-10">Un processus de sélection rigoureux</h2>
+            <div class="grid md:grid-cols-3 gap-8 text-left">
+                <div class="p-6 bg-slate-50 rounded-xl border border-slate-100">
+                    <div class="w-10 h-10 bg-blue-100 text-brand-primary rounded-lg flex items-center justify-center mb-4 font-bold">1</div>
+                    <h3 class="font-bold text-brand-dark mb-2">Scan Universel</h3>
+                    <p class="text-sm text-slate-600">Nous analysons chaque lundi l'intégralité de l'indice <strong>S&P 500</strong>, éliminant automatiquement les actifs illiquides.</p>
+                </div>
+                <div class="p-6 bg-slate-50 rounded-xl border border-slate-100">
+                    <div class="w-10 h-10 bg-blue-100 text-brand-primary rounded-lg flex items-center justify-center mb-4 font-bold">2</div>
+                    <h3 class="font-bold text-brand-dark mb-2">Filtre de Tendance</h3>
+                    <p class="text-sm text-slate-600">Sécurité avant tout. Une action n'est éligible que si son prix est supérieur à sa <strong>Moyenne Mobile 200 jours</strong> (SMA200).</p>
+                </div>
+                <div class="p-6 bg-slate-50 rounded-xl border border-slate-100">
+                    <div class="w-10 h-10 bg-blue-100 text-brand-primary rounded-lg flex items-center justify-center mb-4 font-bold">3</div>
+                    <h3 class="font-bold text-brand-dark mb-2">Ranking Momentum</h3>
+                    <p class="text-sm text-slate-600">Nous classons les survivants selon leur force relative sur 6 mois et ne gardons que le <strong>Top 5</strong>.</p>
+                </div>
             </div>
         </div>
     </section>
 
-    <footer class="py-8 text-center text-slate-400 text-xs bg-slate-900">
-        &copy; 2024 Momentum Strata.
+    <footer class="py-8 text-center text-slate-400 text-xs bg-slate-900 border-t border-slate-800">
+        <p class="mb-2">&copy; 2024 Momentum Strata. Données fournies à titre indicatif.</p>
+        <p>L'investissement en bourse comporte des risques de perte en capital.</p>
     </footer>
 
     <script>
-        // Fonction pour créer une mini-courbe SVG (Sparkline) directement dans le navigateur
         function createSparkline(data, width = 120, height = 40) {
             if (!data || data.length < 2) return '';
-
             const min = Math.min(...data);
             const max = Math.max(...data);
-            const range = max - min || 1; // Évite la division par zéro
+            const range = max - min || 1;
             const stepX = width / (data.length - 1);
-
-            // On construit le chemin de la ligne point par point
             const pathPoints = data.map((val, i) => {
                 const x = i * stepX;
-                // On inverse Y car en SVG le 0 est en haut
                 const y = height - ((val - min) / range * height); 
                 return `${i === 0 ? 'M' : 'L'} ${x},${y}`;
             }).join(' ');
-
             return `
                 <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" class="overflow-visible">
                     <path d="${pathPoints}" fill="none" stroke="#2563eb" stroke-width="2" vector-effect="non-scaling-stroke" />
@@ -121,43 +130,31 @@
                 return r.json();
             })
             .then(data => {
-                // Mise à jour de la date
                 document.getElementById('date-maj').innerText = data.date_mise_a_jour;
-                
                 const tbody = document.getElementById('tableau-actions');
                 tbody.innerHTML = ''; 
                 
-                // Tri des données par score décroissant
                 const sortedPicks = Object.entries(data.picks).sort(([,a], [,b]) => (b.score || 0) - (a.score || 0));
 
                 let rang = 1;
                 for (const [ticker, info] of sortedPicks) {
-                    
                     const scorePourcent = ((info.score || 0) * 100).toFixed(2) + '%';
                     const historyData = (info.history && info.history.length > 0) ? info.history : [0, 0];
-
-                    // GÉNÉRATION DU GRAPHIQUE SVG
                     const sparklineSVG = createSparkline(historyData);
 
                     const ligne = `
                         <tr class="hover:bg-slate-50 transition border-b border-slate-50 h-20">
                             <td class="px-6 font-bold text-slate-300">#${rang}</td>
-                            
                             <td class="px-6">
                                 <div class="flex flex-col">
                                     <span class="font-bold text-brand-dark text-lg">${ticker}</span>
                                     <span class="text-xs text-slate-500 truncate w-32 md:w-48" title="${info.name}">${info.name}</span>
                                 </div>
                             </td>
-
-                            <td class="px-6 py-2">
-                                ${sparklineSVG}
-                            </td>
-
+                            <td class="px-6 py-2">${sparklineSVG}</td>
                             <td class="px-6 font-semibold text-green-600">
                                 <span class="bg-green-50 px-2 py-1 rounded text-sm">+${scorePourcent}</span>
                             </td>
-
                             <td class="px-6 text-right">
                                 <a href="https://www.tradingview.com/symbols/NYSE-${ticker}/" target="_blank" 
                                    class="inline-flex items-center justify-center px-4 py-2 bg-white border border-slate-200 rounded text-xs font-bold text-brand-dark hover:border-brand-primary hover:text-brand-primary transition">
@@ -172,7 +169,7 @@
             })
             .catch(e => {
                 console.error("Erreur:", e);
-                document.getElementById('tableau-actions').innerHTML = '<tr><td colspan="5" class="p-4 text-center text-red-500 font-bold">Impossible de lire les données (data.json).</td></tr>';
+                document.getElementById('tableau-actions').innerHTML = '<tr><td colspan="5" class="p-4 text-center text-red-500">Chargement impossible.</td></tr>';
             });
     </script>
 </body>
