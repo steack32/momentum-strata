@@ -90,8 +90,36 @@
     </footer>
 
     <script>
+        // Fonction pour créer une mini-courbe SVG (Sparkline) directement dans le navigateur
+        function createSparkline(data, width = 120, height = 40) {
+            if (!data || data.length < 2) return '';
+
+            const min = Math.min(...data);
+            const max = Math.max(...data);
+            const range = max - min || 1; // Évite la division par zéro
+            const stepX = width / (data.length - 1);
+
+            // On construit le chemin de la ligne point par point
+            const pathPoints = data.map((val, i) => {
+                const x = i * stepX;
+                // On inverse Y car en SVG le 0 est en haut
+                const y = height - ((val - min) / range * height); 
+                return `${i === 0 ? 'M' : 'L'} ${x},${y}`;
+            }).join(' ');
+
+            return `
+                <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" class="overflow-visible">
+                    <path d="${pathPoints}" fill="none" stroke="#2563eb" stroke-width="2" vector-effect="non-scaling-stroke" />
+                    <circle cx="${width}" cy="${height - ((data[data.length-1] - min) / range * height)}" r="2" fill="#ef4444" />
+                </svg>
+            `;
+        }
+
         fetch('data.json')
-            .then(r => r.json())
+            .then(r => {
+                if (!r.ok) throw new Error("Fichier JSON introuvable");
+                return r.json();
+            })
             .then(data => {
                 // Mise à jour de la date
                 document.getElementById('date-maj').innerText = data.date_mise_a_jour;
@@ -99,36 +127,17 @@
                 const tbody = document.getElementById('tableau-actions');
                 tbody.innerHTML = ''; 
                 
-                // Convertir l'objet en tableau et trier par score
-                // On ajoute une sécurité "|| 0" au cas où le score serait vide
+                // Tri des données par score décroissant
                 const sortedPicks = Object.entries(data.picks).sort(([,a], [,b]) => (b.score || 0) - (a.score || 0));
 
                 let rang = 1;
                 for (const [ticker, info] of sortedPicks) {
                     
-                    // Formatage du score
                     const scorePourcent = ((info.score || 0) * 100).toFixed(2) + '%';
-                    
-                    // --- CORRECTION MAJEURE ICI ---
-                    // 1. On vérifie qu'il y a bien un historique, sinon on met une ligne plate
                     const historyData = (info.history && info.history.length > 0) ? info.history : [0, 0];
 
-                    // 2. On construit la configuration du graphique proprement
-                    const chartConfig = {
-                        type: 'sparkline',
-                        data: {
-                            datasets: [{
-                                data: historyData,
-                                borderColor: '#2563eb', // Bleu
-                                fill: false,
-                                pointRadius: 0, // Pas de points, juste la ligne
-                                borderWidth: 2
-                            }]
-                        }
-                    };
-
-                    // 3. On encode l'URL pour que le navigateur l'accepte (C'est souvent ça qui bloque !)
-                    const chartUrl = 'https://quickchart.io/chart?c=' + encodeURIComponent(JSON.stringify(chartConfig)) + '&w=120&h=40';
+                    // GÉNÉRATION DU GRAPHIQUE SVG
+                    const sparklineSVG = createSparkline(historyData);
 
                     const ligne = `
                         <tr class="hover:bg-slate-50 transition border-b border-slate-50 h-20">
@@ -141,8 +150,8 @@
                                 </div>
                             </td>
 
-                            <td class="px-6">
-                                <img src="${chartUrl}" alt="Graphique ${ticker}" class="h-10 w-28 opacity-90 object-contain" loading="lazy">
+                            <td class="px-6 py-2">
+                                ${sparklineSVG}
                             </td>
 
                             <td class="px-6 font-semibold text-green-600">
@@ -152,7 +161,7 @@
                             <td class="px-6 text-right">
                                 <a href="https://www.tradingview.com/symbols/NYSE-${ticker}/" target="_blank" 
                                    class="inline-flex items-center justify-center px-4 py-2 bg-white border border-slate-200 rounded text-xs font-bold text-brand-dark hover:border-brand-primary hover:text-brand-primary transition">
-                                    Voir Chart
+                                    Chart
                                 </a>
                             </td>
                         </tr>
@@ -163,7 +172,7 @@
             })
             .catch(e => {
                 console.error("Erreur:", e);
-                document.getElementById('tableau-actions').innerHTML = '<tr><td colspan="5" class="p-4 text-center text-red-400">Erreur de chargement. Vérifiez data.json</td></tr>';
+                document.getElementById('tableau-actions').innerHTML = '<tr><td colspan="5" class="p-4 text-center text-red-500 font-bold">Impossible de lire les données (data.json).</td></tr>';
             });
     </script>
 </body>
