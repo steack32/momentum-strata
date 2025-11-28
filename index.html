@@ -93,23 +93,42 @@
         fetch('data.json')
             .then(r => r.json())
             .then(data => {
+                // Mise à jour de la date
                 document.getElementById('date-maj').innerText = data.date_mise_a_jour;
+                
                 const tbody = document.getElementById('tableau-actions');
                 tbody.innerHTML = ''; 
                 
                 // Convertir l'objet en tableau et trier par score
-                const sortedPicks = Object.entries(data.picks).sort(([,a], [,b]) => b.score - a.score);
+                // On ajoute une sécurité "|| 0" au cas où le score serait vide
+                const sortedPicks = Object.entries(data.picks).sort(([,a], [,b]) => (b.score || 0) - (a.score || 0));
 
                 let rang = 1;
                 for (const [ticker, info] of sortedPicks) {
                     
                     // Formatage du score
-                    const scorePourcent = (info.score * 100).toFixed(2) + '%';
+                    const scorePourcent = ((info.score || 0) * 100).toFixed(2) + '%';
                     
-                    // Création de l'URL du graphique (Sparkline) via QuickChart.io
-                    // On demande une ligne bleue (rgb 37, 99, 235), sans points, fond transparent
-                    const chartData = info.history.join(',');
-                    const chartUrl = `https://quickchart.io/chart?c={type:'sparkline',data:[${chartData}],options:{plugins:{sparkline:{lineColor:'rgb(37, 99, 235)',fill:false}}}}&w=120&h=40`;
+                    // --- CORRECTION MAJEURE ICI ---
+                    // 1. On vérifie qu'il y a bien un historique, sinon on met une ligne plate
+                    const historyData = (info.history && info.history.length > 0) ? info.history : [0, 0];
+
+                    // 2. On construit la configuration du graphique proprement
+                    const chartConfig = {
+                        type: 'sparkline',
+                        data: {
+                            datasets: [{
+                                data: historyData,
+                                borderColor: '#2563eb', // Bleu
+                                fill: false,
+                                pointRadius: 0, // Pas de points, juste la ligne
+                                borderWidth: 2
+                            }]
+                        }
+                    };
+
+                    // 3. On encode l'URL pour que le navigateur l'accepte (C'est souvent ça qui bloque !)
+                    const chartUrl = 'https://quickchart.io/chart?c=' + encodeURIComponent(JSON.stringify(chartConfig)) + '&w=120&h=40';
 
                     const ligne = `
                         <tr class="hover:bg-slate-50 transition border-b border-slate-50 h-20">
@@ -123,7 +142,7 @@
                             </td>
 
                             <td class="px-6">
-                                <img src="${chartUrl}" alt="Graphique ${ticker}" class="h-10 w-28 opacity-80" loading="lazy">
+                                <img src="${chartUrl}" alt="Graphique ${ticker}" class="h-10 w-28 opacity-90 object-contain" loading="lazy">
                             </td>
 
                             <td class="px-6 font-semibold text-green-600">
@@ -142,7 +161,10 @@
                     rang++;
                 }
             })
-            .catch(e => console.error("Erreur:", e));
+            .catch(e => {
+                console.error("Erreur:", e);
+                document.getElementById('tableau-actions').innerHTML = '<tr><td colspan="5" class="p-4 text-center text-red-400">Erreur de chargement. Vérifiez data.json</td></tr>';
+            });
     </script>
 </body>
 </html>
