@@ -11,28 +11,13 @@
             theme: {
                 extend: {
                     colors: {
-                        brand: {
-                            dark: '#0f172a',
-                            primary: '#2563eb',
-                            light: '#f8fafc',
-                            accent: '#0ea5e9',
-                        }
+                        brand: { dark: '#0f172a', primary: '#2563eb', light: '#f8fafc' }
                     },
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    }
+                    fontFamily: { sans: ['Inter', 'sans-serif'] }
                 }
             }
         }
     </script>
-    <style>
-        body { font-family: 'Inter', sans-serif; }
-        .gradient-text {
-            background: linear-gradient(90deg, #2563eb, #0ea5e9);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-    </style>
 </head>
 <body class="bg-brand-light text-slate-800 antialiased">
 
@@ -44,38 +29,28 @@
             <a href="#performance" class="hover:text-brand-primary transition">Sélection</a>
             <a href="#method" class="hover:text-brand-primary transition">Méthodologie</a>
         </div>
-        <a href="#join" class="px-5 py-2.5 bg-brand-dark text-white text-sm font-semibold rounded hover:bg-slate-800 transition shadow-sm">
-            Recevoir la Liste
-        </a>
+        <a href="#join" class="px-5 py-2.5 bg-brand-dark text-white text-sm font-semibold rounded hover:bg-slate-800 transition">S'inscrire</a>
     </nav>
 
-    <header class="py-20 md:py-24 px-6 text-center max-w-5xl mx-auto">
+    <header class="py-16 md:py-24 px-6 text-center max-w-5xl mx-auto">
         <div class="inline-block mb-4 px-3 py-1 bg-blue-50 text-brand-primary text-xs font-bold uppercase tracking-wider rounded-full">
-            Nouvelle Sélection Disponible
+            Mise à jour Hebdomadaire
         </div>
-        <h1 class="text-5xl md:text-7xl font-bold text-brand-dark leading-tight mb-6">
-            Investissez avec la force <br> du <span class="gradient-text">Momentum.</span>
+        <h1 class="text-4xl md:text-6xl font-bold text-brand-dark leading-tight mb-6">
+            L'Élite du NYSE <br>détectée par <span class="text-brand-primary">Algorithme.</span>
         </h1>
-        <p class="text-xl text-slate-500 mb-10 max-w-2xl mx-auto leading-relaxed">
-            Notre algorithme isole les actifs du NYSE à forte impulsion haussière. Une stratégie 100% quantitative, zéro émotion.
+        <p class="text-lg text-slate-500 mb-8 max-w-2xl mx-auto">
+            Top 5 des actions à fort momentum. Données temps réel. Zéro émotion.
         </p>
-        <div class="flex flex-col sm:flex-row justify-center gap-4">
-            <a href="#performance" class="px-8 py-4 bg-brand-primary text-white text-lg font-semibold rounded hover:bg-blue-700 transition shadow-lg">
-                Voir le Top 5
-            </a>
-        </div>
     </header>
 
-    <section id="performance" class="px-6 pb-20 -mt-6 relative z-10">
-        <div class="max-w-4xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
+    <section id="performance" class="px-4 pb-20 relative z-10">
+        <div class="max-w-5xl mx-auto bg-white rounded-2xl shadow-xl border border-slate-200 overflow-hidden">
             
             <div class="bg-slate-50 px-6 py-4 border-b border-slate-100 flex justify-between items-center">
                 <div>
                     <h3 class="font-bold text-brand-dark">Top 5 Momentum (NYSE)</h3>
-                    <p class="text-xs text-slate-500">Mise à jour : <span id="date-maj" class="font-bold text-brand-primary">Chargement...</span></p>
-                </div>
-                <div class="hidden sm:block text-xs font-semibold bg-green-100 text-green-700 px-3 py-1 rounded-full">
-                    Algorithme Actif
+                    <p class="text-xs text-slate-500">Mise à jour : <span id="date-maj" class="font-bold text-brand-primary">...</span></p>
                 </div>
             </div>
 
@@ -83,88 +58,83 @@
                 <table class="w-full text-left">
                     <thead>
                         <tr class="text-slate-400 text-xs uppercase tracking-wider border-b border-slate-100">
-                            <th class="px-6 py-4 font-medium">Rang</th>
-                            <th class="px-6 py-4 font-medium">Ticker</th>
-                            <th class="px-6 py-4 font-medium">Momentum (6M)</th>
-                            <th class="px-6 py-4 font-medium text-right">Analyse</th>
+                            <th class="px-6 py-4">Rang</th>
+                            <th class="px-6 py-4">Actif</th> <th class="px-6 py-4">Tendance (1 An)</th> <th class="px-6 py-4">Perf. (6M)</th>
+                            <th class="px-6 py-4 text-right">Action</th>
                         </tr>
                     </thead>
-                    <tbody id="tableau-actions" class="text-sm">
-                        <tr><td colspan="4" class="px-6 py-8 text-center text-slate-400">Chargement des données...</td></tr>
+                    <tbody id="tableau-actions" class="text-sm align-middle">
+                        <tr><td colspan="5" class="p-8 text-center text-slate-400">Chargement des données...</td></tr>
                     </tbody>
                 </table>
             </div>
-            
             <div class="bg-slate-50 px-6 py-3 border-t border-slate-100 text-center">
-                <p class="text-xs text-slate-400">Calcul basé sur la variation de prix ajustée sur 126 jours.</p>
+                <p class="text-xs text-slate-400">Données à titre informatif uniquement.</p>
             </div>
         </div>
     </section>
 
-    <section id="method" class="py-20 bg-white border-t border-slate-100">
-        <div class="max-w-7xl mx-auto px-6">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-brand-dark mb-4">L'Avantage Quantitatif</h2>
-                <div class="grid md:grid-cols-3 gap-12 mt-12 text-left">
-                    <div class="p-6 bg-slate-50 rounded-xl">
-                        <h3 class="text-xl font-bold text-brand-dark mb-2">1. Scan Global</h3>
-                        <p class="text-slate-600 text-sm">Analyse quotidienne de l'univers des grandes capitalisations US.</p>
-                    </div>
-                    <div class="p-6 bg-slate-50 rounded-xl">
-                        <h3 class="text-xl font-bold text-brand-dark mb-2">2. Filtre Momentum</h3>
-                        <p class="text-slate-600 text-sm">Calcul de la force relative sur 6 mois pour détecter les tendances.</p>
-                    </div>
-                    <div class="p-6 bg-slate-50 rounded-xl">
-                        <h3 class="text-xl font-bold text-brand-dark mb-2">3. Sélection Pure</h3>
-                        <p class="text-slate-600 text-sm">Livraison des 5 actifs statistiquement les plus performants.</p>
-                    </div>
-                </div>
+    <section id="method" class="py-16 bg-white border-t border-slate-100">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <h2 class="text-2xl font-bold text-brand-dark mb-8">Comment ça marche ?</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="p-4 bg-slate-50 rounded-lg"><h3 class="font-bold">1. Scan</h3><p class="text-xs text-slate-500 mt-2">Analyse de 30+ Blue Chips US.</p></div>
+                <div class="p-4 bg-slate-50 rounded-lg"><h3 class="font-bold">2. Filtre</h3><p class="text-xs text-slate-500 mt-2">Calcul de la force relative (RS).</p></div>
+                <div class="p-4 bg-slate-50 rounded-lg"><h3 class="font-bold">3. Sélection</h3><p class="text-xs text-slate-500 mt-2">Top 5 des meilleures performances.</p></div>
             </div>
         </div>
     </section>
 
-    <section id="join" class="py-16 bg-brand-dark text-white text-center px-6">
-        <h2 class="text-2xl font-bold mb-6">Rejoignez Momentum Strata</h2>
-        <form class="max-w-md mx-auto flex gap-2">
-            <input type="email" placeholder="Votre email" class="flex-1 px-4 py-3 rounded text-slate-900 focus:outline-none">
-            <button type="button" class="px-6 py-3 bg-brand-primary font-bold rounded hover:bg-blue-600 transition">S'inscrire</button>
-        </form>
-    </section>
-
-    <footer class="py-8 text-center text-slate-400 text-xs bg-slate-900 border-t border-slate-800">
-        <p>&copy; 2024 Momentum Strata. <br>Avertissement : Les performances passées ne préjugent pas des résultats futurs. Ceci n'est pas un conseil financier.</p>
+    <footer class="py-8 text-center text-slate-400 text-xs bg-slate-900">
+        &copy; 2024 Momentum Strata.
     </footer>
 
     <script>
         fetch('data.json')
-            .then(response => {
-                if (!response.ok) throw new Error("Fichier data.json introuvable");
-                return response.json();
-            })
+            .then(r => r.json())
             .then(data => {
-                // 1. Mise à jour date
                 document.getElementById('date-maj').innerText = data.date_mise_a_jour;
-
-                // 2. Remplissage tableau
                 const tbody = document.getElementById('tableau-actions');
                 tbody.innerHTML = ''; 
                 
-                let rang = 1;
-                // Trier les résultats (au cas où le JSON n'est pas trié)
-                const sortedPicks = Object.entries(data.picks).sort(([,a], [,b]) => b - a);
+                // Convertir l'objet en tableau et trier par score
+                const sortedPicks = Object.entries(data.picks).sort(([,a], [,b]) => b.score - a.score);
 
-                for (const [ticker, score] of sortedPicks) {
-                    const scorePourcent = (score * 100).toFixed(2) + '%';
+                let rang = 1;
+                for (const [ticker, info] of sortedPicks) {
                     
+                    // Formatage du score
+                    const scorePourcent = (info.score * 100).toFixed(2) + '%';
+                    
+                    // Création de l'URL du graphique (Sparkline) via QuickChart.io
+                    // On demande une ligne bleue (rgb 37, 99, 235), sans points, fond transparent
+                    const chartData = info.history.join(',');
+                    const chartUrl = `https://quickchart.io/chart?c={type:'sparkline',data:[${chartData}],options:{plugins:{sparkline:{lineColor:'rgb(37, 99, 235)',fill:false}}}}&w=120&h=40`;
+
                     const ligne = `
-                        <tr class="hover:bg-slate-50 transition border-b border-slate-50">
-                            <td class="px-6 py-4 font-bold text-slate-300">#${rang}</td>
-                            <td class="px-6 py-4 font-bold text-brand-dark">${ticker}</td>
-                            <td class="px-6 py-4 font-semibold text-green-600">
-                                <span class="bg-green-50 px-2 py-1 rounded text-xs md:text-sm">+${scorePourcent}</span>
+                        <tr class="hover:bg-slate-50 transition border-b border-slate-50 h-20">
+                            <td class="px-6 font-bold text-slate-300">#${rang}</td>
+                            
+                            <td class="px-6">
+                                <div class="flex flex-col">
+                                    <span class="font-bold text-brand-dark text-lg">${ticker}</span>
+                                    <span class="text-xs text-slate-500 truncate w-32 md:w-48" title="${info.name}">${info.name}</span>
+                                </div>
                             </td>
-                            <td class="px-6 py-4 text-right">
-                                <a href="https://finance.yahoo.com/quote/${ticker}" target="_blank" class="text-brand-primary hover:underline text-xs font-semibold">Yahoo &rarr;</a>
+
+                            <td class="px-6">
+                                <img src="${chartUrl}" alt="Graphique ${ticker}" class="h-10 w-28 opacity-80" loading="lazy">
+                            </td>
+
+                            <td class="px-6 font-semibold text-green-600">
+                                <span class="bg-green-50 px-2 py-1 rounded text-sm">+${scorePourcent}</span>
+                            </td>
+
+                            <td class="px-6 text-right">
+                                <a href="https://www.tradingview.com/symbols/NYSE-${ticker}/" target="_blank" 
+                                   class="inline-flex items-center justify-center px-4 py-2 bg-white border border-slate-200 rounded text-xs font-bold text-brand-dark hover:border-brand-primary hover:text-brand-primary transition">
+                                    Voir Chart
+                                </a>
                             </td>
                         </tr>
                     `;
@@ -172,10 +142,7 @@
                     rang++;
                 }
             })
-            .catch(error => {
-                console.error('Erreur:', error);
-                document.getElementById('tableau-actions').innerHTML = `<tr><td colspan="4" class="text-center p-4 text-red-500">Erreur : Lancez le serveur python (python -m http.server) pour voir les données.</td></tr>`;
-            });
+            .catch(e => console.error("Erreur:", e));
     </script>
 </body>
 </html>
