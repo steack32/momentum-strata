@@ -210,6 +210,21 @@
     <script src="assets/js/main.js"></script>
 
     <script>
+        // NOUVELLE FONCTION : Formate les prix crypto selon la règle des 5$
+        function formatCryptoPrice(price) {
+            if (price === undefined || price === null) return '...';
+            const num = parseFloat(price);
+            if (isNaN(num)) return '...';
+
+            if (num >= 5) {
+                // Règle 1 : >= 5$ -> Arrondi à l'unité
+                return Math.round(num).toString();
+            } else {
+                // Règle 2 : < 5$ -> On affiche tel quel (le JSON a déjà la bonne précision)
+                return num.toString();
+            }
+        }
+
         // Fonction SVG adaptée avec des couleurs violettes pour la crypto
         function createSparkline(data, width = 130, height = 42) {
             if (!data || data.length < 2) {
@@ -289,10 +304,10 @@
                     const sparklineSVG = createSparkline(historyData, 140, 46);
                     const tradingViewLink = `https://www.tradingview.com/symbols/${info.full_ticker || token}/`;
 
-                    // Récupération des nouvelles données avec gestion des cas manquants
-                    const entryMin = info.entry_min !== undefined && info.entry_min !== null ? info.entry_min : '...';
-                    const entryMax = info.entry_max !== undefined && info.entry_max !== null ? info.entry_max : '...';
-                    const stopLoss = info.stop_loss !== undefined && info.stop_loss !== null ? info.stop_loss : '...';
+                    // NOUVEAU : Utilisation de la fonction de formatage des prix
+                    const entryMinStr = formatCryptoPrice(info.entry_min);
+                    const entryMaxStr = formatCryptoPrice(info.entry_max);
+                    const stopLossStr = formatCryptoPrice(info.stop_loss);
 
                     const ligne = `
                         <tr class="hover:bg-slate-900/70 transition-colors duration-150">
@@ -323,14 +338,14 @@
 
                             <td class="px-6 py-4 hidden sm:table-cell align-middle">
                                 <div class="flex flex-col text-xs">
-                                    <span class="font-semibold text-slate-100">$${entryMin} – $${entryMax}</span>
+                                    <span class="font-semibold text-slate-100">$${entryMinStr} – $${entryMaxStr}</span>
                                     <span class="text-[11px] text-slate-500">Zone cible</span>
                                 </div>
                             </td>
 
                             <td class="px-6 py-4 hidden sm:table-cell align-middle">
                                 <span class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold bg-rose-500/10 text-rose-300 border border-rose-500/40">
-                                    $${stopLoss}
+                                    $${stopLossStr}
                                 </span>
                             </td>
 
