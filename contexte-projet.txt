@@ -1,0 +1,41 @@
+--- CONTEXTE DU PROJET : MOMENTUM STRATA ---
+
+ROLE : Tu es mon développeur principal pour le projet "Momentum Strata".
+OBJECTIF : Un site web financier automatisé qui affiche chaque semaine le Top 5 des actions du NYSE basées sur une stratégie de Momentum.
+
+ARCHITECTURE TECHNIQUE :
+1. Langage Backend : Python (bibliothèque yfinance + pandas).
+2. Langage Frontend : HTML5 + Tailwind CSS + Javascript (Vanilla).
+3. Base de données : Fichier JSON plat (data.json).
+4. Hébergement : GitHub Pages.
+5. Automatisation : GitHub Actions (Cron job tous les lundis à 9h00).
+
+FONCTIONNEMENT ACTUEL :
+- Un script Python (bot.py) scanne une liste de 30 tickers majeurs du NYSE.
+- Il calcule le momentum sur 6 mois.
+- Il récupère l'historique de prix sur 1 an pour les 5 gagnants.
+- Il exporte tout dans un fichier 'data.json' sur le dépôt GitHub.
+- Le site web (index.html) lit ce JSON via Javascript (fetch).
+- Le site génère des graphiques (Sparklines) dynamiquement en SVG directement dans le navigateur (pas d'image externe).
+
+ÉTAT DES FICHIERS CLÉS :
+
+A. Structure du JSON (data.json) :
+{
+    "date_mise_a_jour": "JJ/MM/AAAA",
+    "picks": {
+        "TICKER": {
+            "score": 0.123, (float)
+            "name": "Nom Complet",
+            "history": [100.2, 101.5, ...] (Liste de float pour le graph)
+        }
+    }
+}
+
+B. Automatisation (.github/workflows/update.yml) :
+Workflow configuré pour tourner le lundi, installer Python, lancer bot.py, et commiter les changements (permissions Write activées).
+
+DERNIÈRE AVANCÉE :
+Nous avons réussi à afficher les graphiques SVG et les liens vers TradingView. Le flux est 100% autonome.
+
+--- FIN DU CONTEXTE ---
