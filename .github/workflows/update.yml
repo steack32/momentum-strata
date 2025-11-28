@@ -1,0 +1,47 @@
+name: Mise à jour Globale (Actions + Crypto)
+
+on:
+  schedule:
+    - cron: '0 9 * * 1' # Tous les lundis à 9h UTC
+  workflow_dispatch: # Bouton pour lancer manuellement
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Récupération du code
+        uses: actions/checkout@v3
+
+      - name: Installation Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.9'
+
+      - name: Installation des dépendances
+        # requirements.txt est toujours à la racine, c'est parfait.
+        # N'oubliez pas d'y avoir ajouté 'lxml' !
+        run: pip install -r requirements.txt
+
+      # --- C'EST ICI QUE ÇA CHANGE ---
+      
+      - name: Lancement Bot S&P 500
+        # On dit au robot d'entrer dans le dossier 'bots' avant de lancer la commande
+        working-directory: ./bots
+        run: python bot_sp500.py
+
+      - name: Lancement Bot Crypto
+        # Idem pour le deuxième bot
+        working-directory: ./bots
+        run: python bot_crypto.py
+
+      - name: Sauvegarde des données
+        run: |
+          git config --global user.name 'MomentumBot'
+          git config --global user.email 'bot@noreply.github.com'
+          # On ajoute tout le dossier 'data' d'un coup, c'est plus propre
+          git add data/
+          git commit -m "Mise à jour hebdo: Données organisées" || echo "Rien à modifier"
+          git push
