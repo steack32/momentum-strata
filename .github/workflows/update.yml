@@ -2,45 +2,52 @@ name: Update S&P 500 Data
 
 on:
   schedule:
-    # Lance le scan à 22h30 UTC (après la clôture US) du Lundi au Vendredi
+    # -------------------------------------------------------
+    # CRON : C'est ici que se règle l'automatisation
+    # Minute (30) | Heure (22) | Jour (*) | Mois (*) | JourSemaine (1-5)
+    # 22h30 UTC = 23h30 ou 00h30 en France selon la saison
+    # '1-5' signifie du Lundi au Vendredi. 
+    # Mettez '*' à la place de '1-5' pour le lancer le week-end aussi.
+    # -------------------------------------------------------
     - cron: '30 22 * * 1-5'
-  workflow_dispatch: # Permet de lancer manuellement le bouton "Run workflow"
+  
+  # Permet de lancer manuellement le script via un bouton si besoin
+  workflow_dispatch:
 
 permissions:
   contents: write
 
 jobs:
-  build:
+  run-bots:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout du code
+      - name: Récupération du code
         uses: actions/checkout@v4
 
-      - name: Installation Python
+      - name: Configuration Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.10'
 
-      - name: Installation des dépendances
+      - name: Installation des librairies
         run: |
           pip install yfinance pandas numpy requests lxml
 
-      # --- ÉTAPE 1 : Stratégie PULLBACK ---
-      - name: Run Bot Pullback (Trend)
+      # --- Lancement du Bot 1 (Pullback - Sécurité) ---
+      - name: Exécution Stratégie Pullback
         run: python bots/bot_sp500.py
 
-      # --- ÉTAPE 2 : Stratégie PHOENIX ---
-      - name: Run Bot Breakout (Phoenix)
+      # --- Lancement du Bot 2 (Phoenix - Breakout) ---
+      - name: Exécution Stratégie Phoenix
         run: python bots/bot_sp500_breakout.py
 
-      # --- SAUVEGARDE ---
-      - name: Commit et Push des données
+      # --- Sauvegarde des résultats sur le site ---
+      - name: Commit et Push des fichiers JSON
         run: |
           git config --global user.name "GitHub Actions Bot"
           git config --global user.email "actions@github.com"
-          # On ajoute TOUS les fichiers JSON du dossier data
           git add data/*.json
-          # Le commit ne se fait que s'il y a des changements
-          git commit -m "📈 Mise à jour automatique : Pullback & Phoenix" || exit 0
+          # Le "|| exit 0" empêche l'erreur si aucun fichier n'a changé (ex: jours fériés)
+          git commit -m "📈 Auto-update: S&P 500 Strategies" || exit 0
           git push
