@@ -4,7 +4,7 @@ import numpy as np
 import json
 from datetime import datetime
 
-# --- Momentum Strata : S&P 500 Bot V5 (Trailing Stop Logic) ---
+# --- SMA 200 Rebound : S&P 500 Bot (Trend Pullback Logic) ---
 
 def get_sp500_tickers():
     try:
@@ -14,108 +14,128 @@ def get_sp500_tickers():
         return [t.replace('.', '-') for t in tickers]
     except Exception as e:
         print(f"❌ Erreur liste S&P 500 : {e}")
-        return ["AAPL", "MSFT", "NVDA", "AMZN", "GOOG"]
+        # Liste de secours
+        return ["AAPL", "MSFT", "NVDA", "AMZN", "GOOG", "TSLA", "META", "BRK-B", "JPM", "V"]
 
-print(f"--- Momentum Strata : S&P 500 Bot V5 (Trailing Stop) ---")
+print(f"--- SMA 200 Rebound : S&P 500 Bot ---")
 tickers = get_sp500_tickers()
 print(f"Analyse de {len(tickers)} entreprises...")
 
 try:
-    print("Téléchargement des données historiques (Mode séquentiel)...")
-    # threads=False pour stabilité GitHub
-    data = yf.download(tickers, period="1y", interval="1d", group_by='ticker', progress=False, auto_adjust=False, threads=False)
+    print("Téléchargement des données historiques (2 ans pour assurer la SMA 200)...")
+    # On prend 2 ans pour être sûr d'avoir assez de data pour la SMA 200 même avec les jours fériés
+    data = yf.download(tickers, period="2y", interval="1d", group_by='ticker', progress=False, auto_adjust=False, threads=False)
 except Exception as e:
     print(f"❌ Erreur critique téléchargement : {e}")
     exit(1)
 
-valid_candidates = {}
-print("\nCalculs en cours...")
+candidates = {}
+print("\nRecherche de configurations (Prix > SMA 200 & Proche)...")
 
 for ticker in tickers:
     try:
+        # Gestion des données multi-index ou simple
         if ticker not in data or 'Adj Close' not in data[ticker]: continue
+        
         adj_close = data[ticker]['Adj Close'].dropna()
 
-        if len(adj_close) < 200: continue
+        # Il nous faut au moins 205 jours pour calculer la SMA 200 et sa pente
+        if len(adj_close) < 205: continue
+        
         current_price = adj_close.iloc[-1]
         
+        # Filtre de prix minimum (penny stocks évités)
         if current_price < 10: continue
 
-        sma_200 = adj_close.rolling(window=200).mean().iloc[-1]
-        if pd.isna(sma_200) or current_price < sma_200: continue
+        # Calcul de la SMA 200
+        sma_200_series = adj_close.rolling(window=200).mean()
+        sma_200 = sma_200_series.iloc[-1]
+        sma_200_prev = sma_200_series.iloc[-5] # SMA d'il y a 5 jours pour voir la pente
 
-        momentum = (current_price / adj_close.iloc[-126]) - 1
-        valid_candidates[ticker] = momentum
+        if pd.isna(sma_200): continue
+
+        # --- CRITÈRES DE SÉLECTION ---
+        
+        # 1. Le prix doit être AU-DESSUS de la SMA 200
+        if current_price <= sma_200: continue
+
+        # 2. La SMA 200 doit être HAUSSIÈRE (pente positive)
+        # On évite d'acheter un couteau qui tombe sous une moyenne baissière
+        if sma_200 <= sma_200_prev: continue
+
+        # 3. Calcul de la distance (%)
+        # On cherche la plus petite distance positive
+        distance_pct = (current_price - sma_200) / sma_200
+        
+        # On stocke la distance pour le classement
+        candidates[ticker] = {
+            "distance": distance_pct,
+            "sma_200": sma_200,
+            "price": current_price
+        }
 
     except Exception:
         continue
 
-if not valid_candidates:
+if not candidates:
     print("⚠️ Aucun candidat trouvé.")
     final_payload = {"date_mise_a_jour": datetime.now().strftime("%d/%m/%Y"), "picks": {}}
     with open("../data/sp500.json", "w") as f: json.dump(final_payload, f)
     exit()
 
-ranking = pd.Series(valid_candidates).sort_values(ascending=False)
-top_5 = ranking.head(5)
+# Tri par distance croissante (du plus proche au plus éloigné de la SMA 200)
+# On veut les actions qui "rebondissent" ou "consolident" sur la SMA.
+sorted_candidates = sorted(candidates.items(), key=lambda x: x[1]['distance'])
 
-print(f"\n✅ Top 5 identifié. Calcul des Stop Suiveurs...")
+# On garde le Top 5 des plus proches
+top_5 = sorted_candidates[:5]
+
+print(f"\n✅ Top 5 identifié (Les plus proches du support SMA 200).")
 
 export_data = {}
-try: tickers_info = yf.Tickers(' '.join(top_5.index))
+try: 
+    # Récupération des noms complets
+    top_tickers_list = [t[0] for t in top_5]
+    tickers_info = yf.Tickers(' '.join(top_tickers_list))
 except: tickers_info = None
 
-for ticker, score in top_5.items():
-    print(f"   -> {ticker}...")
+for ticker, info in top_5:
+    dist_display = info['distance'] * 100
+    print(f"   -> {ticker} : Prix {info['price']:.2f}$ | SMA200 {info['sma_200']:.2f}$ (+{dist_display:.2f}%)")
+    
     full_name = ticker
     history_clean = []
-    entry_min = None
-    entry_max = None
-    stop_loss_price = None
-
+    
     try:
         if tickers_info and ticker in tickers_info.tickers:
-            infos = tickers_info.tickers[ticker].info
-            full_name = infos.get('shortName', infos.get('longName', ticker))
+            infos_dict = tickers_info.tickers[ticker].info
+            full_name = infos_dict.get('shortName', infos_dict.get('longName', ticker))
 
+        # Récupération historique récent pour le graphe
         prices = data[ticker]['Adj Close'].dropna()
-        current_price = prices.iloc[-1]
-
-        # --- NOUVELLE LOGIQUE STOP SUIVEUR (Chandelier Exit) ---
-        if len(prices) > 30:
-            daily_returns = prices.pct_change().dropna()
-            if len(daily_returns.tail(20)) >= 20:
-                # 1. Volatilité (écart-type 20 jours)
-                volatility_pct = daily_returns.tail(20).std()
-                
-                # 2. Le plus haut sommet des 20 derniers jours
-                highest_recent_close = prices.tail(20).max()
-                
-                if not pd.isna(volatility_pct) and not pd.isna(highest_recent_close):
-                    # 3. Calcul de la distance du stop (3x volatilité)
-                    stop_dist_pct = volatility_pct * 3.0
-                    
-                    # 4. Le stop est placé sous le plus haut récent
-                    trailing_stop_raw = highest_recent_close * (1 - stop_dist_pct)
-
-                    # Sécurité : Si le stop théorique est au-dessus du prix actuel (crash récent),
-                    # on le ramène juste sous le prix actuel.
-                    trailing_stop_raw = min(trailing_stop_raw, current_price * 0.995)
-                    
-                    stop_loss_price = round(trailing_stop_raw, 2)
-                    entry_max = round(current_price, 2)
-                    entry_min = round(current_price * 0.985, 2)
-                    print(f"      [High 20j: {highest_recent_close:.2f}$] -> Trailing Stop: {stop_loss_price}$")
-
         history_series = prices.tail(30).tolist()
         history_clean = [round(x, 2) for x in history_series if not pd.isna(x)]
 
+        # --- STOP LOSS STRATEGIQUE ---
+        # Le support est la SMA 200. Si on clôture franchement en dessous, la thèse est invalidée.
+        # On place le stop 3% sous la SMA 200 pour laisser respirer le prix (mèche).
+        sma_200_val = info['sma_200']
+        stop_loss_price = round(sma_200_val * 0.97, 2)
+        
+        entry_price = round(info['price'], 2)
+
     except Exception as e:
-        print(f"      ⚠️ Erreur calculs pour {ticker}: {e}")
+        print(f"      ⚠️ Erreur data pour {ticker}: {e}")
+        stop_loss_price = None
+        entry_price = None
 
     export_data[ticker] = {
-        "score": score, "name": full_name, "history": history_clean,
-        "entry_min": entry_min, "entry_max": entry_max, "stop_loss": stop_loss_price
+        "score": round(info['distance'] * 100, 2), # Le score est la distance en % (plus c'est bas, mieux c'est)
+        "name": full_name,
+        "history": history_clean,
+        "entry_price": entry_price,
+        "stop_loss": stop_loss_price,
+        "rationale": f"Rebond SMA200 (Support à {round(info['sma_200'], 2)}$)"
     }
 
 final_payload = {
@@ -126,7 +146,7 @@ final_payload = {
 try:
     with open("../data/sp500.json", "w") as f:
         json.dump(final_payload, f, allow_nan=True)
-    print("\n🚀 Terminé. Sauvegarde réussie (Stop Suiveur intégré).")
+    print("\n🚀 Terminé. Sauvegarde réussie (Stratégie SMA 200).")
 except Exception as e:
     print(f"\n❌ Erreur sauvegarde JSON : {e}")
     exit(1)
