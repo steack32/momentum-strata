@@ -1,9 +1,10 @@
-name: Mise à jour Globale (Actions + Crypto)
+name: Update S&P 500 Data
 
 on:
   schedule:
-    - cron: '0 9 * * 1' # Tous les lundis à 9h UTC
-  workflow_dispatch: # Bouton pour lancer manuellement
+    # Lance le scan à 22h30 UTC (après la clôture US) du Lundi au Vendredi
+    - cron: '30 22 * * 1-5'
+  workflow_dispatch: # Permet de lancer manuellement le bouton "Run workflow"
 
 permissions:
   contents: write
@@ -11,37 +12,35 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Récupération du code
-        uses: actions/checkout@v3
+      - name: Checkout du code
+        uses: actions/checkout@v4
 
       - name: Installation Python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
-          python-version: '3.9'
+          python-version: '3.10'
 
       - name: Installation des dépendances
-        # requirements.txt est toujours à la racine, c'est parfait.
-        # N'oubliez pas d'y avoir ajouté 'lxml' !
-        run: pip install -r requirements.txt
-
-      # --- C'EST ICI QUE ÇA CHANGE ---
-      
-      - name: Lancement Bot S&P 500
-        # On dit au robot d'entrer dans le dossier 'bots' avant de lancer la commande
-        working-directory: ./bots
-        run: python bot_sp500.py
-
-      - name: Lancement Bot Crypto
-        # Idem pour le deuxième bot
-        working-directory: ./bots
-        run: python bot_crypto.py
-
-      - name: Sauvegarde des données
         run: |
-          git config --global user.name 'MomentumBot'
-          git config --global user.email 'bot@noreply.github.com'
-          # On ajoute tout le dossier 'data' d'un coup, c'est plus propre
-          git add data/
-          git commit -m "Mise à jour hebdo: Données organisées" || echo "Rien à modifier"
+          pip install yfinance pandas numpy requests lxml
+
+      # --- ÉTAPE 1 : Stratégie PULLBACK ---
+      - name: Run Bot Pullback (Trend)
+        run: python bots/bot_sp500.py
+
+      # --- ÉTAPE 2 : Stratégie PHOENIX ---
+      - name: Run Bot Breakout (Phoenix)
+        run: python bots/bot_sp500_breakout.py
+
+      # --- SAUVEGARDE ---
+      - name: Commit et Push des données
+        run: |
+          git config --global user.name "GitHub Actions Bot"
+          git config --global user.email "actions@github.com"
+          # On ajoute TOUS les fichiers JSON du dossier data
+          git add data/*.json
+          # Le commit ne se fait que s'il y a des changements
+          git commit -m "📈 Mise à jour automatique : Pullback & Phoenix" || exit 0
           git push
