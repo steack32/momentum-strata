@@ -6,31 +6,43 @@ import requests
 import io
 from datetime import datetime
 
-# --- SMA 200 Rebound : S&P 500 Bot (Version Corrigée & Robuste) ---
+# --- SMA 200 Rebound : S&P 500 Bot (Version Finale & Robuste) ---
 
 def get_sp500_tickers():
-    """Récupère la liste S&P 500 en contournant la protection anti-bot de Wikipedia."""
+    """Récupère la liste S&P 500 en cherchant le bon tableau sur Wikipedia."""
     url = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
     
     try:
-        # On se fait passer pour un navigateur web classique
+        # User-Agent pour éviter le blocage 403
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
         }
-        response = requests.get(url, headers=headers)
+        response = requests.get(url, headers=headers, timeout=10)
         response.raise_for_status()
         
-        # On lit le HTML récupéré
-        df = pd.read_html(io.StringIO(response.text))[0]
-        tickers = df['Symbol'].tolist()
+        # On lit TOUS les tableaux de la page
+        tables = pd.read_html(io.StringIO(response.text))
+        
+        # Recherche intelligente du tableau contenant la colonne 'Symbol'
+        df_sp500 = None
+        for df in tables:
+            if 'Symbol' in df.columns:
+                df_sp500 = df
+                break
+        
+        if df_sp500 is None:
+            raise ValueError("Colonne 'Symbol' introuvable dans les tableaux Wikipedia.")
+
+        tickers = df_sp500['Symbol'].tolist()
         
         # Nettoyage (BRK.B -> BRK-B pour Yahoo)
         clean_tickers = [t.replace('.', '-') for t in tickers]
-        print(f"✅ Liste S&P 500 récupérée : {len(clean_tickers)} actions.", flush=True)
+        print(f"✅ Liste S&P 500 complète récupérée : {len(clean_tickers)} actions.", flush=True)
         return clean_tickers
 
     except Exception as e:
         print(f"⚠️ Erreur Wikipedia ({e}). Utilisation de la liste de secours.", flush=True)
+        # Liste de secours (Top 50)
         return [
             "AAPL", "MSFT", "NVDA", "AMZN", "GOOG", "META", "TSLA", "BRK-B", "LLY", "AVGO",
             "JPM", "V", "TSM", "UNH", "WMT", "MA", "XOM", "PG", "JNJ", "HD",
@@ -54,8 +66,8 @@ stats = {
 }
 
 try:
-    print("⏳ Téléchargement des données (2 ans)...", flush=True)
-    # CORRECTION MAJEURE ICI : auto_adjust=False force Yahoo à renvoyer 'Adj Close'
+    print(f"⏳ Téléchargement des données pour {len(tickers)} actions...", flush=True)
+    # auto_adjust=False est CRUCIAL pour avoir 'Adj Close'
     data = yf.download(tickers, period="2y", interval="1d", group_by='ticker', 
                        progress=False, threads=True, auto_adjust=False)
     print("✅ Téléchargement terminé.", flush=True)
@@ -74,11 +86,10 @@ for i, ticker in enumerate(tickers, 1):
         print(f"   Traitement {i}/{len(tickers)}...", flush=True)
 
     try:
-        # Extraction sécurisée
+        # Extraction sécurisée des données
         if is_multi:
-            # Si le ticker n'est pas dans les colonnes (échec download spécifique), on passe
             if ticker not in data.columns.levels[0]: continue
-            # On vérifie si 'Adj Close' existe, sinon on tente 'Close'
+            # Priorité à 'Adj Close', sinon 'Close'
             if 'Adj Close' in data[ticker]:
                 adj_close = data[ticker]['Adj Close'].dropna()
             elif 'Close' in data[ticker]:
@@ -86,10 +97,8 @@ for i, ticker in enumerate(tickers, 1):
             else:
                 continue
         else:
-            # Cas liste secours unique
             adj_close = data['Adj Close'].dropna() if 'Adj Close' in data else data['Close'].dropna()
 
-        # Vérification historique
         if len(adj_close) < 205:
             stats["too_short"] += 1
             continue
@@ -102,26 +111,20 @@ for i, ticker in enumerate(tickers, 1):
         # --- CALCULS ---
         sma_200_series = adj_close.rolling(window=200).mean()
         sma_200 = sma_200_series.iloc[-1]
-        sma_200_prev = sma_200_series.iloc[-5]
-
+        
         if pd.isna(sma_200): continue
 
-        # --- FILTRES (VERSION SOUPLE) ---
-
-        # 1. Tendance : On accepte tout sauf une chute brutale
-        # (Filtre désactivé ou très souple ici pour avoir des résultats)
-        # if sma_200 < sma_200_prev: 
-        #    stats["sma_falling"] += 1
-        #    continue
-
-        # 2. Position Prix : -3% à +15%
+        # --- FILTRES (Swing Trading) ---
+        # On ignore la pente de la SMA pour maximiser les résultats en range
+        
         pct_diff = (current_price - sma_200) / sma_200
         
-        if pct_diff < -0.03: # Plus bas que -3%
+        # Filtres : Entre -3% (mèche basse) et +15% (tendance)
+        if pct_diff < -0.03: 
             stats["too_low"] += 1
             continue
         
-        if pct_diff > 0.15: # Plus haut que +15%
+        if pct_diff > 0.15: 
             stats["too_far"] += 1
             continue
 
@@ -133,8 +136,6 @@ for i, ticker in enumerate(tickers, 1):
         stats["candidates"] += 1
 
     except Exception as e:
-        # On affiche l'erreur la première fois pour comprendre, puis on passe
-        # print(f"Erreur sur {ticker}: {e}") 
         continue
 
 # --- RAPPORT ---
@@ -148,16 +149,18 @@ print("="*40 + "\n", flush=True)
 
 if not candidates:
     print("⚠️ Aucun candidat trouvé.", flush=True)
+    # Création d'un JSON valide vide
     final_payload = {"date_mise_a_jour": datetime.now().strftime("%d/%m/%Y"), "picks": {}}
     with open("../data/sp500.json", "w") as f: json.dump(final_payload, f)
     exit()
 
-# Tri par distance ABSOLUE (les plus proches de la courbe)
+# Tri par distance ABSOLUE (les plus proches de 0)
 sorted_candidates = sorted(candidates.items(), key=lambda x: abs(x[1]['distance']))
 top_5 = sorted_candidates[:5]
 
 export_data = {}
 try: 
+    # Infos pour les noms
     top_tickers_list = [t[0] for t in top_5]
     tickers_info = yf.Tickers(' '.join(top_tickers_list))
 except: tickers_info = None
@@ -176,9 +179,8 @@ for ticker, info in top_5:
             infos_dict = tickers_info.tickers[ticker].info
             full_name = infos_dict.get('shortName', infos_dict.get('longName', ticker))
         
-        # Récup data pour le graph
+        # Données graphiques
         if is_multi:
-             # Fallback intelligent Close/Adj Close
             if 'Adj Close' in data[ticker]:
                 prices = data[ticker]['Adj Close'].dropna()
             else:
@@ -189,12 +191,10 @@ for ticker, info in top_5:
         history_series = prices.tail(30).tolist()
         history_clean = [round(x, 2) for x in history_series if not pd.isna(x)]
 
-        # STOP LOSS : 3% sous la SMA 200
         stop_loss_price = round(info['sma_200'] * 0.97, 2)
         entry_price = round(info['price'], 2)
 
-    except Exception as e:
-        print(f"Err data {ticker}: {e}", flush=True)
+    except Exception:
         stop_loss_price = 0
         entry_price = 0
 
