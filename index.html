@@ -10,6 +10,7 @@
     <script src="assets/js/tailwind-config.js"></script>
     <style>
         .sparkline-path { stroke-linecap: round; stroke-linejoin: round; }
+        .sparkline-sma { stroke-dasharray: 2, 2; }
     </style>
 </head>
 <body class="bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-50 antialiased flex flex-col min-h-screen">
@@ -147,25 +148,41 @@
     <script src="assets/js/main.js"></script>
 
     <script>
-        function createSparkline(data, width = 130, height = 42) {
+        // Fonction Sparkline améliorée avec SMA 200
+        function createSparkline(data, sma200, width = 130, height = 42) {
             if (!data || data.length < 2) return '';
-            const min = Math.min(...data);
-            const max = Math.max(...data);
+            
+            // Calculer min/max global pour l'échelle (incluant la SMA pour qu'elle soit visible si proche)
+            const allValues = [...data, sma200];
+            const min = Math.min(...allValues);
+            const max = Math.max(...allValues);
             const range = max - min || 1;
-            const paddingY = 4;
+            
+            // Marges
+            const paddingY = 6;
             const effectiveHeight = height - paddingY * 2;
             const stepX = width / (data.length - 1);
 
+            // Génération du chemin du prix
             const pathPoints = data.map((val, i) => {
                 const x = i * stepX;
                 const y = (height - paddingY) - ((val - min) / range * effectiveHeight);
                 return `${i === 0 ? 'M' : 'L'} ${x.toFixed(1)},${y.toFixed(1)}`;
             }).join(' ');
 
+            // Calcul de la position Y de la SMA 200 (ligne horizontale théorique sur la période courte)
+            // Note: On simplifie en affichant le niveau SMA actuel comme une ligne droite
+            const smaY = (height - paddingY) - ((sma200 - min) / range * effectiveHeight);
+
             return `
                 <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" class="overflow-visible">
+                    <line x1="0" y1="${smaY.toFixed(1)}" x2="${width}" y2="${smaY.toFixed(1)}" 
+                          stroke="#64748b" stroke-width="1" class="sparkline-sma" opacity="0.6" />
+                    
                     <path d="${pathPoints}" fill="none" stroke="#10b981" stroke-width="2" class="sparkline-path" />
-                    <circle cx="${width}" cy="${(height - paddingY) - ((data[data.length - 1] - min) / range * effectiveHeight)}" r="2.5" fill="#020617" stroke="#10b981" stroke-width="2" />
+                    
+                    <circle cx="${width}" cy="${(height - paddingY) - ((data[data.length - 1] - min) / range * effectiveHeight)}" 
+                            r="2.5" fill="#020617" stroke="#10b981" stroke-width="2" />
                 </svg>
             `;
         }
@@ -191,11 +208,20 @@
 
                 for (const [ticker, info] of sortedPicks) {
                     const distance = info.score; // Score = distance en %
-                    const sparklineSVG = createSparkline(info.history, 140, 46);
+                    
+                    // Calcul de la SMA 200 à partir du prix et de la distance pour l'affichage graphique
+                    // distance = (price - sma) / sma  =>  sma = price / (1 + distance)
+                    const currentPrice = info.entry_price;
+                    // On recalcule approximativement la SMA pour le graph si elle n'est pas dans le JSON
+                    // (Note: Le JSON Python ne passait pas explicitement sma_200, on la déduit ici pour l'affichage)
+                    const estimatedSma200 = currentPrice / (1 + (distance / 100));
+
+                    const sparklineSVG = createSparkline(info.history, estimatedSma200, 140, 46);
                     const tradingViewLink = `https://www.tradingview.com/symbols/${ticker}/`;
                     
-                    const entryPrice = info.entry_price ? info.entry_price : 'N/A';
-                    const stopLoss = info.stop_loss ? info.stop_loss : 'N/A';
+                    // Arrondis à l'unité ($ pret)
+                    const entryPrice = info.entry_price ? Math.round(info.entry_price) : 'N/A';
+                    const stopLoss = info.stop_loss ? Math.round(info.stop_loss) : 'N/A';
 
                     const ligne = `
                         <tr class="hover:bg-slate-900/70 transition-colors duration-150 border-b border-slate-800/50 last:border-0">
