@@ -11,7 +11,6 @@
     <script src="assets/js/main.js" defer></script>
 
     <style>
-        /* Styles pour les graphiques uniquement */
         .sparkline-path { stroke-linecap: round; stroke-linejoin: round; }
         .sparkline-sma { stroke-dasharray: 2, 2; }
     </style>
@@ -39,7 +38,7 @@
 
             <p class="text-sm md:text-base text-slate-300/90 max-w-2xl mx-auto leading-relaxed">
                 Analyse quotidienne des 500 plus grandes capitalisations US.<br>
-                Toutes les opportunités détectées sont affichées ci-dessous en temps réel.
+                Toutes les opportunités détectées sont affichées ci-dessous en temps réel (Version Complète).
             </p>
         </header>
     </div>
@@ -77,7 +76,7 @@
                                 </tr>
                             </thead>
                             <tbody id="table-pullback" class="text-sm divide-y divide-slate-800">
-                                <tr><td colspan="6" class="px-6 py-8 text-center text-xs text-slate-500">Chargement des données...</td></tr>
+                                <tr><td colspan="6" class="px-6 py-8 text-center text-xs text-slate-500">Chargement des données complètes...</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -116,7 +115,7 @@
                                 </tr>
                             </thead>
                             <tbody id="table-phoenix" class="text-sm divide-y divide-slate-800">
-                                <tr><td colspan="6" class="px-6 py-8 text-center text-xs text-slate-500">Chargement des données...</td></tr>
+                                <tr><td colspan="6" class="px-6 py-8 text-center text-xs text-slate-500">Chargement des données complètes...</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -129,7 +128,7 @@
     <div id="footer-container"></div>
 
     <script>
-        // --- 1. FONCTION GRAPHIQUE (Sparkline) ---
+        // --- 1. FONCTION GRAPHIQUE ---
         function createSparkline(data, sma200, width = 120, height = 40, color = "#10b981") {
             if (!data || data.length < 2) return '';
             const allValues = [...data, sma200];
@@ -154,8 +153,8 @@
             `;
         }
 
-        // --- 2. CHARGEMENT PULLBACK (Tout est visible) ---
-        fetch('data/sp500_pullback_free.json')
+        // --- 2. CHARGEMENT PULLBACK (FICHIER PRO) ---
+        fetch('data/sp500_pullback_pro.json') // <--- MODIFICATION ICI
             .then(r => r.json())
             .then(data => {
                 document.getElementById('date-pullback').textContent = data.date_mise_a_jour || '-';
@@ -193,10 +192,10 @@
                     });
                 }
             })
-            .catch(() => document.getElementById('table-pullback').innerHTML = '<tr><td colspan="6" class="px-6 py-4 text-center text-xs text-slate-500">Erreur de chargement.</td></tr>');
+            .catch(() => document.getElementById('table-pullback').innerHTML = '<tr><td colspan="6" class="px-6 py-4 text-center text-xs text-slate-500">Erreur de chargement (Fichier Pro).</td></tr>');
 
-        // --- 3. CHARGEMENT PHOENIX (Tout est visible) ---
-        fetch('data/sp500_breakout_free.json')
+        // --- 3. CHARGEMENT PHOENIX (FICHIER PRO) ---
+        fetch('data/sp500_breakout_pro.json') // <--- MODIFICATION ICI
             .then(r => r.json())
             .then(data => {
                 document.getElementById('date-phoenix').textContent = data.date_mise_a_jour || '-';
@@ -244,7 +243,7 @@
                     });
                 }
             })
-            .catch(() => document.getElementById('table-phoenix').innerHTML = '<tr><td colspan="6" class="px-6 py-4 text-center text-xs text-slate-500">Erreur de chargement.</td></tr>');
+            .catch(() => document.getElementById('table-phoenix').innerHTML = '<tr><td colspan="6" class="px-6 py-4 text-center text-xs text-slate-500">Erreur de chargement (Fichier Pro).</td></tr>');
 
     </script>
 </body>
