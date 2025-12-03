@@ -27,14 +27,9 @@ jobs:
           # 1. On installe les librairies classiques
           pip install numpy pandas yfinance requests lxml
           
-          # 2. INSTALLATION MANUELLE DE PANDAS_TA (Contournement du bug git/pip)
-          echo "Installation manuelle de pandas_ta depuis GitHub..."
-          git clone https://github.com/twopirllc/pandas-ta.git
-          cd pandas-ta
-          git checkout development
-          pip install .
-          cd ..
-          rm -rf pandas-ta
+          # 2. LA SOLUTION ZIP : On installe pandas_ta directement depuis l'archive ZIP
+          # Cela contourne totalement le protocole Git et les demandes de mot de passe.
+          pip install https://github.com/twopirllc/pandas-ta/archive/development.zip
 
       # --- LANCE LE BOT S&P 500 (ACTIONS) ---
       - name: Run S&P 500 Pro Bot
