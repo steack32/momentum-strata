@@ -4,12 +4,23 @@
             <span class="h-3 w-3 rounded-full bg-blue-400/80 shadow-[0_0_12px_rgba(59,130,246,0.9)]"></span>
         </div>
         <a href="index.html" class="text-xl md:text-2xl font-extrabold tracking-tight text-white">
-            Momentum<span class="text-brand-primary">Strata</span>
+            Momentum<span class="text-brand-primary text-blue-500">Strata</span>
         </a>
     </div>
-    <div class="hidden sm:flex items-center space-x-6 text-xs font-semibold text-slate-300">
-        <a href="index.html" class="text-white transition-colors">S&P 500</a>
-        <a href="crypto.html" class="hover:text-white transition-colors">Cryptomonnaies</a>
-        <a href="#method" class="hover:text-white transition-colors">Méthode</a>
+
+    <div class="flex items-center space-x-6 text-xs font-semibold text-slate-300">
+        <a href="index.html" class="hidden sm:block hover:text-white transition-colors">S&P 500</a>
+        <a href="#method" class="hidden sm:block hover:text-white transition-colors">Méthode</a>
+
+        <a href="#/ms/login" data-ms-content="!members" class="text-slate-300 hover:text-white transition-colors cursor-pointer">
+            Connexion
+        </a>
+
+        <a href="dashboard.html" data-ms-content="members" class="hidden sm:block text-emerald-400 hover:text-emerald-300 transition-colors">
+            Mon Dashboard
+        </a>
+        <button data-ms-action="logout" data-ms-content="members" class="px-4 py-2 bg-slate-800 hover:bg-slate-700 text-white rounded border border-slate-700 transition">
+            Se déconnecter
+        </button>
     </div>
 </nav>
