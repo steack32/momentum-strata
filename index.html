@@ -36,10 +36,12 @@
                 </span>
                 Algo Trading • S&P 500
             </div>
-            
+
             <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-5">
                 Deux stratégies, un objectif :<br class="hidden md:block" />
-                <span class="text-brand-primary relative inline-block">Maîtriser la Tendance</span>
+                <span class="text-brand-primary relative inline-block text-blue-500">
+                    Maîtriser la Tendance
+                </span>
             </h1>
 
             <p class="text-sm md:text-base text-slate-300/90 max-w-2xl mx-auto leading-relaxed">
@@ -50,8 +52,10 @@
     </div>
 
     <main class="flex-grow space-y-20 pb-20 mt-10">
+        
         <section id="pullback" class="px-4 md:px-6 lg:px-0">
             <div class="max-w-5xl mx-auto">
+                
                 <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-5 border-b border-slate-800 pb-4">
                     <div>
                         <div class="flex items-center gap-2 mb-1">
@@ -67,14 +71,36 @@
                         <p class="text-xs text-slate-500">Mise à jour : <span id="date-pullback" class="text-slate-300 font-medium">...</span></p>
                     </div>
                 </div>
-                <div class="bg-slate-900/80 backdrop-blur rounded-2xl border border-slate-800 overflow-hidden relative">
-                    <table class="w-full text-left border-collapse"><tbody id="table-pullback" class="text-sm divide-y divide-slate-800"></tbody></table>
+
+                <div class="bg-slate-900/80 backdrop-blur rounded-2xl shadow-premium border border-slate-800/80 overflow-hidden relative">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-950 text-[11px] uppercase tracking-[0.18em] text-slate-400 border-b border-slate-800">
+                                    <th class="px-6 py-3.5">Actif</th>
+                                    <th class="px-6 py-3.5 hidden md:table-cell">Config (30j)</th>
+                                    <th class="px-6 py-3.5">Distance SMA</th>
+                                    <th class="px-6 py-3.5 hidden sm:table-cell">Prix</th>
+                                    <th class="px-6 py-3.5 hidden sm:table-cell">Stop Loss</th>
+                                    <th class="px-6 py-3.5 text-right">Chart</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-pullback" class="text-sm divide-y divide-slate-800">
+                                <tr><td colspan="6" class="px-6 py-8 text-center text-xs text-slate-500">Chargement...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="bg-slate-950/50 px-6 py-3 text-[10px] text-slate-500 flex gap-4">
+                        <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Proche SMA (Zone d'achat)</span>
+                        <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-rose-500"></span> Stop Loss (-3% sous SMA)</span>
+                    </div>
                 </div>
             </div>
         </section>
 
         <section id="phoenix" class="px-4 md:px-6 lg:px-0">
             <div class="max-w-5xl mx-auto">
+                
                 <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-5 border-b border-slate-800 pb-4">
                     <div>
                         <div class="flex items-center gap-2 mb-1">
@@ -90,8 +116,29 @@
                         <p class="text-xs text-slate-500">Mise à jour : <span id="date-phoenix" class="text-slate-300 font-medium">...</span></p>
                     </div>
                 </div>
-                <div class="bg-slate-900/80 backdrop-blur rounded-2xl border border-slate-800 overflow-hidden relative">
-                    <table class="w-full text-left border-collapse"><tbody id="table-phoenix" class="text-sm divide-y divide-slate-800"></tbody></table>
+
+                <div class="bg-slate-900/80 backdrop-blur rounded-2xl shadow-premium border border-slate-800/80 overflow-hidden relative">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-950 text-[11px] uppercase tracking-[0.18em] text-slate-400 border-b border-slate-800">
+                                    <th class="px-6 py-3.5">Actif</th>
+                                    <th class="px-6 py-3.5 hidden md:table-cell">Config (30j)</th>
+                                    <th class="px-6 py-3.5">Volume Ratio</th>
+                                    <th class="px-6 py-3.5 hidden sm:table-cell">Breakout</th>
+                                    <th class="px-6 py-3.5 hidden sm:table-cell">Stop Loss</th>
+                                    <th class="px-6 py-3.5 text-right">Chart</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-phoenix" class="text-sm divide-y divide-slate-800">
+                                <tr><td colspan="6" class="px-6 py-8 text-center text-xs text-slate-500">Chargement...</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                     <div class="bg-slate-950/50 px-6 py-3 text-[10px] text-slate-500 flex gap-4">
+                        <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-500"></span> Volume explosif (> x1.5)</span>
+                        <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-rose-500"></span> Stop Loss (Invalidation si repasse sous SMA)</span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -112,14 +159,16 @@
                 </div>
             </div>
         </section>
+
     </main>
 
     <div id="footer-container"></div>
 
     <script>
-        // --- FONCTION GRAPHIQUE ---
+        // --- 1. FONCTION GRAPHIQUE PARTAGÉE ---
         function createSparkline(data, sma200, width = 120, height = 40, color = "#10b981") {
             if (!data || data.length < 2) return '';
+            
             const allValues = [...data, sma200];
             const min = Math.min(...allValues);
             const max = Math.max(...allValues);
@@ -127,12 +176,15 @@
             const paddingY = 5;
             const effH = height - paddingY * 2;
             const stepX = width / (data.length - 1);
+
             const path = data.map((val, i) => {
                 const x = i * stepX;
                 const y = (height - paddingY) - ((val - min) / range * effH);
                 return `${i === 0 ? 'M' : 'L'} ${x.toFixed(1)},${y.toFixed(1)}`;
             }).join(' ');
+
             const smaY = (height - paddingY) - ((sma200 - min) / range * effH);
+
             return `
                 <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" class="overflow-visible">
                     <line x1="0" y1="${smaY}" x2="${width}" y2="${smaY}" stroke="#475569" stroke-width="1" stroke-dasharray="3,3" opacity="0.6" />
@@ -142,14 +194,17 @@
             `;
         }
 
-        // --- PAYWALL TEASER ---
+        // --- 2. TEASER PAYWALL ---
         function renderPaywallTeaser(tbody, count=3, type="premium") {
             for (let i = 0; i < count; i++) {
                 tbody.insertAdjacentHTML('beforeend', `
                     <tr class="blur-paywall border-b border-slate-800/50">
                         <td class="px-6 py-4"><div class="h-4 w-12 bg-slate-700 rounded"></div></td>
                         <td class="px-6 py-4 hidden md:table-cell"><div class="h-8 w-24 bg-slate-700 rounded"></div></td>
-                        <td class="px-6 py-4"></td><td class="px-6 py-4 hidden sm:table-cell"></td><td class="px-6 py-4 hidden sm:table-cell"></td><td class="px-6 py-4"></td>
+                        <td class="px-6 py-4"><div class="h-4 w-8 bg-slate-700 rounded"></div></td>
+                        <td class="px-6 py-4 hidden sm:table-cell"><div class="h-4 w-10 bg-slate-700 rounded"></div></td>
+                        <td class="px-6 py-4 hidden sm:table-cell"><div class="h-4 w-10 bg-slate-700 rounded"></div></td>
+                        <td class="px-6 py-4 text-right"><div class="h-4 w-8 bg-slate-700 rounded ml-auto"></div></td>
                     </tr>
                 `);
             }
@@ -166,10 +221,12 @@
                                 ${type === 'phoenix' ? 'Seul le meilleur Breakout est visible.' : 'Accédez aux autres opportunités.'}
                                 <br><span class="text-amber-400">Débloquez la sélection complète.</span>
                             </p>
+                            
                             <button data-ms-price:add="prc_pro-monthly-na1c0fj8" 
-                               class="block w-full py-2.5 bg-brand-primary hover:bg-brand-accent text-white font-semibold rounded transition text-xs shadow-lg shadow-blue-900/20 cursor-pointer">
+                               class="block w-full py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded transition text-xs shadow-lg shadow-blue-900/20 cursor-pointer">
                                 Devenir Membre
                             </button>
+                            
                             <div class="mt-3 text-[10px] text-slate-500">
                                 Déjà membre ? <a href="#/ms/login" class="text-slate-300 underline hover:text-white cursor-pointer">Connexion</a>
                             </div>
@@ -180,7 +237,7 @@
             }
         }
 
-        // --- FETCH DATA ---
+        // --- 3. CHARGEMENT PULLBACK (FREE) ---
         fetch('data/sp500_pullback_free.json')
             .then(r => r.json())
             .then(data => {
@@ -214,7 +271,7 @@
                             <td class="px-6 py-4 hidden sm:table-cell text-slate-300 font-mono text-xs">$${Math.round(price)}</td>
                             <td class="px-6 py-4 hidden sm:table-cell text-rose-400 font-mono text-xs">$${Math.round(info.stop_loss)}</td>
                             <td class="px-6 py-4 text-right">
-                                <a href="https://www.tradingview.com/symbols/${ticker.replace('-','.')}/" target="_blank" class="text-brand-primary hover:text-brand-accent text-xs font-medium">Voir &rarr;</a>
+                                <a href="https://www.tradingview.com/symbols/${ticker.replace('-','.')}/" target="_blank" class="text-blue-400 hover:text-blue-300 text-xs font-medium">Voir &rarr;</a>
                             </td>
                         </tr>
                     `);
@@ -223,6 +280,8 @@
             })
             .catch(() => document.getElementById('table-pullback').innerHTML = '<tr><td colspan="6" class="px-6 py-4 text-center text-xs text-slate-500">Chargement...</td></tr>');
 
+
+        // --- 4. CHARGEMENT PHOENIX (FREE) ---
         fetch('data/sp500_breakout_free.json')
             .then(r => r.json())
             .then(data => {
@@ -232,7 +291,7 @@
                 const entries = Object.entries(data.picks || {});
 
                 if (!entries.length) {
-                    tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Aucun breakout validé aujourd\'hui.</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500 italic">Aucun breakout validé aujourd\'hui.</td></tr>';
                     return;
                 }
 
@@ -274,6 +333,7 @@
                 renderPaywallTeaser(tbody, 3, "phoenix");
             })
             .catch(() => document.getElementById('table-phoenix').innerHTML = '<tr><td colspan="6" class="px-6 py-4 text-center text-xs text-slate-500">Chargement...</td></tr>');
+
     </script>
 </body>
 </html>
