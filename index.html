@@ -197,7 +197,7 @@
             `;
         }
 
-        // --- 2. TEASER PAYWALL AVEC LE CORRECTIF MEMBERSTACK ---
+        // --- 2. TEASER PAYWALL AVEC LE CORRECTIF ROBUSTE ---
         function renderPaywallTeaser(tbody, count=3, type="premium") {
             for (let i = 0; i < count; i++) {
                 tbody.insertAdjacentHTML('beforeend', `
@@ -212,6 +212,8 @@
                 `);
             }
             const parentDiv = tbody.closest('.relative');
+            
+            // On vérifie si l'overlay existe déjà pour ne pas le mettre en double
             if (!parentDiv.querySelector('.paywall-overlay')) {
                 const overlayHTML = `
                     <div class="paywall-overlay">
@@ -226,27 +228,30 @@
                             </p>
                             
                             <button data-ms-price:add="prc_pro-monthly-na1c0fj8" 
-                               class="block w-full py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded transition text-xs shadow-lg shadow-blue-900/20 cursor-pointer">
+                               class="block w-full py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded transition text-xs shadow-lg shadow-blue-900/20 cursor-pointer z-50 relative">
                                 Devenir Membre
                             </button>
                             
                             <div class="mt-3 text-[10px] text-slate-500">
-                                Déjà membre ? <a href="#/ms/login" class="text-slate-300 underline hover:text-white cursor-pointer">Connexion</a>
+                                Déjà membre ? <a href="#/ms/login" class="text-slate-300 underline hover:text-white cursor-pointer relative z-50">Connexion</a>
                             </div>
                         </div>
                     </div>
                 `;
                 parentDiv.insertAdjacentHTML('beforeend', overlayHTML);
 
-                // --- LE CORRECTIF MEMBERSTACK ---
-                // Force Memberstack à re-scanner le DOM pour attacher les événements au nouveau bouton
-                if(window.$memberstackDom) {
-                    window.$memberstackDom.x.load();
-                }
+                // --- 3. CORRECTIF MEMBERSTACK ---
+                // On utilise setTimeout pour laisser le DOM s'afficher avant de demander à Memberstack de scanner.
+                setTimeout(function() {
+                    if (window.$memberstackDom && window.$memberstackDom.load) {
+                        console.log("Rechargement Memberstack...");
+                        window.$memberstackDom.load(); 
+                    }
+                }, 500); // 500ms de délai de sécurité
             }
         }
 
-        // --- 3. CHARGEMENT PULLBACK (FREE) ---
+        // --- 4. CHARGEMENT PULLBACK (FREE) ---
         fetch('data/sp500_pullback_free.json')
             .then(r => r.json())
             .then(data => {
@@ -290,7 +295,7 @@
             .catch(() => document.getElementById('table-pullback').innerHTML = '<tr><td colspan="6" class="px-6 py-4 text-center text-xs text-slate-500">Chargement...</td></tr>');
 
 
-        // --- 4. CHARGEMENT PHOENIX (FREE) ---
+        // --- 5. CHARGEMENT PHOENIX (FREE) ---
         fetch('data/sp500_breakout_free.json')
             .then(r => r.json())
             .then(data => {
