@@ -3,379 +3,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Momentum Strata | Leaders Crypto</title>
-    <meta name="description" content="Sélection algorithmique hebdomadaire des cryptomonnaies les plus performantes, avec zones d'intervention et stop loss.">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-
-    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Crypto | Momentum Strata</title>
     
+    <script src="https://cdn.tailwindcss.com"></script>
     <script src="assets/js/tailwind-config.js"></script>
+    <script src="assets/js/main.js" defer></script>
 
     <style>
-        .sparkline-path {
-            stroke-linecap: round;
-            stroke-linejoin: round;
-        }
+        .sparkline-path { stroke-linecap: round; stroke-linejoin: round; }
+        .sparkline-sma { stroke-dasharray: 2, 2; }
     </style>
 </head>
 <body class="bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-50 antialiased flex flex-col min-h-screen">
 
-    <div class="border-b border-slate-800/70 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
-        
-        <div id="navbar-container"></div>
+    <div id="navbar-container"></div>
 
+    <div class="border-b border-slate-800/70 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
         <header class="py-12 md:py-16 px-4 md:px-10 text-center max-w-4xl mx-auto">
             <div class="inline-flex items-center mb-6 px-4 py-1.5 bg-purple-500/10 border border-purple-400/40 text-purple-200 text-[11px] font-semibold uppercase tracking-[0.2em] rounded-full">
                 <span class="relative flex h-2 w-2 mr-2">
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
                     <span class="relative inline-flex rounded-full h-2 w-2 bg-purple-400"></span>
                 </span>
-                Marché 24/7 • Top 200 • Haute Volatilité
+                Algo Trading • Top 150 Crypto
             </div>
 
             <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-5">
-                Les leaders du marché <span class="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-blue-500 relative inline-block">
-                    Crypto
-                </span><br class="hidden md:block" />
-                détectés par algorithme.
+                Volatilité & Momentum :<br class="hidden md:block" />
+                <span class="text-brand-primary relative inline-block text-purple-500">
+                    Le Marché Crypto
+                </span>
             </h1>
 
             <p class="text-sm md:text-base text-slate-300/90 max-w-2xl mx-auto leading-relaxed">
-                Scan systématique des 200 principales capitalisations liquides. Sélection quantitative basée sur la force relative (momentum), filtrée par la tendance long terme (SMA200) et sécurisée par un stop suiveur de volatilité.
+                Scan automatique du Top 150 (hors Stablecoins).<br>
+                Détection des <strong>explosions de volume</strong> et des <strong>replis stratégiques</strong>.
             </p>
         </header>
     </div>
 
-    <main class="flex-grow">
-
-        <section id="performance" class="px-4 md:px-6 lg:px-0 py-10 md:py-14">
+    <main class="flex-grow space-y-20 pb-20 mt-10">
+        
+        <section id="phoenix" class="px-4 md:px-6 lg:px-0">
             <div class="max-w-5xl mx-auto">
-
-                <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-5">
+                <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-5 border-b border-slate-800 pb-4">
                     <div>
-                        <h2 class="font-bold text-lg md:text-xl text-slate-50">Top 5 Momentum & Plan de Trading Crypto</h2>
-                        <p class="text-xs text-slate-400 mt-1">
-                            Univers Top 200, filtré par tendance (SMA200) et volatilité.
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30 uppercase tracking-wider">Stratégie 1</span>
+                            <h2 class="font-bold text-2xl text-slate-50">Phoenix (Breakout)</h2>
+                        </div>
+                        <p class="text-sm text-slate-400 max-w-xl">
+                            "Le réveil des Altcoins." Cryptos qui cassent leur SMA 200 avec un <strong>volume explosif</strong>.
                         </p>
                     </div>
-                    <div class="flex flex-col items-start md:items-end space-y-1 text-xs">
-                        <p class="inline-flex items-center bg-slate-900/80 border border-slate-700/80 px-3 py-1.5 rounded-full text-slate-300">
-                            <span class="text-slate-400 mr-1">MàJ :</span>
-                            <span id="date-maj" class="font-semibold text-purple-300">Chargement...</span>
-                        </p>
-                        <p id="stats-resume" class="hidden text-[11px] text-slate-400"></p>
+                    <div class="text-right">
+                        <p class="text-xs text-slate-500">Mise à jour : <span id="date-phoenix" class="text-slate-300 font-medium">...</span></p>
                     </div>
                 </div>
-
-                <div class="bg-slate-900/80 backdrop-blur rounded-2xl shadow-premium border border-slate-800/80 overflow-hidden">
+                <div class="bg-slate-900/80 backdrop-blur rounded-2xl shadow-premium border border-slate-800/80 overflow-hidden relative">
                     <div class="overflow-x-auto">
                         <table class="w-full text-left border-collapse">
                             <thead>
-                                <tr class="bg-slate-900 text-[11px] uppercase tracking-[0.18em] text-slate-400 border-b border-slate-800">
-                                    <th class="px-6 py-3.5">Token</th>
-                                    <th class="px-6 py-3.5 hidden md:table-cell">Tendance (30j)</th>
-                                    <th class="px-6 py-3.5">Momentum</th>
-                                    <th class="px-6 py-3.5 hidden sm:table-cell">Zone d'achat</th>
-                                    <th class="px-6 py-3.5 hidden sm:table-cell">Stop Suiveur</th>
-                                    <th class="px-6 py-3.5 text-right">Analyse</th>
+                                <tr class="bg-slate-950 text-[11px] uppercase tracking-[0.18em] text-slate-400 border-b border-slate-800">
+                                    <th class="px-6 py-3.5">Crypto</th>
+                                    <th class="px-6 py-3.5 hidden md:table-cell">Config (30j)</th>
+                                    <th class="px-6 py-3.5">Volume Ratio</th>
+                                    <th class="px-6 py-3.5 hidden sm:table-cell">Breakout</th>
+                                    <th class="px-6 py-3.5 hidden sm:table-cell">Stop Loss</th>
+                                    <th class="px-6 py-3.5 text-right">Chart</th>
                                 </tr>
                             </thead>
-                            <tbody id="tableau-crypto" class="text-sm divide-y divide-slate-800">
-                                <tr>
-                                    <td colspan="6" class="px-6 py-12 text-center">
-                                        <div class="flex flex-col items-center justify-center text-slate-500 text-xs gap-2">
-                                            <div class="flex space-x-1 mb-1">
-                                                <span class="h-1.5 w-5 rounded-full bg-purple-500 animate-pulse"></span>
-                                                <span class="h-1.5 w-5 rounded-full bg-purple-600 animate-pulse delay-75"></span>
-                                                <span class="h-1.5 w-5 rounded-full bg-purple-500 animate-pulse delay-150"></span>
-                                            </div>
-                                            <span class="font-medium">Scan de la Blockchain...</span>
-                                            <span class="text-[11px] text-slate-600">Récupération des prix et calcul des performances.</span>
-                                        </div>
-                                    </td>
-                                </tr>
+                            <tbody id="table-phoenix" class="text-sm divide-y divide-slate-800">
+                                <tr><td colspan="6" class="px-6 py-8 text-center text-xs text-slate-500">Chargement des données...</td></tr>
                             </tbody>
                         </table>
                     </div>
+                </div>
+            </div>
+        </section>
 
-                    <div class="bg-slate-950/80 px-6 py-4 border-t border-slate-800/80 text-[11px] text-slate-400 flex flex-col md:flex-row items-center justify-between gap-2">
-                        <div class="flex items-center gap-2">
-                            <svg class="w-3 h-3 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                            </svg>
-                            <span>Stop Suiveur large basé sur la volatilité (3.0 × ATR). Données indicatives vs USD.</span>
+        <section id="pullback" class="px-4 md:px-6 lg:px-0">
+            <div class="max-w-5xl mx-auto">
+                <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-5 border-b border-slate-800 pb-4">
+                    <div>
+                        <div class="flex items-center gap-2 mb-1">
+                            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 uppercase tracking-wider">Stratégie 2</span>
+                            <h2 class="font-bold text-2xl text-slate-50">Trend Pullback (Rebond)</h2>
                         </div>
+                        <p class="text-sm text-slate-400 max-w-xl">
+                            "Acheter le Dip." Cryptos en tendance haussière qui reviennent tester leur support (SMA 50).
+                        </p>
+                    </div>
+                    <div class="text-right">
+                        <p class="text-xs text-slate-500">Mise à jour : <span id="date-pullback" class="text-slate-300 font-medium">...</span></p>
+                    </div>
+                </div>
+                <div class="bg-slate-900/80 backdrop-blur rounded-2xl shadow-premium border border-slate-800/80 overflow-hidden relative">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-950 text-[11px] uppercase tracking-[0.18em] text-slate-400 border-b border-slate-800">
+                                    <th class="px-6 py-3.5">Crypto</th>
+                                    <th class="px-6 py-3.5 hidden md:table-cell">Config (30j)</th>
+                                    <th class="px-6 py-3.5">Distance SMA</th>
+                                    <th class="px-6 py-3.5 hidden sm:table-cell">Prix</th>
+                                    <th class="px-6 py-3.5 hidden sm:table-cell">Stop Loss</th>
+                                    <th class="px-6 py-3.5 text-right">Chart</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-pullback" class="text-sm divide-y divide-slate-800">
+                                <tr><td colspan="6" class="px-6 py-8 text-center text-xs text-slate-500">Chargement des données...</td></tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section class="py-10 bg-slate-950 border-t border-slate-900/80 relative z-20">
-            <div class="max-w-5xl mx-auto px-4 md:px-6 lg:px-0">
-                
-                <div class="bg-gradient-to-br from-purple-900/20 to-slate-900/40 border border-purple-500/20 rounded-2xl p-6 md:p-8 shadow-lg">
-                    <h3 class="text-xl font-bold text-white mb-6 flex items-center">
-                        <svg class="w-6 h-6 mr-2 text-purple-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                        Guide d'exécution : Trading Crypto Momentum
-                    </h3>
-                    
-                    <div class="grid md:grid-cols-3 gap-6">
-                        <div class="flex flex-col gap-3">
-                            <div class="flex items-center gap-2">
-                                <span class="flex h-8 w-8 items-center justify-center rounded-full bg-purple-500/20 text-sm font-bold text-purple-300 ring-1 ring-purple-500/40">1</span>
-                                <h4 class="font-semibold text-slate-100">L'Entrée (Timing 24/7)</h4>
-                            </div>
-                            <p class="text-sm text-slate-400 leading-relaxed">
-                                La mise à jour est hebdomadaire, mais le marché crypto ne dort jamais.
-                                <br><br>
-                                Utilisez la <span class="text-purple-300 font-medium">"Zone cible"</span> pour entrer. Soyez patient : la volatilité crypto offre souvent des opportunités de repli vers cette zone dans les jours suivant la publication.
-                            </p>
-                        </div>
-
-                        <div class="flex flex-col gap-3 border-t md:border-t-0 md:border-l border-slate-800 pt-6 md:pt-0 md:pl-6">
-                            <div class="flex items-center gap-2">
-                                <span class="flex h-8 w-8 items-center justify-center rounded-full bg-rose-500/20 text-sm font-bold text-rose-300 ring-1 ring-rose-500/40">2</span>
-                                <h4 class="font-semibold text-slate-100">Le Stop Suiveur (Vital)</h4>
-                            </div>
-                            <p class="text-sm text-slate-400 leading-relaxed">
-                                La valeur "Stop Suiveur" est un <strong class="text-slate-200">Stop large</strong> (Volatilité x3) pour encaisser les secousses crypto.
-                                <br><br>
-                                Placez-le immédiatement. <strong>Ne le baissez jamais.</strong> Remontez-le manuellement chaque semaine si la nouvelle valeur calculée par le bot est supérieure à la précédente.
-                            </p>
-                        </div>
-
-                        <div class="flex flex-col gap-3 border-t md:border-t-0 md:border-l border-slate-800 pt-6 md:pt-0 md:pl-6">
-                            <div class="flex items-center gap-2">
-                                <span class="flex h-8 w-8 items-center justify-center rounded-full bg-emerald-500/20 text-sm font-bold text-emerald-300 ring-1 ring-emerald-500/40">3</span>
-                                <h4 class="font-semibold text-slate-100">La Sortie (Ride the wave)</h4>
-                            </div>
-                            <p class="text-sm text-slate-400 leading-relaxed">
-                                Les tendances crypto peuvent être explosives. <strong>Pas de Take Profit fixe.</strong>
-                                <br><br>
-                                La sortie se fait uniquement si le prix touche votre <span class="text-rose-300 font-medium">Stop Suiveur</span> remonté, verrouillant ainsi les gains majeurs lors du retournement de tendance.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </section>
-
-        <section id="method" class="py-14 md:py-18 bg-slate-950 border-t border-slate-900/80">
-            <div class="max-w-5xl mx-auto px-4 md:px-6 lg:px-0">
-                <div class="text-center mb-10">
-                    <h2 class="text-2xl font-extrabold text-white">Notre Algorithme Crypto</h2>
-                    <p class="text-slate-400 mt-3 max-w-xl mx-auto text-sm">
-                        Une approche quantitative adaptée à la rapidité et aux risques des actifs numériques.
-                    </p>
-                </div>
-
-                <div class="grid md:grid-cols-3 gap-6 md:gap-8">
-                    <article class="relative p-6 md:p-7 bg-slate-900/70 border border-slate-800/90 rounded-2xl shadow-soft group hover:border-purple-500/60 hover:shadow-[0_0_40px_rgba(168,85,247,0.25)] transition-all duration-300">
-                        <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-400/40 flex items-center justify-center mb-5">
-                            <svg class="w-5 h-5 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                        </div>
-                        <h3 class="text-slate-50 font-semibold mb-2 text-base">01. Univers & Tendance</h3>
-                        <p class="text-xs md:text-sm text-slate-400 leading-relaxed">
-                            Scan du <span class="font-semibold text-slate-100">Top 200</span> liquide. Rejet systématique si le prix est sous la <span class="font-semibold text-slate-100">SMA 200 jours</span> pour éviter les marchés baissiers ("crypto winter").
-                        </p>
-                    </article>
-
-                    <article class="relative p-6 md:p-7 bg-slate-900/70 border border-slate-800/90 rounded-2xl shadow-soft group hover:border-purple-500/60 hover:shadow-[0_0_40px_rgba(168,85,247,0.25)] transition-all duration-300">
-                        <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-400/40 flex items-center justify-center mb-5">
-                            <svg class="w-5 h-5 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                        </div>
-                        <h3 class="text-slate-50 font-semibold mb-2 text-base">02. Momentum & Sélection</h3>
-                        <p class="text-xs md:text-sm text-slate-400 leading-relaxed">
-                            Classement par force relative sur 6 mois. Seul le <span class="font-semibold text-slate-100">Top 5</span> absolu est retenu pour concentrer le capital sur les leaders.
-                        </p>
-                    </article>
-
-                    <article class="relative p-6 md:p-7 bg-slate-900/70 border border-slate-800/90 rounded-2xl shadow-soft group hover:border-purple-500/60 hover:shadow-[0_0_40px_rgba(168,85,247,0.25)] transition-all duration-300">
-                        <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-400/40 flex items-center justify-center mb-5">
-                            <svg class="w-5 h-5 text-purple-300" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                        </div>
-                        <h3 class="text-slate-50 font-semibold mb-2 text-base">03. Gestion du Risque</h3>
-                        <p class="text-xs md:text-sm text-slate-400 leading-relaxed">
-                            Définition d'une zone d'entrée optimale et d'un <span class="font-semibold text-slate-100">Stop Suiveur large (3x ATR)</span> pour laisser courir les gains tout en maîtrisant la volatilité extrême.
-                        </p>
-                    </article>
-                </div>
-            </div>
-        </section>
     </main>
 
     <div id="footer-container"></div>
 
-    <script src="assets/js/main.js"></script>
-
     <script>
-        // NOUVELLE FONCTION : Formate les prix crypto selon la règle des 5$
-        function formatCryptoPrice(price) {
-            if (price === undefined || price === null) return '...';
-            const num = parseFloat(price);
-            if (isNaN(num)) return '...';
-
-            if (num >= 5) {
-                // Règle 1 : >= 5$ -> Arrondi à l'unité
-                return Math.round(num).toString();
-            } else {
-                // Règle 2 : < 5$ -> On affiche tel quel (le JSON a déjà la bonne précision)
-                return num.toString();
-            }
-        }
-
-        // Fonction SVG adaptée avec des couleurs violettes pour la crypto
-        function createSparkline(data, width = 130, height = 42) {
-            if (!data || data.length < 2) {
-                return '<span class="text-[11px] text-slate-500">Pas de données</span>';
-            }
-
-            const min = Math.min(...data);
-            const max = Math.max(...data);
+        function createSparkline(data, sma200, width = 120, height = 40, color = "#10b981") {
+            if (!data || data.length < 2) return '';
+            const allValues = [...data, sma200];
+            const min = Math.min(...allValues);
+            const max = Math.max(...allValues);
             const range = max - min || 1;
-            const paddingY = 4;
-            const effectiveHeight = height - paddingY * 2;
+            const paddingY = 5;
+            const effH = height - paddingY * 2;
             const stepX = width / (data.length - 1);
-
-            const pathPoints = data.map((val, i) => {
+            const path = data.map((val, i) => {
                 const x = i * stepX;
-                const y = (height - paddingY) - ((val - min) / range * effectiveHeight);
+                const y = (height - paddingY) - ((val - min) / range * effH);
                 return `${i === 0 ? 'M' : 'L'} ${x.toFixed(1)},${y.toFixed(1)}`;
             }).join(' ');
-
-            const lastX = width;
-            const lastY = (height - paddingY) - ((data[data.length - 1] - min) / range * effectiveHeight);
-
-            // Couleurs VIOLETTES (purple-600/500)
-            return `
-                <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" class="overflow-visible">
-                    <path d="${pathPoints}" fill="none" stroke="#9333ea" stroke-width="3" opacity="0.16" transform="translate(0,2)" class="sparkline-path" />
-                    <path d="${pathPoints}" fill="none" stroke="#a855f7" stroke-width="2" class="sparkline-path" vector-effect="non-scaling-stroke" />
-                    <circle cx="${lastX.toFixed(1)}" cy="${lastY.toFixed(1)}" r="2.6" fill="#020617" stroke="#a855f7" stroke-width="1.8" />
-                </svg>
-            `;
+            const smaY = (height - paddingY) - ((sma200 - min) / range * effH);
+            return `<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" class="overflow-visible"><line x1="0" y1="${smaY}" x2="${width}" y2="${smaY}" stroke="#475569" stroke-width="1" stroke-dasharray="3,3" opacity="0.6" /><path d="${path}" fill="none" stroke="${color}" stroke-width="2" vector-effect="non-scaling-stroke" /><circle cx="${width}" cy="${(height - paddingY) - ((data[data.length-1] - min)/range*effH)}" r="2" fill="${color}" /></svg>`;
         }
 
-        // MISE À JOUR DU CHEMIN : data/crypto.json
-        fetch('data/crypto.json')
-            .then(r => {
-                if (!r.ok) throw new Error('Erreur de chargement JSON');
-                return r.json();
-            })
+        // --- CHARGEMENT DONNÉES CRYPTO ---
+        fetch('data/crypto_breakout_pro.json')
+            .then(r => r.json())
             .then(data => {
-                const dateEl = document.getElementById('date-maj');
-                const tbody = document.getElementById('tableau-crypto');
-                const statsEl = document.getElementById('stats-resume');
-
-                if (data.date_mise_a_jour) {
-                    dateEl.textContent = data.date_mise_a_jour;
-                } else {
-                    dateEl.textContent = '—';
-                }
-
+                document.getElementById('date-phoenix').textContent = data.date_mise_a_jour || '-';
+                const tbody = document.getElementById('table-phoenix');
+                tbody.innerHTML = '';
                 const entries = Object.entries(data.picks || {});
                 if (!entries.length) {
-                    tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-8 text-center text-xs text-slate-400">Aucune crypto sélectionnée pour cette mise à jour.</td></tr>';
-                    return;
+                    tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Aucun breakout détecté.</td></tr>';
+                } else {
+                    entries.forEach(([ticker, info]) => {
+                        const price = info.entry_price || 0;
+                        const estSma = price / (1 + (info.score / 100));
+                        const graph = createSparkline(info.history, estSma, 120, 40, "#fbbf24");
+                        tbody.insertAdjacentHTML('beforeend', `<tr class="hover:bg-slate-800/50 border-b border-slate-800/50 transition-colors"><td class="px-6 py-4"><span class="font-bold text-amber-100">${info.name}</span><div class="text-[10px] text-slate-400">${ticker.replace('-USD','')}</div></td><td class="px-6 py-4 hidden md:table-cell">${graph}</td><td class="px-6 py-4"><span class="inline-flex px-2 py-1 rounded text-xs font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">Vol: x${info.vol_ratio}</span></td><td class="px-6 py-4 hidden sm:table-cell"><span class="text-xs text-slate-300">+${(info.score).toFixed(2)}%</span></td><td class="px-6 py-4 hidden sm:table-cell text-rose-400 font-mono text-xs">$${price < 1 ? price.toFixed(4) : price.toFixed(2)}</td><td class="px-6 py-4 text-right"><a href="https://www.tradingview.com/symbols/${ticker.replace('-','').replace('USD','USDT')}/" target="_blank" class="text-amber-400 hover:text-amber-300 text-xs font-medium">Voir &rarr;</a></td></tr>`);
+                    });
                 }
+            }).catch(()=>document.getElementById('table-phoenix').innerHTML='<tr><td colspan="6" class="px-6 py-6 text-center">Données indisponibles.</td></tr>');
 
-                const sortedPicks = entries.sort(([, a], [, b]) => (b.score || 0) - (a.score || 0));
-
-                // Résumé
-                if (sortedPicks.length > 0) {
-                    statsEl.textContent = `${sortedPicks.length} actifs sélectionnés vs USD`;
-                    statsEl.classList.remove('hidden');
-                }
-
+        fetch('data/crypto_pullback_pro.json')
+            .then(r => r.json())
+            .then(data => {
+                document.getElementById('date-pullback').textContent = data.date_mise_a_jour || '-';
+                const tbody = document.getElementById('table-pullback');
                 tbody.innerHTML = '';
-
-                for (const [token, info] of sortedPicks) {
-                    const rawScore = typeof info.score === 'number' ? info.score : 0;
-                    const perfIsPos = rawScore >= 0;
-                    const perfSign = perfIsPos ? '+' : '';
-                    const perfValue = (Math.abs(rawScore) * 100).toFixed(1); 
-                    
-                    const perfClass = perfIsPos
-                        ? 'bg-purple-500/15 text-purple-300 border border-purple-500/40'
-                        : 'bg-rose-500/15 text-rose-300 border border-rose-500/40';
-
-                    const historyData = (info.history && info.history.length > 0) ? info.history : null;
-                    const sparklineSVG = createSparkline(historyData, 140, 46);
-                    const tradingViewLink = `https://www.tradingview.com/symbols/${info.full_ticker || token}/`;
-
-                    // NOUVEAU : Utilisation de la fonction de formatage des prix
-                    const entryMinStr = formatCryptoPrice(info.entry_min);
-                    const entryMaxStr = formatCryptoPrice(info.entry_max);
-                    const stopLossStr = formatCryptoPrice(info.stop_loss);
-
-                    const ligne = `
-                        <tr class="hover:bg-slate-900/70 transition-colors duration-150">
-                            <td class="px-6 py-4">
-                                <div class="flex flex-col">
-                                    <span class="font-semibold text-slate-50 text-base leading-tight">${token.replace('-USD', '')}</span>
-                                    <span class="text-[11px] text-slate-400 truncate max-w-[11rem]" title="${info.name || ''}">
-                                        ${info.name || '/ USD'}
-                                    </span>
-                                </div>
-                            </td>
-
-                            <td class="px-6 py-4 hidden md:table-cell align-middle">
-                                ${sparklineSVG}
-                            </td>
-
-                            <td class="px-6 py-4 align-middle">
-                                <span class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold ${perfClass}">
-                                    <span class="mr-1">
-                                        ${perfIsPos 
-                                            ? '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7 7 7M12 3v18"/></svg>'
-                                            : '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7-7-7M12 3v18"/></svg>'
-                                        }
-                                    </span>
-                                    ${perfSign}${perfValue}%
-                                </span>
-                            </td>
-
-                            <td class="px-6 py-4 hidden sm:table-cell align-middle">
-                                <div class="flex flex-col text-xs">
-                                    <span class="font-semibold text-slate-100">$${entryMinStr} – $${entryMaxStr}</span>
-                                    <span class="text-[11px] text-slate-500">Zone cible</span>
-                                </div>
-                            </td>
-
-                            <td class="px-6 py-4 hidden sm:table-cell align-middle">
-                                <span class="inline-flex items-center px-3 py-1.5 rounded-full text-xs font-semibold bg-rose-500/10 text-rose-300 border border-rose-500/40">
-                                    $${stopLossStr}
-                                </span>
-                            </td>
-
-                            <td class="px-6 py-4 text-right align-middle">
-                                <a href="${tradingViewLink}" target="_blank" rel="noopener noreferrer"
-                                   class="inline-flex items-center justify-center px-3.5 py-1.5 rounded-full bg-purple-600 text-[11px] font-semibold text-white hover:bg-purple-500 hover:shadow-[0_0_20px_rgba(168,85,247,0.5)] transition-all active:scale-95">
-                                    Chart
-                                    <svg class="w-3 h-3 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6h8m0 0v8m0-8L5 19"/>
-                                    </svg>
-                                </a>
-                            </td>
-                        </tr>
-                    `;
-
-                    tbody.insertAdjacentHTML('beforeend', ligne);
+                const entries = Object.entries(data.picks || {});
+                if (!entries.length) {
+                    tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Aucun pullback détecté.</td></tr>';
+                } else {
+                    entries.forEach(([ticker, info]) => {
+                        const price = info.entry_price || 0;
+                        const estSma = price / (1 + (info.score / 100));
+                        const graph = createSparkline(info.history, estSma, 120, 40, "#10b981");
+                        tbody.insertAdjacentHTML('beforeend', `<tr class="hover:bg-slate-800/50 border-b border-slate-800/50 transition-colors"><td class="px-6 py-4"><span class="font-bold text-slate-100">${info.name}</span><div class="text-[10px] text-slate-400">${ticker.replace('-USD','')}</div></td><td class="px-6 py-4 hidden md:table-cell">${graph}</td><td class="px-6 py-4"><span class="inline-flex px-2 py-1 rounded text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">${(info.score).toFixed(2)}%</span></td><td class="px-6 py-4 hidden sm:table-cell text-slate-300 font-mono text-xs">$${price < 1 ? price.toFixed(4) : price.toFixed(2)}</td><td class="px-6 py-4 hidden sm:table-cell text-rose-400 font-mono text-xs">$${info.stop_loss < 1 ? info.stop_loss.toFixed(4) : info.stop_loss.toFixed(2)}</td><td class="px-6 py-4 text-right"><a href="https://www.tradingview.com/symbols/${ticker.replace('-','').replace('USD','USDT')}/" target="_blank" class="text-blue-400 hover:text-blue-300 text-xs font-medium">Voir &rarr;</a></td></tr>`);
+                    });
                 }
-            })
-            .catch(err => {
-                console.error('Erreur :', err);
-                const tbody = document.getElementById('tableau-crypto');
-                tbody.innerHTML = `
-                    <tr>
-                        <td colspan="6" class="px-6 py-8 text-center text-xs bg-rose-950/40 text-rose-200 border-t border-rose-800/60">
-                            Erreur lors du chargement des données. Vérifiez le fichier <code class="font-mono text-[10px] bg-slate-900/80 px-1.5 py-0.5 rounded border border-slate-700/80">data/crypto.json</code>.
-                        </td>
-                    </tr>
-                `;
-                document.getElementById('date-maj').textContent = 'Erreur';
-            });
+            }).catch(()=>document.getElementById('table-pullback').innerHTML='<tr><td colspan="6" class="px-6 py-6 text-center">Données indisponibles.</td></tr>');
     </script>
 </body>
 </html>
