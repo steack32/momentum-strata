@@ -1,53 +1,47 @@
-name: Update S&P 500 Data
+name: Daily Algo Update
 
 on:
   schedule:
-    # -------------------------------------------------------
-    # CRON : C'est ici que se règle l'automatisation
-    # Minute (30) | Heure (22) | Jour (*) | Mois (*) | JourSemaine (1-5)
-    # 22h30 UTC = 23h30 ou 00h30 en France selon la saison
-    # '1-5' signifie du Lundi au Vendredi. 
-    # Mettez '*' à la place de '1-5' pour le lancer le week-end aussi.
-    # -------------------------------------------------------
-    - cron: '30 22 * * 1-5'
-  
-  # Permet de lancer manuellement le script via un bouton si besoin
-  workflow_dispatch:
+    - cron: '30 22 * * *'  # Tous les jours à 22h30 UTC
+  workflow_dispatch:      # Permet le lancement manuel
 
 permissions:
   contents: write
 
 jobs:
-  run-bots:
+  build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Récupération du code
-        uses: actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v3
 
-      - name: Configuration Python
-        uses: actions/setup-python@v5
+      - name: Set up Python
+        uses: actions/setup-python@v4
         with:
-          python-version: '3.10'
+          python-version: '3.9'
 
-      - name: Installation des librairies
+      - name: Install dependencies
         run: |
-          pip install yfinance pandas numpy requests lxml
+          python -m pip install --upgrade pip
+          # lxml est ajouté pour lire le tableau Wikipedia
+          pip install yfinance pandas pandas_ta requests lxml
 
-      # --- Lancement du Bot 1 (Pullback - Sécurité) ---
-      - name: Exécution Stratégie Pullback
-        run: python bots/bot_sp500_pullback_pro.py
+      # --- LANCE LE BOT S&P 500 (ACTIONS) ---
+      - name: Run S&P 500 Pro Bot
+        run: python bots/bot_sp500_pro.py
 
-      # --- Lancement du Bot 2 (Phoenix - Breakout) ---
-      - name: Exécution Stratégie Phoenix
-        run: python bots/bot_sp500_breakout_pro.py
+      # --- LANCE LE BOT CRYPTO ---
+      - name: Run Crypto Pro Bot
+        run: python bots/bot_crypto_pro.py
 
-      # --- Sauvegarde des résultats sur le site ---
-      - name: Commit et Push des fichiers JSON
+      # --- SAUVEGARDE TOUT ---
+      - name: Commit and Push Data
         run: |
-          git config --global user.name "GitHub Actions Bot"
-          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Action"
+          git config --global user.email "action@github.com"
+          
+          # Ajoute tous les fichiers JSON générés
           git add data/*.json
-          # Le "|| exit 0" empêche l'erreur si aucun fichier n'a changé (ex: jours fériés)
-          git commit -m "📈 Auto-update: S&P 500 Strategies" || exit 0
+          
+          git commit -m "Auto-update: Stocks & Crypto Data" || echo "No changes to commit"
           git push
