@@ -1,6 +1,4 @@
 // assets/js/main.js
-
-// Fonction générique pour charger un fichier HTML
 async function loadComponent(elementId, filePath) {
     try {
         const response = await fetch(filePath);
@@ -12,17 +10,14 @@ async function loadComponent(elementId, filePath) {
     }
 }
 
-// Lancement au chargement de la page
 document.addEventListener("DOMContentLoaded", async () => {
-    // 1. On attend le chargement complet de la Navbar et du Footer
-    // Le "await" est important pour garantir l'ordre
+    // 1. On charge Navbar et Footer
     await Promise.all([
         loadComponent("navbar-container", "assets/components/navbar.html"),
         loadComponent("footer-container", "assets/components/footer.html")
     ]);
 
-    // 2. IMPORTANT : On dit à Memberstack de rescanner la page
-    // car de nouveaux boutons (login/logout) viennent d'apparaître
+    // 2. IMPORTANT : On réveille Memberstack une fois le HTML injecté
     if (window.$memberstackDom) {
         window.$memberstackDom.x.load();
     }
