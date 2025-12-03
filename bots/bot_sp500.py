@@ -36,13 +36,7 @@ def get_sp500_tickers():
 
     except Exception as e:
         print(f"⚠️ Erreur Wikipedia ({e}). Mode secours activé.", flush=True)
-        return [
-            "AAPL", "MSFT", "NVDA", "AMZN", "GOOG", "META", "TSLA", "BRK-B", "LLY", "AVGO",
-            "JPM", "V", "TSM", "UNH", "WMT", "MA", "XOM", "PG", "JNJ", "HD",
-            "ORCL", "MRK", "COST", "ABBV", "CVX", "CRM", "BAC", "AMD", "PEP", "NFLX",
-            "KO", "DIS", "ADBE", "TMO", "WFC", "CSCO", "ACN", "MCD", "INTC", "QCOM",
-            "IBM", "GE", "VZ", "DHR", "NKE", "TXN", "NEE", "PM", "UPS", "RTX"
-        ]
+        return ["AAPL", "MSFT", "NVDA", "AMZN", "GOOG", "META", "TSLA", "BRK-B", "LLY", "AVGO", "JPM", "V", "XOM"]
 
 print(f"--- PULLBACK BOT : Analyse S&P 500 ---", flush=True)
 tickers = get_sp500_tickers()
@@ -54,7 +48,6 @@ stats = {
 
 try:
     print(f"⏳ Téléchargement des données (2 ans)...", flush=True)
-    # auto_adjust=False est CRUCIAL pour avoir 'Adj Close'
     data = yf.download(tickers, period="2y", interval="1d", group_by='ticker', 
                        progress=False, threads=True, auto_adjust=False)
     print("✅ Téléchargement terminé.", flush=True)
@@ -93,13 +86,10 @@ for i, ticker in enumerate(tickers, 1):
         # --- FILTRES PULLBACK ---
         pct_diff = (current_price - sma_200) / sma_200
         
-        # On cherche entre -3% (mèche basse) et +15% (tendance établie)
         if pct_diff < -0.03: 
-            stats["too_low"] += 1
-            continue
+            stats["too_low"] += 1; continue
         if pct_diff > 0.15: 
-            stats["too_far"] += 1
-            continue
+            stats["too_far"] += 1; continue
 
         candidates[ticker] = {
             "distance": pct_diff,
@@ -120,16 +110,15 @@ print("="*40 + "\n", flush=True)
 
 # Tri par distance ABSOLUE (les plus proches de la courbe)
 sorted_candidates = sorted(candidates.items(), key=lambda x: abs(x[1]['distance']))
-top_5 = sorted_candidates[:5]
+top_10 = sorted_candidates[:10]
 
 export_data = {}
-try: tickers_info = yf.Tickers(' '.join([t[0] for t in top_5]))
+try: tickers_info = yf.Tickers(' '.join([t[0] for t in top_10]))
 except: tickers_info = None
 
-for ticker, info in top_5:
+for ticker, info in top_10:
     full_name = ticker
     history_clean = []
-    
     try:
         if tickers_info and ticker in tickers_info.tickers:
             infos_dict = tickers_info.tickers[ticker].info
@@ -143,7 +132,6 @@ for ticker, info in top_5:
         history_clean = [round(x, 2) for x in prices.tail(30).tolist() if not pd.isna(x)]
         stop_loss_price = round(info['sma_200'] * 0.97, 2)
         entry_price = round(info['price'], 2)
-
     except Exception:
         stop_loss_price = 0; entry_price = 0
 
@@ -155,14 +143,40 @@ for ticker, info in top_5:
         "stop_loss": stop_loss_price
     }
 
-# --- SAUVEGARDE ROBUSTE (CHEMIN ABSOLU) ---
-final_payload = {"date_mise_a_jour": datetime.now().strftime("%d/%m/%Y"), "picks": export_data}
-script_dir = os.path.dirname(os.path.abspath(__file__))
-json_path = os.path.join(os.path.dirname(script_dir), 'data', 'sp500_pullback.json')
+# --- SAUVEGARDE ROBUSTE (FREE & PRO) ---
+# On est dans /bots/bot.py -> on doit remonter dans /data/
+script_dir = os.path.dirname(os.path.abspath(__file__)) # .../bots
+project_root = os.path.dirname(script_dir)            # .../
+data_dir = os.path.join(project_root, 'data')         # .../data
 
+if not os.path.exists(data_dir):
+    os.makedirs(data_dir)
+
+# 1. Version PRO (Tout)
+payload_pro = {
+    "date_mise_a_jour": datetime.now().strftime("%d/%m/%Y"),
+    "picks": export_data
+}
+path_pro = os.path.join(data_dir, 'sp500_pullback_pro.json')
 try:
-    with open(json_path, "w") as f: json.dump(final_payload, f, allow_nan=True)
-    print(f"🚀 Sauvegarde réussie : {json_path}", flush=True)
+    with open(path_pro, "w") as f: json.dump(payload_pro, f, allow_nan=True)
 except Exception as e:
-    print(f"❌ Erreur sauvegarde : {e}", flush=True)
-    exit(1)
+    print(f"❌ Erreur sauvegarde PRO : {e}")
+
+# 2. Version FREE (Uniquement le premier résultat)
+first_key = list(export_data.keys())[0] if export_data else None
+free_data = {first_key: export_data[first_key]} if first_key else {}
+
+payload_free = {
+    "date_mise_a_jour": datetime.now().strftime("%d/%m/%Y"),
+    "picks": free_data
+}
+path_free = os.path.join(data_dir, 'sp500_pullback_free.json')
+try:
+    with open(path_free, "w") as f: json.dump(payload_free, f, allow_nan=True)
+except Exception as e:
+    print(f"❌ Erreur sauvegarde FREE : {e}")
+
+print(f"🚀 Sauvegardes terminées.")
+print(f"   📂 Public : {path_free}")
+print(f"   🔒 Privé  : {path_pro}")

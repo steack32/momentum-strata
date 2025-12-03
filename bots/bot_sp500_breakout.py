@@ -57,7 +57,6 @@ for i, ticker in enumerate(tickers, 1):
     try:
         if is_multi:
             if ticker not in data.columns.levels[0]: continue
-            # Récup Prix et Volume
             if 'Adj Close' in data[ticker]: price_series = data[ticker]['Adj Close'].dropna()
             elif 'Close' in data[ticker]: price_series = data[ticker]['Close'].dropna()
             else: continue
@@ -82,14 +81,11 @@ for i, ticker in enumerate(tickers, 1):
         if pd.isna(sma_200): continue
 
         # --- FILTRES PHOENIX ---
-        
-        # 1. Breakout : Prix actuel > SMA et Prix précédent < SMA
         if current_price <= sma_200: 
             stats["no_breakout"] += 1; continue
         if prev_price >= sma_200_prev: 
             stats["no_breakout"] += 1; continue
 
-        # 2. Volume : Doit être explosif (x1.5 moyenne 20 jours)
         avg_vol = vol_series.tail(21).iloc[:-1].mean()
         if avg_vol == 0: continue
         
@@ -116,18 +112,16 @@ print(f"   Scannés       : {stats['downloaded']}", flush=True)
 print(f"   🔥 Candidats  : {stats['candidates']}", flush=True)
 print("="*40 + "\n", flush=True)
 
-# Tri par puissance du VOLUME
 sorted_candidates = sorted(candidates.items(), key=lambda x: x[1]['vol_ratio'], reverse=True)
-top_5 = sorted_candidates[:5]
+top_10 = sorted_candidates[:10]
 
 export_data = {}
-try: tickers_info = yf.Tickers(' '.join([t[0] for t in top_5]))
+try: tickers_info = yf.Tickers(' '.join([t[0] for t in top_10]))
 except: tickers_info = None
 
-for ticker, info in top_5:
+for ticker, info in top_10:
     full_name = ticker
     history_clean = []
-    
     try:
         if tickers_info and ticker in tickers_info.tickers:
             infos_dict = tickers_info.tickers[ticker].info
@@ -139,9 +133,8 @@ for ticker, info in top_5:
             prices = data['Adj Close'].dropna() if 'Adj Close' in data else data['Close'].dropna()
 
         history_clean = [round(x, 2) for x in prices.tail(30).tolist() if not pd.isna(x)]
-        stop_loss_price = round(info['sma_200'] * 0.98, 2) # Stop serré pour breakout
+        stop_loss_price = round(info['sma_200'] * 0.98, 2)
         entry_price = round(info['price'], 2)
-
     except Exception:
         stop_loss_price = 0; entry_price = 0
 
@@ -153,14 +146,39 @@ for ticker, info in top_5:
         "stop_loss": stop_loss_price
     }
 
-# --- SAUVEGARDE ROBUSTE (CHEMIN ABSOLU) ---
-final_payload = {"date_mise_a_jour": datetime.now().strftime("%d/%m/%Y"), "picks": export_data}
-script_dir = os.path.dirname(os.path.abspath(__file__))
-json_path = os.path.join(os.path.dirname(script_dir), 'data', 'sp500_breakout.json')
+# --- SAUVEGARDE ROBUSTE (FREE & PRO) ---
+script_dir = os.path.dirname(os.path.abspath(__file__)) # .../bots
+project_root = os.path.dirname(script_dir)            # .../
+data_dir = os.path.join(project_root, 'data')         # .../data
 
+if not os.path.exists(data_dir):
+    os.makedirs(data_dir)
+
+# 1. Version PRO
+payload_pro = {
+    "date_mise_a_jour": datetime.now().strftime("%d/%m/%Y"),
+    "picks": export_data
+}
+path_pro = os.path.join(data_dir, 'sp500_breakout_pro.json')
 try:
-    with open(json_path, "w") as f: json.dump(final_payload, f, allow_nan=True)
-    print(f"🚀 Sauvegarde réussie : {json_path}", flush=True)
+    with open(path_pro, "w") as f: json.dump(payload_pro, f, allow_nan=True)
 except Exception as e:
-    print(f"❌ Erreur sauvegarde : {e}", flush=True)
-    exit(1)
+    print(f"❌ Erreur sauvegarde PRO : {e}")
+
+# 2. Version FREE
+first_key = list(export_data.keys())[0] if export_data else None
+free_data = {first_key: export_data[first_key]} if first_key else {}
+
+payload_free = {
+    "date_mise_a_jour": datetime.now().strftime("%d/%m/%Y"),
+    "picks": free_data
+}
+path_free = os.path.join(data_dir, 'sp500_breakout_free.json')
+try:
+    with open(path_free, "w") as f: json.dump(payload_free, f, allow_nan=True)
+except Exception as e:
+    print(f"❌ Erreur sauvegarde FREE : {e}")
+
+print(f"🚀 Sauvegardes terminées.")
+print(f"   📂 Public : {path_free}")
+print(f"   🔒 Privé  : {path_pro}")
