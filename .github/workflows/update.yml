@@ -36,11 +36,11 @@ jobs:
 
       # --- Lancement du Bot 1 (Pullback - Sécurité) ---
       - name: Exécution Stratégie Pullback
-        run: python bots/bot_sp500.py
+        run: python bots/bot_sp500_pullback_pro.py
 
       # --- Lancement du Bot 2 (Phoenix - Breakout) ---
       - name: Exécution Stratégie Phoenix
-        run: python bots/bot_sp500_breakout.py
+        run: python bots/bot_sp500_breakout_pro.py
 
       # --- Sauvegarde des résultats sur le site ---
       - name: Commit et Push des fichiers JSON
