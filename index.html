@@ -3,8 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: blob:; script-src 'self' https: 'unsafe-inline' 'unsafe-eval'; style-src 'self' https: 'unsafe-inline';">
     <title>S&P 500 | Momentum Strata</title>
     
     <script src="https://data.memberstack.com/memberstack.js" data-memberstack-id="app_cmip7jo4u00130sng2qwr1qy8"></script> 
@@ -28,8 +26,8 @@
 <body class="bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-50 antialiased flex flex-col min-h-screen">
 
     <div style="position:fixed; bottom:10px; left:10px; z-index:9999;">
-        <button id="btn-test-final" data-ms-price:add="prc_pro-monthly-na1c0fj8" class="bg-red-600 text-white font-bold px-4 py-2 rounded shadow-lg hover:bg-red-500 transition">
-            TEST FINAL (CLIQUEZ-MOI)
+        <button onclick="openCheckout()" class="bg-green-600 text-white font-bold px-4 py-2 rounded shadow-lg hover:bg-green-500 transition cursor-pointer">
+            TEST DIRECT PAIEMENT
         </button>
     </div>
 
@@ -149,9 +147,31 @@
     <div id="footer-container"></div>
 
     <script>
+        // --- 1. FONCTION DE PAIEMENT GLOBALE ---
+        // Cette fonction est appelée directement par les boutons (onclick)
+        function openCheckout() {
+            console.log("Tentative d'ouverture du checkout...");
+            
+            if (window.$memberstackDom) {
+                window.$memberstackDom.openModal({
+                    type: 'checkout',
+                    priceId: 'prc_pro-monthly-na1c0fj8'
+                }).then(() => {
+                    console.log("Checkout ouvert !");
+                }).catch((err) => {
+                    console.error("Erreur Memberstack:", err);
+                    alert("Erreur Memberstack: " + err);
+                });
+            } else {
+                console.error("Memberstack non chargé.");
+                alert("Le système de paiement charge encore... Vérifiez votre connexion ou désactivez AdBlock.");
+            }
+        }
+
+        // --- 2. FONCTIONS GRAPHIQUES ---
         function createSparkline(data, sma200, width=120, height=40, color="#10b981"){if(!data||data.length<2)return'';const all=[...data,sma200],min=Math.min(...all),max=Math.max(...all),range=max-min||1,pad=5,effH=height-pad*2,stepX=width/(data.length-1),path=data.map((v,i)=>`${i===0?'M':'L'} ${(i*stepX).toFixed(1)},${((height-pad)-((v-min)/range*effH)).toFixed(1)}`).join(' '),smaY=(height-pad)-((sma200-min)/range*effH);return`<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" class="overflow-visible"><line x1="0" y1="${smaY}" x2="${width}" y2="${smaY}" stroke="#475569" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/><path d="${path}" fill="none" stroke="${color}" stroke-width="2"/><circle cx="${width}" cy="${(height-pad)-((data[data.length-1]-min)/range*effH)}" r="2" fill="${color}"/></svg>`;}
 
-        // --- FONCTION PRINCIPALE DU PAYWALL ---
+        // --- 3. RENDU DU PAYWALL ---
         function renderPaywallTeaser(tbody, count=3, type="premium") {
             for (let i = 0; i < count; i++) {
                 tbody.insertAdjacentHTML('beforeend', `<tr class="blur-paywall border-b border-slate-800/50"><td class="px-6 py-4"><div class="h-4 w-12 bg-slate-700 rounded"></div></td><td class="px-6 py-4 hidden md:table-cell"><div class="h-8 w-24 bg-slate-700 rounded"></div></td><td class="px-6 py-4"><div class="h-4 w-8 bg-slate-700 rounded"></div></td><td class="px-6 py-4 hidden sm:table-cell"><div class="h-4 w-10 bg-slate-700 rounded"></div></td><td class="px-6 py-4 hidden sm:table-cell"><div class="h-4 w-10 bg-slate-700 rounded"></div></td><td class="px-6 py-4 text-right"><div class="h-4 w-8 bg-slate-700 rounded ml-auto"></div></td></tr>`);
@@ -164,20 +184,19 @@
                         <div class="bg-slate-900 border border-slate-700 p-6 rounded-xl text-center shadow-2xl max-w-sm mx-4 transform translate-y-10">
                             <h3 class="text-base font-bold text-white mb-1">Version Premium</h3>
                             <p class="text-slate-400 text-xs mb-4">Débloquez la sélection complète.</p>
-                            <button data-ms-price:add="prc_pro-monthly-na1c0fj8" class="block w-full py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded transition text-xs shadow-lg shadow-blue-900/20 cursor-pointer relative z-50">Devenir Membre</button>
+                            
+                            <button onclick="openCheckout()" class="block w-full py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded transition text-xs shadow-lg shadow-blue-900/20 cursor-pointer relative z-50">
+                                Devenir Membre
+                            </button>
+                            
                             <div class="mt-3 text-[10px] text-slate-500 relative z-50">Déjà membre ? <a href="#/ms/login" class="text-slate-300 underline hover:text-white cursor-pointer">Connexion</a></div>
                         </div>
                     </div>
                 `);
-
-                // On force Memberstack à re-scanner le DOM pour trouver ce nouveau bouton
-                setTimeout(() => {
-                    if(window.$memberstackDom && window.$memberstackDom.load) window.$memberstackDom.load();
-                }, 500);
             }
         }
 
-        // --- CHARGEMENT DATA ---
+        // --- 4. CHARGEMENT DATA ---
         fetch('data/sp500_pullback_free.json').then(r=>r.json()).then(data=>{
             document.getElementById('date-pullback').textContent=data.date_mise_a_jour||'-';
             const t=document.getElementById('table-pullback');t.innerHTML='';
