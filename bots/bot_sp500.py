@@ -1,0 +1,122 @@
+import yfinance as yf
+import pandas as pd
+import pandas_ta as ta
+import json
+import requests
+import time
+
+def get_sp500_tickers():
+    """
+    Récupère la liste officielle des composants du S&P 500 via Wikipedia.
+    Si Wikipedia échoue, utilise une liste de secours (Top 50).
+    """
+    try:
+        url = 'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'
+        table = pd.read_html(url)
+        df = table[0]
+        tickers = df['Symbol'].tolist()
+        # Correction pour Yahoo Finance (BRK.B -> BRK-B)
+        tickers = [t.replace('.', '-') for t in tickers]
+        print(f"✅ Liste S&P 500 récupérée : {len(tickers)} actions.")
+        return tickers
+    except Exception as e:
+        print(f"⚠️ Erreur récupération S&P 500 ({e}). Utilisation liste de secours.")
+        return ["AAPL", "MSFT", "GOOGL", "AMZN", "NVDA", "TSLA", "META", "BRK-B", "LLY", "V"]
+
+def analyze_market():
+    # On récupère TOUS les tickers du S&P 500
+    tickers = get_sp500_tickers()
+    
+    pullback_picks = {}
+    breakout_picks = {}
+    
+    print("🚀 Analyse S&P 500 Pro lancée...")
+    
+    # On télécharge les données par paquets pour aller plus vite
+    # (Yahoo Finance gère mal plus de 500 requêtes d'un coup, on boucle)
+    for ticker in tickers:
+        try:
+            df = yf.download(ticker, period="1y", interval="1d", progress=False)
+            
+            if len(df) < 200:
+                continue
+            
+            # Nettoyage MultiIndex
+            if isinstance(df.columns, pd.MultiIndex):
+                df.columns = df.columns.get_level_values(0)
+
+            # --- INDICATEURS ---
+            df['SMA_200'] = ta.sma(df['Close'], length=200)
+            df['SMA_50']  = ta.sma(df['Close'], length=50)
+            df['RSI']     = ta.rsi(df['Close'], length=14)
+            df['Vol_Avg'] = ta.sma(df['Volume'], length=20)
+
+            curr = df.iloc[-1]
+            prev = df.iloc[-2]
+            
+            price = curr['Close']
+            sma200 = curr['SMA_200']
+            
+            if pd.isna(sma200) or pd.isna(price): continue
+
+            # --- STRATÉGIE 1 : PHOENIX (BREAKOUT) ---
+            # Condition : Volume explosif (> 2.0x moyenne) sur une cassure ou tendance forte
+            vol_ratio = curr['Volume'] / curr['Vol_Avg'] if curr['Vol_Avg'] > 0 else 0
+            
+            if (price > sma200) and (vol_ratio > 2.0) and (price > prev['Close']):
+                score = ((price - sma200) / sma200) * 100
+                stop_loss = min(prev['Low'], price * 0.95)
+
+                breakout_picks[ticker] = {
+                    "name": ticker, # Sur les actions, le ticker suffit souvent
+                    "score": score,
+                    "entry_price": price,
+                    "stop_loss": stop_loss,
+                    "vol_ratio": round(vol_ratio, 1),
+                    "history": df['Close'].tail(30).values.tolist()
+                }
+
+            # --- STRATÉGIE 2 : PULLBACK (REBOND) ---
+            # Condition : Tendance haussière (Prix > SMA 200) + Repli (RSI < 60) + Proche SMA 50
+            dist_sma50 = (price - curr['SMA_50']) / curr['SMA_50']
+            
+            if (price > sma200) and (curr['RSI'] < 60) and (abs(dist_sma50) < 0.03):
+                score = ((price - sma200) / sma200) * 100
+                stop_loss = curr['SMA_50'] * 0.97
+
+                pullback_picks[ticker] = {
+                    "name": ticker,
+                    "score": score,
+                    "entry_price": price,
+                    "stop_loss": stop_loss,
+                    "history": df['Close'].tail(30).values.tolist()
+                }
+
+        except Exception:
+            continue
+
+    print(f"✅ Analyse terminée. Breakout: {len(breakout_picks)} | Pullback: {len(pullback_picks)}")
+
+    # Tri des résultats
+    breakout_sorted = dict(sorted(breakout_picks.items(), key=lambda x: x[1]['vol_ratio'], reverse=True))
+    pullback_sorted = dict(sorted(pullback_picks.items(), key=lambda x: x[1]['score'], reverse=True))
+
+    return pullback_sorted, breakout_sorted
+
+# --- MAIN ---
+if __name__ == "__main__":
+    pullback_data, breakout_data = analyze_market()
+    
+    today = pd.Timestamp.now().strftime("%d/%m/%Y")
+    
+    final_pullback = {"date_mise_a_jour": today, "picks": pullback_data}
+    final_breakout = {"date_mise_a_jour": today, "picks": breakout_data}
+    
+    # Sauvegarde directe en version PRO
+    with open("data/sp500_pullback_pro.json", "w") as f:
+        json.dump(final_pullback, f, indent=4)
+        
+    with open("data/sp500_breakout_pro.json", "w") as f:
+        json.dump(final_breakout, f, indent=4)
+        
+    print("💾 Fichiers S&P 500 sauvegardés.")
