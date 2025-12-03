@@ -9,6 +9,9 @@
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="assets/js/tailwind-config.js"></script>
+
+    <script src="assets/js/main.js" defer></script>
+
     <style>
         .sparkline-path { stroke-linecap: round; stroke-linejoin: round; }
         .sparkline-sma { stroke-dasharray: 2, 2; }
@@ -31,7 +34,7 @@
             </div>
             <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-5">
                 Deux stratégies, un objectif :<br class="hidden md:block" />
-                <span class="text-blue-500 relative inline-block">Maîtriser la Tendance</span>
+                <span class="text-brand-primary relative inline-block">Maîtriser la Tendance</span>
             </h1>
             <p class="text-sm md:text-base text-slate-300/90 max-w-2xl mx-auto leading-relaxed">
                 Détection automatique des <strong>replis sur support</strong> et des <strong>cassures explosives</strong>.
@@ -68,36 +71,41 @@
     <div id="footer-container"></div>
 
     <script>
-        // --- CHARGEMENT NAVBAR & FOOTER ---
-        async function loadComponents() {
-            try {
-                const navReq = await fetch('assets/components/navbar.html');
-                document.getElementById('navbar-container').innerHTML = await navReq.text();
-                
-                const footReq = await fetch('assets/components/footer.html');
-                document.getElementById('footer-container').innerHTML = await footReq.text();
-                
-                // Relance Memberstack après l'injection du HTML pour qu'il voit les boutons
-                window.$memberstackDom.x.load(); 
-            } catch (e) { console.error("Erreur chargement composants", e); }
-        }
-        loadComponents();
+        // NOTE: loadComponent n'est plus ici, il est dans main.js !
 
         // --- FONCTION GRAPHIQUE ---
-        function createSparkline(data, sma200, color) { /* Code Sparkline inchangé... */ 
-             if (!data || data.length < 2) return '';
-             /* ... copier votre fonction sparkline habituelle ici pour économiser de la place ... */
-             return `<span class="text-xs text-slate-500">Graphique</span>`; // Placeholder pour l'exemple
+        function createSparkline(data, sma200, width = 120, height = 40, color = "#10b981") {
+            if (!data || data.length < 2) return '';
+            const allValues = [...data, sma200];
+            const min = Math.min(...allValues);
+            const max = Math.max(...allValues);
+            const range = max - min || 1;
+            const paddingY = 5;
+            const effH = height - paddingY * 2;
+            const stepX = width / (data.length - 1);
+            const path = data.map((val, i) => {
+                const x = i * stepX;
+                const y = (height - paddingY) - ((val - min) / range * effH);
+                return `${i === 0 ? 'M' : 'L'} ${x.toFixed(1)},${y.toFixed(1)}`;
+            }).join(' ');
+            const smaY = (height - paddingY) - ((sma200 - min) / range * effH);
+            return `
+                <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" class="overflow-visible">
+                    <line x1="0" y1="${smaY}" x2="${width}" y2="${smaY}" stroke="#475569" stroke-width="1" stroke-dasharray="3,3" opacity="0.6" />
+                    <path d="${path}" fill="none" stroke="${color}" stroke-width="2" vector-effect="non-scaling-stroke" />
+                    <circle cx="${width}" cy="${(height - paddingY) - ((data[data.length-1] - min)/range*effH)}" r="2" fill="${color}" />
+                </svg>
+            `;
         }
 
-        // --- PAYWALL TEASER (AVEC VOTRE ID PRIX) ---
+        // --- PAYWALL TEASER ---
         function renderPaywallTeaser(tbody, count=3, type="premium") {
             for (let i = 0; i < count; i++) {
                 tbody.insertAdjacentHTML('beforeend', `
                     <tr class="blur-paywall border-b border-slate-800/50">
                         <td class="px-6 py-4"><div class="h-4 w-12 bg-slate-700 rounded"></div></td>
-                        <td class="px-6 py-4"><div class="h-4 w-24 bg-slate-700 rounded"></div></td>
-                        <td class="px-6 py-4"></td><td class="px-6 py-4"></td><td class="px-6 py-4"></td><td class="px-6 py-4"></td>
+                        <td class="px-6 py-4 hidden md:table-cell"><div class="h-8 w-24 bg-slate-700 rounded"></div></td>
+                        <td class="px-6 py-4"></td><td class="px-6 py-4 hidden sm:table-cell"></td><td class="px-6 py-4 hidden sm:table-cell"></td><td class="px-6 py-4"></td>
                     </tr>
                 `);
             }
@@ -107,13 +115,14 @@
                     <div class="paywall-overlay">
                         <div class="bg-slate-900 border border-slate-700 p-6 rounded-xl text-center shadow-2xl max-w-sm mx-4 transform translate-y-10">
                             <h3 class="text-base font-bold text-white mb-1">Version Premium</h3>
-                            <p class="text-slate-400 text-xs mb-4">Débloquez la sélection complète.</p>
-                            
+                            <p class="text-slate-400 text-xs mb-4">
+                                ${type === 'phoenix' ? 'Seul le meilleur Breakout est visible.' : 'Accédez aux autres opportunités.'}
+                                <br><span class="text-amber-400">Débloquez la sélection complète.</span>
+                            </p>
                             <button data-ms-price:add="prc_pro-monthly-na1c0fj8" 
-                               class="block w-full py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded transition text-xs shadow-lg shadow-blue-900/20 cursor-pointer">
+                               class="block w-full py-2.5 bg-brand-primary hover:bg-brand-accent text-white font-semibold rounded transition text-xs shadow-lg shadow-blue-900/20 cursor-pointer">
                                 Devenir Membre
                             </button>
-                            
                             <div class="mt-3 text-[10px] text-slate-500">
                                 Déjà membre ? <a href="#/ms/login" class="text-slate-300 underline cursor-pointer">Connexion</a>
                             </div>
@@ -124,21 +133,77 @@
             }
         }
 
-        // --- FETCH DATA (SIMPLIFIÉ POUR L'EXEMPLE) ---
-        // (Copiez ici vos fetch() habituels pointant vers _free.json)
-        // N'oubliez pas d'appeler renderPaywallTeaser() à la fin des fetchs.
-        
-        // Exemple rapide pour valider la structure :
-        fetch('data/sp500_pullback_free.json').then(r=>r.json()).then(d => {
-             // ... votre logique d'affichage des lignes ...
-             renderPaywallTeaser(document.getElementById('table-pullback'), 3, "pullback");
-        }).catch(e => console.log(e));
+        // --- FETCH DATA ---
+        fetch('data/sp500_pullback_free.json')
+            .then(r => r.json())
+            .then(data => {
+                document.getElementById('date-pullback').textContent = data.date_mise_a_jour || '-';
+                const tbody = document.getElementById('table-pullback');
+                tbody.innerHTML = '';
+                const entries = Object.entries(data.picks || {});
 
-        fetch('data/sp500_breakout_free.json').then(r=>r.json()).then(d => {
-             // ... votre logique d'affichage des lignes ...
-             renderPaywallTeaser(document.getElementById('table-phoenix'), 3, "phoenix");
-        }).catch(e => console.log(e));
+                if (!entries.length) {
+                    tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Aucune opportunité.</td></tr>';
+                    return;
+                }
 
+                entries.forEach(([ticker, info]) => {
+                    const price = info.entry_price || 0;
+                    const estSma = price / (1 + (info.score / 100));
+                    const graph = createSparkline(info.history, estSma, 120, 40, "#10b981");
+                    
+                    tbody.insertAdjacentHTML('beforeend', `
+                        <tr class="hover:bg-slate-800/50 border-b border-slate-800/50 transition-colors">
+                            <td class="px-6 py-4">
+                                <span class="font-bold text-slate-100">${ticker}</span>
+                                <div class="text-[10px] text-slate-400 truncate max-w-[120px]">${info.name}</div>
+                            </td>
+                            <td class="px-6 py-4 hidden md:table-cell">${graph}</td>
+                            <td class="px-6 py-4"><span class="inline-flex px-2 py-1 rounded text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">${(info.score).toFixed(2)}%</span></td>
+                            <td class="px-6 py-4 hidden sm:table-cell text-slate-300 font-mono text-xs">$${Math.round(price)}</td>
+                            <td class="px-6 py-4 hidden sm:table-cell text-rose-400 font-mono text-xs">$${Math.round(info.stop_loss)}</td>
+                            <td class="px-6 py-4 text-right"><a href="https://www.tradingview.com/symbols/${ticker.replace('-','.')}/" target="_blank" class="text-brand-primary hover:text-brand-accent text-xs font-medium">Voir &rarr;</a></td>
+                        </tr>
+                    `);
+                });
+                renderPaywallTeaser(tbody, 3, "pullback");
+            })
+            .catch(() => document.getElementById('table-pullback').innerHTML = '<tr><td colspan="6" class="px-6 py-4 text-center text-xs text-slate-500">Chargement...</td></tr>');
+
+        fetch('data/sp500_breakout_free.json')
+            .then(r => r.json())
+            .then(data => {
+                document.getElementById('date-phoenix').textContent = data.date_mise_a_jour || '-';
+                const tbody = document.getElementById('table-phoenix');
+                tbody.innerHTML = '';
+                const entries = Object.entries(data.picks || {});
+
+                if (!entries.length) {
+                    tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Aucun breakout.</td></tr>';
+                    return;
+                }
+
+                entries.forEach(([ticker, info]) => {
+                    const price = info.entry_price || 0;
+                    const estSma = price / (1 + (info.score / 100));
+                    const graph = createSparkline(info.history, estSma, 120, 40, "#fbbf24");
+                    let volRatio = "N/A"; let realName = info.name;
+                    if(info.name.includes('|')) { const parts = info.name.split('|'); volRatio = parts[0].replace('Vol:', '').trim(); realName = parts[1].trim(); }
+
+                    tbody.insertAdjacentHTML('beforeend', `
+                        <tr class="hover:bg-slate-800/50 border-b border-slate-800/50 transition-colors">
+                            <td class="px-6 py-4"><span class="font-bold text-amber-100">${ticker}</span><div class="text-[10px] text-slate-400 truncate max-w-[120px]">${realName}</div></td>
+                            <td class="px-6 py-4 hidden md:table-cell">${graph}</td>
+                            <td class="px-6 py-4"><span class="inline-flex px-2 py-1 rounded text-xs font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">Vol: ${volRatio}</span></td>
+                            <td class="px-6 py-4 hidden sm:table-cell"><span class="text-xs text-slate-300">+${(info.score).toFixed(2)}%</span></td>
+                            <td class="px-6 py-4 hidden sm:table-cell text-rose-400 font-mono text-xs">$${Math.round(info.stop_loss)}</td>
+                            <td class="px-6 py-4 text-right"><a href="https://www.tradingview.com/symbols/${ticker.replace('-','.')}/" target="_blank" class="text-amber-400 hover:text-amber-300 text-xs font-medium">Voir &rarr;</a></td>
+                        </tr>
+                    `);
+                });
+                renderPaywallTeaser(tbody, 3, "phoenix");
+            })
+            .catch(() => document.getElementById('table-phoenix').innerHTML = '<tr><td colspan="6" class="px-6 py-4 text-center text-xs text-slate-500">Chargement...</td></tr>');
     </script>
 </body>
 </html>
