@@ -1,21 +1,24 @@
 // assets/js/main.js
 
-// Fonction générique pour charger un fichier HTML
+// Fonction simple pour charger un fichier HTML (Navbar/Footer)
 async function loadComponent(elementId, filePath) {
     try {
         const response = await fetch(filePath);
         if (!response.ok) throw new Error(`Impossible de charger ${filePath}`);
+        
         const htmlContent = await response.text();
-        const el = document.getElementById(elementId);
-        if(el) el.innerHTML = htmlContent;
+        const element = document.getElementById(elementId);
+        if (element) {
+            element.innerHTML = htmlContent;
+        }
     } catch (error) {
-        console.error(error);
+        console.error("Erreur de chargement du composant :", error);
     }
 }
 
-// Exécution au chargement
+// Exécution au chargement de la page
 document.addEventListener("DOMContentLoaded", async () => {
-    // 1. On charge juste la Navbar et le Footer
+    // Charge simplement la navbar et le footer
     await Promise.all([
         loadComponent("navbar-container", "assets/components/navbar.html"),
         loadComponent("footer-container", "assets/components/footer.html")
