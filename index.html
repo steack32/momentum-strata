@@ -194,7 +194,7 @@
             `;
         }
 
-        // --- 2. TEASER PAYWALL AVEC LE CORRECTIF ---
+        // --- 2. TEASER PAYWALL AVEC LE CORRECTIF MEMBERSTACK ---
         function renderPaywallTeaser(tbody, count=3, type="premium") {
             for (let i = 0; i < count; i++) {
                 tbody.insertAdjacentHTML('beforeend', `
@@ -235,8 +235,8 @@
                 `;
                 parentDiv.insertAdjacentHTML('beforeend', overlayHTML);
 
-                // --- LE CORRECTIF EST ICI ---
-                // On force Memberstack à re-scanner le DOM pour trouver le nouveau bouton
+                // --- LE CORRECTIF MEMBERSTACK ---
+                // Force Memberstack à re-scanner le DOM pour attacher les événements au nouveau bouton
                 if(window.$memberstackDom) {
                     window.$memberstackDom.x.load();
                 }
