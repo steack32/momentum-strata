@@ -3,9 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self' https: data: blob:; script-src 'self' https: 'unsafe-inline' 'unsafe-eval'; style-src 'self' https: 'unsafe-inline';">
-
     <title>S&P 500 | Momentum Strata</title>
     
     <script src="https://data.memberstack.com/memberstack.js" data-memberstack-id="app_cmip7jo4u00130sng2qwr1qy8"></script> 
@@ -27,12 +24,13 @@
     </style>
 </head>
 <body class="bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-50 antialiased flex flex-col min-h-screen">
-<div style="background: red; padding: 20px; text-align: center; z-index: 9999; position: relative;">
-    <p>TEST MEMBERSTACK</p>
-    <button data-ms-price:add="prc_pro-monthly-na1c0fj8" style="background: white; color: black; padding: 10px;">
-        TEST CLICK
-    </button>
-</div>
+
+    <div style="position:fixed; bottom:10px; left:10px; z-index:9999; opacity:0.5;">
+        <button data-ms-price:add="prc_pro-monthly-na1c0fj8" class="bg-red-600 text-white text-[10px] px-2 py-1 rounded">
+            Test Debug
+        </button>
+    </div>
+
     <div id="navbar-container"></div>
 
     <div class="border-b border-slate-800/70 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
@@ -60,7 +58,6 @@
     </div>
 
     <main class="flex-grow space-y-20 pb-20 mt-10">
-        
         <section id="pullback" class="px-4 md:px-6 lg:px-0">
             <div class="max-w-5xl mx-auto">
                 <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-5 border-b border-slate-800 pb-4">
@@ -70,12 +67,10 @@
                             <h2 class="font-bold text-2xl text-slate-50">Trend Pullback (Rebond)</h2>
                         </div>
                         <p class="text-sm text-slate-400 max-w-xl">
-                            "Acheter les leaders qui se reposent." Actions en tendance haussière qui reviennent tester leur support (SMA 200).
+                            "Acheter les leaders qui se reposent."<br>Actions en tendance haussière qui reviennent tester leur support (SMA 200).
                         </p>
                     </div>
-                    <div class="text-right">
-                        <p class="text-xs text-slate-500">Mise à jour : <span id="date-pullback" class="text-slate-300 font-medium">...</span></p>
-                    </div>
+                    <div class="text-right"><p class="text-xs text-slate-500">Mise à jour : <span id="date-pullback" class="text-slate-300 font-medium">...</span></p></div>
                 </div>
 
                 <div class="bg-slate-900/80 backdrop-blur rounded-2xl shadow-premium border border-slate-800/80 overflow-hidden relative">
@@ -91,14 +86,12 @@
                                     <th class="px-6 py-3.5 text-right">Chart</th>
                                 </tr>
                             </thead>
-                            <tbody id="table-pullback" class="text-sm divide-y divide-slate-800">
-                                <tr><td colspan="6" class="px-6 py-8 text-center text-xs text-slate-500">Chargement...</td></tr>
-                            </tbody>
+                            <tbody id="table-pullback" class="text-sm divide-y divide-slate-800"><tr><td colspan="6" class="px-6 py-8 text-center text-xs text-slate-500">Chargement...</td></tr></tbody>
                         </table>
                     </div>
                     <div class="bg-slate-950/50 px-6 py-3 text-[10px] text-slate-500 flex gap-4">
-                        <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Proche SMA (Zone d'achat)</span>
-                        <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-rose-500"></span> Stop Loss (-3% sous SMA)</span>
+                        <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Proche SMA</span>
+                        <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-rose-500"></span> Stop Loss</span>
                     </div>
                 </div>
             </div>
@@ -113,12 +106,10 @@
                             <h2 class="font-bold text-2xl text-slate-50">Phoenix (Breakout)</h2>
                         </div>
                         <p class="text-sm text-slate-400 max-w-xl">
-                            "Acheter le réveil." Actions sous-cotées qui cassent leur SMA 200 à la hausse avec <strong>fort volume</strong>.
+                            "Acheter le réveil."<br>Actions sous-cotées qui cassent leur SMA 200 à la hausse avec <strong>fort volume</strong>.
                         </p>
                     </div>
-                    <div class="text-right">
-                        <p class="text-xs text-slate-500">Mise à jour : <span id="date-phoenix" class="text-slate-300 font-medium">...</span></p>
-                    </div>
+                    <div class="text-right"><p class="text-xs text-slate-500">Mise à jour : <span id="date-phoenix" class="text-slate-300 font-medium">...</span></p></div>
                 </div>
 
                 <div class="bg-slate-900/80 backdrop-blur rounded-2xl shadow-premium border border-slate-800/80 overflow-hidden relative">
@@ -134,68 +125,33 @@
                                     <th class="px-6 py-3.5 text-right">Chart</th>
                                 </tr>
                             </thead>
-                            <tbody id="table-phoenix" class="text-sm divide-y divide-slate-800">
-                                <tr><td colspan="6" class="px-6 py-8 text-center text-xs text-slate-500">Chargement...</td></tr>
-                            </tbody>
+                            <tbody id="table-phoenix" class="text-sm divide-y divide-slate-800"><tr><td colspan="6" class="px-6 py-8 text-center text-xs text-slate-500">Chargement...</td></tr></tbody>
                         </table>
                     </div>
                      <div class="bg-slate-950/50 px-6 py-3 text-[10px] text-slate-500 flex gap-4">
-                        <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-500"></span> Volume explosif (> x1.5)</span>
-                        <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-rose-500"></span> Stop Loss (Invalidation si repasse sous SMA)</span>
+                        <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-500"></span> Volume explosif</span>
+                        <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-rose-500"></span> Stop Loss</span>
                     </div>
                 </div>
             </div>
         </section>
-
+        
         <section class="max-w-5xl mx-auto px-4 lg:px-0">
             <div class="grid md:grid-cols-2 gap-6">
-                <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-800">
-                    <h3 class="font-bold text-emerald-400 mb-2">Quand utiliser "Pullback" ?</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">
-                        Idéal pour le "Swing Trading" tranquille. Vous achetez une tendance saine qui respire. Le taux de réussite est élevé, les gains sont modérés (5-10%). C'est la stratégie "Rente".
-                    </p>
-                </div>
-                <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-800">
-                    <h3 class="font-bold text-amber-400 mb-2">Quand utiliser "Phoenix" ?</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">
-                        Idéal pour chasser le début d'un nouveau cycle. Les signaux sont rares (souvent 0). Si une action apparaît ici avec un volume > x2.0, c'est un signal puissant. Risque plus élevé de faux départ.
-                    </p>
-                </div>
+                <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-800"><h3 class="font-bold text-emerald-400 mb-2">Pullback</h3><p class="text-xs text-slate-400">Swing Trading tranquille. Tendance saine qui respire.</p></div>
+                <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-800"><h3 class="font-bold text-amber-400 mb-2">Phoenix</h3><p class="text-xs text-slate-400">Début de cycle. Fort volume. Risque plus élevé.</p></div>
             </div>
         </section>
-
     </main>
 
     <div id="footer-container"></div>
 
     <script>
-        // --- 1. FONCTION GRAPHIQUE ---
-        function createSparkline(data, sma200, width = 120, height = 40, color = "#10b981") {
-            if (!data || data.length < 2) return '';
-            const allValues = [...data, sma200];
-            const min = Math.min(...allValues);
-            const max = Math.max(...allValues);
-            const range = max - min || 1;
-            const paddingY = 5;
-            const effH = height - paddingY * 2;
-            const stepX = width / (data.length - 1);
-            const path = data.map((val, i) => {
-                const x = i * stepX;
-                const y = (height - paddingY) - ((val - min) / range * effH);
-                return `${i === 0 ? 'M' : 'L'} ${x.toFixed(1)},${y.toFixed(1)}`;
-            }).join(' ');
-            const smaY = (height - paddingY) - ((sma200 - min) / range * effH);
-            return `
-                <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" class="overflow-visible">
-                    <line x1="0" y1="${smaY}" x2="${width}" y2="${smaY}" stroke="#475569" stroke-width="1" stroke-dasharray="3,3" opacity="0.6" />
-                    <path d="${path}" fill="none" stroke="${color}" stroke-width="2" vector-effect="non-scaling-stroke" />
-                    <circle cx="${width}" cy="${(height - paddingY) - ((data[data.length-1] - min)/range*effH)}" r="2" fill="${color}" />
-                </svg>
-            `;
-        }
+        function createSparkline(data, sma200, width=120, height=40, color="#10b981"){if(!data||data.length<2)return'';const all=[...data,sma200],min=Math.min(...all),max=Math.max(...all),range=max-min||1,pad=5,effH=height-pad*2,stepX=width/(data.length-1),path=data.map((v,i)=>`${i===0?'M':'L'} ${(i*stepX).toFixed(1)},${((height-pad)-((v-min)/range*effH)).toFixed(1)}`).join(' '),smaY=(height-pad)-((sma200-min)/range*effH);return`<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" class="overflow-visible"><line x1="0" y1="${smaY}" x2="${width}" y2="${smaY}" stroke="#475569" stroke-width="1" stroke-dasharray="3,3" opacity="0.6"/><path d="${path}" fill="none" stroke="${color}" stroke-width="2"/><circle cx="${width}" cy="${(height-pad)-((data[data.length-1]-min)/range*effH)}" r="2" fill="${color}"/></svg>`;}
 
-        // --- 2. FONCTION PAYWALL (C'est ici que la magie opère) ---
+        // --- FONCTION PRINCIPALE DU PAYWALL ---
         function renderPaywallTeaser(tbody, count=3, type="premium") {
+            // 1. Ajouter les lignes floutées
             for (let i = 0; i < count; i++) {
                 tbody.insertAdjacentHTML('beforeend', `
                     <tr class="blur-paywall border-b border-slate-800/50">
@@ -208,132 +164,70 @@
                     </tr>
                 `);
             }
-            const parentDiv = tbody.closest('.relative');
             
-            // Si l'overlay n'existe pas encore
+            // 2. Créer l'overlay AVEC LE BOUTON OFFICIEL MEMBERSTACK
+            const parentDiv = tbody.closest('.relative');
             if (!parentDiv.querySelector('.paywall-overlay')) {
-                // On crée un bouton avec un ID UNIQUE
-                const btnId = `btn-premium-${type}`;
-                
-                const overlayHTML = `
+                parentDiv.insertAdjacentHTML('beforeend', `
                     <div class="paywall-overlay">
                         <div class="bg-slate-900 border border-slate-700 p-6 rounded-xl text-center shadow-2xl max-w-sm mx-4 transform translate-y-10">
                             <div class="w-10 h-10 bg-gradient-to-br from-amber-400 to-orange-600 text-white rounded-full flex items-center justify-center mx-auto mb-3 shadow-lg">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
                             </div>
                             <h3 class="text-base font-bold text-white mb-1">Version Premium</h3>
-                            <p class="text-slate-400 text-xs mb-4">
-                                Accédez à la sélection complète et aux signaux.
-                            </p>
+                            <p class="text-slate-400 text-xs mb-4">Débloquez la sélection complète.</p>
                             
-                            <a href="#" id="${btnId}"
-                               class="block w-full py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded transition text-xs shadow-lg shadow-blue-900/20 cursor-pointer text-center no-underline relative z-50">
+                            <button data-ms-price:add="prc_pro-monthly-na1c0fj8" 
+                               class="block w-full py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded transition text-xs shadow-lg shadow-blue-900/20 cursor-pointer relative z-50">
                                 Devenir Membre
-                            </a>
+                            </button>
                             
                             <div class="mt-3 text-[10px] text-slate-500 relative z-50">
                                 Déjà membre ? <a href="#/ms/login" class="text-slate-300 underline hover:text-white cursor-pointer">Connexion</a>
                             </div>
                         </div>
                     </div>
-                `;
-                parentDiv.insertAdjacentHTML('beforeend', overlayHTML);
+                `);
 
-                // --- LE FIX ULTIME : ACTIVATION MANUELLE ---
-                // On attend 100ms pour être sûr que le bouton est dans le DOM
+                // 3. IMPORTANT : FORCER MEMBERSTACK À VOIR LE BOUTON
                 setTimeout(() => {
-                    const btn = document.getElementById(btnId);
-                    if (btn) {
-                        // On supprime les anciens écouteurs pour éviter les doublons
-                        const newBtn = btn.cloneNode(true);
-                        btn.parentNode.replaceChild(newBtn, btn);
-                        
-                        newBtn.addEventListener('click', function(e) {
-                            e.preventDefault();
-                            console.log("Tentative d'ouverture Memberstack...");
-                            
-                            if (window.$memberstackDom) {
-                                // Commande directe pour ouvrir le checkout
-                                window.$memberstackDom.openModal({
-                                    type: 'checkout',
-                                    priceId: 'prc_pro-monthly-na1c0fj8' // VOTRE ID DE PRIX
-                                }).then(() => {
-                                    console.log("Modal ouvert");
-                                }).catch(err => {
-                                    console.error("Erreur ouverture modal:", err);
-                                    alert("Erreur: " + err);
-                                });
-                            } else {
-                                alert("Le système de paiement charge encore...");
-                            }
-                        });
-                        console.log("Bouton activé avec succès : " + btnId);
+                    if(window.$memberstackDom && window.$memberstackDom.load) {
+                        console.log("Memberstack refresh pour : " + type);
+                        window.$memberstackDom.load();
                     }
-                }, 100);
+                }, 500);
             }
         }
 
-        // --- 3. CHARGEMENT DONNÉES ---
-        fetch('data/sp500_pullback_free.json')
-            .then(r => r.json())
-            .then(data => {
-                document.getElementById('date-pullback').textContent = data.date_mise_a_jour || '-';
-                const tbody = document.getElementById('table-pullback');
-                tbody.innerHTML = '';
-                const entries = Object.entries(data.picks || {});
-                if (!entries.length) {
-                    tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Aucune opportunité aujourd\'hui.</td></tr>';
-                } else {
-                    entries.forEach(([ticker, info]) => {
-                        const price = info.entry_price || 0;
-                        const estSma = price / (1 + (info.score / 100));
-                        const graph = createSparkline(info.history, estSma, 120, 40, "#10b981");
-                        tbody.insertAdjacentHTML('beforeend', `
-                            <tr class="hover:bg-slate-800/50 border-b border-slate-800/50 transition-colors">
-                                <td class="px-6 py-4"><span class="font-bold text-slate-100">${ticker}</span><div class="text-[10px] text-slate-400 truncate max-w-[120px]">${info.name}</div></td>
-                                <td class="px-6 py-4 hidden md:table-cell">${graph}</td>
-                                <td class="px-6 py-4"><span class="inline-flex px-2 py-1 rounded text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">${(info.score).toFixed(2)}%</span></td>
-                                <td class="px-6 py-4 hidden sm:table-cell text-slate-300 font-mono text-xs">$${Math.round(price)}</td>
-                                <td class="px-6 py-4 hidden sm:table-cell text-rose-400 font-mono text-xs">$${Math.round(info.stop_loss)}</td>
-                                <td class="px-6 py-4 text-right"><a href="https://www.tradingview.com/symbols/${ticker.replace('-','.')}/" target="_blank" class="text-blue-400 hover:text-blue-300 text-xs font-medium">Voir &rarr;</a></td>
-                            </tr>
-                        `);
-                    });
-                }
-                renderPaywallTeaser(tbody, 3, "pullback");
-            });
+        // --- CHARGEMENT DATA ---
+        fetch('data/sp500_pullback_free.json').then(r=>r.json()).then(data=>{
+            document.getElementById('date-pullback').textContent=data.date_mise_a_jour||'-';
+            const t=document.getElementById('table-pullback');t.innerHTML='';
+            const picks=Object.entries(data.picks||{});
+            if(!picks.length){t.innerHTML='<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Rien aujourd\'hui.</td></tr>';}
+            else{
+                picks.forEach(([k,v])=>{
+                    const p=v.entry_price||0,sma=p/(1+(v.score/100));
+                    t.insertAdjacentHTML('beforeend',`<tr class="hover:bg-slate-800/50 border-b border-slate-800/50"><td class="px-6 py-4"><span class="font-bold text-slate-100">${k}</span><div class="text-[10px] text-slate-400 truncate max-w-[120px]">${v.name}</div></td><td class="px-6 py-4 hidden md:table-cell">${createSparkline(v.history,sma,120,40,"#10b981")}</td><td class="px-6 py-4"><span class="inline-flex px-2 py-1 rounded text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">${(v.score).toFixed(2)}%</span></td><td class="px-6 py-4 hidden sm:table-cell text-slate-300 font-mono text-xs">$${Math.round(p)}</td><td class="px-6 py-4 hidden sm:table-cell text-rose-400 font-mono text-xs">$${Math.round(v.stop_loss)}</td><td class="px-6 py-4 text-right"><a href="https://www.tradingview.com/symbols/${k.replace('-','.')}/" target="_blank" class="text-blue-400 hover:text-blue-300 text-xs font-medium">Voir &rarr;</a></td></tr>`);
+                });
+            }
+            renderPaywallTeaser(t,3,"pullback");
+        });
 
-        fetch('data/sp500_breakout_free.json')
-            .then(r => r.json())
-            .then(data => {
-                document.getElementById('date-phoenix').textContent = data.date_mise_a_jour || '-';
-                const tbody = document.getElementById('table-phoenix');
-                tbody.innerHTML = '';
-                const entries = Object.entries(data.picks || {});
-                if (!entries.length) {
-                    tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Aucun breakout validé aujourd\'hui.</td></tr>';
-                } else {
-                    entries.forEach(([ticker, info]) => {
-                        const price = info.entry_price || 0;
-                        const estSma = price / (1 + (info.score / 100));
-                        const graph = createSparkline(info.history, estSma, 120, 40, "#fbbf24");
-                        let volRatio = "N/A"; let realName = info.name;
-                        if(info.name.includes('|')) { const parts = info.name.split('|'); volRatio = parts[0].replace('Vol:', '').trim(); realName = parts[1].trim(); }
-                        tbody.insertAdjacentHTML('beforeend', `
-                            <tr class="hover:bg-slate-800/50 border-b border-slate-800/50 transition-colors">
-                                <td class="px-6 py-4"><span class="font-bold text-amber-100">${ticker}</span><div class="text-[10px] text-slate-400 truncate max-w-[120px]">${realName}</div></td>
-                                <td class="px-6 py-4 hidden md:table-cell">${graph}</td>
-                                <td class="px-6 py-4"><span class="inline-flex px-2 py-1 rounded text-xs font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">Vol: ${volRatio}</span></td>
-                                <td class="px-6 py-4 hidden sm:table-cell"><span class="text-xs text-slate-300">+${(info.score).toFixed(2)}%</span></td>
-                                <td class="px-6 py-4 hidden sm:table-cell text-rose-400 font-mono text-xs">$${Math.round(info.stop_loss)}</td>
-                                <td class="px-6 py-4 text-right"><a href="https://www.tradingview.com/symbols/${ticker.replace('-','.')}/" target="_blank" class="text-amber-400 hover:text-amber-300 text-xs font-medium">Voir &rarr;</a></td>
-                            </tr>
-                        `);
-                    });
-                }
-                renderPaywallTeaser(tbody, 3, "phoenix");
-            });
-
+        fetch('data/sp500_breakout_free.json').then(r=>r.json()).then(data=>{
+            document.getElementById('date-phoenix').textContent=data.date_mise_a_jour||'-';
+            const t=document.getElementById('table-phoenix');t.innerHTML='';
+            const picks=Object.entries(data.picks||{});
+            if(!picks.length){t.innerHTML='<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Rien aujourd\'hui.</td></tr>';}
+            else{
+                picks.forEach(([k,v])=>{
+                    const p=v.entry_price||0,sma=p/(1+(v.score/100));
+                    let vr="N/A",nm=v.name;if(v.name.includes('|')){const s=v.name.split('|');vr=s[0].replace('Vol:','').trim();nm=s[1].trim();}
+                    t.insertAdjacentHTML('beforeend',`<tr class="hover:bg-slate-800/50 border-b border-slate-800/50"><td class="px-6 py-4"><span class="font-bold text-amber-100">${k}</span><div class="text-[10px] text-slate-400 truncate max-w-[120px]">${nm}</div></td><td class="px-6 py-4 hidden md:table-cell">${createSparkline(v.history,sma,120,40,"#fbbf24")}</td><td class="px-6 py-4"><span class="inline-flex px-2 py-1 rounded text-xs font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">Vol: ${vr}</span></td><td class="px-6 py-4 hidden sm:table-cell"><span class="text-xs text-slate-300">+${(v.score).toFixed(2)}%</span></td><td class="px-6 py-4 hidden sm:table-cell text-rose-400 font-mono text-xs">$${Math.round(v.stop_loss)}</td><td class="px-6 py-4 text-right"><a href="https://www.tradingview.com/symbols/${k.replace('-','.')}/" target="_blank" class="text-amber-400 hover:text-amber-300 text-xs font-medium">Voir &rarr;</a></td></tr>`);
+                });
+            }
+            renderPaywallTeaser(t,3,"phoenix");
+        });
     </script>
 </body>
 </html>
