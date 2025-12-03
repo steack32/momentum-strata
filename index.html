@@ -22,7 +22,7 @@
         .paywall-overlay {
             position: absolute; bottom: 0; left: 0; right: 0; height: 100%;
             background: linear-gradient(to bottom, rgba(15, 23, 42, 0) 0%, rgba(15, 23, 42, 0.9) 20%, rgba(15, 23, 42, 1) 100%);
-            display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 10;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 50;
         }
     </style>
 </head>
@@ -58,7 +58,6 @@
         
         <section id="pullback" class="px-4 md:px-6 lg:px-0">
             <div class="max-w-5xl mx-auto">
-                
                 <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-5 border-b border-slate-800 pb-4">
                     <div>
                         <div class="flex items-center gap-2 mb-1">
@@ -66,8 +65,7 @@
                             <h2 class="font-bold text-2xl text-slate-50">Trend Pullback (Rebond)</h2>
                         </div>
                         <p class="text-sm text-slate-400 max-w-xl">
-                            "Acheter les leaders qui se reposent."<br>
-                            Actions en tendance haussière qui reviennent tester leur support (SMA 200).
+                            "Acheter les leaders qui se reposent." Actions en tendance haussière qui reviennent tester leur support (SMA 200).
                         </p>
                     </div>
                     <div class="text-right">
@@ -103,7 +101,6 @@
 
         <section id="phoenix" class="px-4 md:px-6 lg:px-0">
             <div class="max-w-5xl mx-auto">
-                
                 <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-5 border-b border-slate-800 pb-4">
                     <div>
                         <div class="flex items-center gap-2 mb-1">
@@ -111,8 +108,7 @@
                             <h2 class="font-bold text-2xl text-slate-50">Phoenix (Breakout)</h2>
                         </div>
                         <p class="text-sm text-slate-400 max-w-xl">
-                            "Acheter le réveil."<br>
-                            Actions sous-cotées qui cassent leur SMA 200 à la hausse avec <strong>fort volume</strong>.
+                            "Acheter le réveil." Actions sous-cotées qui cassent leur SMA 200 à la hausse avec <strong>fort volume</strong>.
                         </p>
                     </div>
                     <div class="text-right">
@@ -168,10 +164,9 @@
     <div id="footer-container"></div>
 
     <script>
-        // --- 1. FONCTION GRAPHIQUE PARTAGÉE ---
+        // --- 1. FONCTION GRAPHIQUE ---
         function createSparkline(data, sma200, width = 120, height = 40, color = "#10b981") {
             if (!data || data.length < 2) return '';
-            
             const allValues = [...data, sma200];
             const min = Math.min(...allValues);
             const max = Math.max(...allValues);
@@ -179,15 +174,12 @@
             const paddingY = 5;
             const effH = height - paddingY * 2;
             const stepX = width / (data.length - 1);
-
             const path = data.map((val, i) => {
                 const x = i * stepX;
                 const y = (height - paddingY) - ((val - min) / range * effH);
                 return `${i === 0 ? 'M' : 'L'} ${x.toFixed(1)},${y.toFixed(1)}`;
             }).join(' ');
-
             const smaY = (height - paddingY) - ((sma200 - min) / range * effH);
-
             return `
                 <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" class="overflow-visible">
                     <line x1="0" y1="${smaY}" x2="${width}" y2="${smaY}" stroke="#475569" stroke-width="1" stroke-dasharray="3,3" opacity="0.6" />
@@ -197,7 +189,7 @@
             `;
         }
 
-        // --- 2. TEASER PAYWALL AVEC LE CORRECTIF ROBUSTE ---
+        // --- 2. FONCTION PAYWALL (C'est ici que la magie opère) ---
         function renderPaywallTeaser(tbody, count=3, type="premium") {
             for (let i = 0; i < count; i++) {
                 tbody.insertAdjacentHTML('beforeend', `
@@ -213,8 +205,11 @@
             }
             const parentDiv = tbody.closest('.relative');
             
-            // On vérifie si l'overlay existe déjà pour ne pas le mettre en double
+            // Si l'overlay n'existe pas encore
             if (!parentDiv.querySelector('.paywall-overlay')) {
+                // On crée un bouton avec un ID UNIQUE
+                const btnId = `btn-premium-${type}`;
+                
                 const overlayHTML = `
                     <div class="paywall-overlay">
                         <div class="bg-slate-900 border border-slate-700 p-6 rounded-xl text-center shadow-2xl max-w-sm mx-4 transform translate-y-10">
@@ -223,35 +218,57 @@
                             </div>
                             <h3 class="text-base font-bold text-white mb-1">Version Premium</h3>
                             <p class="text-slate-400 text-xs mb-4">
-                                ${type === 'phoenix' ? 'Seul le meilleur Breakout est visible.' : 'Accédez aux autres opportunités.'}
-                                <br><span class="text-amber-400">Débloquez la sélection complète.</span>
+                                Accédez à la sélection complète et aux signaux.
                             </p>
                             
-                            <button data-ms-price:add="prc_pro-monthly-na1c0fj8" 
-                               class="block w-full py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded transition text-xs shadow-lg shadow-blue-900/20 cursor-pointer z-50 relative">
+                            <a href="#" id="${btnId}"
+                               class="block w-full py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-semibold rounded transition text-xs shadow-lg shadow-blue-900/20 cursor-pointer text-center no-underline relative z-50">
                                 Devenir Membre
-                            </button>
+                            </a>
                             
-                            <div class="mt-3 text-[10px] text-slate-500">
-                                Déjà membre ? <a href="#/ms/login" class="text-slate-300 underline hover:text-white cursor-pointer relative z-50">Connexion</a>
+                            <div class="mt-3 text-[10px] text-slate-500 relative z-50">
+                                Déjà membre ? <a href="#/ms/login" class="text-slate-300 underline hover:text-white cursor-pointer">Connexion</a>
                             </div>
                         </div>
                     </div>
                 `;
                 parentDiv.insertAdjacentHTML('beforeend', overlayHTML);
 
-                // --- 3. CORRECTIF MEMBERSTACK ---
-                // On utilise setTimeout pour laisser le DOM s'afficher avant de demander à Memberstack de scanner.
-                setTimeout(function() {
-                    if (window.$memberstackDom && window.$memberstackDom.load) {
-                        console.log("Rechargement Memberstack...");
-                        window.$memberstackDom.load(); 
+                // --- LE FIX ULTIME : ACTIVATION MANUELLE ---
+                // On attend 100ms pour être sûr que le bouton est dans le DOM
+                setTimeout(() => {
+                    const btn = document.getElementById(btnId);
+                    if (btn) {
+                        // On supprime les anciens écouteurs pour éviter les doublons
+                        const newBtn = btn.cloneNode(true);
+                        btn.parentNode.replaceChild(newBtn, btn);
+                        
+                        newBtn.addEventListener('click', function(e) {
+                            e.preventDefault();
+                            console.log("Tentative d'ouverture Memberstack...");
+                            
+                            if (window.$memberstackDom) {
+                                // Commande directe pour ouvrir le checkout
+                                window.$memberstackDom.openModal({
+                                    type: 'checkout',
+                                    priceId: 'prc_pro-monthly-na1c0fj8' // VOTRE ID DE PRIX
+                                }).then(() => {
+                                    console.log("Modal ouvert");
+                                }).catch(err => {
+                                    console.error("Erreur ouverture modal:", err);
+                                    alert("Erreur: " + err);
+                                });
+                            } else {
+                                alert("Le système de paiement charge encore...");
+                            }
+                        });
+                        console.log("Bouton activé avec succès : " + btnId);
                     }
-                }, 500); // 500ms de délai de sécurité
+                }, 100);
             }
         }
 
-        // --- 4. CHARGEMENT PULLBACK (FREE) ---
+        // --- 3. CHARGEMENT DONNÉES ---
         fetch('data/sp500_pullback_free.json')
             .then(r => r.json())
             .then(data => {
@@ -259,43 +276,28 @@
                 const tbody = document.getElementById('table-pullback');
                 tbody.innerHTML = '';
                 const entries = Object.entries(data.picks || {});
-
                 if (!entries.length) {
                     tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Aucune opportunité aujourd\'hui.</td></tr>';
-                    return;
+                } else {
+                    entries.forEach(([ticker, info]) => {
+                        const price = info.entry_price || 0;
+                        const estSma = price / (1 + (info.score / 100));
+                        const graph = createSparkline(info.history, estSma, 120, 40, "#10b981");
+                        tbody.insertAdjacentHTML('beforeend', `
+                            <tr class="hover:bg-slate-800/50 border-b border-slate-800/50 transition-colors">
+                                <td class="px-6 py-4"><span class="font-bold text-slate-100">${ticker}</span><div class="text-[10px] text-slate-400 truncate max-w-[120px]">${info.name}</div></td>
+                                <td class="px-6 py-4 hidden md:table-cell">${graph}</td>
+                                <td class="px-6 py-4"><span class="inline-flex px-2 py-1 rounded text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">${(info.score).toFixed(2)}%</span></td>
+                                <td class="px-6 py-4 hidden sm:table-cell text-slate-300 font-mono text-xs">$${Math.round(price)}</td>
+                                <td class="px-6 py-4 hidden sm:table-cell text-rose-400 font-mono text-xs">$${Math.round(info.stop_loss)}</td>
+                                <td class="px-6 py-4 text-right"><a href="https://www.tradingview.com/symbols/${ticker.replace('-','.')}/" target="_blank" class="text-blue-400 hover:text-blue-300 text-xs font-medium">Voir &rarr;</a></td>
+                            </tr>
+                        `);
+                    });
                 }
-
-                entries.forEach(([ticker, info]) => {
-                    const price = info.entry_price || 0;
-                    const estSma = price / (1 + (info.score / 100));
-                    const graph = createSparkline(info.history, estSma, 120, 40, "#10b981");
-                    
-                    tbody.insertAdjacentHTML('beforeend', `
-                        <tr class="hover:bg-slate-800/50 border-b border-slate-800/50 transition-colors">
-                            <td class="px-6 py-4">
-                                <span class="font-bold text-slate-100">${ticker}</span>
-                                <div class="text-[10px] text-slate-400 truncate max-w-[120px]">${info.name}</div>
-                            </td>
-                            <td class="px-6 py-4 hidden md:table-cell">${graph}</td>
-                            <td class="px-6 py-4">
-                                <span class="inline-flex px-2 py-1 rounded text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                                    ${(info.score).toFixed(2)}%
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 hidden sm:table-cell text-slate-300 font-mono text-xs">$${Math.round(price)}</td>
-                            <td class="px-6 py-4 hidden sm:table-cell text-rose-400 font-mono text-xs">$${Math.round(info.stop_loss)}</td>
-                            <td class="px-6 py-4 text-right">
-                                <a href="https://www.tradingview.com/symbols/${ticker.replace('-','.')}/" target="_blank" class="text-blue-400 hover:text-blue-300 text-xs font-medium">Voir &rarr;</a>
-                            </td>
-                        </tr>
-                    `);
-                });
                 renderPaywallTeaser(tbody, 3, "pullback");
-            })
-            .catch(() => document.getElementById('table-pullback').innerHTML = '<tr><td colspan="6" class="px-6 py-4 text-center text-xs text-slate-500">Chargement...</td></tr>');
+            });
 
-
-        // --- 5. CHARGEMENT PHOENIX (FREE) ---
         fetch('data/sp500_breakout_free.json')
             .then(r => r.json())
             .then(data => {
@@ -303,50 +305,29 @@
                 const tbody = document.getElementById('table-phoenix');
                 tbody.innerHTML = '';
                 const entries = Object.entries(data.picks || {});
-
                 if (!entries.length) {
                     tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Aucun breakout validé aujourd\'hui.</td></tr>';
-                    return;
+                } else {
+                    entries.forEach(([ticker, info]) => {
+                        const price = info.entry_price || 0;
+                        const estSma = price / (1 + (info.score / 100));
+                        const graph = createSparkline(info.history, estSma, 120, 40, "#fbbf24");
+                        let volRatio = "N/A"; let realName = info.name;
+                        if(info.name.includes('|')) { const parts = info.name.split('|'); volRatio = parts[0].replace('Vol:', '').trim(); realName = parts[1].trim(); }
+                        tbody.insertAdjacentHTML('beforeend', `
+                            <tr class="hover:bg-slate-800/50 border-b border-slate-800/50 transition-colors">
+                                <td class="px-6 py-4"><span class="font-bold text-amber-100">${ticker}</span><div class="text-[10px] text-slate-400 truncate max-w-[120px]">${realName}</div></td>
+                                <td class="px-6 py-4 hidden md:table-cell">${graph}</td>
+                                <td class="px-6 py-4"><span class="inline-flex px-2 py-1 rounded text-xs font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">Vol: ${volRatio}</span></td>
+                                <td class="px-6 py-4 hidden sm:table-cell"><span class="text-xs text-slate-300">+${(info.score).toFixed(2)}%</span></td>
+                                <td class="px-6 py-4 hidden sm:table-cell text-rose-400 font-mono text-xs">$${Math.round(info.stop_loss)}</td>
+                                <td class="px-6 py-4 text-right"><a href="https://www.tradingview.com/symbols/${ticker.replace('-','.')}/" target="_blank" class="text-amber-400 hover:text-amber-300 text-xs font-medium">Voir &rarr;</a></td>
+                            </tr>
+                        `);
+                    });
                 }
-
-                entries.forEach(([ticker, info]) => {
-                    const price = info.entry_price || 0;
-                    const estSma = price / (1 + (info.score / 100));
-                    const graph = createSparkline(info.history, estSma, 120, 40, "#fbbf24");
-                    
-                    let volRatio = "N/A";
-                    let realName = info.name;
-                    if(info.name.includes('|')) {
-                        const parts = info.name.split('|');
-                        volRatio = parts[0].replace('Vol:', '').trim();
-                        realName = parts[1].trim();
-                    }
-
-                    tbody.insertAdjacentHTML('beforeend', `
-                        <tr class="hover:bg-slate-800/50 border-b border-slate-800/50 transition-colors">
-                            <td class="px-6 py-4">
-                                <span class="font-bold text-amber-100">${ticker}</span>
-                                <div class="text-[10px] text-slate-400 truncate max-w-[120px]">${realName}</div>
-                            </td>
-                            <td class="px-6 py-4 hidden md:table-cell">${graph}</td>
-                            <td class="px-6 py-4">
-                                <span class="inline-flex px-2 py-1 rounded text-xs font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">
-                                    Vol: ${volRatio}
-                                </span>
-                            </td>
-                            <td class="px-6 py-4 hidden sm:table-cell">
-                                <span class="text-xs text-slate-300">+${(info.score).toFixed(2)}%</span>
-                            </td>
-                            <td class="px-6 py-4 hidden sm:table-cell text-rose-400 font-mono text-xs">$${Math.round(info.stop_loss)}</td>
-                            <td class="px-6 py-4 text-right">
-                                <a href="https://www.tradingview.com/symbols/${ticker.replace('-','.')}/" target="_blank" class="text-amber-400 hover:text-amber-300 text-xs font-medium">Voir &rarr;</a>
-                            </td>
-                        </tr>
-                    `);
-                });
                 renderPaywallTeaser(tbody, 3, "phoenix");
-            })
-            .catch(() => document.getElementById('table-phoenix').innerHTML = '<tr><td colspan="6" class="px-6 py-4 text-center text-xs text-slate-500">Chargement...</td></tr>');
+            });
 
     </script>
 </body>
