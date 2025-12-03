@@ -229,5 +229,17 @@
             renderPaywallTeaser(t,3,"phoenix");
         });
     </script>
+    <script>
+    // Ce script va tester si Memberstack est vivant
+    window.addEventListener('load', function() {
+        setTimeout(function() {
+            if (typeof window.$memberstackDom === 'undefined') {
+                alert("🚨 ERREUR CRITIQUE : Memberstack n'est pas chargé !\n\nCauses possibles :\n1. Bloqueur de pub activé (uBlock, AdBlock)\n2. Erreur dans l'ID de l'application\n3. Domaine non autorisé");
+            } else {
+                alert("✅ SUCCÈS : Memberstack est bien chargé en mémoire.\n\nSi le bouton ne marche pas, c'est un problème de configuration du Prix (Price ID).");
+            }
+        }, 2000); // On attend 2 secondes pour être sûr
+    });
+</script>
 </body>
 </html>
