@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>S&P 500 | Momentum Strata</title>
 
-    <meta name="description" content="Signaux quotidiens de trading sur le S&P 500 : stratégies Breakout (Phoenix) et Pullback, basées sur la tendance, le volume et le RSI.">
+    <meta name="description" content="Signaux quotidiens de trading sur le S&P 500 : stratégies Breakout (Phoenix) et Pullback, filtrées par la tendance, le volume et le RSI pour ne garder que les meilleures opportunités.">
     <meta property="og:title" content="Momentum Strata – Signaux S&P 500">
-    <meta property="og:description" content="Détection quotidienne des actions leaders du S&P 500 grâce à deux stratégies momentum : Breakout (Phoenix) et Pullback.">
+    <meta property="og:description" content="Chaque jour de bourse, Momentum Strata scanne le S&P 500 et ne retient que les actions en breakout (Phoenix) ou en pullback propre sur tendance haussière.">
     <meta property="og:type" content="website">
 
-    <!-- CSS Tailwind précompilé -->
+    <!-- CSS Tailwind compilé -->
     <link rel="stylesheet" href="assets/css/tailwind.css">
 
-    <!-- Scripts JS -->
+    <!-- JS du site -->
     <script src="assets/js/main.js" defer></script>
     <script src="assets/js/sp500.js" defer></script>
 </head>
@@ -35,24 +35,24 @@
                 </div>
 
                 <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-5">
-                    Deux stratégies, un objectif :<br class="hidden md:block">
-                    <span class="text-blue-400">capturer les leaders du S&amp;P 500</span>
+                    Transforme le S&amp;P 500 en <span class="text-blue-400">shortlist d'idées de trades</span>
                 </h1>
 
                 <p class="text-sm md:text-base text-slate-300/90 leading-relaxed max-w-2xl mx-auto mb-8">
-                    Momentum Strata scanne chaque jour les 500 plus grandes capitalisations US pour détecter
-                    les actions en <span class="text-amber-300 font-semibold">breakout (Phoenix)</span> et en
-                    <span class="text-emerald-300 font-semibold">pullback sur tendance haussière</span>.
+                    Chaque jour de bourse, Momentum Strata scanne les 500 plus grandes actions US et ne remonte que les
+                    configurations qui comptent&nbsp;: <span class="text-amber-300 font-semibold">breakouts nets (Phoenix)</span>
+                    et <span class="text-emerald-300 font-semibold">pullbacks propres sur tendances haussières</span>.
+                    Moins de temps à fouiller, plus de temps à décider.
                 </p>
 
                 <div class="flex flex-col sm:flex-row items-center justify-center gap-3 text-xs text-slate-400">
                     <div class="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-slate-700/80 bg-slate-900/80">
                         <span class="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.8)]"></span>
-                        Données mises à jour chaque jour de bourse
+                        500 actions scannées • focus sur les leaders
                     </div>
                     <div class="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-slate-700/80 bg-slate-900/80">
                         <span class="h-2 w-2 rounded-full bg-blue-400 shadow-[0_0_10px_rgba(59,130,246,0.8)]"></span>
-                        Filtre de liquidité &amp; volume anormal
+                        Signaux recalculés chaque jour après clôture US
                     </div>
                 </div>
             </header>
@@ -71,8 +71,8 @@
                         Actions en breakout sur tendance haussière
                     </h2>
                     <p class="text-sm text-slate-400 max-w-xl">
-                        Détection des actions au-dessus de leur SMA 200 avec volume explosif et structure de bougie haussière.
-                        Idéal pour capturer des impulsions puissantes sur les leaders du marché.
+                        Détection des actions au-dessus de leur SMA 200, avec volume explosif et structure de bougie haussière.
+                        Objectif&nbsp;: capter les impulsions puissantes sur les leaders du moment plutôt que courir après tout le marché.
                     </p>
                 </div>
                 <div class="text-xs text-right text-slate-400">
@@ -87,7 +87,7 @@
                         <thead>
                             <tr class="bg-slate-950 text-[11px] uppercase tracking-[0.18em] text-slate-400 border-b border-slate-800">
                                 <th class="px-6 py-3.5">Action</th>
-                                <th class="px-6 py-3.5 hidden md:table-cell">Tendance &amp; Volume</th>
+                                <th class="px-6 py-3.5 hidden md:table-cell">Tendance &amp; volume</th>
                                 <th class="px-6 py-3.5">Score &amp; RSI</th>
                                 <th class="px-6 py-3.5 hidden sm:table-cell">Prix d'entrée</th>
                                 <th class="px-6 py-3.5 hidden sm:table-cell">Stop Loss</th>
@@ -103,28 +103,33 @@
                         </tbody>
                     </table>
                 </div>
+
+                <p class="text-[11px] text-slate-500 mt-2 px-6 pb-3">
+                    Les signaux Phoenix mettent en avant des breakouts nets. Ils n’intègrent pas ta taille de position ni ton money management&nbsp;:
+                    à adapter à ton propre plan de trading.
+                </p>
             </div>
 
             <div class="grid md:grid-cols-3 gap-4 text-xs text-slate-400">
                 <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
-                    <h3 class="font-semibold text-slate-100 mb-1.5 text-sm">Filtre volume</h3>
+                    <h3 class="font-semibold text-slate-100 mb-1.5 text-sm">Filtre de volume</h3>
                     <p>
-                        Seules les actions avec un volume du jour &gt; 2× la moyenne 20 jours sont retenues. On évite ainsi
-                        les faux signaux sur des dossiers peu liquides.
+                        Seules les actions avec un volume du jour nettement supérieur à la moyenne 20 jours sont retenues.
+                        L’objectif est d’éviter les faux signaux sur des dossiers peu liquides.
                     </p>
                 </div>
                 <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
                     <h3 class="font-semibold text-slate-100 mb-1.5 text-sm">Tendance long terme</h3>
                     <p>
                         Le prix doit être au-dessus de la <span class="font-medium text-slate-100">SMA 200</span> :
-                        on ne joue que dans le sens de la tendance dominante.
+                        on ne joue que dans le sens de la tendance dominante, pas contre.
                     </p>
                 </div>
                 <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
                     <h3 class="font-semibold text-slate-100 mb-1.5 text-sm">Score global</h3>
                     <p>
-                        Le score combine intensité de la tendance, position par rapport à la SMA 200, RSI et volume
-                        afin de classer les opportunités.
+                        Le score combine intensité de la tendance, position par rapport aux moyennes, RSI et volume
+                        pour trier les opportunités de la plus forte à la plus faible.
                     </p>
                 </div>
             </div>
@@ -143,8 +148,8 @@
                         Pullbacks propres sur tendances établies
                     </h2>
                     <p class="text-sm text-slate-400 max-w-xl">
-                        Sélection des actions en forte tendance haussière revenant au contact de la SMA 50, avec RSI sous contrôle.
-                        Idéal pour des entrées plus “confortables” que les breakouts.
+                        Sélection des actions en forte tendance haussière qui corrigent vers la SMA 50 sans casser la structure de fond.
+                        Tu entres sur repli, pas sur un plus haut historique, tout en restant aligné avec la dynamique du marché.
                     </p>
                 </div>
                 <div class="text-xs text-right text-slate-400">
@@ -175,23 +180,63 @@
                         </tbody>
                     </table>
                 </div>
+
+                <p class="text-[11px] text-slate-500 mt-2 px-6 pb-3">
+                    Les pullbacks sont pensés pour des entrées plus “confortables” que les breakouts.
+                    Comme toujours, le stop et la taille de position restent à adapter à ta gestion du risque.
+                </p>
             </div>
 
             <div class="grid md:grid-cols-2 gap-4 text-xs text-slate-400">
                 <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
                     <h3 class="font-semibold text-slate-100 mb-1.5 text-sm">Pullback contrôlé</h3>
                     <p>
-                        Le prix revient vers la <span class="font-medium text-slate-100">SMA 50</span> mais reste en forte
-                        tendance haussière au-dessus de la SMA 200 : on achète un repli plutôt qu’un plus haut.
+                        Le prix revient vers la <span class="font-medium text-slate-100">SMA 50</span> mais reste au-dessus de la SMA 200&nbsp;:
+                        la tendance de fond reste haussière, la correction est utilisée comme opportunité d’entrée.
                     </p>
                 </div>
                 <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
                     <h3 class="font-semibold text-emerald-300 mb-1.5 text-sm">Stop Loss discipliné</h3>
                     <p>
-                        Le stop est calculé dynamiquement pour laisser respirer le mouvement tout en limitant le risque
-                        sur chaque position.
+                        Le stop proposé est calculé à partir de la volatilité. Il sert de repère technique,
+                        pas de recommandation figée&nbsp;: à calibrer selon ton horizon de temps et ton exposition globale.
                     </p>
                 </div>
+            </div>
+        </section>
+
+        <!-- SECTION EXPLICATIVE : COMMENT LIRE LES SIGNAUX -->
+        <section class="max-w-6xl mx-auto px-4 md:px-8 lg:px-10 pb-16">
+            <div class="bg-slate-950/80 border border-slate-800/80 rounded-2xl p-5 md:p-6 text-sm text-slate-300 space-y-3">
+                <h2 class="text-base md:text-lg font-semibold text-slate-50">
+                    Comment lire ces signaux ?
+                </h2>
+                <ul class="list-disc list-inside space-y-1.5 text-[13px] md:text-sm">
+                    <li>
+                        <span class="font-semibold text-slate-100">Score :</span>
+                        plus il est élevé, plus la configuration coche de critères favorables
+                        (tendance, position par rapport aux moyennes, RSI, volume).
+                    </li>
+                    <li>
+                        <span class="font-semibold text-slate-100">RSI :</span>
+                        un RSI élevé peut signaler une tension à court terme, même sur une bonne tendance.
+                        À utiliser comme filtre supplémentaire, pas comme signal isolé.
+                    </li>
+                    <li>
+                        <span class="font-semibold text-slate-100">Stop Loss :</span>
+                        niveau indicatif basé sur la volatilité (type ATR). Il te donne un ordre de grandeur
+                        du risque par trade, mais ne remplace pas ta propre gestion de position.
+                    </li>
+                    <li>
+                        <span class="font-semibold text-slate-100">Lien TradingView :</span>
+                        toujours valider sur le graphique avant d’agir. Momentum Strata sert à
+                        filtrer et prioriser, pas à cliquer à ta place.
+                    </li>
+                </ul>
+                <p class="text-[11px] text-slate-500">
+                    Rappel&nbsp;: rien ici ne constitue un conseil en investissement. Les signaux sont fournis à titre informatif
+                    pour t’aider à gagner du temps dans ton process de sélection.
+                </p>
             </div>
         </section>
     </main>
