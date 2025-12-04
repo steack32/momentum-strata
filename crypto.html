@@ -10,8 +10,8 @@
     <meta property="og:description" content="Scan quotidien des cryptos les plus liquides pour repérer les meilleurs breakouts (Phoenix) et pullbacks propres sur tendance haussière.">
     <meta property="og:type" content="website">
 
-    <!-- CSS Tailwind compilé -->
-    <link rel="stylesheet" href="assets/css/tailwind.css">
+    <!-- CSS Tailwind compilé (avec cache-busting comme sur l'index) -->
+    <link rel="stylesheet" href="assets/css/tailwind.css?v=20251206">
 
     <!-- JS du site -->
     <script src="assets/js/main.js" defer></script>
@@ -23,9 +23,16 @@
     <div id="navbar-container"></div>
 
     <main class="flex-1 pt-20">
+
         <!-- HERO -->
-        <section class="border-b border-slate-800/70 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
-            <header class="py-12 md:py-16 px-4 md:px-10 text-center max-w-4xl mx-auto">
+        <section class="border-b border-slate-800/70 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
+            <!-- Halo décoratif -->
+            <div class="absolute inset-0 pointer-events-none">
+                <div class="absolute -top-24 right-6 w-72 h-72 bg-purple-500/18 blur-3xl rounded-full"></div>
+                <div class="absolute bottom-[-60px] left-8 w-64 h-64 bg-emerald-500/10 blur-3xl rounded-full"></div>
+            </div>
+
+            <header class="py-12 md:py-16 px-4 md:px-10 text-center max-w-4xl mx-auto relative z-10">
                 <div class="inline-flex items-center mb-6 px-4 py-1.5 rounded-full bg-slate-900/70 border border-slate-700/60 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-300">
                     <span class="relative flex h-2 w-2 mr-2">
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
@@ -45,7 +52,22 @@
                     <span class="text-emerald-300 font-semibold">pullbacks propres</span>, pondérés par le volume en dollars et le RSI.
                 </p>
 
-                <div class="flex flex-col sm:flex-row items-center justify-center gap-3 text-xs text-slate-400">
+                <!-- Stats hero crypto -->
+                <div id="hero-stats-crypto" class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
+                    <!-- Boîte Phoenix -->
+                    <div class="px-4 py-3 rounded-xl bg-slate-900/75 border border-slate-800/80 backdrop-blur text-left shadow-lg">
+                        <p class="text-[11px] text-slate-400 uppercase tracking-wider mb-1">Phoenix • Breakout Crypto</p>
+                        <p class="text-xl font-bold text-purple-300" id="hero-crypto-phoenix-count">–</p>
+                    </div>
+
+                    <!-- Boîte Pullback -->
+                    <div class="px-4 py-3 rounded-xl bg-slate-900/75 border border-slate-800/80 backdrop-blur text-left shadow-lg">
+                        <p class="text-[11px] text-slate-400 uppercase tracking-wider mb-1">Pullback • Repli propre</p>
+                        <p class="text-xl font-bold text-emerald-300" id="hero-crypto-pullback-count">–</p>
+                    </div>
+                </div>
+
+                <div class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3 text-xs text-slate-400">
                     <div class="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-slate-700/80 bg-slate-900/80">
                         <span class="h-2 w-2 rounded-full bg-purple-400 shadow-[0_0_10px_rgba(168,85,247,0.8)]"></span>
                         Cryptos filtrées par volume et liquidité
