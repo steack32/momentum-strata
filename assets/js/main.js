@@ -50,3 +50,28 @@ document.addEventListener("DOMContentLoaded", async () => {
     // On laisse un tick pour que le DOM se mette à jour, puis on marque le lien actif
     requestAnimationFrame(highlightActiveNavLink);
 });
+
+
+document.addEventListener("DOMContentLoaded", () => {
+
+    // --- HIGHLIGHT DE LA PAGE ACTIVE ---
+    const path = window.location.pathname.split("/").pop();
+
+    document.querySelectorAll(".nav-link").forEach(link => {
+        if (link.getAttribute("href") === path) {
+            link.classList.add("active");
+        }
+    });
+
+    // --- MENU MOBILE ---
+    const btn = document.getElementById("mobile-menu-btn");
+    const mobileMenu = document.getElementById("mobile-menu");
+
+    if (btn && mobileMenu) {
+        btn.addEventListener("click", () => {
+            mobileMenu.classList.toggle("hidden");
+        });
+    }
+
+});
+
