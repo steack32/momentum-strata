@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signaux Trading S&amp;P 500 – Momentum Strata</title>
-<meta name="description" content="Signaux de trading quotidiens sur le S&amp;P 500 : stratégies Breakout (Phoenix) et Pullback, analyse momentum, volumes et RSI pour détecter les leaders du marché.">
-<meta property="og:title" content="Signaux Trading S&amp;P 500 – Momentum Strata">
-<meta property="og:description" content="Signaux de trading quotidiens sur le S&amp;P 500 : stratégies Breakout (Phoenix) et Pullback, analyse momentum, volumes et RSI pour détecter les leaders du marché.">
-<meta property="og:type" content="website">
     
+    <title>Signaux Trading S&P 500 | Momentum Strata</title>
+    <meta name="description" content="Détectez les opportunités de trading sur le S&P 500. Stratégies Phoenix (Breakout) et Pullback pour identifier les actions leaders en tendance haussière.">
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="assets/js/tailwind-config.js"></script>
 
@@ -149,30 +149,7 @@
     <div id="footer-container"></div>
 
     <script>
-        // --- 1. FONCTION GRAPHIQUE ---
-        function createSparkline(data, width = 120, height = 40, color = "#10b981") {
-            if (!data || data.length < 2) return '';
-            const allValues = [...data];
-            const min = Math.min(...allValues);
-            const max = Math.max(...allValues);
-            const range = max - min || 1;
-            const paddingY = 5;
-            const effH = height - paddingY * 2;
-            const stepX = width / (data.length - 1);
-            const path = data.map((val, i) => {
-                const x = i * stepX;
-                const y = (height - paddingY) - ((val - min) / range * effH);
-                return `${i === 0 ? 'M' : 'L'} ${x.toFixed(1)},${y.toFixed(1)}`;
-            }).join(' ');
-            return `
-                <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" class="overflow-visible">
-                    <path d="${path}" fill="none" stroke="${color}" stroke-width="2" vector-effect="non-scaling-stroke" />
-                    <circle cx="${width}" cy="${(height - paddingY) - ((data[data.length-1] - min)/range*effH)}" r="2" fill="${color}" />
-                </svg>
-            `;
-        }
-
-        // --- 2. CHARGEMENT PHOENIX (S&P 500 PRO) ---
+        // --- CHARGEMENT PHOENIX (S&P 500 PRO) ---
         fetch('data/sp500_breakout_pro.json')
             .then(r => r.json())
             .then(data => {
@@ -185,8 +162,8 @@
                     tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Aucun breakout détecté aujourd\'hui.</td></tr>';
                 } else {
                     entries.forEach(([ticker, info]) => {
-                        const price = info.entry_price || 0;
-                        const graph = createSparkline(info.history, 120, 40, "#fbbf24");
+                        // Utilisation de la fonction globale window.createSparkline (main.js)
+                        const graph = window.createSparkline ? window.createSparkline(info.history, 120, 40, "#fbbf24") : '';
                         
                         // Couleur RSI : Rouge si surachat (>70), gris sinon
                         const rsiColor = info.rsi > 70 ? 'text-rose-400' : 'text-slate-400';
@@ -195,7 +172,7 @@
                             <tr class="hover:bg-slate-800/50 border-b border-slate-800/50 transition-colors">
                                 <td class="px-6 py-4">
                                     <span class="font-bold text-amber-100">${info.name}</span>
-                                    </td>
+                                </td>
                                 <td class="px-6 py-4 hidden md:table-cell">${graph}</td>
                                 <td class="px-6 py-4">
                                     <div class="flex flex-col">
@@ -210,7 +187,7 @@
                                 </td>
                                 <td class="px-6 py-4 hidden sm:table-cell text-rose-400 font-mono text-xs">$${info.stop_loss}</td>
                                 <td class="px-6 py-4 text-right">
-                                    <a href="https://www.tradingview.com/symbols/${ticker}/" target="_blank" rel="noopener" class="text-amber-400 hover:text-amber-300 text-xs font-medium">Voir &rarr;</a>
+                                    <a href="https://www.tradingview.com/symbols/${ticker}/" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:text-amber-300 text-xs font-medium">Voir &rarr;</a>
                                 </td>
                             </tr>
                         `);
@@ -219,7 +196,7 @@
             })
             .catch(() => document.getElementById('table-phoenix').innerHTML = '<tr><td colspan="6" class="px-6 py-4 text-center text-xs text-slate-500">Erreur chargement données.</td></tr>');
 
-        // --- 3. CHARGEMENT PULLBACK (S&P 500 PRO) ---
+        // --- CHARGEMENT PULLBACK (S&P 500 PRO) ---
         fetch('data/sp500_pullback_pro.json')
             .then(r => r.json())
             .then(data => {
@@ -232,8 +209,7 @@
                     tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Aucun pullback détecté aujourd\'hui.</td></tr>';
                 } else {
                     entries.forEach(([ticker, info]) => {
-                        const price = info.entry_price || 0;
-                        const graph = createSparkline(info.history, 120, 40, "#10b981");
+                        const graph = window.createSparkline ? window.createSparkline(info.history, 120, 40, "#10b981") : '';
 
                         tbody.insertAdjacentHTML('beforeend', `
                             <tr class="hover:bg-slate-800/50 border-b border-slate-800/50 transition-colors">
@@ -247,10 +223,10 @@
                                         <span class="text-[10px] text-slate-400">RSI: ${info.rsi}</span>
                                     </div>
                                 </td>
-                                <td class="px-6 py-4 hidden sm:table-cell text-slate-300 font-mono text-xs">$${price}</td>
+                                <td class="px-6 py-4 hidden sm:table-cell text-slate-300 font-mono text-xs">$${info.entry_price}</td>
                                 <td class="px-6 py-4 hidden sm:table-cell text-rose-400 font-mono text-xs">$${info.stop_loss}</td>
                                 <td class="px-6 py-4 text-right">
-                                    <a href="https://www.tradingview.com/symbols/${ticker}/" target="_blank" rel="noopener" class="text-blue-400 hover:text-blue-300 text-xs font-medium">Voir &rarr;</a>
+                                    <a href="https://www.tradingview.com/symbols/${ticker}/" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 text-xs font-medium">Voir &rarr;</a>
                                 </td>
                             </tr>
                         `);
@@ -258,7 +234,6 @@
                 }
             })
             .catch(() => document.getElementById('table-pullback').innerHTML = '<tr><td colspan="6" class="px-6 py-4 text-center text-xs text-slate-500">Erreur chargement données.</td></tr>');
-
     </script>
 </body>
 </html>

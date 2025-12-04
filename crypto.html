@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signaux Trading Crypto – Momentum Strata</title>
-<meta name="description" content="Signaux de trading crypto sur les 150 principales cryptomonnaies : stratégies Phoenix (breakout) et Golden Zone (rebond), analyse multi-exchange pour détecter les meilleurs setups.">
-<meta property="og:title" content="Signaux Trading Crypto – Momentum Strata">
-<meta property="og:description" content="Signaux de trading crypto sur les 150 principales cryptomonnaies : stratégies Phoenix (breakout) et Golden Zone (rebond), analyse multi-exchange pour détecter les meilleurs setups.">
-<meta property="og:type" content="website">
+    
+    <title>Signaux Crypto Top 150 | Momentum Strata</title>
+    <meta name="description" content="Scanner automatique des 150 plus grosses cryptos. Détectez les explosions de volume (Phoenix) et les rebonds sur support (Pullback) en temps réel.">
+    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="assets/js/tailwind-config.js"></script>
+
     <script src="assets/js/main.js" defer></script>
+
     <style>
         .sparkline-path { stroke-linecap: round; stroke-linejoin: round; }
         .sparkline-sma { stroke-dasharray: 2, 2; }
@@ -67,7 +70,9 @@
                                     <th class="px-6 py-3.5 text-right">Chart</th>
                                 </tr>
                             </thead>
-                            <tbody id="table-phoenix" class="text-sm divide-y divide-slate-800"><tr><td colspan="6" class="px-6 py-8 text-center text-xs text-slate-500">Chargement...</td></tr></tbody>
+                            <tbody id="table-phoenix" class="text-sm divide-y divide-slate-800">
+                                <tr><td colspan="6" class="px-6 py-8 text-center text-xs text-slate-500">Chargement des données...</td></tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -99,7 +104,9 @@
                                     <th class="px-6 py-3.5 text-right">Chart</th>
                                 </tr>
                             </thead>
-                            <tbody id="table-pullback" class="text-sm divide-y divide-slate-800"><tr><td colspan="6" class="px-6 py-8 text-center text-xs text-slate-500">Chargement...</td></tr></tbody>
+                            <tbody id="table-pullback" class="text-sm divide-y divide-slate-800">
+                                <tr><td colspan="6" class="px-6 py-8 text-center text-xs text-slate-500">Chargement des données...</td></tr>
+                            </tbody>
                         </table>
                     </div>
                 </div>
@@ -111,35 +118,84 @@
     <div id="footer-container"></div>
 
     <script>
-        function createSparkline(data, width=120, height=40, color="#10b981"){if(!data||data.length<2)return'';const min=Math.min(...data),max=Math.max(...data),range=max-min||1,pad=5,effH=height-pad*2,stepX=width/(data.length-1),path=data.map((v,i)=>`${i===0?'M':'L'} ${(i*stepX).toFixed(1)},${((height-pad)-((v-min)/range*effH)).toFixed(1)}`).join(' ');return`<svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" class="overflow-visible"><path d="${path}" fill="none" stroke="${color}" stroke-width="2"/><circle cx="${width}" cy="${(height-pad)-((data[data.length-1]-min)/range*effH)}" r="2" fill="${color}"/></svg>`;}
+        // --- CHARGEMENT DONNÉES CRYPTO ---
+        fetch('data/crypto_breakout_pro.json')
+            .then(r => r.json())
+            .then(data => {
+                document.getElementById('date-phoenix').textContent = data.date_mise_a_jour || '-';
+                const tbody = document.getElementById('table-phoenix');
+                tbody.innerHTML = '';
+                const entries = Object.entries(data.picks || {});
+                if (!entries.length) {
+                    tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Aucune opportunité haute qualité (>5M$ vol) détectée.</td></tr>';
+                } else {
+                    entries.forEach(([ticker, info]) => {
+                        // Utilisation de la fonction globale window.createSparkline (main.js)
+                        const graph = window.createSparkline ? window.createSparkline(info.history, 120, 40, "#fbbf24") : '';
+                        
+                        const rsiColor = info.rsi > 70 ? 'text-rose-400' : 'text-slate-300';
+                        
+                        tbody.insertAdjacentHTML('beforeend', `
+                            <tr class="hover:bg-slate-800/50 border-b border-slate-800/50 transition-colors">
+                                <td class="px-6 py-4">
+                                    <span class="font-bold text-amber-100">${info.name}</span>
+                                </td>
+                                <td class="px-6 py-4 hidden md:table-cell">${graph}</td>
+                                <td class="px-6 py-4">
+                                    <div class="flex flex-col gap-1">
+                                        <span class="text-xs font-bold text-amber-400">Vol: x${info.vol_ratio}</span>
+                                        <span class="text-[10px] ${rsiColor}">RSI: ${info.rsi}</span>
+                                    </div>
+                                </td>
+                                <td class="px-6 py-4 hidden sm:table-cell">
+                                    <span class="inline-flex px-2 py-1 rounded text-xs font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                                        ${Math.round(info.score)}/100
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 hidden sm:table-cell text-rose-400 font-mono text-xs">$${info.stop_loss < 1 ? info.stop_loss.toFixed(5) : info.stop_loss.toFixed(2)}</td>
+                                <td class="px-6 py-4 text-right">
+                                    <a href="https://www.tradingview.com/symbols/${ticker.replace('-','').replace('USD','USDT')}/" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:text-amber-300 text-xs font-medium">Voir &rarr;</a>
+                                </td>
+                            </tr>
+                        `);
+                    });
+                }
+            })
+            .catch(() => document.getElementById('table-phoenix').innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Données indisponibles.</td></tr>');
 
-        // --- CHARGEMENT ---
-        fetch('data/crypto_breakout_pro.json').then(r=>r.json()).then(data=>{
-            document.getElementById('date-phoenix').textContent=data.date_mise_a_jour||'-';
-            const t=document.getElementById('table-phoenix');t.innerHTML='';
-            const picks=Object.entries(data.picks||{});
-            if(!picks.length){t.innerHTML='<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Aucune opportunité haute qualité (>5M$ vol) détectée.</td></tr>';}
-            else{
-                picks.forEach(([k,v])=>{
-                    // Couleur RSI : Vert si < 70, Rouge si > 70 (Surchauffe)
-                    const rsiColor = v.rsi > 70 ? 'text-rose-400' : 'text-slate-300';
-                    t.insertAdjacentHTML('beforeend',`<tr class="hover:bg-slate-800/50 border-b border-slate-800/50 transition-colors"><td class="px-6 py-4"><span class="font-bold text-amber-100">${v.name}</span></td><td class="px-6 py-4 hidden md:table-cell">${createSparkline(v.history,120,40,"#fbbf24")}</td><td class="px-6 py-4"><div class="flex flex-col gap-1"><span class="text-xs font-bold text-amber-400">Vol: x${v.vol_ratio}</span><span class="text-[10px] ${rsiColor}">RSI: ${v.rsi}</span></div></td><td class="px-6 py-4 hidden sm:table-cell"><span class="inline-flex px-2 py-1 rounded text-xs font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">${v.score}/100</span></td><td class="px-6 py-4 hidden sm:table-cell text-rose-400 font-mono text-xs">$${v.stop_loss<1?v.stop_loss.toFixed(5):v.stop_loss.toFixed(2)}</td><td class="px-6 py-4 text-right"><a href="https://www.tradingview.com/symbols/${k.replace('/','').replace('-','').replace('USD','USDT')}/" target="_blank" rel="noopener" class="text-amber-400 hover:text-amber-300 text-xs font-medium">Voir &rarr;</a></td></tr>`);
-                });
-            }
-        });
-
-        fetch('data/crypto_pullback_pro.json').then(r=>r.json()).then(data=>{
-            document.getElementById('date-pullback').textContent=data.date_mise_a_jour||'-';
-            const t=document.getElementById('table-pullback');t.innerHTML='';
-            const picks=Object.entries(data.picks||{});
-            if(!picks.length){t.innerHTML='<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Aucun pullback zone EMA 13-50 détecté.</td></tr>';}
-            else{
-                picks.forEach(([k,v])=>{
-                    const p=v.entry_price;
-                    t.insertAdjacentHTML('beforeend',`<tr class="hover:bg-slate-800/50 border-b border-slate-800/50 transition-colors"><td class="px-6 py-4"><span class="font-bold text-slate-100">${v.name}</span></td><td class="px-6 py-4 hidden md:table-cell">${createSparkline(v.history,120,40,"#10b981")}</td><td class="px-6 py-4"><span class="inline-flex px-2 py-1 rounded text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">RSI: ${v.rsi}</span></td><td class="px-6 py-4 hidden sm:table-cell text-slate-300 font-mono text-xs">$${p<1?p.toFixed(5):p.toFixed(2)}</td><td class="px-6 py-4 hidden sm:table-cell text-rose-400 font-mono text-xs">$${v.stop_loss<1?v.stop_loss.toFixed(5):v.stop_loss.toFixed(2)}</td><td class="px-6 py-4 text-right"><a href="https://www.tradingview.com/symbols/${k.replace('/','').replace('-','').replace('USD','USDT')}/" target="_blank" rel="noopener" class="text-blue-400 hover:text-blue-300 text-xs font-medium">Voir &rarr;</a></td></tr>`);
-                });
-            }
-        });
+        fetch('data/crypto_pullback_pro.json')
+            .then(r => r.json())
+            .then(data => {
+                document.getElementById('date-pullback').textContent = data.date_mise_a_jour || '-';
+                const tbody = document.getElementById('table-pullback');
+                tbody.innerHTML = '';
+                const entries = Object.entries(data.picks || {});
+                if (!entries.length) {
+                    tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Aucun pullback zone EMA 13-50 détecté.</td></tr>';
+                } else {
+                    entries.forEach(([ticker, info]) => {
+                        const graph = window.createSparkline ? window.createSparkline(info.history, 120, 40, "#10b981") : '';
+                        
+                        tbody.insertAdjacentHTML('beforeend', `
+                            <tr class="hover:bg-slate-800/50 border-b border-slate-800/50 transition-colors">
+                                <td class="px-6 py-4">
+                                    <span class="font-bold text-slate-100">${info.name}</span>
+                                </td>
+                                <td class="px-6 py-4 hidden md:table-cell">${graph}</td>
+                                <td class="px-6 py-4">
+                                    <span class="inline-flex px-2 py-1 rounded text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">RSI: ${info.rsi}</span>
+                                </td>
+                                <td class="px-6 py-4 hidden sm:table-cell text-slate-300 font-mono text-xs">$${info.entry_price < 1 ? info.entry_price.toFixed(5) : info.entry_price.toFixed(2)}</td>
+                                <td class="px-6 py-4 hidden sm:table-cell text-rose-400 font-mono text-xs">$${info.stop_loss < 1 ? info.stop_loss.toFixed(5) : info.stop_loss.toFixed(2)}</td>
+                                <td class="px-6 py-4 text-right">
+                                    <a href="https://www.tradingview.com/symbols/${ticker.replace('-','').replace('USD','USDT')}/" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 text-xs font-medium">Voir &rarr;</a>
+                                </td>
+                            </tr>
+                        `);
+                    });
+                }
+            })
+            .catch(() => document.getElementById('table-pullback').innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Données indisponibles.</td></tr>');
     </script>
 </body>
 </html>
