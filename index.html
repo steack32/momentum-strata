@@ -38,7 +38,7 @@
 
             <p class="text-sm md:text-base text-slate-300/90 max-w-2xl mx-auto leading-relaxed">
                 Analyse quotidienne des 500 plus grandes capitalisations US.<br>
-                Toutes les opportunités détectées sont affichées ci-dessous en temps réel (Version Complète).
+                Détection automatique des <strong>leaders sectoriels</strong> en pleine explosion ou en repli stratégique.
             </p>
         </header>
     </div>
@@ -46,7 +46,7 @@
     <main class="flex-grow space-y-20 pb-20 mt-10">
         
         <section id="phoenix" class="px-4 md:px-6 lg:px-0">
-            <div class="max-w-5xl mx-auto">
+            <div class="max-w-6xl mx-auto">
                 <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-5 border-b border-slate-800 pb-4">
                     <div>
                         <div class="flex items-center gap-2 mb-1">
@@ -54,7 +54,7 @@
                             <h2 class="font-bold text-2xl text-slate-50">Phoenix (Breakout)</h2>
                         </div>
                         <p class="text-sm text-slate-400 max-w-xl">
-                            "Acheter le réveil." Actions sous-cotées qui cassent leur SMA 200 à la hausse avec <strong>fort volume</strong>.
+                            "Acheter le réveil." Actions qui cassent leur résistance avec un <strong>volume explosif</strong> et une forte dynamique sectorielle.
                         </p>
                     </div>
                     <div class="text-right">
@@ -67,16 +67,16 @@
                         <table class="w-full text-left border-collapse">
                             <thead>
                                 <tr class="bg-slate-950 text-[11px] uppercase tracking-[0.18em] text-slate-400 border-b border-slate-800">
-                                    <th class="px-6 py-3.5">Actif</th>
+                                    <th class="px-6 py-3.5">Action (Secteur)</th>
                                     <th class="px-6 py-3.5 hidden md:table-cell">Config (30j)</th>
-                                    <th class="px-6 py-3.5">Volume Ratio</th>
-                                    <th class="px-6 py-3.5 hidden sm:table-cell">Breakout</th>
-                                    <th class="px-6 py-3.5 hidden sm:table-cell">Stop Loss</th>
+                                    <th class="px-6 py-3.5">Volume & RSI</th>
+                                    <th class="px-6 py-3.5 hidden sm:table-cell">Score V2</th>
+                                    <th class="px-6 py-3.5 hidden sm:table-cell">Stop Loss (ATR)</th>
                                     <th class="px-6 py-3.5 text-right">Chart</th>
                                 </tr>
                             </thead>
                             <tbody id="table-phoenix" class="text-sm divide-y divide-slate-800">
-                                <tr><td colspan="6" class="px-6 py-8 text-center text-xs text-slate-500">Chargement des données complètes...</td></tr>
+                                <tr><td colspan="6" class="px-6 py-8 text-center text-xs text-slate-500">Chargement des données...</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -85,15 +85,15 @@
         </section>
 
         <section id="pullback" class="px-4 md:px-6 lg:px-0">
-            <div class="max-w-5xl mx-auto">
+            <div class="max-w-6xl mx-auto">
                 <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-5 border-b border-slate-800 pb-4">
                     <div>
                         <div class="flex items-center gap-2 mb-1">
-                             <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 uppercase tracking-wider">Stratégie 2</span>
+                            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 uppercase tracking-wider">Stratégie 2</span>
                             <h2 class="font-bold text-2xl text-slate-50">Trend Pullback (Rebond)</h2>
                         </div>
                         <p class="text-sm text-slate-400 max-w-xl">
-                            "Acheter les leaders qui se reposent." Actions en tendance haussière qui reviennent tester leur support (SMA 200).
+                            "Acheter les leaders qui respirent." Actions en tendance haussière forte qui reviennent tester leur support (SMA 50) avec un RSI sain.
                         </p>
                     </div>
                     <div class="text-right">
@@ -106,16 +106,16 @@
                         <table class="w-full text-left border-collapse">
                             <thead>
                                 <tr class="bg-slate-950 text-[11px] uppercase tracking-[0.18em] text-slate-400 border-b border-slate-800">
-                                    <th class="px-6 py-3.5">Actif</th>
+                                    <th class="px-6 py-3.5">Action (Secteur)</th>
                                     <th class="px-6 py-3.5 hidden md:table-cell">Config (30j)</th>
-                                    <th class="px-6 py-3.5">Distance SMA</th>
+                                    <th class="px-6 py-3.5">Santé (RSI)</th>
                                     <th class="px-6 py-3.5 hidden sm:table-cell">Prix</th>
-                                    <th class="px-6 py-3.5 hidden sm:table-cell">Stop Loss</th>
+                                    <th class="px-6 py-3.5 hidden sm:table-cell">Stop Loss (ATR)</th>
                                     <th class="px-6 py-3.5 text-right">Chart</th>
                                 </tr>
                             </thead>
                             <tbody id="table-pullback" class="text-sm divide-y divide-slate-800">
-                                <tr><td colspan="6" class="px-6 py-8 text-center text-xs text-slate-500">Chargement des données complètes...</td></tr>
+                                <tr><td colspan="6" class="px-6 py-8 text-center text-xs text-slate-500">Chargement des données...</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -123,18 +123,18 @@
             </div>
         </section>
 
-        <section class="max-w-5xl mx-auto px-4 lg:px-0">
+        <section class="max-w-6xl mx-auto px-4 lg:px-0">
             <div class="grid md:grid-cols-2 gap-6">
-                <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-800">
+                 <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-800">
                     <h3 class="font-bold text-amber-400 mb-2">Quand utiliser "Phoenix" ?</h3>
                     <p class="text-xs text-slate-400 leading-relaxed">
-                        Idéal pour chasser le début d'un nouveau cycle. Les signaux sont rares (souvent 0). Si une action apparaît ici avec un volume > x2.0, c'est un signal puissant. Risque plus élevé de faux départ.
+                        Idéal pour chasser le début d'un nouveau cycle de hausse. Le signal est validé par un volume anormalement élevé (> 2x la moyenne) et un score technique qui combine tendance et momentum.
                     </p>
                 </div>
                 <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-800">
                     <h3 class="font-bold text-emerald-400 mb-2">Quand utiliser "Pullback" ?</h3>
                     <p class="text-xs text-slate-400 leading-relaxed">
-                        Idéal pour le "Swing Trading" tranquille. Vous achetez une tendance saine qui respire. Le taux de réussite est élevé, les gains sont modérés (5-10%). C'est la stratégie "Rente".
+                        Idéal pour le "Swing Trading" plus tranquille. Vous achetez une tendance saine qui fait une pause. Le Stop Loss est calculé dynamiquement avec l'ATR pour éviter le bruit du marché.
                     </p>
                 </div>
             </div>
@@ -146,9 +146,9 @@
 
     <script>
         // --- 1. FONCTION GRAPHIQUE ---
-        function createSparkline(data, sma200, width = 120, height = 40, color = "#10b981") {
+        function createSparkline(data, width = 120, height = 40, color = "#10b981") {
             if (!data || data.length < 2) return '';
-            const allValues = [...data, sma200];
+            const allValues = [...data];
             const min = Math.min(...allValues);
             const max = Math.max(...allValues);
             const range = max - min || 1;
@@ -160,17 +160,15 @@
                 const y = (height - paddingY) - ((val - min) / range * effH);
                 return `${i === 0 ? 'M' : 'L'} ${x.toFixed(1)},${y.toFixed(1)}`;
             }).join(' ');
-            const smaY = (height - paddingY) - ((sma200 - min) / range * effH);
             return `
                 <svg width="${width}" height="${height}" viewBox="0 0 ${width} ${height}" class="overflow-visible">
-                    <line x1="0" y1="${smaY}" x2="${width}" y2="${smaY}" stroke="#475569" stroke-width="1" stroke-dasharray="3,3" opacity="0.6" />
                     <path d="${path}" fill="none" stroke="${color}" stroke-width="2" vector-effect="non-scaling-stroke" />
                     <circle cx="${width}" cy="${(height - paddingY) - ((data[data.length-1] - min)/range*effH)}" r="2" fill="${color}" />
                 </svg>
             `;
         }
 
-        // --- 2. CHARGEMENT PHOENIX (FICHIER PRO) - Premier script pour correspondre à l'ordre HTML ---
+        // --- 2. CHARGEMENT PHOENIX (S&P 500 PRO) ---
         fetch('data/sp500_breakout_pro.json')
             .then(r => r.json())
             .then(data => {
@@ -180,48 +178,44 @@
                 const entries = Object.entries(data.picks || {});
 
                 if (!entries.length) {
-                    tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Aucun breakout validé aujourd\'hui.</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Aucun breakout détecté aujourd\'hui.</td></tr>';
                 } else {
                     entries.forEach(([ticker, info]) => {
                         const price = info.entry_price || 0;
-                        const estSma = price / (1 + (info.score / 100));
-                        const graph = createSparkline(info.history, estSma, 120, 40, "#fbbf24");
+                        const graph = createSparkline(info.history, 120, 40, "#fbbf24");
                         
-                        let volRatio = "N/A";
-                        let realName = info.name;
-                        if(info.name.includes('|')) {
-                            const parts = info.name.split('|');
-                            volRatio = parts[0].replace('Vol:', '').trim();
-                            realName = parts[1].trim();
-                        }
+                        // Couleur RSI : Rouge si surachat (>70), gris sinon
+                        const rsiColor = info.rsi > 70 ? 'text-rose-400' : 'text-slate-400';
 
                         tbody.insertAdjacentHTML('beforeend', `
                             <tr class="hover:bg-slate-800/50 border-b border-slate-800/50 transition-colors">
                                 <td class="px-6 py-4">
-                                    <span class="font-bold text-amber-100">${ticker}</span>
-                                    <div class="text-[10px] text-slate-400 truncate max-w-[120px]">${realName}</div>
-                                </td>
+                                    <span class="font-bold text-amber-100">${info.name}</span>
+                                    </td>
                                 <td class="px-6 py-4 hidden md:table-cell">${graph}</td>
                                 <td class="px-6 py-4">
-                                    <span class="inline-flex px-2 py-1 rounded text-xs font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">
-                                        Vol: ${volRatio}
-                                    </span>
+                                    <div class="flex flex-col">
+                                        <span class="text-xs font-bold text-amber-400">Vol: x${info.vol_ratio}</span>
+                                        <span class="text-[10px] ${rsiColor}">RSI: ${info.rsi}</span>
+                                    </div>
                                 </td>
                                 <td class="px-6 py-4 hidden sm:table-cell">
-                                    <span class="text-xs text-slate-300">+${(info.score).toFixed(2)}%</span>
+                                    <span class="inline-flex px-2 py-1 rounded text-xs font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                                        ${Math.round(info.score)}/100
+                                    </span>
                                 </td>
-                                <td class="px-6 py-4 hidden sm:table-cell text-rose-400 font-mono text-xs">$${Math.round(info.stop_loss)}</td>
+                                <td class="px-6 py-4 hidden sm:table-cell text-rose-400 font-mono text-xs">$${info.stop_loss}</td>
                                 <td class="px-6 py-4 text-right">
-                                    <a href="https://www.tradingview.com/symbols/${ticker.replace('-','.')}/" target="_blank" class="text-amber-400 hover:text-amber-300 text-xs font-medium">Voir &rarr;</a>
+                                    <a href="https://www.tradingview.com/symbols/${ticker}/" target="_blank" class="text-amber-400 hover:text-amber-300 text-xs font-medium">Voir &rarr;</a>
                                 </td>
                             </tr>
                         `);
                     });
                 }
             })
-            .catch(() => document.getElementById('table-phoenix').innerHTML = '<tr><td colspan="6" class="px-6 py-4 text-center text-xs text-slate-500">Erreur de chargement (Fichier Pro).</td></tr>');
+            .catch(() => document.getElementById('table-phoenix').innerHTML = '<tr><td colspan="6" class="px-6 py-4 text-center text-xs text-slate-500">Erreur chargement données.</td></tr>');
 
-        // --- 3. CHARGEMENT PULLBACK (FICHIER PRO) - Deuxième script ---
+        // --- 3. CHARGEMENT PULLBACK (S&P 500 PRO) ---
         fetch('data/sp500_pullback_pro.json')
             .then(r => r.json())
             .then(data => {
@@ -231,36 +225,35 @@
                 const entries = Object.entries(data.picks || {});
 
                 if (!entries.length) {
-                    tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Aucune opportunité aujourd\'hui.</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Aucun pullback détecté aujourd\'hui.</td></tr>';
                 } else {
                     entries.forEach(([ticker, info]) => {
                         const price = info.entry_price || 0;
-                        const estSma = price / (1 + (info.score / 100));
-                        const graph = createSparkline(info.history, estSma, 120, 40, "#10b981");
-                        
+                        const graph = createSparkline(info.history, 120, 40, "#10b981");
+
                         tbody.insertAdjacentHTML('beforeend', `
                             <tr class="hover:bg-slate-800/50 border-b border-slate-800/50 transition-colors">
                                 <td class="px-6 py-4">
-                                    <span class="font-bold text-slate-100">${ticker}</span>
-                                    <div class="text-[10px] text-slate-400 truncate max-w-[120px]">${info.name}</div>
+                                    <span class="font-bold text-slate-100">${info.name}</span>
                                 </td>
                                 <td class="px-6 py-4 hidden md:table-cell">${graph}</td>
                                 <td class="px-6 py-4">
-                                    <span class="inline-flex px-2 py-1 rounded text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
-                                        ${(info.score).toFixed(2)}%
-                                    </span>
+                                    <div class="flex flex-col">
+                                        <span class="text-xs font-medium text-emerald-400">Trend: +${info.trend_pct}%</span>
+                                        <span class="text-[10px] text-slate-400">RSI: ${info.rsi}</span>
+                                    </div>
                                 </td>
-                                <td class="px-6 py-4 hidden sm:table-cell text-slate-300 font-mono text-xs">$${Math.round(price)}</td>
-                                <td class="px-6 py-4 hidden sm:table-cell text-rose-400 font-mono text-xs">$${Math.round(info.stop_loss)}</td>
+                                <td class="px-6 py-4 hidden sm:table-cell text-slate-300 font-mono text-xs">$${price}</td>
+                                <td class="px-6 py-4 hidden sm:table-cell text-rose-400 font-mono text-xs">$${info.stop_loss}</td>
                                 <td class="px-6 py-4 text-right">
-                                    <a href="https://www.tradingview.com/symbols/${ticker.replace('-','.')}/" target="_blank" class="text-blue-400 hover:text-blue-300 text-xs font-medium">Voir &rarr;</a>
+                                    <a href="https://www.tradingview.com/symbols/${ticker}/" target="_blank" class="text-blue-400 hover:text-blue-300 text-xs font-medium">Voir &rarr;</a>
                                 </td>
                             </tr>
                         `);
                     });
                 }
             })
-            .catch(() => document.getElementById('table-pullback').innerHTML = '<tr><td colspan="6" class="px-6 py-4 text-center text-xs text-slate-500">Erreur de chargement (Fichier Pro).</td></tr>');
+            .catch(() => document.getElementById('table-pullback').innerHTML = '<tr><td colspan="6" class="px-6 py-4 text-center text-xs text-slate-500">Erreur chargement données.</td></tr>');
 
     </script>
 </body>
