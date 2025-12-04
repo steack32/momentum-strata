@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Import de la police Inter (optionnel mais recommandé) */
+/* Import de la police Inter */
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
 
 /* Styles complémentaires spécifiques au site */
@@ -22,25 +22,47 @@ body {
   @apply overflow-x-auto;
 }
 
+/* NAVBAR PREMIUM ---------------------------------------------------- */
+
 .nav-link {
-    @apply text-slate-300 relative pb-1;
+  @apply relative inline-flex items-center justify-center text-sm font-medium
+         text-slate-300 tracking-wide px-1 pb-1
+         transition-colors duration-200;
+}
+
+/* Soulignement gradient animé (hover / active) */
+.nav-link::after {
+  content: "";
+  @apply absolute left-1/2 -bottom-[6px] h-[2px] w-0
+         rounded-full opacity-0
+         bg-gradient-to-r from-blue-400 via-sky-300 to-blue-500
+         transition-all duration-300;
+  transform: translateX(-50%);
 }
 
 .nav-link:hover {
-    @apply text-blue-300;
+  @apply text-blue-300;
+}
+
+.nav-link:hover::after {
+  @apply w-full opacity-60;
 }
 
 .nav-link.active {
-    @apply text-blue-400 font-semibold;
+  @apply text-blue-400;
 }
 
 .nav-link.active::after {
-    content: "";
-    @apply absolute left-0 bottom-0 w-full h-[2px] bg-blue-400 rounded-full;
-}
-.mobile-nav-link {
-    @apply text-slate-200 text-sm font-medium py-2 px-2 rounded hover:bg-slate-800/70 hover:text-blue-300 transition;
+  @apply w-full opacity-100;
 }
 
+/* Liens du menu mobile */
+.mobile-nav-link {
+  @apply block text-slate-100 text-sm font-medium
+         py-2.5 px-3 rounded-lg
+         border border-transparent bg-transparent
+         hover:bg-slate-800/70 hover:border-slate-700 hover:text-blue-300
+         transition-colors duration-200;
+}
 
 /* Tu peux ajouter ici d'autres règles custom si besoin plus tard */
