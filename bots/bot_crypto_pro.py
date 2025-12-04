@@ -6,9 +6,10 @@ import requests
 import re
 
 # --- CONFIGURATION ---
+# On garde la liste noire explicite, mais le filtre de prix fera le gros du travail
 STABLECOINS = ["USDT", "USDC", "DAI", "FDUSD", "TUSA", "USDD", "PYUSD", "USDP", "EURI", "USDE"]
 
-# --- FONCTIONS TECHNIQUES (REMPLACEMENT PANDAS_TA) ---
+# --- FONCTIONS TECHNIQUES (NATIVES) ---
 def calculate_sma(series, window):
     return series.rolling(window=window).mean()
 
@@ -53,28 +54,44 @@ def analyze_market():
             if isinstance(df.columns, pd.MultiIndex):
                 df.columns = df.columns.get_level_values(0)
 
-            # --- CALCULS NATIFS ---
+            curr = df.iloc[-1]
+            prev = df.iloc[-2]
+            
+            price = curr['Close']
+            
+            # --- FILTRES DE SÉCURITÉ ---
+            if pd.isna(price) or price <= 0: continue
+
+            # 1. FILTRE ANTI-STABLECOIN (PRIX)
+            # On élimine tout ce qui ressemble à 1$ (entre 0.97 et 1.03)
+            if 0.97 <= price <= 1.03:
+                continue
+
+            # --- CALCULS INDICATEURS ---
             df['SMA_200'] = calculate_sma(df['Close'], 200)
             df['SMA_50']  = calculate_sma(df['Close'], 50)
             df['RSI']     = calculate_rsi(df['Close'], 14)
             df['Vol_Avg'] = calculate_sma(df['Volume'], 20)
 
-            curr = df.iloc[-1]
-            prev = df.iloc[-2]
-            
-            price = curr['Close']
+            # On recharge les valeurs car on a besoin des SMAs calculées
+            curr = df.iloc[-1] 
             sma200 = curr['SMA_200']
             
-            if pd.isna(sma200) or pd.isna(price) or price <= 0: continue
+            if pd.isna(sma200): continue
 
             clean_name = ticker.replace('-USD', '')
             clean_name = re.sub(r'\d+', '', clean_name)
 
-            # STRATÉGIE 1 : BREAKOUT
+            # --- STRATÉGIE 1 : PHOENIX (BREAKOUT) ---
             vol_ratio = curr['Volume'] / curr['Vol_Avg'] if (curr['Vol_Avg'] > 0) else 0
+            
             if (price > sma200) and (price > prev['Close']) and (vol_ratio > 1.5):
                 score = ((price - sma200) / sma200) * 100
-                stop_loss = min(prev['Low'], price * 0.90)
+                
+                # STOP LOSS : On abaisse de 5% supplémentaire (max -15% ou le low précédent)
+                # Avant : price * 0.90 -> Maintenant : price * 0.85
+                stop_loss = min(prev['Low'], price * 0.85)
+                
                 breakout_picks[ticker] = {
                     "name": clean_name,
                     "score": score,
@@ -84,11 +101,16 @@ def analyze_market():
                     "history": df['Close'].tail(30).values.tolist()
                 }
 
-            # STRATÉGIE 2 : PULLBACK
+            # --- STRATÉGIE 2 : PULLBACK (REBOND) ---
             dist_sma50 = (price - curr['SMA_50']) / curr['SMA_50']
+            
             if (price > sma200) and (curr['RSI'] < 55) and (abs(dist_sma50) < 0.04):
                 score = ((price - sma200) / sma200) * 100
-                stop_loss = curr['SMA_50'] * 0.95
+                
+                # STOP LOSS : On met le stop 10% sous la SMA 50 (au lieu de 5%)
+                # Avant : sma50 * 0.95 -> Maintenant : sma50 * 0.90
+                stop_loss = curr['SMA_50'] * 0.90
+                
                 pullback_picks[ticker] = {
                     "name": clean_name,
                     "score": score,
@@ -100,6 +122,7 @@ def analyze_market():
         except Exception:
             continue
 
+    # Tri
     breakout_sorted = dict(sorted(breakout_picks.items(), key=lambda x: x[1]['vol_ratio'], reverse=True))
     pullback_sorted = dict(sorted(pullback_picks.items(), key=lambda x: x[1]['score'], reverse=True))
     return pullback_sorted, breakout_sorted
