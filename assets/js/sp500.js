@@ -78,65 +78,87 @@ function appendSignalRow(tbody, ticker, info, options) {
     const dollarVol = info.dollar_vol_avg20;
     const history = info.history || [];
 
-    const scoreColor =
-        score >= 80 ? "text-emerald-400" :
-        score >= 60 ? "text-amber-300" :
+    // --- SCORE COLOR (gradient) ---
+    const scoreBadge =
+        score >= 80 ? "bg-emerald-500/20 text-emerald-300 border-emerald-500/40" :
+        score >= 60 ? "bg-amber-500/20 text-amber-300 border-amber-500/40" :
+        "bg-slate-700/30 text-slate-300 border-slate-600/40";
+
+    // --- RSI COLOR ---
+    const rsiColor =
+        typeof rsi === "number" && rsi > 70 ? "text-rose-400" :
+        typeof rsi === "number" && rsi < 30 ? "text-blue-300" :
         "text-slate-300";
 
-    const rsiColor =
-        typeof rsi === "number" && rsi > 70
-            ? "text-rose-400"
-            : "text-slate-300";
-
+    // --- VOLUME ---
     const volText =
         typeof volRatio === "number"
-            ? `Vol x${volRatio.toFixed(1)} • $${formatNumber(dollarVol, 0)}`
-            : `$${formatNumber(dollarVol, 0)} / jour`;
+            ? `x${volRatio.toFixed(1)} • $${formatNumber(dollarVol, 0)}`
+            : `$${formatNumber(dollarVol, 0)}`;
 
-    const trendText =
+    // --- TREND ---
+    const trendShort =
         typeof trendPct === "number"
             ? (trendPct >= 0
-                ? `Trend : +${trendPct.toFixed(1)}% au-dessus de la SMA200`
-                : `Trend : ${trendPct.toFixed(1)}% sous la SMA200`)
-            : "Trend : n.d.";
+                ? `+${trendPct.toFixed(1)}% / SMA200`
+                : `${trendPct.toFixed(1)}% / SMA200`)
+            : "Trend n.d.";
 
-    const sparklineColor = variant === "phoenix" ? "#fbbf24" : "#10b981";
+    // --- SPARKLINE ---
+    const sparkColor = variant === "phoenix" ? "#fbbf24" : "#10b981";
     const sparkline = history && history.length > 1
-        ? createSparkline(history, 120, 40, sparklineColor)
+        ? createSparkline(history, 120, 40, sparkColor)
         : "";
 
-    const tradingViewUrl = `https://www.tradingview.com/chart/?symbol=${encodeURIComponent(ticker)}`;
+    const tradingViewUrl =
+        `https://www.tradingview.com/chart/?symbol=${encodeURIComponent(ticker)}`;
 
     const rowHtml = `
-        <tr class="hover:bg-slate-800/50 border-b border-slate-800/50 transition-colors">
+        <tr class="hover:bg-slate-800/40 border-b border-slate-800/40 transition-all">
+            
+            <!-- Nom -->
             <td class="px-6 py-4 align-top">
-                <div class="font-bold text-slate-100 leading-snug">${info.name || ticker}</div>
+                <div class="font-semibold text-slate-100 leading-tight">${info.name || ticker}</div>
                 <div class="text-[11px] text-slate-500 mt-0.5">${ticker}</div>
             </td>
+
+            <!-- Tendance & Volume -->
             <td class="px-6 py-4 hidden md:table-cell align-top">
                 <div class="flex flex-col gap-1">
-                    <span class="text-xs font-medium text-amber-300">${trendText}</span>
-                    <span class="text-[10px] text-slate-400">Vol moyen 20j : ${volText}</span>
+                    <span class="text-[11px] text-amber-300 font-medium">${trendShort}</span>
+                    <span class="text-[10px] text-slate-400">Vol : ${volText}</span>
                 </div>
             </td>
+
+            <!-- Score & RSI -->
             <td class="px-6 py-4 align-top">
-                <div class="flex flex-col items-start gap-1">
-                    <span class="text-xs ${scoreColor} font-semibold">Score : ${score.toFixed(1)}</span>
-                    <span class="text-[10px] ${rsiColor}">RSI : ${typeof rsi === "number" ? rsi.toFixed(1) : "-"}</span>
+                <div class="flex flex-col gap-1">
+                    <span class="text-xs font-semibold px-2 py-0.5 rounded border ${scoreBadge}">
+                        Score : ${score.toFixed(1)}
+                    </span>
+                    <span class="text-[10px] ${rsiColor}">
+                        RSI : ${typeof rsi === "number" ? rsi.toFixed(1) : "-"}
+                    </span>
                 </div>
             </td>
-            <td class="px-6 py-4 hidden sm:table-cell align-top text-slate-300 font-mono text-xs">
+
+            <!-- Prix -->
+            <td class="px-6 py-4 hidden sm:table-cell align-top font-mono text-xs text-slate-300">
                 $${formatNumber(price, 2)}
             </td>
-            <td class="px-6 py-4 hidden sm:table-cell align-top text-rose-400 font-mono text-xs">
+
+            <!-- Stop -->
+            <td class="px-6 py-4 hidden sm:table-cell align-top font-mono text-xs text-rose-400">
                 $${formatNumber(stop, 2)}
             </td>
-            <td class="px-6 py-4 text-right align-top">
+
+            <!-- Chart -->
+            <td class="px-6 py-4 align-top text-right">
                 <div class="flex flex-col items-end gap-2">
-                    ${sparkline ? `<div class="w-[120px] h-[40px] inline-block">${sparkline}</div>` : ""}
+                    ${sparkline ? `<div class="w-[120px] h-[40px] opacity-90">${sparkline}</div>` : ""}
                     <a href="${tradingViewUrl}" target="_blank" rel="noopener"
-                       class="inline-flex items-center text-[11px] font-medium text-amber-400 hover:text-amber-300">
-                        Voir &rarr;
+                        class="text-[11px] font-medium text-blue-300 hover:text-blue-200">
+                        Voir → 
                     </a>
                 </div>
             </td>
@@ -145,6 +167,7 @@ function appendSignalRow(tbody, ticker, info, options) {
 
     tbody.insertAdjacentHTML("beforeend", rowHtml);
 }
+
 
 async function loadSp500Phoenix() {
     const dateEl = document.getElementById("date-phoenix");
