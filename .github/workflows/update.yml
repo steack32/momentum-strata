@@ -18,18 +18,17 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.11'
+          python-version: '3.10' # On reste sur 3.10 ou 3.11, c'est très stable
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
           
-          # 1. On installe les librairies classiques
-          pip install numpy pandas yfinance requests lxml
+          # 1. IMPORTANT : On force Numpy < 2.0 pour éviter les bugs récents
+          pip install "numpy<2.0.0" pandas yfinance requests lxml
           
-          # 2. LA SOLUTION ZIP : On installe pandas_ta directement depuis l'archive ZIP
-          # Cela contourne totalement le protocole Git et les demandes de mot de passe.
-          pip install https://github.com/twopirllc/pandas-ta/archive/development.zip
+          # 2. URL CORRIGÉE pour pandas_ta (La précédente donnait un 404)
+          pip install https://github.com/twopirllc/pandas-ta/archive/refs/heads/development.zip
 
       # --- LANCE LE BOT S&P 500 (ACTIONS) ---
       - name: Run S&P 500 Pro Bot
