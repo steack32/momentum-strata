@@ -44,6 +44,26 @@ function formatNumber(value, digits = 0) {
 }
 
 /**
+ * Gestion des stats du HERO (nombre de signaux Phoenix / Pullback).
+ */
+const heroStats = {
+    phoenix: null,
+    pullback: null
+};
+
+function updateHeroStats() {
+    const phoenixEl = document.getElementById("hero-phoenix-count");
+    const pullbackEl = document.getElementById("hero-pullback-count");
+
+    if (phoenixEl && heroStats.phoenix !== null) {
+        phoenixEl.textContent = heroStats.phoenix.toString();
+    }
+    if (pullbackEl && heroStats.pullback !== null) {
+        pullbackEl.textContent = heroStats.pullback.toString();
+    }
+}
+
+/**
  * Injecte une ligne dans un tbody HTML pour un signal donné.
  */
 function appendSignalRow(tbody, ticker, info, options) {
@@ -139,11 +159,17 @@ async function loadSp500Phoenix() {
             throw new Error(`Erreur HTTP ${response.status}`);
         }
         const data = await response.json();
+
         if (dateEl) {
             dateEl.textContent = data.date_mise_a_jour || "-";
         }
+
         const entries = Object.entries(data.picks || {});
         tbody.innerHTML = "";
+
+        // Mise à jour des stats Hero pour Phoenix
+        heroStats.phoenix = entries.length;
+        updateHeroStats();
 
         if (!entries.length) {
             tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Aucun breakout détecté aujourd\'hui.</td></tr>';
@@ -159,6 +185,7 @@ async function loadSp500Phoenix() {
         if (dateEl) {
             dateEl.textContent = "-";
         }
+        // En cas d'erreur, on laisse les stats Hero sur leur valeur par défaut (–)
     }
 }
 
@@ -175,11 +202,17 @@ async function loadSp500Pullback() {
             throw new Error(`Erreur HTTP ${response.status}`);
         }
         const data = await response.json();
+
         if (dateEl) {
             dateEl.textContent = data.date_mise_a_jour || "-";
         }
+
         const entries = Object.entries(data.picks || {});
         tbody.innerHTML = "";
+
+        // Mise à jour des stats Hero pour Pullback
+        heroStats.pullback = entries.length;
+        updateHeroStats();
 
         if (!entries.length) {
             tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Aucun pullback haussier détecté aujourd\'hui.</td></tr>';
@@ -195,6 +228,7 @@ async function loadSp500Pullback() {
         if (dateEl) {
             dateEl.textContent = "-";
         }
+        // En cas d'erreur, on laisse les stats Hero sur leur valeur par défaut (–)
     }
 }
 
