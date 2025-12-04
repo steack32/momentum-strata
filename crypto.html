@@ -10,7 +10,7 @@
     <meta property="og:description" content="Scan quotidien des cryptos les plus liquides pour repérer les meilleurs breakouts (Phoenix) et pullbacks propres sur tendance haussière.">
     <meta property="og:type" content="website">
 
-    <!-- CSS Tailwind compilé (avec cache-busting comme sur l'index) -->
+    <!-- CSS Tailwind compilé -->
     <link rel="stylesheet" href="assets/css/tailwind.css?v=20251206">
 
     <!-- JS du site -->
@@ -105,7 +105,8 @@
             </div>
 
             <div class="bg-slate-950/80 backdrop-blur rounded-2xl border border-slate-800/80 shadow-premium overflow-hidden relative">
-                <div class="overflow-x-auto">
+                <!-- Table desktop -->
+                <div class="hidden md:block overflow-x-auto">
                     <table class="w-full text-left border-collapse">
                         <thead>
                             <tr class="bg-slate-950 text-[11px] uppercase tracking-[0.18em] text-slate-400 border-b border-slate-800">
@@ -125,6 +126,11 @@
                             </tr>
                         </tbody>
                     </table>
+                </div>
+
+                <!-- Cards mobile -->
+                <div id="cards-crypto-phoenix" class="md:hidden space-y-4 px-4 py-4">
+                    <!-- Rempli en JS -->
                 </div>
 
                 <p class="text-[11px] text-slate-500 mt-2 px-6 pb-3">
@@ -182,7 +188,8 @@
             </div>
 
             <div class="bg-slate-950/80 backdrop-blur rounded-2xl border border-slate-800/80 shadow-premium overflow-hidden relative">
-                <div class="overflow-x-auto">
+                <!-- Table desktop -->
+                <div class="hidden md:block overflow-x-auto">
                     <table class="w-full text-left border-collapse">
                         <thead>
                             <tr class="bg-slate-950 text-[11px] uppercase tracking-[0.18em] text-slate-400 border-b border-slate-800">
@@ -204,10 +211,15 @@
                     </table>
                 </div>
 
-                <p class="text-[11px] text-slate-500 mt-2 px-6 pb-3">
-                    Les pullbacks crypto sont pensés pour des entrées plus “posées” que les breakouts,
-                    mais la volatilité reste élevée&nbsp;: stop et taille de position doivent rester cohérents avec ton profil de risque.
-                </p>
+                <!-- Cards mobile -->
+                <div id="cards-crypto-pullback" class="md:hidden space-y-4 px-4 py-4">
+                    <!-- Rempli en JS -->
+                </div>
+
+            <p class="text-[11px] text-slate-500 mt-2 px-6 pb-3">
+                Les pullbacks crypto sont pensés pour des entrées plus “posées” que les breakouts,
+                mais la volatilité reste élevée&nbsp;: stop et taille de position doivent rester cohérents avec ton profil de risque.
+            </p>
             </div>
 
             <div class="grid md:grid-cols-2 gap-4 text-xs text-slate-400">
