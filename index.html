@@ -10,8 +10,8 @@
     <meta property="og:description" content="Chaque jour de bourse, Momentum Strata scanne le S&P 500 et ne retient que les actions en breakout (Phoenix) ou en pullback propre sur tendance haussière.">
     <meta property="og:type" content="website">
 
-    <!-- CSS Tailwind compilé -->
-    <link rel="stylesheet" href="assets/css/tailwind.css">
+    <!-- CSS Tailwind compilé (avec cache-busting) -->
+    <link rel="stylesheet" href="assets/css/tailwind.css?v=20251206">
 
     <!-- JS du site -->
     <script src="assets/js/main.js" defer></script>
@@ -23,61 +23,61 @@
     <div id="navbar-container"></div>
 
     <main class="flex-1 pt-20">
+
         <!-- HERO -->
         <section class="border-b border-slate-800/70 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
 
-    <!-- Halo décoratif -->
-    <div class="absolute inset-0 pointer-events-none">
-        <div class="absolute -top-20 right-10 w-72 h-72 bg-blue-500/10 blur-3xl rounded-full"></div>
-        <div class="absolute bottom-0 left-5 w-64 h-64 bg-emerald-500/5 blur-3xl rounded-full"></div>
-    </div>
-
-    <header class="py-14 md:py-20 px-4 md:px-10 text-center max-w-4xl mx-auto relative z-10">
-
-        <!-- Badge algo -->
-        <div class="inline-flex items-center mb-6 px-4 py-1.5 rounded-full bg-slate-900/70 border border-slate-700/60 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-300">
-            <span class="relative flex h-2 w-2 mr-2">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-400"></span>
-            </span>
-            Algo Trading • S&amp;P 500
-        </div>
-
-        <!-- Titre -->
-        <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-6">
-            Transforme le S&amp;P 500 en 
-            <span class="text-blue-400">shortlist d'idées de trades</span>
-        </h1>
-
-        <!-- Sous-titre -->
-        <p class="text-sm md:text-base text-slate-300/90 leading-relaxed max-w-2xl mx-auto mb-8">
-            Momentum Strata scanne chaque jour les 500 plus grandes actions US 
-            et ne remonte que les configurations qui comptent&nbsp;: 
-            <span class="text-amber-300 font-semibold">breakouts nets (Phoenix)</span> 
-            et <span class="text-emerald-300 font-semibold">pullbacks propres</span>. 
-            Moins de bruit, plus de précision.
-        </p>
-
-        <!-- Stats du jour -->
-        <div id="hero-stats" class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-
-            <!-- Boîte Phoenix -->
-            <div class="px-4 py-3 rounded-xl bg-slate-900/70 border border-slate-800/80 backdrop-blur text-left shadow-lg">
-                <p class="text-[11px] text-slate-400 uppercase tracking-wider mb-1">Phoenix • Breakout</p>
-                <p class="text-xl font-bold text-amber-300" id="hero-phoenix-count">–</p>
+            <!-- Halo décoratif -->
+            <div class="absolute inset-0 pointer-events-none">
+                <div class="absolute -top-20 right-10 w-72 h-72 bg-blue-500/10 blur-3xl rounded-full"></div>
+                <div class="absolute bottom-0 left-5 w-64 h-64 bg-emerald-500/5 blur-3xl rounded-full"></div>
             </div>
 
-            <!-- Boîte Pullback -->
-            <div class="px-4 py-3 rounded-xl bg-slate-900/70 border border-slate-800/80 backdrop-blur text-left shadow-lg">
-                <p class="text-[11px] text-slate-400 uppercase tracking-wider mb-1">Pullback • Repli propre</p>
-                <p class="text-xl font-bold text-emerald-300" id="hero-pullback-count">–</p>
-            </div>
+            <header class="py-14 md:py-20 px-4 md:px-10 text-center max-w-4xl mx-auto relative z-10">
 
-        </div>
+                <!-- Badge algo -->
+                <div class="inline-flex items-center mb-6 px-4 py-1.5 rounded-full bg-slate-900/70 border border-slate-700/60 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-300">
+                    <span class="relative flex h-2 w-2 mr-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-400"></span>
+                    </span>
+                    Algo Trading • S&amp;P 500
+                </div>
 
-    </header>
-</section>
+                <!-- Titre -->
+                <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-6">
+                    Transforme le S&amp;P 500 en 
+                    <span class="text-blue-400">shortlist d'idées de trades</span>
+                </h1>
 
+                <!-- Sous-titre -->
+                <p class="text-sm md:text-base text-slate-300/90 leading-relaxed max-w-2xl mx-auto mb-8">
+                    Momentum Strata scanne chaque jour les 500 plus grandes actions US 
+                    et ne remonte que les configurations qui comptent&nbsp;: 
+                    <span class="text-amber-300 font-semibold">breakouts nets (Phoenix)</span> 
+                    et <span class="text-emerald-300 font-semibold">pullbacks propres</span>. 
+                    Moins de bruit, plus de précision.
+                </p>
+
+                <!-- Stats du jour -->
+                <div id="hero-stats" class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
+
+                    <!-- Boîte Phoenix -->
+                    <div class="px-4 py-3 rounded-xl bg-slate-900/70 border border-slate-800/80 backdrop-blur text-left shadow-lg">
+                        <p class="text-[11px] text-slate-400 uppercase tracking-wider mb-1">Phoenix • Breakout</p>
+                        <p class="text-xl font-bold text-amber-300" id="hero-phoenix-count">–</p>
+                    </div>
+
+                    <!-- Boîte Pullback -->
+                    <div class="px-4 py-3 rounded-xl bg-slate-900/70 border border-slate-800/80 backdrop-blur text-left shadow-lg">
+                        <p class="text-[11px] text-slate-400 uppercase tracking-wider mb-1">Pullback • Repli propre</p>
+                        <p class="text-xl font-bold text-emerald-300" id="hero-pullback-count">–</p>
+                    </div>
+
+                </div>
+
+            </header>
+        </section>
 
         <!-- SECTION PHOENIX (BREAKOUT) -->
         <section id="phoenix" class="max-w-6xl mx-auto px-4 md:px-8 lg:px-10 py-10 md:py-12 space-y-6">
@@ -226,7 +226,7 @@
             </div>
         </section>
 
-        <!-- SECTION EXPLICATIVE : COMMENT LIRE LES SIGNAUX -->
+        <!-- SECTION EXPLICATIVE -->
         <section class="max-w-6xl mx-auto px-4 md:px-8 lg:px-10 pb-16">
             <div class="bg-slate-950/80 border border-slate-800/80 rounded-2xl p-5 md:p-6 text-sm text-slate-300 space-y-3">
                 <h2 class="text-base md:text-lg font-semibold text-slate-50">
@@ -262,7 +262,7 @@
         </section>
     </main>
 
-    <!-- Footer injecté dynamiquement -->
+    <!-- Footer -->
     <div id="footer-container"></div>
 
 </body>
