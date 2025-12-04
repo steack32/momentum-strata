@@ -25,7 +25,7 @@
                     <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
                     <span class="relative inline-flex rounded-full h-2 w-2 bg-purple-400"></span>
                 </span>
-                Algo Trading • Top 150 Crypto
+                Algo Trading • Top 150 • Hyper-Momentum
             </div>
 
             <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-5">
@@ -37,7 +37,7 @@
 
             <p class="text-sm md:text-base text-slate-300/90 max-w-2xl mx-auto leading-relaxed">
                 Scan automatique du Top 150 (hors Stablecoins).<br>
-                Détection des <strong>explosions de volume</strong> et des <strong>replis stratégiques</strong>.
+                Une approche <strong>plus agressive</strong> que sur les actions : on cherche l'anomalie de volume et les rebonds sur supports dynamiques rapides (EMA).
             </p>
         </header>
     </div>
@@ -50,10 +50,11 @@
                     <div>
                         <div class="flex items-center gap-2 mb-1">
                             <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30 uppercase tracking-wider">Stratégie 1</span>
-                            <h2 class="font-bold text-2xl text-slate-50">Phoenix (Breakout)</h2>
+                            <h2 class="font-bold text-2xl text-slate-50">Phoenix (Explosion)</h2>
                         </div>
                         <p class="text-sm text-slate-400 max-w-xl">
-                            "Le réveil des Altcoins." Cryptos qui cassent leur SMA 200 avec un <strong>volume explosif</strong>.
+                            "Chasser l'anomalie."<br>
+                            Cryptos en tendance haussière qui valident une bougie verte avec un <strong>volume massif (> x2.0)</strong>. C'est le signal de départ d'un cycle volatile.
                         </p>
                     </div>
                     <div class="text-right">
@@ -78,6 +79,10 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="bg-slate-950/50 px-6 py-3 text-[10px] text-slate-500 flex gap-4">
+                        <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-amber-500"></span> Vol > 2.0x Moyenne</span>
+                        <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-rose-500"></span> Stop Loss (-15% max)</span>
+                    </div>
                 </div>
             </div>
         </section>
@@ -88,10 +93,11 @@
                     <div>
                         <div class="flex items-center gap-2 mb-1">
                             <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 uppercase tracking-wider">Stratégie 2</span>
-                            <h2 class="font-bold text-2xl text-slate-50">Trend Pullback (Rebond)</h2>
+                            <h2 class="font-bold text-2xl text-slate-50">Golden Zone (Rebond)</h2>
                         </div>
                         <p class="text-sm text-slate-400 max-w-xl">
-                            "Acheter le Dip." Cryptos en tendance haussière qui reviennent tester leur support (SMA 50).
+                            "Acheter les leaders, pas les trainards."<br>
+                            On ne sélectionne que les cryptos très fortes (> SMA 200) qui viennent respirer dans la <strong>Golden Zone (entre EMA 21 et EMA 50)</strong>.
                         </p>
                     </div>
                     <div class="text-right">
@@ -105,7 +111,7 @@
                                 <tr class="bg-slate-950 text-[11px] uppercase tracking-[0.18em] text-slate-400 border-b border-slate-800">
                                     <th class="px-6 py-3.5">Crypto</th>
                                     <th class="px-6 py-3.5 hidden md:table-cell">Config (30j)</th>
-                                    <th class="px-6 py-3.5">Distance SMA</th>
+                                    <th class="px-6 py-3.5">Force Tendance</th>
                                     <th class="px-6 py-3.5 hidden sm:table-cell">Prix</th>
                                     <th class="px-6 py-3.5 hidden sm:table-cell">Stop Loss</th>
                                     <th class="px-6 py-3.5 text-right">Chart</th>
@@ -116,6 +122,29 @@
                             </tbody>
                         </table>
                     </div>
+                    <div class="bg-slate-950/50 px-6 py-3 text-[10px] text-slate-500 flex gap-4">
+                        <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Zone Achat (EMA 21-50)</span>
+                        <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-rose-500"></span> Stop Loss (Sous EMA 50)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="max-w-5xl mx-auto px-4 lg:px-0">
+            <div class="grid md:grid-cols-2 gap-6">
+                <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-800">
+                    <h3 class="font-bold text-blue-400 mb-2">Différence S&P 500 vs Crypto ?</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        Sur les <strong>Actions (S&P 500)</strong>, nous utilisons la <strong>SMA 50</strong> car les tendances sont lentes et régulières.
+                        <br><br>
+                        Sur les <strong>Cryptos</strong>, la volatilité est extrême. Nous utilisons donc les <strong>EMA 21 & 50</strong> (Moyennes Exponentielles) qui réagissent plus vite. Un "Leader" crypto ne revient presque jamais sur sa SMA 200 en plein Bull Run, il rebondit avant.
+                    </p>
+                </div>
+                <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-800">
+                    <h3 class="font-bold text-purple-400 mb-2">Le Filtre "Top 150"</h3>
+                    <p class="text-xs text-slate-400 leading-relaxed">
+                        L'algorithme scanne automatiquement les 150 plus grosses capitalisations du marché. Il ignore les "Stablecoins" (USDT, USDC) et élimine les actifs "mous" qui n'ont pas une tendance haussière marquée (+10% au-dessus de la moyenne long terme).
+                    </p>
                 </div>
             </div>
         </section>
@@ -152,16 +181,38 @@
                 tbody.innerHTML = '';
                 const entries = Object.entries(data.picks || {});
                 if (!entries.length) {
-                    tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Aucun breakout détecté.</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Aucun breakout explosif (> x2.0 vol) détecté ce jour.</td></tr>';
                 } else {
                     entries.forEach(([ticker, info]) => {
                         const price = info.entry_price || 0;
+                        // Estimation visuelle de la moyenne pour le sparkline
                         const estSma = price / (1 + (info.score / 100));
                         const graph = createSparkline(info.history, estSma, 120, 40, "#fbbf24");
-                        tbody.insertAdjacentHTML('beforeend', `<tr class="hover:bg-slate-800/50 border-b border-slate-800/50 transition-colors"><td class="px-6 py-4"><span class="font-bold text-amber-100">${info.name}</span><div class="text-[10px] text-slate-400">${ticker.replace('-USD','')}</div></td><td class="px-6 py-4 hidden md:table-cell">${graph}</td><td class="px-6 py-4"><span class="inline-flex px-2 py-1 rounded text-xs font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">Vol: x${info.vol_ratio}</span></td><td class="px-6 py-4 hidden sm:table-cell"><span class="text-xs text-slate-300">+${(info.score).toFixed(2)}%</span></td><td class="px-6 py-4 hidden sm:table-cell text-rose-400 font-mono text-xs">$${price < 1 ? price.toFixed(4) : price.toFixed(2)}</td><td class="px-6 py-4 text-right"><a href="https://www.tradingview.com/symbols/${ticker.replace('-','').replace('USD','USDT')}/" target="_blank" class="text-amber-400 hover:text-amber-300 text-xs font-medium">Voir &rarr;</a></td></tr>`);
+                        
+                        tbody.insertAdjacentHTML('beforeend', `
+                            <tr class="hover:bg-slate-800/50 border-b border-slate-800/50 transition-colors">
+                                <td class="px-6 py-4">
+                                    <span class="font-bold text-amber-100">${info.name}</span>
+                                    <div class="text-[10px] text-slate-400">${ticker.replace('-USD','')}</div>
+                                </td>
+                                <td class="px-6 py-4 hidden md:table-cell">${graph}</td>
+                                <td class="px-6 py-4">
+                                    <span class="inline-flex px-2 py-1 rounded text-xs font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">
+                                        Vol: x${info.vol_ratio}
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 hidden sm:table-cell">
+                                    <span class="text-xs text-slate-300">+${(info.score).toFixed(2)}%</span>
+                                </td>
+                                <td class="px-6 py-4 hidden sm:table-cell text-rose-400 font-mono text-xs">$${price < 1 ? info.stop_loss.toFixed(5) : info.stop_loss.toFixed(2)}</td>
+                                <td class="px-6 py-4 text-right">
+                                    <a href="https://www.tradingview.com/symbols/${ticker.replace('-','').replace('USD','USDT')}/" target="_blank" class="text-amber-400 hover:text-amber-300 text-xs font-medium">Voir &rarr;</a>
+                                </td>
+                            </tr>
+                        `);
                     });
                 }
-            }).catch(()=>document.getElementById('table-phoenix').innerHTML='<tr><td colspan="6" class="px-6 py-6 text-center">Données indisponibles.</td></tr>');
+            }).catch(()=>document.getElementById('table-phoenix').innerHTML='<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Données indisponibles.</td></tr>');
 
         fetch('data/crypto_pullback_pro.json')
             .then(r => r.json())
@@ -171,16 +222,35 @@
                 tbody.innerHTML = '';
                 const entries = Object.entries(data.picks || {});
                 if (!entries.length) {
-                    tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Aucun pullback détecté.</td></tr>';
+                    tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Aucun pullback valide (Zone EMA 21-50) ce jour.</td></tr>';
                 } else {
                     entries.forEach(([ticker, info]) => {
                         const price = info.entry_price || 0;
                         const estSma = price / (1 + (info.score / 100));
                         const graph = createSparkline(info.history, estSma, 120, 40, "#10b981");
-                        tbody.insertAdjacentHTML('beforeend', `<tr class="hover:bg-slate-800/50 border-b border-slate-800/50 transition-colors"><td class="px-6 py-4"><span class="font-bold text-slate-100">${info.name}</span><div class="text-[10px] text-slate-400">${ticker.replace('-USD','')}</div></td><td class="px-6 py-4 hidden md:table-cell">${graph}</td><td class="px-6 py-4"><span class="inline-flex px-2 py-1 rounded text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">${(info.score).toFixed(2)}%</span></td><td class="px-6 py-4 hidden sm:table-cell text-slate-300 font-mono text-xs">$${price < 1 ? price.toFixed(4) : price.toFixed(2)}</td><td class="px-6 py-4 hidden sm:table-cell text-rose-400 font-mono text-xs">$${info.stop_loss < 1 ? info.stop_loss.toFixed(4) : info.stop_loss.toFixed(2)}</td><td class="px-6 py-4 text-right"><a href="https://www.tradingview.com/symbols/${ticker.replace('-','').replace('USD','USDT')}/" target="_blank" class="text-blue-400 hover:text-blue-300 text-xs font-medium">Voir &rarr;</a></td></tr>`);
+                        
+                        tbody.insertAdjacentHTML('beforeend', `
+                            <tr class="hover:bg-slate-800/50 border-b border-slate-800/50 transition-colors">
+                                <td class="px-6 py-4">
+                                    <span class="font-bold text-slate-100">${info.name}</span>
+                                    <div class="text-[10px] text-slate-400">${ticker.replace('-USD','')}</div>
+                                </td>
+                                <td class="px-6 py-4 hidden md:table-cell">${graph}</td>
+                                <td class="px-6 py-4">
+                                    <span class="inline-flex px-2 py-1 rounded text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">
+                                        Trend: +${(info.score).toFixed(1)}%
+                                    </span>
+                                </td>
+                                <td class="px-6 py-4 hidden sm:table-cell text-slate-300 font-mono text-xs">$${price < 1 ? price.toFixed(5) : price.toFixed(2)}</td>
+                                <td class="px-6 py-4 hidden sm:table-cell text-rose-400 font-mono text-xs">$${price < 1 ? info.stop_loss.toFixed(5) : info.stop_loss.toFixed(2)}</td>
+                                <td class="px-6 py-4 text-right">
+                                    <a href="https://www.tradingview.com/symbols/${ticker.replace('-','').replace('USD','USDT')}/" target="_blank" class="text-blue-400 hover:text-blue-300 text-xs font-medium">Voir &rarr;</a>
+                                </td>
+                            </tr>
+                        `);
                     });
                 }
-            }).catch(()=>document.getElementById('table-pullback').innerHTML='<tr><td colspan="6" class="px-6 py-6 text-center">Données indisponibles.</td></tr>');
+            }).catch(()=>document.getElementById('table-pullback').innerHTML='<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Données indisponibles.</td></tr>');
     </script>
 </body>
 </html>
