@@ -1,5 +1,6 @@
-pandas
 yfinance
-requests
+pandas
+numpy
 lxml
-numpy<2.0.0
+requests
+ccxt

@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Crypto | Momentum Strata</title>
+    <title>Signaux Trading Crypto – Momentum Strata</title>
+<meta name="description" content="Signaux de trading crypto sur les 150 principales cryptomonnaies : stratégies Phoenix (breakout) et Golden Zone (rebond), analyse multi-exchange pour détecter les meilleurs setups.">
+<meta property="og:title" content="Signaux Trading Crypto – Momentum Strata">
+<meta property="og:description" content="Signaux de trading crypto sur les 150 principales cryptomonnaies : stratégies Phoenix (breakout) et Golden Zone (rebond), analyse multi-exchange pour détecter les meilleurs setups.">
+<meta property="og:type" content="website">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="assets/js/tailwind-config.js"></script>
     <script src="assets/js/main.js" defer></script>
@@ -119,7 +123,7 @@
                 picks.forEach(([k,v])=>{
                     // Couleur RSI : Vert si < 70, Rouge si > 70 (Surchauffe)
                     const rsiColor = v.rsi > 70 ? 'text-rose-400' : 'text-slate-300';
-                    t.insertAdjacentHTML('beforeend',`<tr class="hover:bg-slate-800/50 border-b border-slate-800/50 transition-colors"><td class="px-6 py-4"><span class="font-bold text-amber-100">${v.name}</span></td><td class="px-6 py-4 hidden md:table-cell">${createSparkline(v.history,120,40,"#fbbf24")}</td><td class="px-6 py-4"><div class="flex flex-col gap-1"><span class="text-xs font-bold text-amber-400">Vol: x${v.vol_ratio}</span><span class="text-[10px] ${rsiColor}">RSI: ${v.rsi}</span></div></td><td class="px-6 py-4 hidden sm:table-cell"><span class="inline-flex px-2 py-1 rounded text-xs font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">${v.score}/100</span></td><td class="px-6 py-4 hidden sm:table-cell text-rose-400 font-mono text-xs">$${v.stop_loss<1?v.stop_loss.toFixed(5):v.stop_loss.toFixed(2)}</td><td class="px-6 py-4 text-right"><a href="https://www.tradingview.com/symbols/${k.replace('/','').replace('-','').replace('USD','USDT')}/" target="_blank" class="text-amber-400 hover:text-amber-300 text-xs font-medium">Voir &rarr;</a></td></tr>`);
+                    t.insertAdjacentHTML('beforeend',`<tr class="hover:bg-slate-800/50 border-b border-slate-800/50 transition-colors"><td class="px-6 py-4"><span class="font-bold text-amber-100">${v.name}</span></td><td class="px-6 py-4 hidden md:table-cell">${createSparkline(v.history,120,40,"#fbbf24")}</td><td class="px-6 py-4"><div class="flex flex-col gap-1"><span class="text-xs font-bold text-amber-400">Vol: x${v.vol_ratio}</span><span class="text-[10px] ${rsiColor}">RSI: ${v.rsi}</span></div></td><td class="px-6 py-4 hidden sm:table-cell"><span class="inline-flex px-2 py-1 rounded text-xs font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">${v.score}/100</span></td><td class="px-6 py-4 hidden sm:table-cell text-rose-400 font-mono text-xs">$${v.stop_loss<1?v.stop_loss.toFixed(5):v.stop_loss.toFixed(2)}</td><td class="px-6 py-4 text-right"><a href="https://www.tradingview.com/symbols/${k.replace('/','').replace('-','').replace('USD','USDT')}/" target="_blank" rel="noopener" class="text-amber-400 hover:text-amber-300 text-xs font-medium">Voir &rarr;</a></td></tr>`);
                 });
             }
         });
@@ -132,7 +136,7 @@
             else{
                 picks.forEach(([k,v])=>{
                     const p=v.entry_price;
-                    t.insertAdjacentHTML('beforeend',`<tr class="hover:bg-slate-800/50 border-b border-slate-800/50 transition-colors"><td class="px-6 py-4"><span class="font-bold text-slate-100">${v.name}</span></td><td class="px-6 py-4 hidden md:table-cell">${createSparkline(v.history,120,40,"#10b981")}</td><td class="px-6 py-4"><span class="inline-flex px-2 py-1 rounded text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">RSI: ${v.rsi}</span></td><td class="px-6 py-4 hidden sm:table-cell text-slate-300 font-mono text-xs">$${p<1?p.toFixed(5):p.toFixed(2)}</td><td class="px-6 py-4 hidden sm:table-cell text-rose-400 font-mono text-xs">$${v.stop_loss<1?v.stop_loss.toFixed(5):v.stop_loss.toFixed(2)}</td><td class="px-6 py-4 text-right"><a href="https://www.tradingview.com/symbols/${k.replace('/','').replace('-','').replace('USD','USDT')}/" target="_blank" class="text-blue-400 hover:text-blue-300 text-xs font-medium">Voir &rarr;</a></td></tr>`);
+                    t.insertAdjacentHTML('beforeend',`<tr class="hover:bg-slate-800/50 border-b border-slate-800/50 transition-colors"><td class="px-6 py-4"><span class="font-bold text-slate-100">${v.name}</span></td><td class="px-6 py-4 hidden md:table-cell">${createSparkline(v.history,120,40,"#10b981")}</td><td class="px-6 py-4"><span class="inline-flex px-2 py-1 rounded text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">RSI: ${v.rsi}</span></td><td class="px-6 py-4 hidden sm:table-cell text-slate-300 font-mono text-xs">$${p<1?p.toFixed(5):p.toFixed(2)}</td><td class="px-6 py-4 hidden sm:table-cell text-rose-400 font-mono text-xs">$${v.stop_loss<1?v.stop_loss.toFixed(5):v.stop_loss.toFixed(2)}</td><td class="px-6 py-4 text-right"><a href="https://www.tradingview.com/symbols/${k.replace('/','').replace('-','').replace('USD','USDT')}/" target="_blank" rel="noopener" class="text-blue-400 hover:text-blue-300 text-xs font-medium">Voir &rarr;</a></td></tr>`);
                 });
             }
         });
