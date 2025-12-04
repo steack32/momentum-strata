@@ -1,7 +1,5 @@
-yfinance
 pandas
-numpy
-
-
+yfinance
+requests
 lxml
-
+numpy<2.0.0
