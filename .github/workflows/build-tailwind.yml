@@ -3,7 +3,7 @@ name: Build Tailwind
 on:
   push:
     branches:
-      - main  # ou master selon ton repo
+      - main  # change en 'master' ou autre si ta branche par défaut est différente
 
 jobs:
   build:
@@ -11,23 +11,37 @@ jobs:
 
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: Install dependencies
-        run: npm install tailwindcss postcss autoprefixer
+      - name: Init npm (si package.json absent)
+        run: |
+          if [ ! -f package.json ]; then
+            npm init -y
+          fi
+
+      - name: Install Tailwind & tools
+        run: |
+          npm install -D tailwindcss@3.4.13 postcss autoprefixer
 
       - name: Build Tailwind CSS
-        run: npx tailwindcss -i ./assets/css/input.css -o ./assets/css/tailwind.css --minify
-
-      - name: Commit and push changes
         run: |
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git add assets/css/tailwind.css
-          git commit -m "Auto-build Tailwind CSS" || echo "No changes to commit"
-          git push
+          npx tailwindcss -i ./assets/css/input.css -o ./assets/css/tailwind.css --minify
+
+      - name: Commit and push built CSS
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add assets/css/tailwind.css package.json package-lock.json || true
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "Auto-build Tailwind CSS"
+            git push
+          fi
