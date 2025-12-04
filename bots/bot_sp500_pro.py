@@ -1,14 +1,24 @@
 import yfinance as yf
 import pandas as pd
-import pandas_ta as ta
 import json
 import requests
 import time
 
+# --- FONCTIONS TECHNIQUES (REMPLACEMENT PANDAS_TA) ---
+# Ces fonctions remplacent la librairie qui posait problème
+def calculate_sma(series, window):
+    return series.rolling(window=window).mean()
+
+def calculate_rsi(series, window=14):
+    delta = series.diff()
+    gain = (delta.where(delta > 0, 0)).ewm(alpha=1/window, adjust=False).mean()
+    loss = (-delta.where(delta < 0, 0)).ewm(alpha=1/window, adjust=False).mean()
+    rs = gain / loss
+    return 100 - (100 / (1 + rs))
+
 def get_sp500_tickers():
     """
-    Récupère la liste officielle des composants du S&P 500 via Wikipedia.
-    Si Wikipedia échoue, utilise une liste de secours (Top 50).
+    Récupère la liste S&P 500 via Wikipedia.
     """
     try:
         url = 'https://en.wikipedia.org/wiki/List_of_S%26P_500_companies'
@@ -20,22 +30,20 @@ def get_sp500_tickers():
         print(f"✅ Liste S&P 500 récupérée : {len(tickers)} actions.")
         return tickers
     except Exception as e:
-        print(f"⚠️ Erreur récupération S&P 500 ({e}). Utilisation liste de secours.")
+        print(f"⚠️ Erreur récupération S&P 500. Utilisation liste de secours.")
         return ["AAPL", "MSFT", "GOOGL", "AMZN", "NVDA", "TSLA", "META", "BRK-B", "LLY", "V"]
 
 def analyze_market():
-    # On récupère TOUS les tickers du S&P 500
     tickers = get_sp500_tickers()
     
     pullback_picks = {}
     breakout_picks = {}
     
-    print("🚀 Analyse S&P 500 Pro lancée...")
+    print("🚀 Analyse S&P 500 Pro (Native) lancée...")
     
-    # On télécharge les données par paquets pour aller plus vite
-    # (Yahoo Finance gère mal plus de 500 requêtes d'un coup, on boucle)
     for ticker in tickers:
         try:
+            # Téléchargement
             df = yf.download(ticker, period="1y", interval="1d", progress=False)
             
             if len(df) < 200:
@@ -45,11 +53,11 @@ def analyze_market():
             if isinstance(df.columns, pd.MultiIndex):
                 df.columns = df.columns.get_level_values(0)
 
-            # --- INDICATEURS ---
-            df['SMA_200'] = ta.sma(df['Close'], length=200)
-            df['SMA_50']  = ta.sma(df['Close'], length=50)
-            df['RSI']     = ta.rsi(df['Close'], length=14)
-            df['Vol_Avg'] = ta.sma(df['Volume'], length=20)
+            # --- CALCULS NATIFS (PLUS DE PANDAS_TA) ---
+            df['SMA_200'] = calculate_sma(df['Close'], 200)
+            df['SMA_50']  = calculate_sma(df['Close'], 50)
+            df['RSI']     = calculate_rsi(df['Close'], 14)
+            df['Vol_Avg'] = calculate_sma(df['Volume'], 20)
 
             curr = df.iloc[-1]
             prev = df.iloc[-2]
@@ -60,7 +68,6 @@ def analyze_market():
             if pd.isna(sma200) or pd.isna(price): continue
 
             # --- STRATÉGIE 1 : PHOENIX (BREAKOUT) ---
-            # Condition : Volume explosif (> 2.0x moyenne) sur une cassure ou tendance forte
             vol_ratio = curr['Volume'] / curr['Vol_Avg'] if curr['Vol_Avg'] > 0 else 0
             
             if (price > sma200) and (vol_ratio > 2.0) and (price > prev['Close']):
@@ -68,7 +75,7 @@ def analyze_market():
                 stop_loss = min(prev['Low'], price * 0.95)
 
                 breakout_picks[ticker] = {
-                    "name": ticker, # Sur les actions, le ticker suffit souvent
+                    "name": ticker,
                     "score": score,
                     "entry_price": price,
                     "stop_loss": stop_loss,
@@ -77,7 +84,6 @@ def analyze_market():
                 }
 
             # --- STRATÉGIE 2 : PULLBACK (REBOND) ---
-            # Condition : Tendance haussière (Prix > SMA 200) + Repli (RSI < 60) + Proche SMA 50
             dist_sma50 = (price - curr['SMA_50']) / curr['SMA_50']
             
             if (price > sma200) and (curr['RSI'] < 60) and (abs(dist_sma50) < 0.03):
