@@ -1,87 +1,80 @@
 // assets/js/dashboard.js
-// Vue d'ensemble des signaux S&P 500 et Crypto
+// Dashboard global S&P 500 + Crypto
 
-async function loadSignalsSummary(config) {
-  const {
-    url,
-    countSelector,
-    bestScoreSelector,
-    dateSelector
-  } = config;
-
-  const countEl = document.querySelector(countSelector);
-  const bestScoreEl = document.querySelector(bestScoreSelector);
-  const dateEl = document.querySelector(dateSelector);
-
-  if (!countEl || !bestScoreEl || !dateEl) return;
-
-  // Valeurs par défaut
-  countEl.textContent = "–";
-  bestScoreEl.textContent = "–";
-  dateEl.textContent = "–";
-
+async function safeFetchJson(path) {
   try {
-    const response = await fetch(url);
-    if (!response.ok) {
-      console.error(`Erreur HTTP ${response.status} pour ${url}`);
-      return;
+    const resp = await fetch(path);
+    if (!resp.ok) {
+      console.error(`Erreur HTTP sur ${path} : ${resp.status}`);
+      return null;
     }
-
-    const data = await response.json();
-    const picks = data.picks || {};
-    const entries = Object.values(picks);
-
-    const count = entries.length;
-
-    let bestScore = null;
-    for (const item of entries) {
-      const s = typeof item.score === "number" ? item.score : null;
-      if (s !== null) {
-        if (bestScore === null || s > bestScore) {
-          bestScore = s;
-        }
-      }
-    }
-
-    // Mise à jour de l'UI
-    countEl.textContent = count.toString();
-    bestScoreEl.textContent = bestScore !== null ? bestScore.toFixed(1) : "–";
-    dateEl.textContent = data.date_mise_a_jour || "–";
-  } catch (error) {
-    console.error("Erreur lors du chargement des données dashboard :", error);
+    return await resp.json();
+  } catch (e) {
+    console.error(`Erreur réseau sur ${path} :`, e);
+    return null;
   }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  // S&P 500 Phoenix
-  loadSignalsSummary({
-    url: "data/sp500_breakout_pro.json",
-    countSelector: "#sp500-phoenix-count",
-    bestScoreSelector: "#sp500-phoenix-best-score",
-    dateSelector: "#sp500-phoenix-date"
-  });
+/**
+ * Compte le nombre de signaux dans un objet JSON de type :
+ * { date_mise_a_jour: "...", picks: { TICKER: { ... }, ... } }
+ */
+function countSignals(data) {
+  if (!data || !data.picks || typeof data.picks !== "object") return 0;
+  return Object.keys(data.picks).length;
+}
 
-  // S&P 500 Pullback
-  loadSignalsSummary({
-    url: "data/sp500_pullback_pro.json",
-    countSelector: "#sp500-pullback-count",
-    bestScoreSelector: "#sp500-pullback-best-score",
-    dateSelector: "#sp500-pullback-date"
-  });
+async function initDashboard() {
+  // Récup des éléments DOM
+  const elSp500Phoenix = document.getElementById("dash-sp500-phoenix-count");
+  const elSp500Pullback = document.getElementById("dash-sp500-pullback-count");
+  const elCryptoPhoenix = document.getElementById("dash-crypto-phoenix-count");
+  const elCryptoPullback = document.getElementById("dash-crypto-pullback-count");
+  const elTotalSp500 = document.getElementById("dash-total-sp500");
+  const elTotalCrypto = document.getElementById("dash-total-crypto");
 
-  // Crypto Phoenix
-  loadSignalsSummary({
-    url: "data/crypto_breakout_pro.json",
-    countSelector: "#crypto-phoenix-count",
-    bestScoreSelector: "#crypto-phoenix-best-score",
-    dateSelector: "#crypto-phoenix-date"
-  });
+  // Valeurs par défaut (si le DOM n'est pas là, on sort proprement)
+  if (!elSp500Phoenix || !elSp500Pullback || !elCryptoPhoenix || !elCryptoPullback || !elTotalSp500 || !elTotalCrypto) {
+    console.error("Éléments du dashboard manquants dans le DOM.");
+    return;
+  }
 
-  // Crypto Pullback
-  loadSignalsSummary({
-    url: "data/crypto_pullback_pro.json",
-    countSelector: "#crypto-pullback-count",
-    bestScoreSelector: "#crypto-pullback-best-score",
-    dateSelector: "#crypto-pullback-date"
-  });
-});
+  elSp500Phoenix.textContent = "…";
+  elSp500Pullback.textContent = "…";
+  elCryptoPhoenix.textContent = "…";
+  elCryptoPullback.textContent = "…";
+  elTotalSp500.textContent = "…";
+  elTotalCrypto.textContent = "…";
+
+  // Chargement des 4 fichiers de signaux en parallèle
+  const [
+    sp500PhoenixData,
+    sp500PullbackData,
+    cryptoPhoenixData,
+    cryptoPullbackData
+  ] = await Promise.all([
+    safeFetchJson("data/sp500_breakout_pro.json"),
+    safeFetchJson("data/sp500_pullback_pro.json"),
+    safeFetchJson("data/crypto_breakout_pro.json"),
+    safeFetchJson("data/crypto_pullback_pro.json")
+  ]);
+
+  // Comptage
+  const sp500PhoenixCount = countSignals(sp500PhoenixData);
+  const sp500PullbackCount = countSignals(sp500PullbackData);
+  const cryptoPhoenixCount = countSignals(cryptoPhoenixData);
+  const cryptoPullbackCount = countSignals(cryptoPullbackData);
+
+  const totalSp500 = sp500PhoenixCount + sp500PullbackCount;
+  const totalCrypto = cryptoPhoenixCount + cryptoPullbackCount;
+
+  // Mise à jour du DOM
+  elSp500Phoenix.textContent = String(sp500PhoenixCount);
+  elSp500Pullback.textContent = String(sp500PullbackCount);
+  elCryptoPhoenix.textContent = String(cryptoPhoenixCount);
+  elCryptoPullback.textContent = String(cryptoPullbackCount);
+  elTotalSp500.textContent = String(totalSp500);
+  elTotalCrypto.textContent = String(totalCrypto);
+}
+
+document.addEventListener("DOMContentLoaded", initDashboard);
