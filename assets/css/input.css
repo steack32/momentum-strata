@@ -22,4 +22,25 @@ body {
   @apply overflow-x-auto;
 }
 
+.nav-link {
+    @apply text-slate-300 relative pb-1;
+}
+
+.nav-link:hover {
+    @apply text-blue-300;
+}
+
+.nav-link.active {
+    @apply text-blue-400 font-semibold;
+}
+
+.nav-link.active::after {
+    content: "";
+    @apply absolute left-0 bottom-0 w-full h-[2px] bg-blue-400 rounded-full;
+}
+.mobile-nav-link {
+    @apply text-slate-200 text-sm font-medium py-2 px-2 rounded hover:bg-slate-800/70 hover:text-blue-300 transition;
+}
+
+
 /* Tu peux ajouter ici d'autres règles custom si besoin plus tard */
