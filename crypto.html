@@ -3,199 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Signaux Crypto Top 150 | Momentum Strata</title>
-    <meta name="description" content="Scanner automatique des 150 plus grosses cryptos. Détectez les explosions de volume (Phoenix) et les rebonds sur support (Pullback) en temps réel.">
-    
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚀</text></svg>">
+    <title>Crypto | Momentum Strata</title>
+
+    <meta name="description" content="Signaux de trading sur les 150 principales cryptomonnaies : stratégies Phoenix (Breakout) et Pullback, filtrées par liquidité et volatilité.">
+    <meta property="og:title" content="Momentum Strata – Signaux Crypto">
+    <meta property="og:description" content="Scan multi-exchange des cryptomonnaies pour trouver les meilleurs breakouts et pullbacks avec un filtre de volume et RSI.">
+    <meta property="og:type" content="website">
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="assets/js/tailwind-config.js"></script>
 
     <script src="assets/js/main.js" defer></script>
-
-    <style>
-        .sparkline-path { stroke-linecap: round; stroke-linejoin: round; }
-        .sparkline-sma { stroke-dasharray: 2, 2; }
-    </style>
+    <script src="assets/js/crypto.js" defer></script>
 </head>
-<body class="bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-50 antialiased flex flex-col min-h-screen">
+<body class="bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-50 antialiased min-h-screen flex flex-col">
 
+    <!-- Navbar injectée dynamiquement -->
     <div id="navbar-container"></div>
 
-    <div class="border-b border-slate-800/70 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
-        <header class="py-12 md:py-16 px-4 md:px-10 text-center max-w-4xl mx-auto">
-            <div class="inline-flex items-center mb-6 px-4 py-1.5 bg-purple-500/10 border border-purple-400/40 text-purple-200 text-[11px] font-semibold uppercase tracking-[0.2em] rounded-full">
-                <span class="relative flex h-2 w-2 mr-2">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2 w-2 bg-purple-400"></span>
-                </span>
-                Algo Trading • Top 150 • Scoring V2
-            </div>
-            <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-5">
-                Volatilité & Momentum :<br class="hidden md:block" />
-                <span class="text-brand-primary relative inline-block text-purple-500">Le Marché Crypto</span>
-            </h1>
-            <p class="text-sm md:text-base text-slate-300/90 max-w-2xl mx-auto leading-relaxed">
-                Scan automatique multi-exchange (Binance/Gate).<br>
-                Filtre de liquidité (>5M$/j) et scoring avancé (Volume + RSI + Trend).
-            </p>
-        </header>
-    </div>
-
-    <main class="flex-grow space-y-20 pb-20 mt-10">
-        
-        <section id="phoenix" class="px-4 md:px-6 lg:px-0">
-            <div class="max-w-6xl mx-auto">
-                <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-5 border-b border-slate-800 pb-4">
-                    <div>
-                        <div class="flex items-center gap-2 mb-1">
-                            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30 uppercase tracking-wider">Stratégie 1</span>
-                            <h2 class="font-bold text-2xl text-slate-50">Phoenix (Explosion)</h2>
-                        </div>
-                        <p class="text-sm text-slate-400 max-w-xl">Cryptos liquides en tendance haussière avec un volume anormal (> 1.3x) et un score technique élevé.</p>
-                    </div>
-                    <div class="text-right"><p class="text-xs text-slate-500">Mise à jour : <span id="date-phoenix" class="text-slate-300 font-medium">...</span></p></div>
+    <main class="flex-1 pt-20">
+        <!-- HERO -->
+        <section class="border-b border-slate-800/70 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
+            <header class="py-12 md:py-16 px-4 md:px-10 text-center max-w-4xl mx-auto">
+                <div class="inline-flex items-center mb-6 px-4 py-1.5 rounded-full bg-slate-900/70 border border-slate-700/60 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-300">
+                    <span class="relative flex h-2 w-2 mr-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-purple-400"></span>
+                    </span>
+                    Algo Trading • Crypto (Top 150)
                 </div>
-                <div class="bg-slate-900/80 backdrop-blur rounded-2xl shadow-premium border border-slate-800/80 overflow-hidden relative">
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse">
-                            <thead>
-                                <tr class="bg-slate-950 text-[11px] uppercase tracking-[0.18em] text-slate-400 border-b border-slate-800">
-                                    <th class="px-6 py-3.5">Crypto</th>
-                                    <th class="px-6 py-3.5 hidden md:table-cell">Config (30j)</th>
-                                    <th class="px-6 py-3.5">Volume & RSI</th>
-                                    <th class="px-6 py-3.5 hidden sm:table-cell">Score V2</th>
-                                    <th class="px-6 py-3.5 hidden sm:table-cell">Stop Loss</th>
-                                    <th class="px-6 py-3.5 text-right">Chart</th>
-                                </tr>
-                            </thead>
-                            <tbody id="table-phoenix" class="text-sm divide-y divide-slate-800">
-                                <tr><td colspan="6" class="px-6 py-8 text-center text-xs text-slate-500">Chargement des données...</td></tr>
-                            </tbody>
-                        </table>
+
+                <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-5">
+                    Scanner quotidien des <span class="text-purple-400">cryptos les plus liquides</span>
+                </h1>
+
+                <p class="text-sm md:text-base text-slate-300/90 leading-relaxed max-w-2xl mx-auto mb-8">
+                    Momentum Strata filtre les principales cryptomonnaies (multi-exchange) pour repérer les
+                    <span class="text-purple-300 font-semibold">breakouts propres</span> et
+                    <span class="text-emerald-300 font-semibold">pullbacks sur tendance haussière</span>,
+                    en tenant compte du volume en dollars et du RSI.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-3 text-xs text-slate-400">
+                    <div class="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-slate-700/80 bg-slate-900/80">
+                        <span class="h-2 w-2 rounded-full bg-purple-400 shadow-[0_0_10px_rgba(168,85,247,0.8)]"></span>
+                        Top 150 cryptos filtrées par liquidité
                     </div>
+                    <div class="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-slate-700/80 bg-slate-900/80">
+                        <span class="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.8)]"></span>
+                        RSI &amp; tendance long terme intégrés au score
+                    </div>
+                </div>
+            </header>
+        </section>
+
+        <!-- SECTION PHOENIX CRYPTO -->
+        <section id="phoenix" class="max-w-6xl mx-auto px-4 md:px-8 lg:px-10 py-10 md:py-12 space-y-6">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+                <div>
+                    <div class="inline-flex items-center gap-2 mb-4">
+                        <span class="px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/40 text-[11px] font-semibold tracking-[0.16em] uppercase text-purple-300">
+                            Stratégie Phoenix • Breakout
+                        </span>
+                    </div>
+                    <h2 class="text-xl md:text-2xl font-bold text-slate-50 mb-1">
+                        Breakouts crypto sur forte impulsion
+                    </h2>
+                    <p class="text-sm text-slate-400 max-w-xl">
+                        Cryptos en tendance haussière au-dessus de leur SMA 200, avec volume anormalement élevé
+                        et rupture de consolidation. Objectif : capter les mouvements explosifs sur les actifs liquides.
+                    </p>
+                </div>
+                <div class="text-xs text-right text-slate-400">
+                    <p class="mb-1">Dernière mise à jour : <span id="date-phoenix" class="text-slate-100 font-medium">...</span></p>
+                    <p class="text-[11px] text-slate-500">Heure UTC – données agrégées multi-exchange.</p>
+                </div>
+            </div>
+
+            <div class="bg-slate-950/80 backdrop-blur rounded-2xl border border-slate-800/80 shadow-premium overflow-hidden relative">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-950 text-[11px] uppercase tracking-[0.18em] text-slate-400 border-b border-slate-800">
+                                <th class="px-6 py-3.5">Actif</th>
+                                <th class="px-6 py-3.5 hidden md:table-cell">Tendance &amp; Volume</th>
+                                <th class="px-6 py-3.5">Score &amp; RSI</th>
+                                <th class="px-6 py-3.5 hidden sm:table-cell">Prix</th>
+                                <th class="px-6 py-3.5 hidden sm:table-cell">Stop Loss</th>
+                                <th class="px-6 py-3.5 text-right">Chart</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-phoenix" class="text-sm divide-y divide-slate-800">
+                            <tr>
+                                <td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">
+                                    Chargement des données...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </section>
 
-        <section id="pullback" class="px-4 md:px-6 lg:px-0">
-            <div class="max-w-6xl mx-auto">
-                <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-5 border-b border-slate-800 pb-4">
-                    <div>
-                        <div class="flex items-center gap-2 mb-1">
-                            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 uppercase tracking-wider">Stratégie 2</span>
-                            <h2 class="font-bold text-2xl text-slate-50">Golden Zone (Rebond)</h2>
-                        </div>
-                        <p class="text-sm text-slate-400 max-w-xl">Leaders (> SMA200) qui reviennent tester la zone d'achat institutionnelle (EMA 13-50) avec un RSI sain.</p>
+        <!-- SECTION PULLBACK CRYPTO -->
+        <section id="pullback" class="max-w-6xl mx-auto px-4 md:px-8 lg:px-10 pb-14 md:pb-16 space-y-6">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+                <div>
+                    <div class="inline-flex items-center gap-2 mb-4">
+                        <span class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/40 text-[11px] font-semibold tracking-[0.16em] uppercase text-emerald-300">
+                            Stratégie Pullback • Sur tendance
+                        </span>
                     </div>
-                    <div class="text-right"><p class="text-xs text-slate-500">Mise à jour : <span id="date-pullback" class="text-slate-300 font-medium">...</span></p></div>
+                    <h2 class="text-xl md:text-2xl font-bold text-slate-50 mb-1">
+                        Pullbacks propres sur cryptos tendancielles
+                    </h2>
+                    <p class="text-sm text-slate-400 max-w-xl">
+                        Cryptos en forte tendance haussière qui corrigent vers des zones techniques clés,
+                        avec RSI raisonnable et volume toujours solide. Pour des entrées plus “raisonnées” que les breakouts.
+                    </p>
                 </div>
-                <div class="bg-slate-900/80 backdrop-blur rounded-2xl shadow-premium border border-slate-800/80 overflow-hidden relative">
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse">
-                            <thead>
-                                <tr class="bg-slate-950 text-[11px] uppercase tracking-[0.18em] text-slate-400 border-b border-slate-800">
-                                    <th class="px-6 py-3.5">Crypto</th>
-                                    <th class="px-6 py-3.5 hidden md:table-cell">Config (30j)</th>
-                                    <th class="px-6 py-3.5">Santé (RSI)</th>
-                                    <th class="px-6 py-3.5 hidden sm:table-cell">Prix</th>
-                                    <th class="px-6 py-3.5 hidden sm:table-cell">Stop Loss</th>
-                                    <th class="px-6 py-3.5 text-right">Chart</th>
-                                </tr>
-                            </thead>
-                            <tbody id="table-pullback" class="text-sm divide-y divide-slate-800">
-                                <tr><td colspan="6" class="px-6 py-8 text-center text-xs text-slate-500">Chargement des données...</td></tr>
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="text-xs text-right text-slate-400">
+                    <p class="mb-1">Dernière mise à jour : <span id="date-pullback" class="text-slate-100 font-medium">...</span></p>
+                    <p class="text-[11px] text-slate-500">Heure UTC – données agrégées multi-exchange.</p>
+                </div>
+            </div>
+
+            <div class="bg-slate-950/80 backdrop-blur rounded-2xl border border-slate-800/80 shadow-premium overflow-hidden relative">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-950 text-[11px] uppercase tracking-[0.18em] text-slate-400 border-b border-slate-800">
+                                <th class="px-6 py-3.5">Actif</th>
+                                <th class="px-6 py-3.5 hidden md:table-cell">Tendance &amp; contexte</th>
+                                <th class="px-6 py-3.5">Score &amp; RSI</th>
+                                <th class="px-6 py-3.5 hidden sm:table-cell">Prix</th>
+                                <th class="px-6 py-3.5 hidden sm:table-cell">Stop Loss</th>
+                                <th class="px-6 py-3.5 text-right">Chart</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-pullback" class="text-sm divide-y divide-slate-800">
+                            <tr>
+                                <td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">
+                                    Chargement des données...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </section>
-
     </main>
 
+    <!-- Footer injecté dynamiquement -->
     <div id="footer-container"></div>
 
-    <script>
-        // --- CHARGEMENT DONNÉES CRYPTO ---
-        fetch('data/crypto_breakout_pro.json')
-            .then(r => r.json())
-            .then(data => {
-                document.getElementById('date-phoenix').textContent = data.date_mise_a_jour || '-';
-                const tbody = document.getElementById('table-phoenix');
-                tbody.innerHTML = '';
-                const entries = Object.entries(data.picks || {});
-                if (!entries.length) {
-                    tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Aucune opportunité haute qualité (>5M$ vol) détectée.</td></tr>';
-                } else {
-                    entries.forEach(([ticker, info]) => {
-                        // Utilisation de la fonction globale window.createSparkline (main.js)
-                        const graph = window.createSparkline ? window.createSparkline(info.history, 120, 40, "#fbbf24") : '';
-                        
-                        const rsiColor = info.rsi > 70 ? 'text-rose-400' : 'text-slate-300';
-                        
-                        tbody.insertAdjacentHTML('beforeend', `
-                            <tr class="hover:bg-slate-800/50 border-b border-slate-800/50 transition-colors">
-                                <td class="px-6 py-4">
-                                    <span class="font-bold text-amber-100">${info.name}</span>
-                                </td>
-                                <td class="px-6 py-4 hidden md:table-cell">${graph}</td>
-                                <td class="px-6 py-4">
-                                    <div class="flex flex-col gap-1">
-                                        <span class="text-xs font-bold text-amber-400">Vol: x${info.vol_ratio}</span>
-                                        <span class="text-[10px] ${rsiColor}">RSI: ${info.rsi}</span>
-                                    </div>
-                                </td>
-                                <td class="px-6 py-4 hidden sm:table-cell">
-                                    <span class="inline-flex px-2 py-1 rounded text-xs font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">
-                                        ${Math.round(info.score)}/100
-                                    </span>
-                                </td>
-                                <td class="px-6 py-4 hidden sm:table-cell text-rose-400 font-mono text-xs">$${info.stop_loss < 1 ? info.stop_loss.toFixed(5) : info.stop_loss.toFixed(2)}</td>
-                                <td class="px-6 py-4 text-right">
-                                    <a href="https://www.tradingview.com/symbols/${ticker.replace('-','').replace('USD','USDT')}/" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:text-amber-300 text-xs font-medium">Voir &rarr;</a>
-                                </td>
-                            </tr>
-                        `);
-                    });
-                }
-            })
-            .catch(() => document.getElementById('table-phoenix').innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Données indisponibles.</td></tr>');
-
-        fetch('data/crypto_pullback_pro.json')
-            .then(r => r.json())
-            .then(data => {
-                document.getElementById('date-pullback').textContent = data.date_mise_a_jour || '-';
-                const tbody = document.getElementById('table-pullback');
-                tbody.innerHTML = '';
-                const entries = Object.entries(data.picks || {});
-                if (!entries.length) {
-                    tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Aucun pullback zone EMA 13-50 détecté.</td></tr>';
-                } else {
-                    entries.forEach(([ticker, info]) => {
-                        const graph = window.createSparkline ? window.createSparkline(info.history, 120, 40, "#10b981") : '';
-                        
-                        tbody.insertAdjacentHTML('beforeend', `
-                            <tr class="hover:bg-slate-800/50 border-b border-slate-800/50 transition-colors">
-                                <td class="px-6 py-4">
-                                    <span class="font-bold text-slate-100">${info.name}</span>
-                                </td>
-                                <td class="px-6 py-4 hidden md:table-cell">${graph}</td>
-                                <td class="px-6 py-4">
-                                    <span class="inline-flex px-2 py-1 rounded text-xs font-medium bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">RSI: ${info.rsi}</span>
-                                </td>
-                                <td class="px-6 py-4 hidden sm:table-cell text-slate-300 font-mono text-xs">$${info.entry_price < 1 ? info.entry_price.toFixed(5) : info.entry_price.toFixed(2)}</td>
-                                <td class="px-6 py-4 hidden sm:table-cell text-rose-400 font-mono text-xs">$${info.stop_loss < 1 ? info.stop_loss.toFixed(5) : info.stop_loss.toFixed(2)}</td>
-                                <td class="px-6 py-4 text-right">
-                                    <a href="https://www.tradingview.com/symbols/${ticker.replace('-','').replace('USD','USDT')}/" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 text-xs font-medium">Voir &rarr;</a>
-                                </td>
-                            </tr>
-                        `);
-                    });
-                }
-            })
-            .catch(() => document.getElementById('table-pullback').innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Données indisponibles.</td></tr>');
-    </script>
 </body>
 </html>

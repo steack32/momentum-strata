@@ -3,162 +3,200 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Signaux Trading S&P 500 | Momentum Strata</title>
-    <meta name="description" content="Détectez les opportunités de trading sur le S&P 500.">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📈</text></svg>">
+    <title>S&P 500 | Momentum Strata</title>
+
+    <meta name="description" content="Signaux quotidiens de trading sur le S&P 500 : stratégies Breakout (Phoenix) et Pullback, basées sur la tendance, le volume et le RSI.">
+    <meta property="og:title" content="Momentum Strata – Signaux S&P 500">
+    <meta property="og:description" content="Détection quotidienne des actions leaders du S&P 500 grâce à deux stratégies momentum : Breakout (Phoenix) et Pullback.">
+    <meta property="og:type" content="website">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="assets/js/tailwind-config.js"></script>
-    <script src="assets/js/main.js" defer></script>
-    <style>
-        .sparkline-path { stroke-linecap: round; stroke-linejoin: round; }
-    </style>
-</head>
-<body class="bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-50 antialiased flex flex-col min-h-screen">
 
+    <script src="assets/js/main.js" defer></script>
+    <script src="assets/js/sp500.js" defer></script>
+</head>
+<body class="bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-50 antialiased min-h-screen flex flex-col">
+
+    <!-- Navbar injectée dynamiquement -->
     <div id="navbar-container"></div>
 
-    <div class="border-b border-slate-800/70 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
-        <header class="py-12 md:py-16 px-4 md:px-10 text-center max-w-4xl mx-auto">
-            <div class="inline-flex items-center mb-6 px-4 py-1.5 bg-blue-500/10 border border-blue-400/40 text-blue-200 text-[11px] font-semibold uppercase tracking-[0.2em] rounded-full">
-                <span class="relative flex h-2 w-2 mr-2">
-                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-400"></span>
-                </span>
-                Algo Trading • S&P 500
-            </div>
-            <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-5">
-                Deux stratégies, un objectif :<br class="hidden md:block" />
-                <span class="text-brand-primary relative inline-block text-blue-500">Maîtriser la Tendance</span>
-            </h1>
-            <p class="text-sm md:text-base text-slate-300/90 max-w-2xl mx-auto leading-relaxed">
-                Analyse quotidienne des 500 plus grandes capitalisations US.<br>
-                Détection automatique des leaders.
-            </p>
-        </header>
-    </div>
-
-    <main class="flex-grow space-y-20 pb-20 mt-10">
-        
-        <section id="phoenix" class="px-4 md:px-6 lg:px-0">
-            <div class="max-w-6xl mx-auto">
-                <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-5 border-b border-slate-800 pb-4">
-                    <div>
-                        <div class="flex items-center gap-2 mb-1">
-                            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30 uppercase tracking-wider">Stratégie 1</span>
-                            <h2 class="font-bold text-2xl text-slate-50">Phoenix (Breakout)</h2>
-                        </div>
-                        <p class="text-sm text-slate-400 max-w-xl">Acheter le réveil. Cassure de résistance avec volume explosif.</p>
-                    </div>
-                    <div class="text-right"><p class="text-xs text-slate-500">Mise à jour : <span id="date-phoenix" class="text-slate-300 font-medium">...</span></p></div>
+    <main class="flex-1 pt-20">
+        <!-- HERO -->
+        <section class="border-b border-slate-800/70 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
+            <header class="py-12 md:py-16 px-4 md:px-10 text-center max-w-4xl mx-auto">
+                <div class="inline-flex items-center mb-6 px-4 py-1.5 rounded-full bg-slate-900/70 border border-slate-700/60 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-300">
+                    <span class="relative flex h-2 w-2 mr-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-400"></span>
+                    </span>
+                    Algo Trading • S&amp;P 500
                 </div>
-                <div class="bg-slate-900/80 backdrop-blur rounded-2xl shadow-premium border border-slate-800/80 overflow-hidden relative">
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse">
-                            <thead>
-                                <tr class="bg-slate-950 text-[11px] uppercase tracking-[0.18em] text-slate-400 border-b border-slate-800">
-                                    <th class="px-6 py-3.5">Action</th>
-                                    <th class="px-6 py-3.5 hidden md:table-cell">Config (30j)</th>
-                                    <th class="px-6 py-3.5">Volume & RSI</th>
-                                    <th class="px-6 py-3.5 hidden sm:table-cell">Score</th>
-                                    <th class="px-6 py-3.5 hidden sm:table-cell">Stop Loss</th>
-                                    <th class="px-6 py-3.5 text-right">Chart</th>
-                                </tr>
-                            </thead>
-                            <tbody id="table-phoenix" class="text-sm divide-y divide-slate-800"><tr><td colspan="6" class="px-6 py-8 text-center text-xs text-slate-500">Chargement...</td></tr></tbody>
-                        </table>
+
+                <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-5">
+                    Deux stratégies, un objectif :<br class="hidden md:block">
+                    <span class="text-blue-400">capturer les leaders du S&amp;P 500</span>
+                </h1>
+
+                <p class="text-sm md:text-base text-slate-300/90 leading-relaxed max-w-2xl mx-auto mb-8">
+                    Momentum Strata scanne chaque jour les 500 plus grandes capitalisations US pour détecter
+                    les actions en <span class="text-amber-300 font-semibold">breakout (Phoenix)</span> et en
+                    <span class="text-emerald-300 font-semibold">pullback sur tendance haussière</span>.
+                </p>
+
+                <div class="flex flex-col sm:flex-row items-center justify-center gap-3 text-xs text-slate-400">
+                    <div class="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-slate-700/80 bg-slate-900/80">
+                        <span class="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.8)]"></span>
+                        Données mises à jour chaque jour de bourse
                     </div>
+                    <div class="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-slate-700/80 bg-slate-900/80">
+                        <span class="h-2 w-2 rounded-full bg-blue-400 shadow-[0_0_10px_rgba(59,130,246,0.8)]"></span>
+                        Filtre de liquidité &amp; volume anormal
+                    </div>
+                </div>
+            </header>
+        </section>
+
+        <!-- SECTION PHOENIX (BREAKOUT) -->
+        <section id="phoenix" class="max-w-6xl mx-auto px-4 md:px-8 lg:px-10 py-10 md:py-12 space-y-6">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+                <div>
+                    <div class="inline-flex items-center gap-2 mb-4">
+                        <span class="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/40 text-[11px] font-semibold tracking-[0.16em] uppercase text-amber-300">
+                            Stratégie Phoenix • Breakout
+                        </span>
+                    </div>
+                    <h2 class="text-xl md:text-2xl font-bold text-slate-50 mb-1">
+                        Actions en breakout sur tendance haussière
+                    </h2>
+                    <p class="text-sm text-slate-400 max-w-xl">
+                        Détection des actions au-dessus de leur SMA 200 avec volume explosif et structure de bougie haussière.
+                        Idéal pour capturer des impulsions puissantes sur les leaders du marché.
+                    </p>
+                </div>
+                <div class="text-xs text-right text-slate-400">
+                    <p class="mb-1">Dernière mise à jour : <span id="date-phoenix" class="text-slate-100 font-medium">...</span></p>
+                    <p class="text-[11px] text-slate-500">Heure de Paris – données fin de séance.</p>
+                </div>
+            </div>
+
+            <div class="bg-slate-950/80 backdrop-blur rounded-2xl border border-slate-800/80 shadow-premium overflow-hidden relative">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-950 text-[11px] uppercase tracking-[0.18em] text-slate-400 border-b border-slate-800">
+                                <th class="px-6 py-3.5">Action</th>
+                                <th class="px-6 py-3.5 hidden md:table-cell">Tendance &amp; Volume</th>
+                                <th class="px-6 py-3.5">Score &amp; RSI</th>
+                                <th class="px-6 py-3.5 hidden sm:table-cell">Prix d'entrée</th>
+                                <th class="px-6 py-3.5 hidden sm:table-cell">Stop Loss</th>
+                                <th class="px-6 py-3.5 text-right">Chart</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-phoenix" class="text-sm divide-y divide-slate-800">
+                            <tr>
+                                <td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">
+                                    Chargement des données...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-4 text-xs text-slate-400">
+                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                    <h3 class="font-semibold text-slate-100 mb-1.5 text-sm">Filtre volume</h3>
+                    <p>
+                        Seules les actions avec un volume du jour &gt; 2× la moyenne 20 jours sont retenues. On évite ainsi
+                        les faux signaux sur des dossiers peu liquides.
+                    </p>
+                </div>
+                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                    <h3 class="font-semibold text-slate-100 mb-1.5 text-sm">Tendance long terme</h3>
+                    <p>
+                        Le prix doit être au-dessus de la <span class="font-medium text-slate-100">SMA 200</span> :
+                        on ne joue que dans le sens de la tendance dominante.
+                    </p>
+                </div>
+                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                    <h3 class="font-semibold text-slate-100 mb-1.5 text-sm">Score global</h3>
+                    <p>
+                        Le score combine intensité de la tendance, position par rapport à la SMA 200, RSI et volume
+                        afin de classer les opportunités.
+                    </p>
                 </div>
             </div>
         </section>
 
-        <section id="pullback" class="px-4 md:px-6 lg:px-0">
-            <div class="max-w-6xl mx-auto">
-                <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-4 mb-5 border-b border-slate-800 pb-4">
-                    <div>
-                        <div class="flex items-center gap-2 mb-1">
-                            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 uppercase tracking-wider">Stratégie 2</span>
-                            <h2 class="font-bold text-2xl text-slate-50">Trend Pullback (Rebond)</h2>
-                        </div>
-                        <p class="text-sm text-slate-400 max-w-xl">
-                            Les leaders qui respirent. Achat sur repli (SMA 50) en tendance haussière.
-                            <strong>Top 5 uniquement.</strong>
-                        </p>
+        <!-- SECTION PULLBACK -->
+        <section id="pullback" class="max-w-6xl mx-auto px-4 md:px-8 lg:px-10 pb-14 md:pb-16 space-y-6">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+                <div>
+                    <div class="inline-flex items-center gap-2 mb-4">
+                        <span class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/40 text-[11px] font-semibold tracking-[0.16em] uppercase text-emerald-300">
+                            Stratégie Pullback • Sur tendance
+                        </span>
                     </div>
-                    <div class="text-right"><p class="text-xs text-slate-500">Mise à jour : <span id="date-pullback" class="text-slate-300 font-medium">...</span></p></div>
+                    <h2 class="text-xl md:text-2xl font-bold text-slate-50 mb-1">
+                        Pullbacks propres sur tendances établies
+                    </h2>
+                    <p class="text-sm text-slate-400 max-w-xl">
+                        Sélection des actions en forte tendance haussière revenant au contact de la SMA 50, avec RSI sous contrôle.
+                        Idéal pour des entrées plus “confortables” que les breakouts.
+                    </p>
                 </div>
-                <div class="bg-slate-900/80 backdrop-blur rounded-2xl shadow-premium border border-slate-800/80 overflow-hidden relative">
-                    <div class="overflow-x-auto">
-                        <table class="w-full text-left border-collapse">
-                            <thead>
-                                <tr class="bg-slate-950 text-[11px] uppercase tracking-[0.18em] text-slate-400 border-b border-slate-800">
-                                    <th class="px-6 py-3.5">Action</th>
-                                    <th class="px-6 py-3.5 hidden md:table-cell">Config (30j)</th>
-                                    <th class="px-6 py-3.5">Santé (RSI)</th>
-                                    <th class="px-6 py-3.5 hidden sm:table-cell">Prix</th>
-                                    <th class="px-6 py-3.5 hidden sm:table-cell">Stop Loss</th>
-                                    <th class="px-6 py-3.5 text-right">Chart</th>
-                                </tr>
-                            </thead>
-                            <tbody id="table-pullback" class="text-sm divide-y divide-slate-800"><tr><td colspan="6" class="px-6 py-8 text-center text-xs text-slate-500">Chargement...</td></tr></tbody>
-                        </table>
-                    </div>
+                <div class="text-xs text-right text-slate-400">
+                    <p class="mb-1">Dernière mise à jour : <span id="date-pullback" class="text-slate-100 font-medium">...</span></p>
+                    <p class="text-[11px] text-slate-500">Heure de Paris – données fin de séance.</p>
+                </div>
+            </div>
+
+            <div class="bg-slate-950/80 backdrop-blur rounded-2xl border border-slate-800/80 shadow-premium overflow-hidden relative">
+                <div class="overflow-x-auto">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-950 text-[11px] uppercase tracking-[0.18em] text-slate-400 border-b border-slate-800">
+                                <th class="px-6 py-3.5">Action</th>
+                                <th class="px-6 py-3.5 hidden md:table-cell">Tendance &amp; contexte</th>
+                                <th class="px-6 py-3.5">Score &amp; RSI</th>
+                                <th class="px-6 py-3.5 hidden sm:table-cell">Prix d'entrée</th>
+                                <th class="px-6 py-3.5 hidden sm:table-cell">Stop Loss</th>
+                                <th class="px-6 py-3.5 text-right">Chart</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-pullback" class="text-sm divide-y divide-slate-800">
+                            <tr>
+                                <td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">
+                                    Chargement des données...
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-4 text-xs text-slate-400">
+                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                    <h3 class="font-semibold text-slate-100 mb-1.5 text-sm">Pullback contrôlé</h3>
+                    <p>
+                        Le prix revient vers la <span class="font-medium text-slate-100">SMA 50</span> mais reste en forte
+                        tendance haussière au-dessus de la SMA 200 : on achète un repli plutôt qu’un plus haut.
+                    </p>
+                </div>
+                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                    <h3 class="font-semibold text-emerald-300 mb-1.5 text-sm">Stop Loss discipliné</h3>
+                    <p>
+                        Le stop est calculé dynamiquement pour laisser respirer le mouvement tout en limitant le risque
+                        sur chaque position.
+                    </p>
                 </div>
             </div>
         </section>
-
-        <section class="max-w-6xl mx-auto px-4 lg:px-0">
-            <div class="grid md:grid-cols-2 gap-6">
-                 <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-800">
-                    <h3 class="font-bold text-amber-400 mb-2">Phoenix</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">Début de cycle haussier. Volume anormal + cassure technique.</p>
-                </div>
-                <div class="bg-slate-900/50 p-6 rounded-xl border border-slate-800">
-                    <h3 class="font-bold text-emerald-400 mb-2">Pullback</h3>
-                    <p class="text-xs text-slate-400 leading-relaxed">Continuation de tendance. Achat à prix réduit sur support majeur.</p>
-                </div>
-            </div>
-        </section>
-
     </main>
 
+    <!-- Footer injecté dynamiquement -->
     <div id="footer-container"></div>
 
-    <script>
-        // --- CHARGEMENT PHOENIX ---
-        fetch('data/sp500_breakout_pro.json').then(r=>r.json()).then(data=>{
-            document.getElementById('date-phoenix').textContent=data.date_mise_a_jour||'-';
-            const t=document.getElementById('table-phoenix');t.innerHTML='';
-            const picks=Object.entries(data.picks||{});
-            if(!picks.length){t.innerHTML='<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Aucun signal.</td></tr>';}
-            else{
-                picks.forEach(([k,v])=>{
-                    // Si le JSON contient 'ticker', on l'utilise, sinon on prend la clé 'k'
-                    const displayTicker = v.ticker || k;
-                    const displayName = v.name || displayTicker;
-                    const graph = window.createSparkline ? window.createSparkline(v.history,120,40,"#fbbf24") : '';
-                    const rsiColor = v.rsi>70?'text-rose-400':'text-slate-400';
-                    
-                    t.insertAdjacentHTML('beforeend',`<tr class="hover:bg-slate-800/50 border-b border-slate-800/50 transition-colors"><td class="px-6 py-4"><div class="font-bold text-amber-100">${displayName}</div><div class="text-[10px] text-slate-500">(${displayTicker})</div></td><td class="px-6 py-4 hidden md:table-cell">${graph}</td><td class="px-6 py-4"><div class="flex flex-col"><span class="text-xs font-bold text-amber-400">Vol: x${v.vol_ratio}</span><span class="text-[10px] ${rsiColor}">RSI: ${v.rsi}</span></div></td><td class="px-6 py-4 hidden sm:table-cell"><span class="inline-flex px-2 py-1 rounded text-xs font-bold bg-amber-500/10 text-amber-400 border border-amber-500/20">${Math.round(v.score)}/100</span></td><td class="px-6 py-4 hidden sm:table-cell text-rose-400 font-mono text-xs">$${v.stop_loss}</td><td class="px-6 py-4 text-right"><a href="https://www.tradingview.com/symbols/${displayTicker}/" target="_blank" rel="noopener noreferrer" class="text-amber-400 hover:text-amber-300 text-xs font-medium">Voir &rarr;</a></td></tr>`);
-                });
-            }
-        });
-
-        // --- CHARGEMENT PULLBACK (Top 5) ---
-        fetch('data/sp500_pullback_pro.json').then(r=>r.json()).then(data=>{
-            document.getElementById('date-pullback').textContent=data.date_mise_a_jour||'-';
-            const t=document.getElementById('table-pullback');t.innerHTML='';
-            const picks=Object.entries(data.picks||{});
-            if(!picks.length){t.innerHTML='<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Aucun signal.</td></tr>';}
-            else{
-                picks.forEach(([k,v])=>{
-                    const displayTicker = v.ticker || k;
-                    const displayName = v.name || displayTicker;
-                    const graph = window.createSparkline ? window.createSparkline(v.history,120,40,"#10b981") : '';
-                    
-                    t.insertAdjacentHTML('beforeend',`<tr class="hover:bg-slate-800/50 border-b border-slate-800/50 transition-colors"><td class="px-6 py-4"><div class="font-bold text-slate-100">${displayName}</div><div class="text-[10px] text-slate-500">(${displayTicker})</div></td><td class="px-6 py-4 hidden md:table-cell">${graph}</td><td class="px-6 py-4"><div class="flex flex-col"><span class="text-xs font-medium text-emerald-400">Trend: +${v.trend_pct}%</span><span class="text-[10px] text-slate-400">RSI: ${v.rsi}</span></div></td><td class="px-6 py-4 hidden sm:table-cell text-slate-300 font-mono text-xs">$${v.entry_price}</td><td class="px-6 py-4 hidden sm:table-cell text-rose-400 font-mono text-xs">$${v.stop_loss}</td><td class="px-6 py-4 text-right"><a href="https://www.tradingview.com/symbols/${displayTicker}/" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 text-xs font-medium">Voir &rarr;</a></td></tr>`);
-                });
-            }
-        });
-    </script>
 </body>
 </html>
