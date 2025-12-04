@@ -1,6 +1,6 @@
-yfinance
 pandas
-numpy
-lxml
+yfinance
 requests
+lxml
 ccxt
+numpy<2.0.0
