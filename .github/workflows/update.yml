@@ -3,7 +3,7 @@ name: Daily Algo Update
 on:
   schedule:
     - cron: '30 22 * * *'  # Tous les jours à 22h30 UTC
-  workflow_dispatch:      # Permet le lancement manuel
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -18,17 +18,14 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
-          python-version: '3.10' # On reste sur 3.10 ou 3.11, c'est très stable
+          python-version: '3.11'
 
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          
-          # 1. IMPORTANT : On force Numpy < 2.0 pour éviter les bugs récents
+          # ON SUPPRIME pandas_ta. On a juste besoin des bases.
+          # On force numpy < 2.0 pour éviter les conflits avec yfinance
           pip install "numpy<2.0.0" pandas yfinance requests lxml
-          
-          # 2. URL CORRIGÉE pour pandas_ta (La précédente donnait un 404)
-          pip install https://github.com/twopirllc/pandas-ta/archive/refs/heads/development.zip
 
       # --- LANCE LE BOT S&P 500 (ACTIONS) ---
       - name: Run S&P 500 Pro Bot
@@ -43,10 +40,6 @@ jobs:
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
-          
-          # Ajoute tous les fichiers JSON générés
           git add data/*.json
-          
-          # On commit seulement s'il y a des changements
           git commit -m "Auto-update: Stocks & Crypto Data" || echo "No changes to commit"
           git push
