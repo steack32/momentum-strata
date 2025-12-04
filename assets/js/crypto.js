@@ -125,9 +125,12 @@ function appendCryptoRow(tbody, symbol, info, options) {
 async function loadCryptoPhoenix() {
     const dateEl = document.getElementById("date-phoenix");
     const tbody = document.getElementById("table-phoenix");
+    const heroCountEl = document.getElementById("hero-crypto-phoenix-count");
+
     if (!tbody) return;
 
     tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Chargement des données...</td></tr>';
+    if (heroCountEl) heroCountEl.textContent = "–";
 
     try {
         const response = await fetch("data/crypto_breakout_pro.json");
@@ -143,17 +146,25 @@ async function loadCryptoPhoenix() {
 
         if (!entries.length) {
             tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Aucune opportunité haute qualité détectée aujourd\'hui.</td></tr>';
+            if (heroCountEl) heroCountEl.textContent = "0";
             return;
         }
 
         entries.forEach(([symbol, info]) => {
             appendCryptoRow(tbody, symbol, info, { variant: "phoenix" });
         });
+
+        if (heroCountEl) {
+            heroCountEl.textContent = String(entries.length);
+        }
     } catch (error) {
         console.error("Erreur chargement Crypto Phoenix :", error);
         tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-rose-400">Erreur lors du chargement des données.</td></tr>';
         if (dateEl) {
             dateEl.textContent = "-";
+        }
+        if (heroCountEl) {
+            heroCountEl.textContent = "–";
         }
     }
 }
@@ -161,9 +172,12 @@ async function loadCryptoPhoenix() {
 async function loadCryptoPullback() {
     const dateEl = document.getElementById("date-pullback");
     const tbody = document.getElementById("table-pullback");
+    const heroCountEl = document.getElementById("hero-crypto-pullback-count");
+
     if (!tbody) return;
 
     tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Chargement des données...</td></tr>';
+    if (heroCountEl) heroCountEl.textContent = "–";
 
     try {
         const response = await fetch("data/crypto_pullback_pro.json");
@@ -179,17 +193,25 @@ async function loadCryptoPullback() {
 
         if (!entries.length) {
             tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">Aucune consolidation haussière détectée aujourd\'hui.</td></tr>';
+            if (heroCountEl) heroCountEl.textContent = "0";
             return;
         }
 
         entries.forEach(([symbol, info]) => {
             appendCryptoRow(tbody, symbol, info, { variant: "pullback" });
         });
+
+        if (heroCountEl) {
+            heroCountEl.textContent = String(entries.length);
+        }
     } catch (error) {
         console.error("Erreur chargement Crypto Pullback :", error);
         tbody.innerHTML = '<tr><td colspan="6" class="px-6 py-6 text-center text-xs text-rose-400">Erreur lors du chargement des données.</td></tr>';
         if (dateEl) {
             dateEl.textContent = "-";
+        }
+        if (heroCountEl) {
+            heroCountEl.textContent = "–";
         }
     }
 }
