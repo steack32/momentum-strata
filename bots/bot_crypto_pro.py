@@ -4,19 +4,20 @@ import json
 import time
 import requests
 import logging
+import re
 from typing import Dict, Tuple
 
 # =========================
-# CONFIG GLOBALE
+# CONFIGURATION "HAUTE SENSIBILITÉ"
 # =========================
 
 STABLECOINS = ["USDT", "USDC", "DAI", "FDUSD", "TUSA", "USDD", "PYUSD", "USDP", "EURI", "USDE", "BUSD", "USDS"]
 
-MIN_CANDLES = 250             # Minimum de bougies daily pour considérer la paire
-MIN_DOLLAR_VOL = 5_000_000    # Volume moyen en $ (20j) minimum
-SLEEP_BETWEEN_CALLS = 0.1     # Pour respecter les rate limits
+# CRITÈRES ASSOUPLIS
+MIN_CANDLES = 90              # On accepte les cryptos récentes (3 mois)
+MIN_DOLLAR_VOL = 1_000_000    # 1M$ de volume journalier suffit (avant 5M$)
+SLEEP_BETWEEN_CALLS = 0.2     # On ralentit un peu pour éviter le ban API
 
-# Logger propre
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s"
@@ -45,81 +46,74 @@ def calculate_rsi(series: pd.Series, window: int = 14) -> pd.Series:
     return 100 - (100 / (1 + rs))
 
 def normalize(value: float, min_val: float, max_val: float, clip: bool = True) -> float:
-    """
-    Ramène une valeur entre 0 et 1 selon un intervalle [min_val, max_val].
-    Si clip=True, on borne la valeur à [0, 1].
-    """
-    if max_val == min_val:
-        return 0.0
+    if max_val == min_val: return 0.0
     x = (value - min_val) / (max_val - min_val)
-    if clip:
-        x = max(0.0, min(1.0, x))
+    if clip: x = max(0.0, min(1.0, x))
     return x
 
 def get_top_cryptos(limit: int = 150):
-    """ Récupère le Top CoinGecko et nettoie les symboles. """
     url = "https://api.coingecko.com/api/v3/coins/markets"
-    params = {
-        "vs_currency": "usd",
-        "order": "market_cap_desc",
-        "per_page": 200,
-        "page": 1,
-        "sparkline": "false"
-    }
+    params = {"vs_currency": "usd", "order": "market_cap_desc", "per_page": 200, "page": 1, "sparkline": "false"}
     
     try:
-        logger.info("Connexion à CoinGecko pour récupérer le top market cap...")
+        logger.info("Récupération liste CoinGecko...")
         response = requests.get(url, params=params, timeout=10)
-        response.raise_for_status()
         data = response.json()
         
         symbols = []
         for coin in data:
             sym = coin['symbol'].upper()
-            if sym in STABLECOINS:
-                continue
-            # Filtres anti-wrapped fréquents
-            if sym.startswith("W") and sym in ["WBTC", "WETH", "WBNB"]:
-                continue
-            if "STETH" in sym:
-                continue
+            if sym in STABLECOINS: continue
+            if sym.startswith("W") and sym in ["WBTC", "WETH", "WBNB"]: continue
+            if "STETH" in sym: continue
             
             symbols.append(sym)
             
-        logger.info(f"{len(symbols)} symboles récupérés sur CoinGecko.")
         return symbols[:limit]
     except Exception as e:
-        logger.warning(f"Erreur CoinGecko: {e}. Fallback sur une liste fixe.")
-        return ["BTC", "ETH", "SOL", "BNB", "PEPE", "DOGE", "RNDR"]
+        logger.warning(f"Erreur CoinGecko: {e}. Fallback.")
+        return ["BTC", "ETH", "SOL", "BNB", "PEPE", "DOGE", "RNDR", "FET", "INJ", "SUI", "SEI", "TIA"]
 
 def fetch_ohlcv(symbol: str) -> pd.DataFrame | None:
-    """
-    Essaie de trouver la crypto sur Binance, sinon Gate.io.
-    Renvoie un DataFrame OHLCV ou None.
-    """
     pair = f"{symbol}/USDT"
-
-    # Essai Binance
+    
+    # On essaie Binance puis Gate
     for exchange, name in [(exchange_binance, "Binance"), (exchange_gate, "Gate.io")]:
         try:
-            ohlcv = exchange.fetch_ohlcv(pair, timeframe='1d', limit=365)
+            # On demande 200 bougies
+            ohlcv = exchange.fetch_ohlcv(pair, timeframe='1d', limit=200)
+            if not ohlcv: continue
+            
             df = pd.DataFrame(ohlcv, columns=['timestamp', 'Open', 'High', 'Low', 'Close', 'Volume'])
+            
+            # Vérification de l'âge de la dernière bougie (éviter les cryptos mortes/delistées)
+            last_timestamp = df.iloc[-1]['timestamp']
+            current_timestamp = int(time.time() * 1000)
+            # Si la dernière bougie a plus de 48h, c'est une crypto morte ou delistée
+            if (current_timestamp - last_timestamp) > 172800000: 
+                # logger.debug(f"{symbol} ignoré (Données obsolètes sur {name})")
+                continue
+
             if len(df) >= MIN_CANDLES:
-                logger.debug(f"{symbol} trouvé sur {name} avec {len(df)} bougies.")
                 return df
-        except Exception as e:
-            logger.debug(f"{symbol} non trouvé sur {name} ou erreur: {e}")
+        except Exception:
             continue
 
     return None
 
 # =========================
-# STRATÉGIES & SCORING
+# INDICATEURS
 # =========================
 
 def compute_indicators(df: pd.DataFrame) -> pd.DataFrame:
     df = df.copy()
-    df['SMA_200'] = calculate_sma(df['Close'], 200)
+    # On calcule la SMA 200 seulement si on a assez de data, sinon SMA 50
+    if len(df) >= 200:
+        df['SMA_200'] = calculate_sma(df['Close'], 200)
+    else:
+        # Pour les cryptos jeunes, la SMA 200 n'existe pas. On simule avec la SMA 90
+        df['SMA_200'] = calculate_sma(df['Close'], 90)
+
     df['EMA_13']  = calculate_ema(df['Close'], 13)
     df['EMA_21']  = calculate_ema(df['Close'], 21)
     df['EMA_50']  = calculate_ema(df['Close'], 50)
@@ -130,86 +124,48 @@ def compute_indicators(df: pd.DataFrame) -> pd.DataFrame:
     df['High_20'] = df['High'].rolling(20).max()
     return df
 
-def liquidity_filter(curr: pd.Series) -> bool:
-    """
-    Filtre liquidité : volume moyen 20j en $ minimum.
-    """
-    if pd.isna(curr.get('DollarVol_Avg20', None)):
-        return False
-    return curr['DollarVol_Avg20'] >= MIN_DOLLAR_VOL
-
 def phoenix_breakout_score(curr: pd.Series, prev: pd.Series) -> float:
-    """
-    Score de breakout "Phoenix" :
-    - tendance (distance à SMA200)
-    - volume relatif
-    - RSI
-    - proximité du plus haut 20j
-    """
     price = curr['Close']
     sma200 = curr['SMA_200']
     rsi = curr['RSI']
     vol_ratio = curr['Volume'] / curr['Vol_Avg'] if curr['Vol_Avg'] > 0 else 0
     high_20 = curr['High_20']
 
-    # 1) Tendance : on cherche 5% à 50% au-dessus de la SMA 200
     trend_pct = (price - sma200) / sma200
-    trend_score = normalize(trend_pct, 0.05, 0.5)
+    # Score plus permissif sur la tendance
+    trend_score = normalize(trend_pct, 0.0, 0.5) 
+    # Volume : on valorise dès 1.2x
+    vol_score = normalize(vol_ratio, 1.2, 4.0)
+    rsi_score = normalize(rsi, 50, 75)
 
-    # 2) Volume : ratio 1.3x à 3x
-    vol_score = normalize(vol_ratio, 1.3, 3.0)
-
-    # 3) RSI : idéalement 55–70
-    rsi_score = normalize(rsi, 55, 70)
-
-    # 4) Proximité du plus haut 20j (plus on est proche, mieux c’est)
-    if pd.isna(high_20) or high_20 == 0:
-        high_score = 0
+    if pd.isna(high_20) or high_20 == 0: high_score = 0
     else:
-        dist_to_high = (high_20 - price) / high_20  # 0 = sur le high, 0.1 = 10% en dessous
-        high_score = normalize(1 - dist_to_high, 0.8, 1.0)  # on privilégie 0–20% sous les plus hauts
+        dist = (high_20 - price) / high_20
+        high_score = normalize(1 - dist, 0.85, 1.0)
 
-    # Pondération (tu peux ajuster)
-    score = (
-        0.35 * trend_score +
-        0.30 * vol_score +
-        0.20 * rsi_score +
-        0.15 * high_score
-    )
-    return score * 100  # pour rester sur un score "lisible"
+    score = (0.35 * trend_score + 0.35 * vol_score + 0.15 * rsi_score + 0.15 * high_score)
+    return score * 100
 
 def pullback_score(curr: pd.Series) -> float:
-    """
-    Score pullback :
-    - force de tendance (distance SMA200)
-    - profondeur du repli entre EMA13 et EMA50
-    - RSI dans une zone "saine"
-    """
     price = curr['Close']
     sma200 = curr['SMA_200']
     ema13 = curr['EMA_13']
     ema50 = curr['EMA_50']
     rsi = curr['RSI']
 
-    trend_strength = (price - sma200) / sma200  # > 0.05 normalement
+    trend_strength = (price - sma200) / sma200 
+    
+    # On cherche un prix qui est SOUS l'EMA 13 (Repli) mais pas trop loin de l'EMA 50
+    # Plus on est proche de l'EMA 50, meilleur est le score de "rebond potentiel"
+    dist_ema50 = (price - ema50) / ema50
+    
+    # Score de position : 100% si on est pile sur l'EMA 50, diminue si on s'éloigne
+    position_score = normalize(1 - abs(dist_ema50), 0.95, 1.0)
 
-    # Repli : on veut que le prix soit entre EMA13 et EMA50
-    # on normalise la position du prix dans ce canal
-    if ema13 == ema50:
-        pullback_pos = 0.5
-    else:
-        pullback_pos = (price - ema50) / (ema13 - ema50)
-        # On veut idéalement un prix vers le milieu du canal (ni collé à EMA13 ni EMA50)
-        pullback_pos = 1 - abs(pullback_pos - 0.5) * 2  # 1 si milieu, 0 si extrémité
+    trend_score = normalize(trend_strength, 0.0, 0.5)
+    rsi_score = normalize(rsi, 40, 60) 
 
-    trend_score = normalize(trend_strength, 0.05, 0.5)
-    rsi_score = normalize(rsi, 45, 60)  # RSI ni trop faible ni trop haut
-
-    score = (
-        0.5 * trend_score +
-        0.3 * pullback_pos +
-        0.2 * rsi_score
-    )
+    score = (0.4 * trend_score + 0.4 * position_score + 0.2 * rsi_score)
     return score * 100
 
 def analyze_market() -> Tuple[Dict, Dict]:
@@ -218,15 +174,14 @@ def analyze_market() -> Tuple[Dict, Dict]:
     pullback_picks = {}
     breakout_picks = {}
 
-    logger.info(f"Analyse sur {len(SYMBOLS)} actifs potentiels...")
+    logger.info(f"🚀 Analyse V3 (Haute Sensibilité) sur {len(SYMBOLS)} actifs...")
 
-    for i, symbol in enumerate(SYMBOLS, 1):
-        time.sleep(SLEEP_BETWEEN_CALLS)
-        logger.debug(f"[{i}/{len(SYMBOLS)}] Traitement de {symbol}...")
+    for i, symbol in enumerate(SYMBOLS):
+        # Petit sleep pour être gentil avec l'API
+        if i % 10 == 0: time.sleep(SLEEP_BETWEEN_CALLS)
         
         df = fetch_ohlcv(symbol)
-        if df is None or df.empty:
-            continue
+        if df is None or df.empty: continue
 
         try:
             df = compute_indicators(df)
@@ -234,33 +189,30 @@ def analyze_market() -> Tuple[Dict, Dict]:
             prev = df.iloc[-2]
             price = curr['Close']
 
-            # SMA200 dispo & prix > 0
-            if pd.isna(curr['SMA_200']) or price <= 0:
-                continue
+            if pd.isna(curr['SMA_200']) or price <= 0: continue
+            if 0.98 <= price <= 1.02: continue # Stablecoin filter
 
-            # Filtre "stablecoin déguisé"
-            if 0.98 <= price <= 1.02:
-                continue
-
-            # Filtre liquidité
-            if not liquidity_filter(curr):
-                logger.debug(f"{symbol} rejeté pour manque de liquidité (DollarVol_Avg20={curr['DollarVol_Avg20']:.0f}).")
+            # Filtre Liquidité Assoupli (1M$)
+            vol_usd = curr.get('DollarVol_Avg20', 0)
+            if vol_usd < MIN_DOLLAR_VOL:
+                # logger.debug(f"Rejet {symbol}: Volume faible ({vol_usd/1000:.0f}k$)")
                 continue
 
             # =========================
-            # STRAT PHOENIX (BREAKOUT)
+            # STRAT 1 : PHOENIX (BREAKOUT)
             # =========================
-
             vol_ratio = curr['Volume'] / curr['Vol_Avg'] if curr['Vol_Avg'] > 0 else 0
+            
+            # Conditions ASSOUPLIES :
+            # 1. Volume > 1.2x (Au lieu de 1.3x)
+            # 2. Bougie verte (Close > Open) ou supérieure à la veille
+            is_green = (price > curr['Open']) or (price > prev['Close'])
+            # 3. Prix au-dessus de la SMA 200 (Tendance OK)
             in_trend = price > curr['SMA_200']
-            green_candle = price > prev['Close']
-            volume_ok = vol_ratio > 1.3
 
-            if in_trend and green_candle and volume_ok:
+            if in_trend and is_green and (vol_ratio > 1.2):
                 score = phoenix_breakout_score(curr, prev)
-
-                # Stop-loss : min(low d'hier, -15 %)
-                stop_loss = min(prev['Low'], price * 0.85)
+                stop_loss = min(prev['Low'], price * 0.90)
 
                 breakout_picks[symbol] = {
                     "name": symbol,
@@ -270,24 +222,27 @@ def analyze_market() -> Tuple[Dict, Dict]:
                     "vol_ratio": round(vol_ratio, 2),
                     "rsi": round(curr['RSI'], 1),
                     "trend_pct": round((price - curr['SMA_200']) / curr['SMA_200'] * 100, 2),
-                    "dollar_vol_avg20": round(curr['DollarVol_Avg20'], 0),
+                    "dollar_vol_avg20": round(vol_usd, 0),
                     "history": df['Close'].tail(30).round(6).tolist()
                 }
 
             # =========================
-            # STRAT PULLBACK (REBOND)
+            # STRAT 2 : PULLBACK (REBOND)
             # =========================
-
             trend_strength = (price - curr['SMA_200']) / curr['SMA_200']
-
-            if (
-                trend_strength > 0.05 and
-                price < curr['EMA_13'] and
-                price > curr['EMA_50'] and
-                curr['RSI'] < 60
-            ):
+            
+            # Conditions ASSOUPLIES :
+            # 1. Tendance positive (> 0%)
+            # 2. Le prix est passé SOUS l'EMA 13 (C'est un repli)
+            # 3. Le prix est ENCORE au-dessus de l'EMA 50 * 0.98 (On tolère une mèche de -2% sous le support)
+            # 4. RSI < 60 (Pas en surchauffe)
+            
+            is_pulling_back = (price < curr['EMA_13'])
+            is_holding_support = (price > curr['EMA_50'] * 0.98)
+            
+            if (trend_strength > 0) and is_pulling_back and is_holding_support and (curr['RSI'] < 60):
                 score_pb = pullback_score(curr)
-                stop_loss = curr['EMA_50'] * 0.90  # 10 % sous EMA50
+                stop_loss = curr['EMA_50'] * 0.90
 
                 pullback_picks[symbol] = {
                     "name": symbol,
@@ -296,45 +251,27 @@ def analyze_market() -> Tuple[Dict, Dict]:
                     "stop_loss": stop_loss,
                     "rsi": round(curr['RSI'], 1),
                     "trend_pct": round(trend_strength * 100, 2),
-                    "dollar_vol_avg20": round(curr['DollarVol_Avg20'], 0),
+                    "dollar_vol_avg20": round(vol_usd, 0),
                     "history": df['Close'].tail(30).round(6).tolist()
                 }
 
         except Exception as e:
-            logger.warning(f"Erreur sur {symbol}: {e}")
             continue
 
+    # Tri
     breakout_sorted = dict(sorted(breakout_picks.items(), key=lambda x: x[1]['score'], reverse=True))
     pullback_sorted = dict(sorted(pullback_picks.items(), key=lambda x: x[1]['score'], reverse=True))
 
-    logger.info(f"{len(breakout_sorted)} signaux breakout, {len(pullback_sorted)} signaux pullback retenus.")
+    logger.info(f"✅ RÉSULTAT : {len(breakout_sorted)} Breakouts | {len(pullback_sorted)} Pullbacks")
     return pullback_sorted, breakout_sorted
-
 
 if __name__ == "__main__":
     pullback_data, breakout_data = analyze_market()
     today = pd.Timestamp.now().strftime("%d/%m/%Y")
-
-    result_pullback = {
-        "date_mise_a_jour": today,
-        "params": {
-            "min_dollar_vol": MIN_DOLLAR_VOL,
-            "min_candles": MIN_CANDLES
-        },
-        "picks": pullback_data
-    }
-    result_breakout = {
-        "date_mise_a_jour": today,
-        "params": {
-            "min_dollar_vol": MIN_DOLLAR_VOL,
-            "min_candles": MIN_CANDLES
-        },
-        "picks": breakout_data
-    }
-
+    
     with open("data/crypto_pullback_pro.json", "w") as f:
-        json.dump(result_pullback, f, indent=4)
+        json.dump({"date_mise_a_jour": today, "picks": pullback_data}, f, indent=4)
     with open("data/crypto_breakout_pro.json", "w") as f:
-        json.dump(result_breakout, f, indent=4)
-
-    logger.info("Fichiers Crypto (Source CCXT) sauvegardés.")
+        json.dump({"date_mise_a_jour": today, "picks": breakout_data}, f, indent=4)
+        
+    print("💾 Fichiers Crypto sauvegardés.")
