@@ -4,6 +4,7 @@ import os
 import json
 import time
 import logging
+import requests  # Indispensable pour contourner le blocage 403
 from typing import Dict, Tuple, List
 
 import pandas as pd
@@ -15,7 +16,7 @@ import yfinance as yf
 
 MIN_CANDLES = 220             # Minimum de bougies daily pour considérer la série
 MIN_DOLLAR_VOL = 5_000_000    # Volume moyen en $ (20j) minimum
-SLEEP_BETWEEN_CALLS = 0.05    # Pauses entre les appels pour éviter de spammer l'API
+SLEEP_BETWEEN_CALLS = 0.05    # Pauses entre les appels
 
 DATA_DIR = "data"
 PULLBACK_FILE = os.path.join(DATA_DIR, "sp500_pullback_pro.json")
@@ -47,10 +48,6 @@ def calculate_rsi(series: pd.Series, window: int = 14) -> pd.Series:
 
 
 def normalize(value: float, min_val: float, max_val: float, clip: bool = True) -> float:
-    """
-    Ramène une valeur entre 0 et 1 selon un intervalle [min_val, max_val].
-    Si clip=True, on borne la valeur à [0, 1].
-    """
     if max_val == min_val:
         return 0.0
     x = (value - min_val) / (max_val - min_val)
@@ -65,24 +62,37 @@ def normalize(value: float, min_val: float, max_val: float, clip: bool = True) -
 
 def get_sp500_tickers() -> List[str]:
     """
-    Récupère les tickers S&P 500 depuis Wikipédia.
-    Fallback possible si l'appel échoue.
+    Récupère les tickers S&P 500 depuis Wikipédia en simulant un vrai navigateur
+    pour éviter l'erreur 403 Forbidden.
     """
     url = "https://en.wikipedia.org/wiki/List_of_S%26P_500_companies"
+    
+    # Headers pour ressembler à un navigateur Chrome
+    headers = {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
+    }
+
     try:
         logger.info("Récupération des tickers S&P 500 depuis Wikipédia...")
-        tables = pd.read_html(url)
+        
+        # 1. On récupère le HTML avec requests + headers
+        response = requests.get(url, headers=headers, timeout=10)
+        response.raise_for_status() # Vérifie si on a une erreur 403/404
+        
+        # 2. On passe le texte HTML à Pandas
+        tables = pd.read_html(response.text)
         df = tables[0]
         tickers = df["Symbol"].tolist()
 
-        # Format Yahoo : BRK.B -> BRK-B, BF.B -> BF-B, etc.
+        # Format Yahoo : BRK.B -> BRK-B
         tickers = [t.replace(".", "-") for t in tickers]
 
-        logger.info(f"{len(tickers)} tickers S&P 500 récupérés.")
+        logger.info(f"✅ {len(tickers)} tickers S&P 500 récupérés avec succès.")
         return tickers
+
     except Exception as e:
-        logger.warning(f"Échec de récupération S&P 500 depuis Wikipédia: {e}")
-        # Fallback minimal si Wikipédia ne répond pas (à compléter si besoin)
+        logger.warning(f"⚠️ Échec de récupération S&P 500 depuis Wikipédia: {e}")
+        # Fallback minimal
         fallback = ["AAPL", "MSFT", "GOOGL", "AMZN", "META", "TSLA", "NVDA", "BRK-B", "JPM", "UNH"]
         logger.info(f"Utilisation de la liste fallback : {fallback}")
         return fallback
@@ -93,10 +103,6 @@ def get_sp500_tickers() -> List[str]:
 # =========================
 
 def fetch_ohlcv_yf(ticker: str) -> pd.DataFrame | None:
-    """
-    Récupère les données daily pour un ticker via yfinance.
-    On prend 2 ans d'historique pour avoir une SMA200 plus propre.
-    """
     try:
         df = yf.download(
             ticker,
@@ -110,21 +116,22 @@ def fetch_ohlcv_yf(ticker: str) -> pd.DataFrame | None:
         if df is None or df.empty:
             return None
 
+        # Gestion MultiIndex (bug fréquent yfinance récent)
         if isinstance(df.columns, pd.MultiIndex):
-            # Cas multi-ticker, normalement ne devrait pas arriver ici, mais on sécurise
-            df = df["Close"].to_frame(name="Close").join(
-                df["Open"].to_frame(name="Open")
-            ).join(
-                df["High"].to_frame(name="High")
-            ).join(
-                df["Low"].to_frame(name="Low")
-            ).join(
-                df["Volume"].to_frame(name="Volume")
-            )
+            # On essaie d'aplatir ou de récupérer le niveau 0 si c'est le ticker
+            # Souvent yfinance renvoie (Price, Ticker). On veut juste Price.
+            try:
+                df.columns = df.columns.get_level_values(0)
+            except:
+                pass
 
-        # On s'assure d'avoir les colonnes standard
-        expected_cols = {"Open", "High", "Low", "Close", "Volume"}
-        if not expected_cols.issubset(df.columns):
+        # Vérification des colonnes essentielles
+        # Parfois yfinance renvoie 'Adj Close' au lieu de 'Close' selon les versions
+        if 'Close' not in df.columns and 'Adj Close' in df.columns:
+            df['Close'] = df['Adj Close']
+
+        required = ['Open', 'High', 'Low', 'Close', 'Volume']
+        if not all(col in df.columns for col in required):
             return None
 
         if len(df) < MIN_CANDLES:
@@ -155,9 +162,6 @@ def compute_indicators(df: pd.DataFrame) -> pd.DataFrame:
 
 
 def liquidity_filter(curr: pd.Series) -> bool:
-    """
-    Filtre liquidité : volume moyen 20j en $ minimum.
-    """
     if pd.isna(curr.get("DollarVol_Avg20", None)):
         return False
     return curr["DollarVol_Avg20"] >= MIN_DOLLAR_VOL
@@ -168,77 +172,45 @@ def liquidity_filter(curr: pd.Series) -> bool:
 # =========================
 
 def phoenix_breakout_score(curr: pd.Series, prev: pd.Series) -> float:
-    """
-    Score de breakout type "Phoenix" :
-    - tendance (distance à SMA200)
-    - volume relatif
-    - RSI
-    - proximité du plus haut 20j
-    """
     price = curr["Close"]
     sma200 = curr["SMA_200"]
     rsi = curr["RSI"]
     vol_ratio = curr["Volume"] / curr["Vol_Avg"] if curr["Vol_Avg"] and curr["Vol_Avg"] > 0 else 0
     high_20 = curr["High_20"]
 
-    # 1) Tendance : on cherche 3% à 40% au-dessus de la SMA 200
     trend_pct = (price - sma200) / sma200
     trend_score = normalize(trend_pct, 0.03, 0.4)
-
-    # 2) Volume : ratio 2x à 5x
     vol_score = normalize(vol_ratio, 2.0, 5.0)
-
-    # 3) RSI : idéalement 55–70
     rsi_score = normalize(rsi, 55, 70)
 
-    # 4) Proximité du plus haut 20j (plus on est proche, mieux c’est)
     if pd.isna(high_20) or high_20 == 0:
         high_score = 0
     else:
-        dist_to_high = (high_20 - price) / high_20  # 0 = sur le high, 0.1 = 10% en dessous
-        high_score = normalize(1 - dist_to_high, 0.8, 1.0)  # on privilégie 0–20% sous les plus hauts
+        dist_to_high = (high_20 - price) / high_20
+        high_score = normalize(1 - dist_to_high, 0.8, 1.0)
 
-    # Pondération
-    score = (
-        0.40 * trend_score +
-        0.30 * vol_score +
-        0.20 * rsi_score +
-        0.10 * high_score
-    )
+    score = (0.40 * trend_score + 0.30 * vol_score + 0.20 * rsi_score + 0.10 * high_score)
     return score * 100.0
 
 
 def pullback_score(curr: pd.Series) -> float:
-    """
-    Score pullback :
-    - force de tendance (distance SMA200)
-    - profondeur et qualité du repli autour de la SMA50
-    - RSI dans une zone "saine"
-    """
     price = curr["Close"]
     sma200 = curr["SMA_200"]
     sma50 = curr["SMA_50"]
     rsi = curr["RSI"]
 
-    trend_strength = (price - sma200) / sma200  # > 0.05 normalement
+    trend_strength = (price - sma200) / sma200
     trend_score = normalize(trend_strength, 0.05, 0.4)
 
-    # Proximité de la SMA50
     if sma50 == 0 or pd.isna(sma50):
         pullback_pos_score = 0
     else:
-        dist_sma50 = abs((price - sma50) / sma50)  # 0 = pile sur sma50
-        # On veut idéalement <= 3%
+        dist_sma50 = abs((price - sma50) / sma50)
         pullback_pos_score = normalize(0.03 - dist_sma50, 0.0, 0.03)
 
-    # RSI : idéalement entre 45 et 60
     rsi_score = normalize(rsi, 45, 60)
 
-    score = (
-        0.5 * trend_score +
-        0.3 * pullback_pos_score +
-        0.2 * rsi_score
-    )
+    score = (0.5 * trend_score + 0.3 * pullback_pos_score + 0.2 * rsi_score)
     return score * 100.0
 
 
@@ -255,8 +227,11 @@ def analyze_market() -> Tuple[Dict, Dict]:
     logger.info(f"Analyse S&P 500 sur {len(tickers)} tickers...")
 
     for i, ticker in enumerate(tickers, 1):
-        time.sleep(SLEEP_BETWEEN_CALLS)
-        logger.debug(f"[{i}/{len(tickers)}] Traitement de {ticker}...")
+        # Petit sleep toutes les 10 requêtes pour être gentil avec l'API
+        if i % 10 == 0:
+            time.sleep(SLEEP_BETWEEN_CALLS)
+        
+        # logger.debug(f"[{i}/{len(tickers)}] Traitement de {ticker}...")
 
         df = fetch_ohlcv_yf(ticker)
         if df is None or df.empty:
@@ -264,29 +239,18 @@ def analyze_market() -> Tuple[Dict, Dict]:
 
         try:
             df = compute_indicators(df)
-
             curr = df.iloc[-1]
             prev = df.iloc[-2]
             price = float(curr["Close"])
 
-            # SMA200 dispo & prix > 0
             if pd.isna(curr["SMA_200"]) or price <= 0:
                 continue
 
-            # Filtre liquidité
             if not liquidity_filter(curr):
-                logger.debug(
-                    f"{ticker} rejeté (DollarVol_Avg20={curr['DollarVol_Avg20']:.0f} < {MIN_DOLLAR_VOL})."
-                )
                 continue
 
-            # ====================================================
-            # STRAT 1 : BREAKOUT (PHOENIX)
-            # ====================================================
-            vol_ratio = (
-                curr["Volume"] / curr["Vol_Avg"]
-                if curr["Vol_Avg"] and curr["Vol_Avg"] > 0 else 0
-            )
+            # --- STRAT 1 : BREAKOUT ---
+            vol_ratio = curr["Volume"] / curr["Vol_Avg"] if curr["Vol_Avg"] and curr["Vol_Avg"] > 0 else 0
             in_trend = price > curr["SMA_200"]
             green_candle = price > float(prev["Close"])
             volume_ok = vol_ratio > 2.0
@@ -294,66 +258,47 @@ def analyze_market() -> Tuple[Dict, Dict]:
             if in_trend and green_candle and volume_ok:
                 score_br = phoenix_breakout_score(curr, prev)
                 trend_pct = (price - curr["SMA_200"]) / curr["SMA_200"] * 100.0
-
-                # Stop-loss : min(low d’hier, -5 %)
                 stop_loss = min(float(prev["Low"]), price * 0.95)
 
                 breakout_picks[ticker] = {
                     "name": ticker,
                     "score": round(score_br, 2),
-                    "entry_price": round(price, 4),
-                    "stop_loss": round(stop_loss, 4),
+                    "entry_price": round(price, 2),
+                    "stop_loss": round(stop_loss, 2),
                     "vol_ratio": round(vol_ratio, 2),
                     "rsi": round(float(curr["RSI"]), 1),
                     "trend_pct": round(trend_pct, 2),
                     "dollar_vol_avg20": round(float(curr["DollarVol_Avg20"]), 0),
-                    "history": df["Close"].tail(30).round(4).tolist(),
+                    "history": df["Close"].tail(30).round(2).tolist(),
                 }
 
-            # ====================================================
-            # STRAT 2 : PULLBACK (REBOND SUR SMA50)
-            # ====================================================
+            # --- STRAT 2 : PULLBACK ---
             sma50 = curr["SMA_50"]
             trend_strength = (price - curr["SMA_200"]) / curr["SMA_200"]
+            near_sma50 = (not pd.isna(sma50) and abs((price - sma50) / sma50) <= 0.03)
 
-            near_sma50 = (
-                not pd.isna(sma50)
-                and abs((price - sma50) / sma50) <= 0.03  # +/- 3%
-            )
-
-            if (
-                trend_strength > 0.05
-                and near_sma50
-                and curr["RSI"] < 60
-            ):
+            if trend_strength > 0.05 and near_sma50 and curr["RSI"] < 60:
                 score_pb = pullback_score(curr)
-                stop_loss = sma50 * 0.97  # 3 % sous la SMA50
+                stop_loss = sma50 * 0.97
 
                 pullback_picks[ticker] = {
                     "name": ticker,
                     "score": round(score_pb, 2),
-                    "entry_price": round(price, 4),
-                    "stop_loss": round(stop_loss, 4),
+                    "entry_price": round(price, 2),
+                    "stop_loss": round(stop_loss, 2),
                     "rsi": round(float(curr["RSI"]), 1),
                     "trend_pct": round(trend_strength * 100.0, 2),
                     "dollar_vol_avg20": round(float(curr["DollarVol_Avg20"]), 0),
-                    "history": df["Close"].tail(30).round(4).tolist(),
+                    "history": df["Close"].tail(30).round(2).tolist(),
                 }
 
         except Exception as e:
-            logger.warning(f"Erreur sur {ticker}: {e}")
             continue
 
-    breakout_sorted = dict(
-        sorted(breakout_picks.items(), key=lambda x: x[1]["score"], reverse=True)
-    )
-    pullback_sorted = dict(
-        sorted(pullback_picks.items(), key=lambda x: x[1]["score"], reverse=True)
-    )
+    breakout_sorted = dict(sorted(breakout_picks.items(), key=lambda x: x[1]["score"], reverse=True))
+    pullback_sorted = dict(sorted(pullback_picks.items(), key=lambda x: x[1]["score"], reverse=True))
 
-    logger.info(
-        f"{len(breakout_sorted)} signaux breakout et {len(pullback_sorted)} signaux pullback retenus."
-    )
+    logger.info(f"{len(breakout_sorted)} signaux breakout et {len(pullback_sorted)} signaux pullback retenus.")
     return pullback_sorted, breakout_sorted
 
 
@@ -369,18 +314,10 @@ if __name__ == "__main__":
 
     result_pullback = {
         "date_mise_a_jour": today,
-        "params": {
-            "min_dollar_vol": MIN_DOLLAR_VOL,
-            "min_candles": MIN_CANDLES,
-        },
         "picks": pullback_data,
     }
     result_breakout = {
         "date_mise_a_jour": today,
-        "params": {
-            "min_dollar_vol": MIN_DOLLAR_VOL,
-            "min_candles": MIN_CANDLES,
-        },
         "picks": breakout_data,
     }
 
