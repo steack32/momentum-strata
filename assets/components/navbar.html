@@ -1,49 +1,64 @@
-<nav class="fixed top-0 left-0 right-0 z-50 
-            bg-slate-950/80 backdrop-blur-xl border-b border-slate-800/60 
-            shadow-[0_2px_12px_rgba(0,0,0,0.35)]
-            transition-all">
-    
-    <div class="max-w-6xl mx-auto px-4 md:px-8 py-3 flex items-center justify-between">
+<nav class="fixed top-0 left-0 right-0 z-50">
+    <!-- Backplate + glow -->
+    <div class="relative bg-slate-950/80 backdrop-blur-xl border-b border-slate-800/70 shadow-[0_18px_45px_rgba(15,23,42,0.85)]">
 
-        <!-- Logo / marque -->
-        <a href="index.html" class="flex items-center gap-2 group">
-            <div class="w-2.5 h-2.5 rounded-full bg-blue-400"></div>
-            <span class="font-bold text-slate-100 text-sm tracking-wide group-hover:text-blue-300 transition">
-                Momentum Strata
-            </span>
-        </a>
-
-        <!-- Menu desktop -->
-        <div class="hidden md:flex items-center gap-6">
-            <a href="index.html"
-               class="nav-link text-sm font-medium transition">
-               S&P 500
-            </a>
-
-            <a href="crypto.html"
-               class="nav-link text-sm font-medium transition">
-               Crypto
-            </a>
-
-            <a href="dashboard.html"
-               class="nav-link text-sm font-medium transition">
-               Dashboard
-            </a>
+        <!-- Décor lumineux -->
+        <div class="pointer-events-none absolute inset-0">
+            <!-- Halo central en haut -->
+            <div class="absolute -top-10 left-1/2 -translate-x-1/2 w-64 h-24 bg-blue-500/10 blur-3xl"></div>
+            <!-- Ligne lumineuse en bas -->
+            <div class="absolute inset-x-0 bottom-0 h-px bg-gradient-to-r from-transparent via-blue-500/70 to-transparent opacity-80"></div>
         </div>
 
-        <!-- Menu mobile → hamburger -->
-        <button id="mobile-menu-btn" 
-                class="md:hidden text-slate-200 hover:text-blue-300 transition text-xl">
-            ☰
-        </button>
+        <!-- Contenu navbar -->
+        <div class="relative max-w-6xl mx-auto px-4 md:px-8 py-3.5 flex items-center justify-between">
 
+            <!-- Logo / marque -->
+            <a href="index.html" class="flex items-center gap-2 group">
+                <div class="w-2.5 h-2.5 rounded-full bg-blue-400 shadow-[0_0_12px_rgba(59,130,246,0.85)]"></div>
+                <span class="font-semibold text-slate-100 text-sm tracking-wide group-hover:text-blue-300 transition-colors duration-200">
+                    Momentum Strata
+                </span>
+            </a>
+
+            <!-- Menu desktop -->
+            <div class="hidden md:flex items-center gap-7 text-sm">
+                <a href="index.html"
+                   class="nav-link">
+                    S&amp;P 500
+                </a>
+
+                <a href="crypto.html"
+                   class="nav-link">
+                    Crypto
+                </a>
+
+                <a href="dashboard.html"
+                   class="nav-link">
+                    Dashboard
+                </a>
+            </div>
+
+            <!-- Menu mobile → hamburger -->
+            <button id="mobile-menu-btn"
+                    class="md:hidden inline-flex items-center justify-center rounded-full border border-slate-700/70 bg-slate-900/60 px-2.5 py-1.5 text-slate-200 hover:text-blue-300 hover:border-blue-400/70 hover:bg-slate-900 transition-colors duration-200">
+                <span class="sr-only">Ouvrir le menu</span>
+                <!-- Icône burger minimaliste -->
+                <span class="flex flex-col gap-0.5">
+                    <span class="block w-4 h-[1.5px] bg-slate-200 rounded"></span>
+                    <span class="block w-3 h-[1.5px] bg-slate-400 rounded ml-1"></span>
+                    <span class="block w-4 h-[1.5px] bg-slate-200 rounded"></span>
+                </span>
+            </button>
+
+        </div>
+
+        <!-- Menu mobile -->
+        <div id="mobile-menu"
+             class="hidden md:hidden flex-col gap-1 bg-slate-950/95 border-t border-slate-800/70 px-4 pb-4 pt-3">
+            <a href="index.html" class="mobile-nav-link">S&amp;P 500</a>
+            <a href="crypto.html" class="mobile-nav-link">Crypto</a>
+            <a href="dashboard.html" class="mobile-nav-link">Dashboard</a>
+        </div>
     </div>
-
-    <!-- Menu mobile -->
-    <div id="mobile-menu" class="hidden flex-col bg-slate-950/95 border-t border-slate-800/50 p-4 space-y-3 md:hidden">
-        <a href="index.html" class="mobile-nav-link">S&P 500</a>
-        <a href="crypto.html" class="mobile-nav-link">Crypto</a>
-        <a href="dashboard.html" class="mobile-nav-link">Dashboard</a>
-    </div>
-
 </nav>
