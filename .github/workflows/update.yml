@@ -1,8 +1,10 @@
 name: Daily Algo Update
 
 on:
+  # Lancement automatique tous les jours à 22h30 UTC
   schedule:
     - cron: '30 22 * * *'
+  # Lancement manuel via le bouton "Run workflow"
   workflow_dispatch:
 
 permissions:
@@ -11,36 +13,43 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
+      # 1. Récupération du code
       - name: Checkout Code
         uses: actions/checkout@v3
 
+      # 2. Installation de Python + cache pip
       - name: Set up Python
         uses: actions/setup-python@v4
         with:
           python-version: '3.11'
+          cache: 'pip'
 
+      # 3. Installation des librairies
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          # ON INSTALLE TOUT ICI :
-          # - yfinance & lxml : Pour le bot S&P 500
-          # - ccxt : Pour le bot Crypto
-          # - pandas & requests : Pour les deux
+          # On installe les dépendances des deux bots
           pip install "numpy<2.0.0" pandas yfinance requests lxml ccxt
 
-      # 1. Le Bot S&P 500 (Ne change pas, utilise yfinance)
+      # 4. Lancement du Bot S&P 500 (Actions)
       - name: Run S&P 500 Pro Bot
         run: python bots/bot_sp500_pro.py
 
-      # 2. Le Bot Crypto (Nouveau, utilise ccxt)
+      # 5. Lancement du Bot Crypto (Top 150)
       - name: Run Crypto Pro Bot
         run: python bots/bot_crypto_pro.py
 
+      # 6. Sauvegarde des résultats sur GitHub
       - name: Commit and Push Data
         run: |
           git config --global user.name "GitHub Action"
           git config --global user.email "action@github.com"
-          git add data/*.json
-          git commit -m "Auto-update: Stocks & Crypto Data" || echo "No changes to commit"
-          git push
+
+          # Ajoute tous les fichiers JSON générés ou modifiés
+          git add data/*.json || echo "Rien à ajouter"
+
+          # Valide et envoie les modifications
+          git commit -m "Auto-update: Stocks & Crypto Data" || echo "Pas de changements à sauvegarder"
+          git push || echo "Pas de push (peut-être pas de changements)"
