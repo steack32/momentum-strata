@@ -5,236 +5,213 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard | Momentum Strata</title>
 
-  <meta name="description" content="Dashboard Momentum Strata : vue d'ensemble des signaux S&P 500 et crypto, nombre d'opportunités par stratégie et dernière mise à jour des données.">
+  <meta name="description" content="Vue d’ensemble des signaux Momentum Strata : S&P 500 et Crypto. Nombre de signaux par stratégie, score moyen et volume moyen.">
   <meta property="og:title" content="Momentum Strata – Dashboard">
-  <meta property="og:description" content="Vue synthétique des signaux Phoenix et Pullback sur le S&P 500 et les cryptos : nombre de signaux, meilleures notes et dates de mise à jour.">
+  <meta property="og:description" content="Visualise en un coup d’œil l’activité des signaux S&P 500 et Crypto : Phoenix (breakout) et Pullback.">
   <meta property="og:type" content="website">
 
   <!-- CSS Tailwind compilé -->
-  <link rel="stylesheet" href="assets/css/tailwind.css">
+  <link rel="stylesheet" href="assets/css/tailwind.css?v=20251206">
 
-  <!-- JS du site -->
+  <!-- JS -->
   <script src="assets/js/main.js" defer></script>
   <script src="assets/js/dashboard.js" defer></script>
 </head>
 <body class="min-h-screen flex flex-col">
-
-  <!-- Navbar injectée dynamiquement -->
+  <!-- Navbar -->
   <div id="navbar-container"></div>
 
-  <main class="flex-1 pt-20 bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950">
-    <!-- HERO -->
-    <section class="border-b border-slate-800/70">
-      <div class="max-w-6xl mx-auto px-4 md:px-8 lg:px-10 py-12 md:py-16">
-        <div class="inline-flex items-center mb-5 px-4 py-1.5 rounded-full bg-slate-900/70 border border-slate-700/60 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-300">
-          <span class="relative flex h-2 w-2 mr-2">
-            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-            <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
-          </span>
-          Vue d'ensemble • S&amp;P 500 &amp; Crypto
+  <main class="flex-1 pt-20">
+
+    <!-- HERO DASHBOARD -->
+    <section class="border-b border-slate-800/70 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
+      <!-- Halo décoratif -->
+      <div class="absolute inset-0 pointer-events-none">
+        <div class="absolute -top-20 left-8 w-72 h-72 bg-blue-500/10 blur-3xl rounded-full"></div>
+        <div class="absolute bottom-[-80px] right-4 w-80 h-80 bg-purple-500/14 blur-3xl rounded-full"></div>
+      </div>
+
+      <header class="py-12 md:py-16 px-4 md:px-10 max-w-6xl mx-auto relative z-10">
+        <div class="flex flex-col gap-6 md:gap-8">
+          <!-- Badge + titre -->
+          <div class="flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+            <div>
+              <div class="inline-flex items-center px-4 py-1.5 rounded-full bg-slate-900/70 border border-slate-700/60 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-300 mb-4">
+                <span class="relative flex h-2 w-2 mr-2">
+                  <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                  <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-400"></span>
+                </span>
+                Vue d’ensemble • S&amp;P 500 &amp; Crypto
+              </div>
+
+              <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold text-white leading-tight mb-3">
+                Dashboard Momentum Strata
+              </h1>
+
+              <p class="max-w-2xl text-sm md:text-base text-slate-300/90 leading-relaxed">
+                Une vue condensée de l’activité des signaux sur le
+                <span class="text-blue-300 font-semibold">S&amp;P 500</span> et sur les
+                <span class="text-purple-300 font-semibold">cryptomonnaies liquides</span>.
+                Tu vois en quelques secondes où se concentre le momentum du jour.
+              </p>
+            </div>
+
+            <!-- Résumé global -->
+            <div class="bg-slate-950/80 border border-slate-800/80 rounded-2xl px-4 py-3 md:px-5 md:py-4 shadow-premium max-w-xs md:max-w-sm self-start md:self-center">
+              <p class="text-[11px] text-slate-400 uppercase tracking-[0.16em] mb-2">
+                Activité du jour
+              </p>
+              <div class="space-y-1.5 text-sm">
+                <p class="flex justify-between">
+                  <span class="text-slate-300">Total signaux S&amp;P 500</span>
+                  <span class="font-semibold text-blue-300" id="dash-total-sp500">–</span>
+                </p>
+                <p class="flex justify-between">
+                  <span class="text-slate-300">Total signaux Crypto</span>
+                  <span class="font-semibold text-purple-300" id="dash-total-crypto">–</span>
+                </p>
+                <p class="text-[11px] text-slate-500 mt-1.5">
+                  Basé sur les fichiers de signaux du jour. Les chiffres se mettent à jour dès que les JSON sont disponibles.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stat blocs principaux -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+            <!-- S&P Phoenix -->
+            <article class="bg-slate-950/85 border border-slate-800/80 rounded-2xl p-4 flex flex-col justify-between shadow-md">
+              <header class="flex items-center justify-between mb-3">
+                <div>
+                  <p class="text-[11px] uppercase tracking-[0.16em] text-slate-400 mb-1">S&amp;P 500</p>
+                  <h2 class="text-sm font-semibold text-slate-50">Phoenix • Breakout</h2>
+                </div>
+                <span class="h-2.5 w-2.5 rounded-full bg-amber-300 shadow-[0_0_12px_rgba(252,211,77,0.9)]"></span>
+              </header>
+              <div class="space-y-1.5">
+                <p class="text-xs text-slate-400">Signaux du jour</p>
+                <p class="text-2xl font-bold text-amber-300" id="dash-sp500-phoenix-count">–</p>
+                <p class="text-[11px] text-slate-500">Breakouts actions sur tendance haussière, filtrés par volume et structure de prix.</p>
+              </div>
+              <footer class="mt-3">
+                <a href="index.html#phoenix" class="inline-flex items-center text-[11px] text-amber-300 hover:text-amber-200">
+                  Voir les signaux S&amp;P 500 &rarr;
+                </a>
+              </footer>
+            </article>
+
+            <!-- S&P Pullback -->
+            <article class="bg-slate-950/85 border border-slate-800/80 rounded-2xl p-4 flex flex-col justify-between shadow-md">
+              <header class="flex items-center justify-between mb-3">
+                <div>
+                  <p class="text-[11px] uppercase tracking-[0.16em] text-slate-400 mb-1">S&amp;P 500</p>
+                  <h2 class="text-sm font-semibold text-slate-50">Pullback • Repli propre</h2>
+                </div>
+                <span class="h-2.5 w-2.5 rounded-full bg-emerald-300 shadow-[0_0_12px_rgba(16,185,129,0.9)]"></span>
+              </header>
+              <div class="space-y-1.5">
+                <p class="text-xs text-slate-400">Signaux du jour</p>
+                <p class="text-2xl font-bold text-emerald-300" id="dash-sp500-pullback-count">–</p>
+                <p class="text-[11px] text-slate-500">Replis vers des zones techniques sans casser la tendance de fond.</p>
+              </div>
+              <footer class="mt-3">
+                <a href="index.html#pullback" class="inline-flex items-center text-[11px] text-emerald-300 hover:text-emerald-200">
+                  Voir les signaux S&amp;P 500 &rarr;
+                </a>
+              </footer>
+            </article>
+
+            <!-- Crypto Phoenix -->
+            <article class="bg-slate-950/85 border border-slate-800/80 rounded-2xl p-4 flex flex-col justify-between shadow-md">
+              <header class="flex items-center justify-between mb-3">
+                <div>
+                  <p class="text-[11px] uppercase tracking-[0.16em] text-slate-400 mb-1">Crypto</p>
+                  <h2 class="text-sm font-semibold text-slate-50">Phoenix • Breakout</h2>
+                </div>
+                <span class="h-2.5 w-2.5 rounded-full bg-purple-300 shadow-[0_0_12px_rgba(192,132,252,0.9)]"></span>
+              </header>
+              <div class="space-y-1.5">
+                <p class="text-xs text-slate-400">Signaux du jour</p>
+                <p class="text-2xl font-bold text-purple-300" id="dash-crypto-phoenix-count">–</p>
+                <p class="text-[11px] text-slate-500">Breakouts crypto sur actifs liquides, pondérés par volume et RSI.</p>
+              </div>
+              <footer class="mt-3">
+                <a href="crypto.html#phoenix" class="inline-flex items-center text-[11px] text-purple-300 hover:text-purple-200">
+                  Voir les signaux Crypto &rarr;
+                </a>
+              </footer>
+            </article>
+
+            <!-- Crypto Pullback -->
+            <article class="bg-slate-950/85 border border-slate-800/80 rounded-2xl p-4 flex flex-col justify-between shadow-md">
+              <header class="flex items-center justify-between mb-3">
+                <div>
+                  <p class="text-[11px] uppercase tracking-[0.16em] text-slate-400 mb-1">Crypto</p>
+                  <h2 class="text-sm font-semibold text-slate-50">Pullback • Repli propre</h2>
+                </div>
+                <span class="h-2.5 w-2.5 rounded-full bg-emerald-300 shadow-[0_0_12px_rgba(16,185,129,0.9)]"></span>
+              </header>
+              <div class="space-y-1.5">
+                <p class="text-xs text-slate-400">Signaux du jour</p>
+                <p class="text-2xl font-bold text-emerald-300" id="dash-crypto-pullback-count">–</p>
+                <p class="text-[11px] text-slate-500">Consolidations haussières sur des cryptos déjà en forte tendance.</p>
+              </div>
+              <footer class="mt-3">
+                <a href="crypto.html#pullback" class="inline-flex items-center text-[11px] text-emerald-300 hover:text-emerald-200">
+                  Voir les signaux Crypto &rarr;
+                </a>
+              </footer>
+            </article>
+          </div>
         </div>
-
-        <h1 class="text-3xl md:text-4xl font-extrabold text-white leading-tight mb-4">
-          Dashboard Momentum Strata
-        </h1>
-
-        <p class="text-sm md:text-base text-slate-300/90 max-w-2xl mb-6">
-          Une vue synthétique pour savoir en quelques secondes&nbsp;:
-          combien il y a de signaux sur le S&amp;P 500, combien sur les cryptos,
-          quelles stratégies sont les plus actives (Phoenix vs Pullback) et quand les données ont été mises à jour.
-        </p>
-
-        <p class="text-xs text-slate-400 max-w-2xl">
-          Utilise cette page comme point de départ&nbsp;:
-          si tu vois une forte activité sur une stratégie donnée, tu peux aller ensuite dans la page détaillée correspondante
-          (S&amp;P 500 ou Crypto) pour regarder les graphiques un par un.
-        </p>
-      </div>
+      </header>
     </section>
 
-    <!-- CARDS DE SYNTHÈSE -->
-    <section class="max-w-6xl mx-auto px-4 md:px-8 lg:px-10 py-10 md:py-12">
-      <div class="grid gap-5 md:grid-cols-2">
-        <!-- S&P 500 Phoenix -->
-        <article class="bg-slate-950/80 border border-slate-800/80 rounded-2xl p-5 md:p-6 shadow-premium flex flex-col gap-3">
-          <div class="flex items-center justify-between gap-2">
-            <div>
-              <p class="text-[11px] uppercase tracking-[0.18em] text-amber-300 mb-1">
-                S&amp;P 500 • Phoenix
-              </p>
-              <h2 class="text-sm md:text-base font-semibold text-slate-50">
-                Breakouts actions sur leaders du S&amp;P 500
-              </h2>
-            </div>
-            <span class="px-2.5 py-1 rounded-full text-[11px] bg-amber-500/10 border border-amber-500/40 text-amber-300">
-              Breakout
-            </span>
-          </div>
-
-          <div class="flex items-end justify-between gap-4 mt-1">
-            <div class="space-y-1">
-              <p class="text-[11px] text-slate-400">Nombre de signaux</p>
-              <p id="sp500-phoenix-count" class="text-2xl font-extrabold text-slate-50">–</p>
-            </div>
-            <div class="space-y-1 text-right">
-              <p class="text-[11px] text-slate-400">Meilleur score</p>
-              <p id="sp500-phoenix-best-score" class="text-xl font-semibold text-amber-300">–</p>
-            </div>
-          </div>
-
-          <div class="flex items-center justify-between text-[11px] text-slate-500 mt-2">
-            <span>Dernière mise à jour&nbsp;: <span id="sp500-phoenix-date" class="text-slate-300">–</span></span>
-            <a href="index.html#phoenix" class="text-amber-300 hover:text-amber-200 font-medium">
-              Voir les signaux &rarr;
-            </a>
-          </div>
+    <!-- SECTION EXPLICATION / PROCESS -->
+    <section class="max-w-6xl mx-auto px-4 md:px-8 lg:px-10 py-10 md:py-12 space-y-6">
+      <div class="grid md:grid-cols-3 gap-4 text-xs md:text-sm text-slate-400">
+        <article class="bg-slate-950/80 border border-slate-800/80 rounded-2xl p-4">
+          <h2 class="text-sm md:text-base font-semibold text-slate-50 mb-2">S&amp;P 500 vs Crypto</h2>
+          <p>
+            Le dashboard te donne en un coup d’œil l’équilibre entre signaux
+            <span class="text-blue-300 font-medium">actions</span> et
+            <span class="text-purple-300 font-medium">crypto</span>.
+            Tu peux décider rapidement où concentrer ton temps d’analyse.
+          </p>
         </article>
-
-        <!-- S&P 500 Pullback -->
-        <article class="bg-slate-950/80 border border-slate-800/80 rounded-2xl p-5 md:p-6 shadow-premium flex flex-col gap-3">
-          <div class="flex items-center justify-between gap-2">
-            <div>
-              <p class="text-[11px] uppercase tracking-[0.18em] text-emerald-300 mb-1">
-                S&amp;P 500 • Pullback
-              </p>
-              <h2 class="text-sm md:text-base font-semibold text-slate-50">
-                Pullbacks propres sur tendances haussières
-              </h2>
-            </div>
-            <span class="px-2.5 py-1 rounded-full text-[11px] bg-emerald-500/10 border border-emerald-500/40 text-emerald-300">
-              Pullback
-            </span>
-          </div>
-
-          <div class="flex items-end justify-between gap-4 mt-1">
-            <div class="space-y-1">
-              <p class="text-[11px] text-slate-400">Nombre de signaux</p>
-              <p id="sp500-pullback-count" class="text-2xl font-extrabold text-slate-50">–</p>
-            </div>
-            <div class="space-y-1 text-right">
-              <p class="text-[11px] text-slate-400">Meilleur score</p>
-              <p id="sp500-pullback-best-score" class="text-xl font-semibold text-emerald-300">–</p>
-            </div>
-          </div>
-
-          <div class="flex items-center justify-between text-[11px] text-slate-500 mt-2">
-            <span>Dernière mise à jour&nbsp;: <span id="sp500-pullback-date" class="text-slate-300">–</span></span>
-            <a href="index.html#pullback" class="text-emerald-300 hover:text-emerald-200 font-medium">
-              Voir les signaux &rarr;
-            </a>
-          </div>
+        <article class="bg-slate-950/80 border border-slate-800/80 rounded-2xl p-4">
+          <h2 class="text-sm md:text-base font-semibold text-slate-50 mb-2">Stratégies Phoenix &amp; Pullback</h2>
+          <p>
+            Phoenix cible les impulsions fortes, Pullback les entrées sur repli. Le dashboard te montre
+            quelle approche génère le plus d’opportunités sur la séance.
+          </p>
         </article>
-
-        <!-- Crypto Phoenix -->
-        <article class="bg-slate-950/80 border border-slate-800/80 rounded-2xl p-5 md:p-6 shadow-premium flex flex-col gap-3">
-          <div class="flex items-center justify-between gap-2">
-            <div>
-              <p class="text-[11px] uppercase tracking-[0.18em] text-purple-300 mb-1">
-                Crypto • Phoenix
-              </p>
-              <h2 class="text-sm md:text-base font-semibold text-slate-50">
-                Breakouts crypto sur actifs liquides
-              </h2>
-            </div>
-            <span class="px-2.5 py-1 rounded-full text-[11px] bg-purple-500/10 border border-purple-500/40 text-purple-300">
-              Breakout
-            </span>
-          </div>
-
-          <div class="flex items-end justify-between gap-4 mt-1">
-            <div class="space-y-1">
-              <p class="text-[11px] text-slate-400">Nombre de signaux</p>
-              <p id="crypto-phoenix-count" class="text-2xl font-extrabold text-slate-50">–</p>
-            </div>
-            <div class="space-y-1 text-right">
-              <p class="text-[11px] text-slate-400">Meilleur score</p>
-              <p id="crypto-phoenix-best-score" class="text-xl font-semibold text-purple-300">–</p>
-            </div>
-          </div>
-
-          <div class="flex items-center justify-between text-[11px] text-slate-500 mt-2">
-            <span>Dernière mise à jour&nbsp;: <span id="crypto-phoenix-date" class="text-slate-300">–</span></span>
-            <a href="crypto.html#phoenix" class="text-purple-300 hover:text-purple-200 font-medium">
-              Voir les signaux &rarr;
-            </a>
-          </div>
-        </article>
-
-        <!-- Crypto Pullback -->
-        <article class="bg-slate-950/80 border border-slate-800/80 rounded-2xl p-5 md:p-6 shadow-premium flex flex-col gap-3">
-          <div class="flex items-center justify-between gap-2">
-            <div>
-              <p class="text-[11px] uppercase tracking-[0.18em] text-emerald-300 mb-1">
-                Crypto • Pullback
-              </p>
-              <h2 class="text-sm md:text-base font-semibold text-slate-50">
-                Pullbacks crypto sur tendances établies
-              </h2>
-            </div>
-            <span class="px-2.5 py-1 rounded-full text-[11px] bg-emerald-500/10 border border-emerald-500/40 text-emerald-300">
-              Pullback
-            </span>
-          </div>
-
-          <div class="flex items-end justify-between gap-4 mt-1">
-            <div class="space-y-1">
-              <p class="text-[11px] text-slate-400">Nombre de signaux</p>
-              <p id="crypto-pullback-count" class="text-2xl font-extrabold text-slate-50">–</p>
-            </div>
-            <div class="space-y-1 text-right">
-              <p class="text-[11px] text-slate-400">Meilleur score</p>
-              <p id="crypto-pullback-best-score" class="text-xl font-semibold text-emerald-300">–</p>
-            </div>
-          </div>
-
-          <div class="flex items-center justify-between text-[11px] text-slate-500 mt-2">
-            <span>Dernière mise à jour&nbsp;: <span id="crypto-pullback-date" class="text-slate-300">–</span></span>
-            <a href="crypto.html#pullback" class="text-emerald-300 hover:text-emerald-200 font-medium">
-              Voir les signaux &rarr;
-            </a>
-          </div>
+        <article class="bg-slate-950/80 border border-slate-800/80 rounded-2xl p-4">
+          <h2 class="text-sm md:text-base font-semibold text-slate-50 mb-2">Point d’entrée pour la journée</h2>
+          <p>
+            Tu peux commencer ta routine par le dashboard puis plonger ensuite sur les pages
+            <span class="font-medium text-slate-100">S&amp;P 500</span> ou
+            <span class="font-medium text-slate-100">Crypto</span> en fonction de ce que tu vois ici.
+          </p>
         </article>
       </div>
     </section>
 
-    <!-- SECTION EXPLICATIVE -->
+    <!-- DISCLAIMER -->
     <section class="max-w-6xl mx-auto px-4 md:px-8 lg:px-10 pb-16">
-      <div class="bg-slate-950/80 border border-slate-800/80 rounded-2xl p-5 md:p-6 text-sm text-slate-300 space-y-3">
-        <h2 class="text-base md:text-lg font-semibold text-slate-50">
-          Comment utiliser ce dashboard ?
-        </h2>
-        <ul class="list-disc list-inside space-y-1.5 text-[13px] md:text-sm">
-          <li>
-            <span class="font-semibold text-slate-100">Regarder l'activité par stratégie :</span>
-            si Phoenix est très actif et Pullback quasi vide, le marché est probablement en mode breakout
-            (tendance forte). L’inverse peut signaler un marché en consolidation.
-          </li>
-          <li>
-            <span class="font-semibold text-slate-100">Comparer actions vs crypto :</span>
-            si les signaux sont concentrés sur le S&amp;P 500 ou sur la crypto, cela donne une idée
-            d’où se trouve le momentum du moment.
-          </li>
-          <li>
-            <span class="font-semibold text-slate-100">Utiliser les meilleures notes comme priorités :</span>
-            un nombre élevé de signaux n’est pas forcément une bonne chose. Les cartes te donnent aussi le
-            <em>meilleur score</em> pour chaque univers afin de prioriser tes revues graphiques.
-          </li>
-          <li>
-            <span class="font-semibold text-slate-100">Toujours revenir aux charts détaillés :</span>
-            après le dashboard, les pages S&amp;P 500 et Crypto restent le terrain de jeu principal
-            pour décider des entrées, des stops et des tailles de position.
-          </li>
-        </ul>
-        <p class="text-[11px] text-slate-500">
-          Comme toujours, ces informations sont fournies à titre informatif et ne constituent pas un conseil en investissement.
-          La gestion du risque et des positions reste de ta responsabilité.
+      <div class="bg-slate-950/80 border border-slate-800/80 rounded-2xl p-5 md:p-6 text-[11px] md:text-xs text-slate-400 space-y-2">
+        <p>
+          Les informations affichées sur ce dashboard sont dérivées des mêmes fichiers de signaux que les pages S&amp;P 500 et Crypto.
+          Elles sont fournies à titre purement informatif et ne constituent pas un conseil en investissement.
+        </p>
+        <p>
+          Comme toujours, la gestion du risque, le choix des actifs et la taille des positions restent sous ta responsabilité.
         </p>
       </div>
     </section>
   </main>
 
-  <!-- Footer injecté dynamiquement -->
+  <!-- Footer -->
   <div id="footer-container"></div>
-
 </body>
 </html>
