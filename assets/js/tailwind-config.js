@@ -1,20 +1,20 @@
 // assets/js/tailwind-config.js
+
 tailwind.config = {
     theme: {
         extend: {
-            colors: {
-                brand: { 
-                    dark: '#020617',      // slate-950
-                    primary: '#2563eb',   // blue-600
-                    accent: '#1d4ed8',    // blue-700
-                    light: '#f8fafc',     // slate-50
-                    surface: '#ffffff'
-                }
+            fontFamily: {
+                // Définit 'Inter' comme police par défaut pour tout le site
+                sans: ['Inter', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'Helvetica Neue', 'Arial', 'sans-serif'],
             },
-            fontFamily: { sans: ['Inter', 'sans-serif'] },
+            colors: {
+                // Vous pouvez définir ici des couleurs "marque" si vous voulez
+                // Exemple : 'brand-blue': '#3b82f6',
+                // Mais pour l'instant, nous utilisons les couleurs standard Tailwind (slate, blue, purple, amber, emerald)
+            },
             boxShadow: {
-                'premium': '0 10px 25px -15px rgba(15,23,42,0.35)',
-                'soft': '0 6px 18px rgba(15,23,42,0.08)'
+                // Une ombre douce pour les tableaux (optionnel, style "premium")
+                'premium': '0 4px 6px -1px rgba(0, 0, 0, 0.5), 0 2px 4px -1px rgba(0, 0, 0, 0.3)',
             }
         }
     }
