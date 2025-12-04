@@ -1,8 +1,4 @@
 {
     "date_mise_a_jour": "04/12/2025",
-    "params": {
-        "min_dollar_vol": 5000000,
-        "min_candles": 250
-    },
     "picks": {}
 }

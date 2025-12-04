@@ -2,14 +2,14 @@
     "date_mise_a_jour": "04/12/2025",
     "picks": {
         "MCHP": {
-            "name": "MCHP",
+            "name": "Microchip Technology",
+            "ticker": "MCHP",
             "score": 33.04,
             "entry_price": 63.61,
             "stop_loss": 53.41,
             "vol_ratio": 2.25,
             "rsi": 68.6,
             "trend_pct": 5.51,
-            "dollar_vol_avg20": 559976032.0,
             "history": [
                 64.5,
                 65.09,
@@ -44,14 +44,14 @@
             ]
         },
         "CRWD": {
-            "name": "CRWD",
+            "name": "CrowdStrike",
+            "ticker": "CRWD",
             "score": 23.86,
             "entry_price": 524.17,
             "stop_loss": 497.96,
             "vol_ratio": 2.3,
             "rsi": 42.8,
             "trend_pct": 16.49,
-            "dollar_vol_avg20": 1259567461.0,
             "history": [
                 500.11,
                 521.98,
@@ -86,14 +86,14 @@
             ]
         },
         "ETR": {
-            "name": "ETR",
+            "name": "Entergy",
+            "ticker": "ETR",
             "score": 15.44,
             "entry_price": 94.24,
             "stop_loss": 89.53,
             "vol_ratio": 2.25,
             "rsi": 42.7,
             "trend_pct": 7.68,
-            "dollar_vol_avg20": 246162174.0,
             "history": [
                 96.0,
                 95.67,
