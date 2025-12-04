@@ -5,15 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crypto | Momentum Strata</title>
 
-    <meta name="description" content="Signaux de trading sur les 150 principales cryptomonnaies : stratégies Phoenix (Breakout) et Pullback, filtrées par liquidité et volatilité.">
+    <meta name="description" content="Signaux de trading sur les principales cryptomonnaies liquides : stratégies Phoenix (Breakout) et Pullback, filtrées par tendance, volume et RSI.">
     <meta property="og:title" content="Momentum Strata – Signaux Crypto">
-    <meta property="og:description" content="Scan multi-exchange des cryptomonnaies pour trouver les meilleurs breakouts et pullbacks avec un filtre de volume et RSI.">
+    <meta property="og:description" content="Scan quotidien des cryptos les plus liquides pour repérer les meilleurs breakouts (Phoenix) et pullbacks propres sur tendance haussière.">
     <meta property="og:type" content="website">
 
-    <!-- CSS Tailwind précompilé -->
+    <!-- CSS Tailwind compilé -->
     <link rel="stylesheet" href="assets/css/tailwind.css">
 
-    <!-- Scripts JS -->
+    <!-- JS du site -->
     <script src="assets/js/main.js" defer></script>
     <script src="assets/js/crypto.js" defer></script>
 </head>
@@ -31,28 +31,28 @@
                         <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-purple-400 opacity-75"></span>
                         <span class="relative inline-flex rounded-full h-2 w-2 bg-purple-400"></span>
                     </span>
-                    Algo Trading • Crypto (Top 150)
+                    Algo Trading • Crypto (Top liquides)
                 </div>
 
                 <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-5">
-                    Scanner quotidien des <span class="text-purple-400">cryptos les plus liquides</span>
+                    Les <span class="text-purple-400">meilleures configurations crypto</span> sans scroller CoinMarketCap
                 </h1>
 
                 <p class="text-sm md:text-base text-slate-300/90 leading-relaxed max-w-2xl mx-auto mb-8">
-                    Momentum Strata filtre les principales cryptomonnaies (multi-exchange) pour repérer les
-                    <span class="text-purple-300 font-semibold">breakouts propres</span> et
-                    <span class="text-emerald-300 font-semibold">pullbacks sur tendance haussière</span>,
-                    en tenant compte du volume en dollars et du RSI.
+                    Momentum Strata passe au crible les principales cryptos liquides sur plusieurs exchanges et ne remonte
+                    que les actifs qui ressortent vraiment&nbsp;:
+                    <span class="text-purple-300 font-semibold">breakouts nets (Phoenix)</span> et
+                    <span class="text-emerald-300 font-semibold">pullbacks propres</span>, pondérés par le volume en dollars et le RSI.
                 </p>
 
                 <div class="flex flex-col sm:flex-row items-center justify-center gap-3 text-xs text-slate-400">
                     <div class="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-slate-700/80 bg-slate-900/80">
                         <span class="h-2 w-2 rounded-full bg-purple-400 shadow-[0_0_10px_rgba(168,85,247,0.8)]"></span>
-                        Top 150 cryptos filtrées par liquidité
+                        Cryptos filtrées par volume et liquidité
                     </div>
                     <div class="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-slate-700/80 bg-slate-900/80">
                         <span class="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.8)]"></span>
-                        RSI &amp; tendance long terme intégrés au score
+                        Signaux recalculés chaque jour en heure UTC
                     </div>
                 </div>
             </header>
@@ -71,8 +71,9 @@
                         Breakouts crypto sur forte impulsion
                     </h2>
                     <p class="text-sm text-slate-400 max-w-xl">
-                        Cryptos en tendance haussière au-dessus de leur SMA 200, avec volume anormalement élevé
-                        et rupture de consolidation. Objectif : capter les mouvements explosifs sur les actifs liquides.
+                        Cryptos en tendance haussière au-dessus de leur moyenne long terme, avec volume anormalement élevé
+                        et rupture de consolidation. Objectif&nbsp;: capter les mouvements explosifs sur les actifs liquides,
+                        pas les micro-caps illiquides.
                     </p>
                 </div>
                 <div class="text-xs text-right text-slate-400">
@@ -87,7 +88,7 @@
                         <thead>
                             <tr class="bg-slate-950 text-[11px] uppercase tracking-[0.18em] text-slate-400 border-b border-slate-800">
                                 <th class="px-6 py-3.5">Actif</th>
-                                <th class="px-6 py-3.5 hidden md:table-cell">Tendance &amp; Volume</th>
+                                <th class="px-6 py-3.5 hidden md:table-cell">Tendance &amp; volume</th>
                                 <th class="px-6 py-3.5">Score &amp; RSI</th>
                                 <th class="px-6 py-3.5 hidden sm:table-cell">Prix</th>
                                 <th class="px-6 py-3.5 hidden sm:table-cell">Stop Loss</th>
@@ -102,6 +103,35 @@
                             </tr>
                         </tbody>
                     </table>
+                </div>
+
+                <p class="text-[11px] text-slate-500 mt-2 px-6 pb-3">
+                    Les signaux Phoenix Crypto ciblent des breakouts puissants sur des cryptos déjà liquides.
+                    Ils ne remplacent pas une gestion stricte du risque (taille de position, exposition globale, etc.).
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-4 text-xs text-slate-400">
+                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                    <h3 class="font-semibold text-slate-100 mb-1.5 text-sm">Filtre de liquidité</h3>
+                    <p>
+                        Les cryptos sont filtrées par <span class="font-medium text-slate-100">volume en dollars</span>
+                        pour éviter les carnets creux et les moves artificiels sur des tokens exotiques.
+                    </p>
+                </div>
+                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                    <h3 class="font-semibold text-slate-100 mb-1.5 text-sm">Tendance structurée</h3>
+                    <p>
+                        Les breakouts sont privilégiés quand la tendance de fond est déjà établie
+                        (prix au-dessus des moyennes de long terme, structure haussière claire).
+                    </p>
+                </div>
+                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                    <h3 class="font-semibold text-slate-100 mb-1.5 text-sm">Score crypto</h3>
+                    <p>
+                        Le score prend en compte la dynamique de prix, le RSI et le volume pour classer les opportunités
+                        plutôt que tout traiter de la même manière.
+                    </p>
                 </div>
             </div>
         </section>
@@ -119,8 +149,8 @@
                         Pullbacks propres sur cryptos tendancielles
                     </h2>
                     <p class="text-sm text-slate-400 max-w-xl">
-                        Cryptos en forte tendance haussière qui corrigent vers des zones techniques clés,
-                        avec RSI raisonnable et volume toujours solide. Pour des entrées plus “raisonnées” que les breakouts.
+                        Cryptos en forte tendance haussière qui corrigent vers des zones techniques clés sans casser la structure.
+                        Le but&nbsp;: entrer sur repli, dans le sens de la tendance, plutôt que chasser un plus haut en panique.
                     </p>
                 </div>
                 <div class="text-xs text-right text-slate-400">
@@ -151,6 +181,64 @@
                         </tbody>
                     </table>
                 </div>
+
+                <p class="text-[11px] text-slate-500 mt-2 px-6 pb-3">
+                    Les pullbacks crypto sont pensés pour des entrées plus “posées” que les breakouts,
+                    mais la volatilité reste élevée&nbsp;: stop et taille de position doivent rester cohérents avec ton profil de risque.
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-4 text-xs text-slate-400">
+                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                    <h3 class="font-semibold text-slate-100 mb-1.5 text-sm">Repli sur zone technique</h3>
+                    <p>
+                        Le prix revient vers des niveaux de moyenne mobile ou de support,
+                        sans casser la structure haussière globale. Le repli est utilisé comme point d’entrée,
+                        pas comme signal de panique.
+                    </p>
+                </div>
+                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                    <h3 class="font-semibold text-emerald-300 mb-1.5 text-sm">Volatilité crypto intégrée</h3>
+                    <p>
+                        Le niveau de stop suggéré tient compte de la volatilité crypto, plus violente que sur actions.
+                        Il sert de base de travail, à ajuster selon ton horizon (swing, moyen terme, etc.).
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION EXPLICATIVE : COMMENT LIRE LES SIGNAUX CRYPTO -->
+        <section class="max-w-6xl mx-auto px-4 md:px-8 lg:px-10 pb-16">
+            <div class="bg-slate-950/80 border border-slate-800/80 rounded-2xl p-5 md:p-6 text-sm text-slate-300 space-y-3">
+                <h2 class="text-base md:text-lg font-semibold text-slate-50">
+                    Comment lire ces signaux crypto ?
+                </h2>
+                <ul class="list-disc list-inside space-y-1.5 text-[13px] md:text-sm">
+                    <li>
+                        <span class="font-semibold text-slate-100">Score :</span>
+                        plus il est élevé, plus la configuration combine tendance, structure de prix,
+                        RSI et volume cohérents avec un mouvement intéressant.
+                    </li>
+                    <li>
+                        <span class="font-semibold text-slate-100">RSI :</span>
+                        en crypto, les excès de RSI sont fréquents. Un RSI élevé ne suffit pas à invalider un signal,
+                        mais il peut inciter à alléger la taille de position ou à attendre un léger repli.
+                    </li>
+                    <li>
+                        <span class="font-semibold text-slate-100">Stop Loss :</span>
+                        niveau indicatif basé sur la volatilité. Sur crypto, il peut être plus large que sur actions&nbsp;:
+                        à calibrer selon ton levier et ton exposition globale.
+                    </li>
+                    <li>
+                        <span class="font-semibold text-slate-100">Lien TradingView :</span>
+                        toujours vérifier le contexte (liquidité, carnet, news, heure de la journée) avant d’agir.
+                        Le but est d’accélérer ton screening, pas de remplacer ton jugement.
+                    </li>
+                </ul>
+                <p class="text-[11px] text-slate-500">
+                    Rappel&nbsp;: les signaux sont fournis à titre purement informatif et ne constituent pas un conseil en investissement.
+                    La gestion du risque et des positions reste de ta responsabilité.
+                </p>
             </div>
         </section>
     </main>
