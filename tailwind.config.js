@@ -1,20 +1,20 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./**/*.html",               // ← Scanne TOUTES les pages HTML du projet
-    "./assets/js/**/*.js",       // ← Scanne ton JS
-    "./assets/components/**/*.html", // ← Composants injectés (navbar, footer…)
-    "./assets/css/**/*.css"      // ← Indispensable pour @apply dans input.css
+    "./**/*.html",               // ← scanne TOUTES les pages HTML
+    "./assets/js/**/*.js",       // ← scanne ton JS
+    "./assets/components/**/*.html", // ← navbar, footer, etc.
+    "./assets/css/**/*.css"      // ← indispensable pour les @apply
   ],
   theme: {
     extend: {
       colors: {
         brand: {
-          dark: "#0f172a",     // Slate 900
-          primary: "#2563eb",  // Blue 600
-          accent: "#1d4ed8",   // Blue 700
-          light: "#f8fafc",    // Slate 50
-          surface: "#0b1120"   // Slate 950-ish
+          dark: "#0f172a",
+          primary: "#2563eb",
+          accent: "#1d4ed8",
+          light: "#f8fafc",
+          surface: "#0b1120"
         }
       },
       boxShadow: {
