@@ -1,9 +1,10 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./*.html",
-    "./assets/js/**/*.js",
-    "./assets/components/**/*.html"
+    "./**/*.html",               // ← Scanne TOUTES les pages HTML du projet
+    "./assets/js/**/*.js",       // ← Scanne ton JS
+    "./assets/components/**/*.html", // ← Composants injectés (navbar, footer…)
+    "./assets/css/**/*.css"      // ← Indispensable pour @apply dans input.css
   ],
   theme: {
     extend: {
