@@ -10,9 +10,21 @@ from typing import Dict, Tuple
 # CONFIGURATION "HAUTE SENSIBILITÉ" + FALLBACK
 # =========================
 
-STABLECOINS = ["USDT", "USDC", "DAI", "FDUSD", "TUSA", "USDD", "PYUSD", "USDP", "EURI", "USDE", "BUSD", "USDS"]
+STABLECOINS = [
+    "USDT", "USDC", "DAI", "FDUSD", "TUSA", "USDD", "PYUSD",
+    "USDP", "EURI", "USDE", "BUSD", "USDS"
+]
 
-# CRITÈRES ASSOUPLIS
+# Tokens qu'on NE VEUT PAS (gold tokenisé, trucs exotiques, etc.)
+EXCLUDED_SYMBOLS = [
+    "XAUT", "PAXG", "BDX", "GOLD", "XAUt", "XAU", "XAUTBULL", "XAUTBEAR"
+]
+
+# Mots-clés dans le NOM qui signalent plutôt un produit adossé à l'or / métal
+EXCLUDED_NAME_KEYWORDS = [
+    "GOLD", "PAX GOLD", "TETHER GOLD", "DIGITAL GOLD"
+]
+
 MIN_CANDLES = 90               # On accepte les cryptos récentes (3 mois)
 MIN_DOLLAR_VOL = 1_000_000     # 1M$ de volume journalier moyen (20j)
 SLEEP_BETWEEN_CALLS = 0.2      # On ralentit un peu pour éviter le ban API
@@ -27,9 +39,10 @@ logging.basicConfig(
 )
 logger = logging.getLogger("crypto_scanner")
 
-# Exchanges
-exchange_binance = ccxt.binance({'enableRateLimit': True})
-exchange_gate = ccxt.gateio({'enableRateLimit': True})
+# On garde Binance comme exchange principal (liquidité correcte, univers "classique")
+exchange_binance = ccxt.binance({"enableRateLimit": True})
+# NOTE : si tu veux ré-élargir plus tard, on pourra réactiver Gate
+# exchange_gate = ccxt.gateio({"enableRateLimit": True})
 
 # =========================
 # FONCTIONS TECHNIQUES
@@ -58,7 +71,10 @@ def normalize(value: float, min_val: float, max_val: float, clip: bool = True) -
 
 def get_top_cryptos(limit: int = 150):
     """
-    Récupère le top market cap sur CoinGecko, filtre les stablecoins et quelques wrappers.
+    Récupère le top market cap sur CoinGecko, filtre :
+    - stablecoins,
+    - tokens explicitement blacklistés (XAUT, PAXG, BDX, ...),
+    - tokens dont le nom évoque l'or / métal physique.
     """
     url = "https://api.coingecko.com/api/v3/coins/markets"
     params = {
@@ -78,8 +94,23 @@ def get_top_cryptos(limit: int = 150):
         symbols = []
         for coin in data:
             sym = coin["symbol"].upper()
+            name = coin.get("name", "").upper()
+
+            # On enlève les stables
             if sym in STABLECOINS:
                 continue
+
+            # On enlève les tokens explicitement exclus
+            if sym in EXCLUDED_SYMBOLS:
+                logger.debug(f"Exclusion {sym} (blacklist symbol).")
+                continue
+
+            # On enlève les tokens dont le nom évoque l'or / métal physique
+            if any(keyword in name for keyword in EXCLUDED_NAME_KEYWORDS):
+                logger.debug(f"Exclusion {sym} ({name}) (keyword gold-like).")
+                continue
+
+            # Quelques filtres supplémentaires déjà présents dans ton ancienne version
             if sym.startswith("W") and sym in ["WBTC", "WETH", "WBNB"]:
                 continue
             if "STETH" in sym:
@@ -87,6 +118,7 @@ def get_top_cryptos(limit: int = 150):
 
             symbols.append(sym)
 
+        logger.info(f"{len(symbols)} actifs retenus après filtre univers.")
         return symbols[:limit]
     except Exception as e:
         logger.warning(f"Erreur CoinGecko: {e}. Fallback liste réduite.")
@@ -94,29 +126,29 @@ def get_top_cryptos(limit: int = 150):
 
 def fetch_ohlcv(symbol: str) -> pd.DataFrame | None:
     """
-    Récupère OHLCV daily sur Binance ou Gate, vérifie que la dernière bougie n'est pas trop vieille.
+    Récupère OHLCV daily sur Binance.
+    Si un actif n'est pas sur Binance, il sera simplement ignoré.
     """
     pair = f"{symbol}/USDT"
 
-    for exchange, name in [(exchange_binance, "Binance"), (exchange_gate, "Gate.io")]:
-        try:
-            ohlcv = exchange.fetch_ohlcv(pair, timeframe="1d", limit=200)
-            if not ohlcv:
-                continue
+    try:
+        ohlcv = exchange_binance.fetch_ohlcv(pair, timeframe="1d", limit=200)
+        if not ohlcv:
+            return None
 
-            df = pd.DataFrame(ohlcv, columns=["timestamp", "Open", "High", "Low", "Close", "Volume"])
+        df = pd.DataFrame(ohlcv, columns=["timestamp", "Open", "High", "Low", "Close", "Volume"])
 
-            last_timestamp = df.iloc[-1]["timestamp"]
-            current_timestamp = int(time.time() * 1000)
+        last_timestamp = df.iloc[-1]["timestamp"]
+        current_timestamp = int(time.time() * 1000)
 
-            # Si la dernière bougie a plus de 48h, on considère l'actif comme mort / delisté
-            if (current_timestamp - last_timestamp) > 172800000:
-                continue
+        # Si la dernière bougie a plus de 48h, on considère l'actif comme mort / delisté
+        if (current_timestamp - last_timestamp) > 172800000:
+            return None
 
-            if len(df) >= MIN_CANDLES:
-                return df
-        except Exception:
-            continue
+        if len(df) >= MIN_CANDLES:
+            return df
+    except Exception:
+        return None
 
     return None
 
@@ -199,7 +231,7 @@ def analyze_market() -> Tuple[Dict, Dict]:
     fallback_breakout_candidates = []
     fallback_pullback_candidates = []
 
-    logger.info(f"🚀 Analyse V3 (Haute Sensibilité) sur {len(SYMBOLS)} actifs...")
+    logger.info(f"🚀 Analyse crypto sur {len(SYMBOLS)} actifs...")
 
     for i, symbol in enumerate(SYMBOLS):
         if i % 10 == 0:
@@ -251,7 +283,7 @@ def analyze_market() -> Tuple[Dict, Dict]:
                     "history": df["Close"].tail(30).round(6).tolist()
                 })
 
-            # Conditions strictes (comme avant, légèrement assouplies)
+            # Conditions strictes
             if in_trend and is_green and (vol_ratio > 1.2):
                 score = phoenix_score_val
                 stop_loss = min(prev["Low"], price * 0.90)
@@ -289,7 +321,7 @@ def analyze_market() -> Tuple[Dict, Dict]:
                     "history": df["Close"].tail(30).round(6).tolist()
                 })
 
-            # Conditions strictes (comme avant)
+            # Conditions strictes
             if (trend_strength > 0) and is_pulling_back and is_holding_support and (curr["RSI"] < 60):
                 score_pb = pullback_score_val
                 stop_loss_pb = curr["EMA_50"] * 0.90
@@ -305,9 +337,7 @@ def analyze_market() -> Tuple[Dict, Dict]:
                     "history": df["Close"].tail(30).round(6).tolist()
                 }
 
-        except Exception as e:
-            # On logge en debug éventuellement si tu veux creuser plus tard
-            # logger.debug(f"Erreur sur {symbol}: {e}")
+        except Exception:
             continue
 
     # ================
