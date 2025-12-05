@@ -41,13 +41,15 @@ jobs:
       - name: Run Crypto Pro Bot
         run: python bots/bot_crypto_pro.py
 
-     - name: Log all signals
+      # 6. Log de tous les signaux (S&P + Crypto)
+      - name: Log all signals
         run: python bots/log_signals.py
 
+      # 7. Construction du résumé de performance (Trader Mode)
       - name: Build performance summary
         run: python bots/perf_summary.py
 
-      # 6. Sauvegarde des résultats sur GitHub
+      # 8. Sauvegarde des résultats sur GitHub
       - name: Commit and Push Data
         run: |
           git config --global user.name "GitHub Action"
@@ -57,5 +59,5 @@ jobs:
           git add data/*.json || echo "Rien à ajouter"
 
           # Valide et envoie les modifications
-          git commit -m "Auto-update: Stocks & Crypto Data" || echo "Pas de changements à sauvegarder"
+          git commit -m "Auto-update: Stocks, Crypto & Performance" || echo "Pas de changements à sauvegarder"
           git push || echo "Pas de push (peut-être pas de changements)"
