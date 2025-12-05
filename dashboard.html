@@ -70,21 +70,23 @@
             </header>
         </section>
 
-        <!-- SECTION COURBE DE PERFORMANCE CUMULÉE -->
+                <!-- SECTION COURBES DE PERFORMANCE CUMULÉE -->
         <section class="max-w-6xl mx-auto px-4 md:px-8 lg:px-10 pt-8 md:pt-10">
             <div class="bg-slate-950/85 border border-slate-800/80 rounded-2xl p-5 md:p-6 shadow-premium">
                 <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
                     <div>
                         <h2 class="text-base md:text-lg font-semibold text-slate-50">
-                            Courbe de performance cumulée
+                            Courbes de performance cumulée par stratégie
                         </h2>
                         <p class="text-[12px] md:text-sm text-slate-400 max-w-xl mt-1">
-                            Évolution des gains cumulés en pourcentage, en agrégeant tous les trades clôturés
-                            (S&amp;P 500 et Crypto, toutes stratégies confondues), calculés en mode trader.
+                            Chaque ligne représente les gains cumulés en pourcentage d’une stratégie
+                            (S&amp;P 500 Phoenix / Pullback et Crypto Phoenix / Pullback),
+                            en agrégeant uniquement les trades clôturés. Survole la légende ou la courbe
+                            pour lire les valeurs.
                         </p>
                     </div>
                     <p id="equity-no-data" class="text-[11px] text-slate-500 md:text-right">
-                        Pas encore assez de trades clôturés pour afficher une courbe de performance.
+                        Pas encore assez de trades clôturés pour tracer les courbes de performance.
                     </p>
                 </div>
 
@@ -93,6 +95,7 @@
                 </div>
             </div>
         </section>
+
 
         <!-- SECTION CARTES DE PERFORMANCE -->
         <section class="max-w-6xl mx-auto px-4 md:px-8 lg:px-10 py-10 md:py-14 space-y-8">
