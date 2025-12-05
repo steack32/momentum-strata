@@ -1,8 +1,6 @@
-# bots/perf_summary.py
-
 import json
 import os
-from typing import Dict, Optional, Tuple
+from typing import Dict, Optional
 
 import pandas as pd
 import yfinance as yf
@@ -88,26 +86,17 @@ def get_crypto_history(symbol: str) -> Optional[pd.DataFrame]:
 
 
 # =========================
-# LOGIQUE DE TRADE
+# LOGIQUE DE TRADE (TRADER MODE)
 # =========================
 
-def simulate_trade(
-    df: pd.DataFrame,
-    date_signal: pd.Timestamp,
-    stop_loss_initial: float,
-) -> Optional[Dict]:
+def simulate_trade(df: pd.DataFrame, date_signal: pd.Timestamp, stop_loss_initial: float):
     """
-    Simule un trade Trader mode :
-    - entrée à l'OPEN de la 1ère bougie > date_signal (J+1)
-    - slippage entrée: *1.001
-    - slippage sortie: *0.999
-    - gestion du stop + breakeven + time stop J+10
-
-    Retour:
-      - dict avec status:
-          * "PENDING"  -> pas encore de bougie J+1
-          * "ACTIVE"   -> entrée faite, mais pas encore SL/BE/TIME
-          * "CLOSED"   -> trade terminé (SL / BE / TIME)
+    Trader mode :
+    - Entrée à l'OPEN de la 1ère bougie > date_signal (J+1), avec slippage +0.1%
+    - Stop Loss initial = stop_loss_initial
+    - Breakeven : dès que High >= Entry + 1R (en brut), stop déplacé à l'entry
+    - Time stop : close de la 10e bougie après l'entrée si aucun stop touché
+    - Sortie avec slippage -0.1%
     """
     if stop_loss_initial is None or stop_loss_initial <= 0:
         return None
@@ -117,41 +106,44 @@ def simulate_trade(
     # bougies strictement après la date du signal
     df_after = df[df.index.date > date_signal.date()]
     if df_after.empty:
-        # pas encore de J+1 → trade pending
+        # Pas encore de bougie J+1
         return {"status": "PENDING"}
 
-    # bougie d'entrée = 1ère bougie après date_signal
+    # Bougie d'entrée = 1ère bougie après date_signal
     entry_idx = df_after.index[0]
     entry_row = df_after.loc[entry_idx]
     entry_open_raw = float(entry_row["Open"])
 
     if entry_open_raw <= 0 or stop_loss_initial >= entry_open_raw:
-        # stop incohérent ou prix nul
         return None
 
-    # Prix simulés (friction)
-    entry_price = entry_open_raw * 1.001  # frais+slippage
+    # Prix simulés (frais + slippage)
+    entry_price = entry_open_raw * 1.001
     risk_per_unit = entry_price - stop_loss_initial
     if risk_per_unit <= 0:
         return None
 
-    # 1R en espace "prix brut" (pour la condition BE)
+    # 1R en espace brut
     risk_raw = entry_open_raw - stop_loss_initial
     be_trigger_raw = entry_open_raw + risk_raw
 
-    current_stop = stop_loss_initial  # en prix brut
+    current_stop = stop_loss_initial  # brut
     breakeven_activated = False
 
     exit_idx = None
     exit_raw_price = None
     exit_reason = None  # "SL", "BE", "TIME"
 
-    # Fenêtre de trade : jusqu'à 10 bougies après l'entrée
     trade_df = df_after.loc[entry_idx:]
     rows = list(trade_df.iloc[:10].iterrows())
     if not rows:
-        # On a une bougie J+1 dans df_after mais par sécurité
-        return {"status": "ACTIVE", "entry_price": entry_price, "entry_date": entry_idx.date().isoformat()}
+        # Cas limite : entrée mais pas de barres après
+        return {
+            "status": "ACTIVE",
+            "entry_price": entry_price,
+            "entry_date": entry_idx.date().isoformat(),
+            "breakeven_activated": breakeven_activated,
+        }
 
     for i, (idx, row) in enumerate(rows, start=1):
         o = float(row["Open"])
@@ -173,12 +165,12 @@ def simulate_trade(
             exit_reason = "BE" if breakeven_activated and current_stop >= entry_open_raw else "SL"
             break
 
-        # 3. Breakeven (fin de journée) si pas encore sécurisé
+        # 3. Breakeven si pas encore sécurisé et qu'on atteint +1R
         if (not breakeven_activated) and (h >= be_trigger_raw):
             breakeven_activated = True
-            current_stop = entry_open_raw  # stop à l'entry brut
+            current_stop = entry_open_raw
 
-        # 4. Time stop J+10
+        # 4. Time stop à la 10e bougie
         is_last_bar = (i == len(rows))
         if is_last_bar and i >= 10:
             exit_idx = idx
@@ -186,7 +178,7 @@ def simulate_trade(
             exit_reason = "TIME"
             break
 
-    # Aucun exit et < 10 bougies → trade encore actif
+    # Si aucun exit et moins de 10 barres → trade toujours actif
     if exit_idx is None:
         return {
             "status": "ACTIVE",
@@ -195,7 +187,7 @@ def simulate_trade(
             "breakeven_activated": breakeven_activated,
         }
 
-    # Sortie simulée avec friction
+    # Sortie avec slippage / frais
     exit_price = exit_raw_price * 0.999
 
     perf_pct = (exit_price / entry_price - 1.0) * 100.0
@@ -207,7 +199,7 @@ def simulate_trade(
         "entry_date": entry_idx.date().isoformat(),
         "exit_price": exit_price,
         "exit_date": exit_idx.date().isoformat(),
-        "exit_reason": exit_reason,  # "SL", "BE" ou "TIME"
+        "exit_reason": exit_reason,
         "breakeven_activated": breakeven_activated,
         "perf_pct": perf_pct,
         "R": R,
@@ -233,11 +225,11 @@ def main():
                 "sp500_pullback": {},
                 "crypto_phoenix": {},
                 "crypto_pullback": {},
+                "equity_curve": {"dates": [], "equity_pct": []},
             }
         )
         return
 
-    # 4 groupes principaux
     groups = {
         "sp500_phoenix": {"R": [], "exit_reasons": []},
         "sp500_pullback": {"R": [], "exit_reasons": []},
@@ -245,8 +237,8 @@ def main():
         "crypto_pullback": {"R": [], "exit_reasons": []},
     }
 
-    # On mettra à jour signals_log avec trade_status / execution
     updated_signals = []
+    equity_trades = []  # pour la courbe cumulée (perf_pct + exit_date)
 
     for entry in signals:
         try:
@@ -272,7 +264,7 @@ def main():
 
             date_signal = pd.to_datetime(date_signal_str)
 
-            # Récupération historique
+            # Historique
             if universe == "sp500":
                 df = get_sp500_history(ticker)
             else:
@@ -289,7 +281,6 @@ def main():
 
             status = sim.get("status", "PENDING")
 
-            # Mise à jour du bloc execution
             exec_block = entry.get("execution", {}) or {}
             exec_block.update(
                 {
@@ -309,13 +300,22 @@ def main():
             entry["execution"] = exec_block
             entry["trade_status"] = status
 
-            # Si le trade est fermé, on l'intègre aux stats
             if status == "CLOSED":
                 R_val = sim.get("R")
                 exit_reason = sim.get("exit_reason", "SL")
+                perf_pct = sim.get("perf_pct")
+
                 if R_val is not None:
                     groups[key]["R"].append(R_val)
                     groups[key]["exit_reasons"].append(exit_reason)
+
+                if perf_pct is not None and exec_block.get("exit_date"):
+                    equity_trades.append(
+                        {
+                            "exit_date": exec_block["exit_date"],
+                            "perf_pct": float(perf_pct),
+                        }
+                    )
 
             updated_signals.append(entry)
 
@@ -327,11 +327,11 @@ def main():
     # Sauvegarde du log mis à jour
     save_signals_log(updated_signals)
 
-    # Agrégation des métriques
     summary = {
         "last_update": pd.Timestamp.utcnow().strftime("%Y-%m-%d"),
     }
 
+    # Agrégation par stratégie
     for key, data in groups.items():
         R_list = data["R"]
         exit_reasons = data["exit_reasons"]
@@ -349,13 +349,10 @@ def main():
             }
             continue
 
-        # BE = trades sortis avec exit_reason == "BE"
         be_count = sum(1 for r in exit_reasons if r == "BE")
         be_rate = be_count / n * 100.0
 
-        # On sépare wins / losses (hors BE pour le calcul win/loss)
         R_and_reason = list(zip(R_list, exit_reasons))
-
         wins = [R for R, reason in R_and_reason if R > 0 and reason != "BE"]
         losses = [R for R, reason in R_and_reason if R < 0 and reason != "BE"]
 
@@ -363,11 +360,9 @@ def main():
         lossrate = (len(losses) / n * 100.0) if n > 0 else 0.0
 
         avg_win_R = sum(wins) / len(wins) if wins else 0.0
-        avg_loss_R_abs = -sum(losses) / len(losses) if losses else 0.0  # valeur positive
+        avg_loss_R_abs = -sum(losses) / len(losses) if losses else 0.0
 
-        # Expectancy en R selon la formule
         expectancy_R = (winrate / 100.0) * avg_win_R - (lossrate / 100.0) * avg_loss_R_abs
-
         avg_R_global = sum(R_list) / n
 
         summary[key] = {
@@ -378,6 +373,23 @@ def main():
             "expectancy_R": round(expectancy_R, 3),
             "avg_win_R": round(avg_win_R, 3),
             "avg_loss_R": round(avg_loss_R_abs, 3),
+        }
+
+    # Courbe de gains cumulés en %
+    if not equity_trades:
+        summary["equity_curve"] = {"dates": [], "equity_pct": []}
+    else:
+        df_eq = pd.DataFrame(equity_trades)
+        df_eq["exit_date"] = pd.to_datetime(df_eq["exit_date"])
+        df_eq = df_eq.sort_values("exit_date")
+        df_eq["date"] = df_eq["exit_date"].dt.date
+
+        daily = df_eq.groupby("date")["perf_pct"].sum().reset_index()
+        daily["equity_pct"] = daily["perf_pct"].cumsum()
+
+        summary["equity_curve"] = {
+            "dates": [d.strftime("%Y-%m-%d") for d in daily["date"]],
+            "equity_pct": [round(v, 2) for v in daily["equity_pct"]],
         }
 
     save_perf_summary(summary)
