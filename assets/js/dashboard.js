@@ -45,21 +45,102 @@ function updatePerfCard(baseId, stats) {
     }
 }
 
-function renderEquityChart(equityCurve) {
+function renderEquityChart(equityCurveAll) {
     const container = document.getElementById("equity-chart-container");
     const canvas = document.getElementById("equity-chart");
     const noDataEl = document.getElementById("equity-no-data");
 
     if (!container || !canvas) return;
 
-    const hasData =
-        equityCurve &&
-        Array.isArray(equityCurve.dates) &&
-        equityCurve.dates.length > 0 &&
-        Array.isArray(equityCurve.equity_pct) &&
-        equityCurve.equity_pct.length === equityCurve.dates.length;
+    if (!equityCurveAll || typeof equityCurveAll !== "object") {
+        container.classList.add("hidden");
+        if (noDataEl) noDataEl.classList.remove("hidden");
+        return;
+    }
 
-    if (!hasData) {
+    // On utilise les courbes par stratégie (on peut garder la globale pour plus tard)
+    const curves = {
+        "sp500_phoenix": equityCurveAll.sp500_phoenix,
+        "sp500_pullback": equityCurveAll.sp500_pullback,
+        "crypto_phoenix": equityCurveAll.crypto_phoenix,
+        "crypto_pullback": equityCurveAll.crypto_pullback,
+    };
+
+    // Récupération de toutes les dates utilisées
+    const dateSet = new Set();
+    Object.values(curves).forEach((curve) => {
+        if (curve && Array.isArray(curve.dates)) {
+            curve.dates.forEach((d) => dateSet.add(d));
+        }
+    });
+
+    const allDates = Array.from(dateSet).sort(); // format YYYY-MM-DD → tri lexicographique = tri chronologique
+
+    // S'il n'y a aucune date / aucun trade, on masque le graphique
+    if (allDates.length === 0) {
+        container.classList.add("hidden");
+        if (noDataEl) noDataEl.classList.remove("hidden");
+        return;
+    }
+
+    // Construction des datasets alignés sur allDates
+    const datasetsMeta = [
+        {
+            key: "sp500_phoenix",
+            label: "S&P 500 • Phoenix",
+            borderColor: "rgba(251, 191, 36, 1)",      // amber-400
+            backgroundColor: "rgba(251, 191, 36, 0.12)",
+        },
+        {
+            key: "sp500_pullback",
+            label: "S&P 500 • Pullback",
+            borderColor: "rgba(34, 197, 94, 1)",       // emerald-500
+            backgroundColor: "rgba(34, 197, 94, 0.12)",
+        },
+        {
+            key: "crypto_phoenix",
+            label: "Crypto • Phoenix",
+            borderColor: "rgba(56, 189, 248, 1)",      // sky-400
+            backgroundColor: "rgba(56, 189, 248, 0.12)",
+        },
+        {
+            key: "crypto_pullback",
+            label: "Crypto • Pullback",
+            borderColor: "rgba(244, 114, 182, 1)",     // pink-400
+            backgroundColor: "rgba(244, 114, 182, 0.12)",
+        },
+    ];
+
+    const datasets = [];
+
+    datasetsMeta.forEach((meta) => {
+        const curve = curves[meta.key];
+        if (!curve || !Array.isArray(curve.dates) || curve.dates.length === 0) {
+            return; // pas encore de trades pour cette stratégie
+        }
+
+        const dateToValue = {};
+        curve.dates.forEach((d, idx) => {
+            dateToValue[d] = curve.equity_pct[idx];
+        });
+
+        const serie = allDates.map((d) =>
+            Object.prototype.hasOwnProperty.call(dateToValue, d) ? dateToValue[d] : null
+        );
+
+        datasets.push({
+            label: meta.label,
+            data: serie,
+            borderColor: meta.borderColor,
+            backgroundColor: meta.backgroundColor,
+            borderWidth: 2,
+            tension: 0.25,
+            pointRadius: 0,
+            fill: false,
+        });
+    });
+
+    if (datasets.length === 0) {
         container.classList.add("hidden");
         if (noDataEl) noDataEl.classList.remove("hidden");
         return;
@@ -69,8 +150,6 @@ function renderEquityChart(equityCurve) {
     if (noDataEl) noDataEl.classList.add("hidden");
 
     const ctx = canvas.getContext("2d");
-    const labels = equityCurve.dates;
-    const values = equityCurve.equity_pct;
 
     if (equityChartInstance) {
         equityChartInstance.destroy();
@@ -79,19 +158,8 @@ function renderEquityChart(equityCurve) {
     equityChartInstance = new Chart(ctx, {
         type: "line",
         data: {
-            labels,
-            datasets: [
-                {
-                    label: "Gains cumulés (%)",
-                    data: values,
-                    borderColor: "rgba(56, 189, 248, 1)",    // sky-400
-                    backgroundColor: "rgba(56, 189, 248, 0.15)",
-                    borderWidth: 2,
-                    tension: 0.25,
-                    pointRadius: 0,
-                    fill: true,
-                },
-            ],
+            labels: allDates,
+            datasets,
         },
         options: {
             responsive: true,
@@ -102,13 +170,23 @@ function renderEquityChart(equityCurve) {
             },
             plugins: {
                 legend: {
-                    display: false,
+                    display: true,
+                    labels: {
+                        color: "#cbd5f5",
+                        font: { size: 11 },
+                        usePointStyle: true,
+                    },
                 },
                 tooltip: {
                     callbacks: {
+                        title: function (items) {
+                            if (!items || !items.length) return "";
+                            return "Date : " + items[0].label;
+                        },
                         label: function (context) {
                             const v = context.parsed.y;
-                            return "Gains cumulés : " + v.toFixed(2) + " %";
+                            if (v === null || v === undefined) return context.dataset.label + " : n.d.";
+                            return context.dataset.label + " : " + v.toFixed(2) + " %";
                         },
                     },
                 },
@@ -118,7 +196,7 @@ function renderEquityChart(equityCurve) {
                     display: true,
                     title: {
                         display: true,
-                        text: "Date",
+                        text: "Temps",
                         color: "#94a3b8",
                         font: { size: 11 },
                     },
@@ -178,7 +256,7 @@ async function loadPerformanceSummary() {
         updatePerfCard("crypto-phoenix", data.crypto_phoenix);
         updatePerfCard("crypto-pullback", data.crypto_pullback);
 
-        // Courbe de performance cumulée globale
+        // Courbes de performance cumulée (par stratégie)
         renderEquityChart(data.equity_curve);
     } catch (error) {
         console.error("Erreur lors du chargement de performance_summary.json :", error);
