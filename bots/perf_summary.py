@@ -13,7 +13,7 @@ OUT_PATH = "data/performance_summary.json"
 logging.basicConfig(level=logging.INFO, format="%(asctime)s - %(levelname)s - %(message)s")
 logger = logging.getLogger("perf_summary")
 
-# caches pour éviter de refetch
+# caches pour éviter de refetch en boucle
 _sp500_cache: Dict[str, pd.DataFrame] = {}
 _crypto_cache: Dict[str, pd.DataFrame] = {}
 
@@ -54,6 +54,7 @@ def get_sp500_history(ticker: str) -> Optional[pd.DataFrame]:
         df = yf.download(ticker, period="2y", interval="1d", auto_adjust=False, progress=False)
         if df.empty:
             return None
+
         df = df[["Open", "High", "Low", "Close"]].copy()
         df.index = pd.to_datetime(df.index).tz_localize(None)
         _sp500_cache[ticker] = df
@@ -91,12 +92,12 @@ def get_crypto_history(symbol: str) -> Optional[pd.DataFrame]:
 
 def simulate_trade(df: pd.DataFrame, date_signal: pd.Timestamp, stop_loss_initial: float):
     """
-    Trader mode :
-    - Entrée à l'OPEN de la 1ère bougie > date_signal (J+1), avec slippage +0.1%
-    - Stop Loss initial = stop_loss_initial
-    - Breakeven : dès que High >= Entry + 1R (en brut), stop déplacé à l'entry
-    - Time stop : close de la 10e bougie après l'entrée si aucun stop touché
-    - Sortie avec slippage -0.1%
+    Trader mode V2 :
+    - Entrée à l'OPEN de la 1ère bougie > date_signal (J+1), avec slippage/frais +0.1%
+    - Stop Loss initial = stop_loss_initial (issu du signal)
+    - Breakeven : dès que High >= Entry + 1R (en brut), stop déplacé à l'entry brut
+    - Time stop : close de la 10e bougie après l’entrée si aucun stop touché
+    - Sortie avec slippage/frais -0.1%
     """
     if stop_loss_initial is None or stop_loss_initial <= 0:
         return None
@@ -106,24 +107,25 @@ def simulate_trade(df: pd.DataFrame, date_signal: pd.Timestamp, stop_loss_initia
     # bougies strictement après la date du signal
     df_after = df[df.index.date > date_signal.date()]
     if df_after.empty:
-        # Pas encore de bougie J+1
+        # Pas encore de J+1 disponible
         return {"status": "PENDING"}
 
-    # Bougie d'entrée = 1ère bougie après date_signal
+    # Bougie d'entrée = première bougie après date_signal
     entry_idx = df_after.index[0]
     entry_row = df_after.loc[entry_idx]
     entry_open_raw = float(entry_row["Open"])
 
+    # Entrée invalide si open <= 0 ou stop au-dessus de l’open
     if entry_open_raw <= 0 or stop_loss_initial >= entry_open_raw:
         return None
 
-    # Prix simulés (frais + slippage)
+    # Prix simulés avec slippage/frais
     entry_price = entry_open_raw * 1.001
     risk_per_unit = entry_price - stop_loss_initial
     if risk_per_unit <= 0:
         return None
 
-    # 1R en espace brut
+    # 1R en brut pour déclencher le BE
     risk_raw = entry_open_raw - stop_loss_initial
     be_trigger_raw = entry_open_raw + risk_raw
 
@@ -137,7 +139,7 @@ def simulate_trade(df: pd.DataFrame, date_signal: pd.Timestamp, stop_loss_initia
     trade_df = df_after.loc[entry_idx:]
     rows = list(trade_df.iloc[:10].iterrows())
     if not rows:
-        # Cas limite : entrée mais pas de barres après
+        # Entrée mais pas (encore) de barres après : trade actif
         return {
             "status": "ACTIVE",
             "entry_price": entry_price,
@@ -165,7 +167,7 @@ def simulate_trade(df: pd.DataFrame, date_signal: pd.Timestamp, stop_loss_initia
             exit_reason = "BE" if breakeven_activated and current_stop >= entry_open_raw else "SL"
             break
 
-        # 3. Breakeven si pas encore sécurisé et qu'on atteint +1R
+        # 3. Passage au breakeven si +1R atteint (en brut)
         if (not breakeven_activated) and (h >= be_trigger_raw):
             breakeven_activated = True
             current_stop = entry_open_raw
@@ -178,7 +180,7 @@ def simulate_trade(df: pd.DataFrame, date_signal: pd.Timestamp, stop_loss_initia
             exit_reason = "TIME"
             break
 
-    # Si aucun exit et moins de 10 barres → trade toujours actif
+    # Si aucun exit trouvé et moins de 10 barres → trade toujours actif
     if exit_idx is None:
         return {
             "status": "ACTIVE",
@@ -225,20 +227,30 @@ def main():
                 "sp500_pullback": {},
                 "crypto_phoenix": {},
                 "crypto_pullback": {},
-                "equity_curve": {"dates": [], "equity_pct": []},
+                "equity_curve": {
+                    "global": {"dates": [], "equity_pct": []},
+                    "sp500_phoenix": {"dates": [], "equity_pct": []},
+                    "sp500_pullback": {"dates": [], "equity_pct": []},
+                    "crypto_phoenix": {"dates": [], "equity_pct": []},
+                    "crypto_pullback": {"dates": [], "equity_pct": []},
+                },
             }
         )
         return
 
+    # On suit pour chaque stratégie :
+    # - liste de R
+    # - raisons de sortie
+    # - trades pour l'equity curve (date + perf_pct)
     groups = {
-        "sp500_phoenix": {"R": [], "exit_reasons": []},
-        "sp500_pullback": {"R": [], "exit_reasons": []},
-        "crypto_phoenix": {"R": [], "exit_reasons": []},
-        "crypto_pullback": {"R": [], "exit_reasons": []},
+        "sp500_phoenix": {"R": [], "exit_reasons": [], "equity_trades": []},
+        "sp500_pullback": {"R": [], "exit_reasons": [], "equity_trades": []},
+        "crypto_phoenix": {"R": [], "exit_reasons": [], "equity_trades": []},
+        "crypto_pullback": {"R": [], "exit_reasons": [], "equity_trades": []},
     }
 
     updated_signals = []
-    equity_trades = []  # pour la courbe cumulée (perf_pct + exit_date)
+    global_equity_trades = []
 
     for entry in signals:
         try:
@@ -264,7 +276,7 @@ def main():
 
             date_signal = pd.to_datetime(date_signal_str)
 
-            # Historique
+            # Historique du sous-jacent
             if universe == "sp500":
                 df = get_sp500_history(ticker)
             else:
@@ -310,12 +322,12 @@ def main():
                     groups[key]["exit_reasons"].append(exit_reason)
 
                 if perf_pct is not None and exec_block.get("exit_date"):
-                    equity_trades.append(
-                        {
-                            "exit_date": exec_block["exit_date"],
-                            "perf_pct": float(perf_pct),
-                        }
-                    )
+                    trade_point = {
+                        "exit_date": exec_block["exit_date"],
+                        "perf_pct": float(perf_pct),
+                    }
+                    global_equity_trades.append(trade_point)
+                    groups[key]["equity_trades"].append(trade_point)
 
             updated_signals.append(entry)
 
@@ -324,7 +336,7 @@ def main():
             updated_signals.append(entry)
             continue
 
-    # Sauvegarde du log mis à jour
+    # Sauvegarde du log enrichi
     save_signals_log(updated_signals)
 
     summary = {
@@ -375,11 +387,12 @@ def main():
             "avg_loss_R": round(avg_loss_R_abs, 3),
         }
 
-    # Courbe de gains cumulés en %
-    if not equity_trades:
-        summary["equity_curve"] = {"dates": [], "equity_pct": []}
-    else:
-        df_eq = pd.DataFrame(equity_trades)
+    # === Construction des equity curves ===
+    def build_equity_curve(trades):
+        if not trades:
+            return {"dates": [], "equity_pct": []}
+
+        df_eq = pd.DataFrame(trades)
         df_eq["exit_date"] = pd.to_datetime(df_eq["exit_date"])
         df_eq = df_eq.sort_values("exit_date")
         df_eq["date"] = df_eq["exit_date"].dt.date
@@ -387,10 +400,18 @@ def main():
         daily = df_eq.groupby("date")["perf_pct"].sum().reset_index()
         daily["equity_pct"] = daily["perf_pct"].cumsum()
 
-        summary["equity_curve"] = {
+        return {
             "dates": [d.strftime("%Y-%m-%d") for d in daily["date"]],
             "equity_pct": [round(v, 2) for v in daily["equity_pct"]],
         }
+
+    summary["equity_curve"] = {
+        "global": build_equity_curve(global_equity_trades),
+        "sp500_phoenix": build_equity_curve(groups["sp500_phoenix"]["equity_trades"]),
+        "sp500_pullback": build_equity_curve(groups["sp500_pullback"]["equity_trades"]),
+        "crypto_phoenix": build_equity_curve(groups["crypto_phoenix"]["equity_trades"]),
+        "crypto_pullback": build_equity_curve(groups["crypto_pullback"]["equity_trades"]),
+    }
 
     save_perf_summary(summary)
     logger.info("Performance summary updated.")
