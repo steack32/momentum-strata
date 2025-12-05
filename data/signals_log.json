@@ -1,5 +1,29 @@
 [
   {
+    "id": "sp500_phoenix_COO_2025-12-05",
+    "date_signal": "2025-12-05",
+    "ticker": "COO",
+    "universe": "sp500",
+    "strategy": "phoenix",
+    "initial_data": {
+      "close_j": 81.4,
+      "stop_loss_technical": 75.77
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
     "id": "sp500_phoenix_DAY_2025-12-05",
     "date_signal": "2025-12-05",
     "ticker": "DAY",
@@ -48,6 +72,126 @@
     }
   },
   {
+    "id": "sp500_phoenix_IVZ_2025-12-05",
+    "date_signal": "2025-12-05",
+    "ticker": "IVZ",
+    "universe": "sp500",
+    "strategy": "phoenix",
+    "initial_data": {
+      "close_j": 26.24,
+      "stop_loss_technical": 24.59
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
+    "id": "sp500_phoenix_KEY_2025-12-05",
+    "date_signal": "2025-12-05",
+    "ticker": "KEY",
+    "universe": "sp500",
+    "strategy": "phoenix",
+    "initial_data": {
+      "close_j": 19.26,
+      "stop_loss_technical": 18.3
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
+    "id": "sp500_phoenix_LUV_2025-12-05",
+    "date_signal": "2025-12-05",
+    "ticker": "LUV",
+    "universe": "sp500",
+    "strategy": "phoenix",
+    "initial_data": {
+      "close_j": 37.85,
+      "stop_loss_technical": 35.12
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
+    "id": "sp500_phoenix_ULTA_2025-12-05",
+    "date_signal": "2025-12-05",
+    "ticker": "ULTA",
+    "universe": "sp500",
+    "strategy": "phoenix",
+    "initial_data": {
+      "close_j": 601.5,
+      "stop_loss_technical": 530.09
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
+    "id": "sp500_phoenix_WBD_2025-12-05",
+    "date_signal": "2025-12-05",
+    "ticker": "WBD",
+    "universe": "sp500",
+    "strategy": "phoenix",
+    "initial_data": {
+      "close_j": 26.08,
+      "stop_loss_technical": 24.05
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
     "id": "sp500_pullback_GLW_2025-12-05",
     "date_signal": "2025-12-05",
     "ticker": "GLW",
@@ -56,6 +200,54 @@
     "initial_data": {
       "close_j": 85.45,
       "stop_loss_technical": 80.41
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
+    "id": "sp500_pullback_HOOD_2025-12-05",
+    "date_signal": "2025-12-05",
+    "ticker": "HOOD",
+    "universe": "sp500",
+    "strategy": "pullback",
+    "initial_data": {
+      "close_j": 131.95,
+      "stop_loss_technical": 126.51
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
+    "id": "sp500_pullback_HPE_2025-12-05",
+    "date_signal": "2025-12-05",
+    "ticker": "HPE",
+    "universe": "sp500",
+    "strategy": "pullback",
+    "initial_data": {
+      "close_j": 23.33,
+      "stop_loss_technical": 22.17
     },
     "trade_status": "PENDING",
     "execution": {
