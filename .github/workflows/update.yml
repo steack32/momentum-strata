@@ -41,6 +41,12 @@ jobs:
       - name: Run Crypto Pro Bot
         run: python bots/bot_crypto_pro.py
 
+     - name: Log all signals
+        run: python bots/log_signals.py
+
+      - name: Build performance summary
+        run: python bots/perf_summary.py
+
       # 6. Sauvegarde des résultats sur GitHub
       - name: Commit and Push Data
         run: |
