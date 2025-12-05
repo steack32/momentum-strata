@@ -13,6 +13,9 @@
     <!-- CSS Tailwind compilé -->
     <link rel="stylesheet" href="assets/css/tailwind.css">
 
+    <!-- Chart.js pour la courbe de performance -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
     <!-- JS du site -->
     <script src="assets/js/main.js" defer></script>
     <script src="assets/js/dashboard.js" defer></script>
@@ -49,10 +52,9 @@
 
                 <!-- Sous-titre -->
                 <p class="text-sm md:text-base text-slate-300/90 leading-relaxed max-w-2xl">
-                    Ici, on ne montre pas des courbes marketing mais le résultat d’un backtest
-                    <span class="text-slate-50 font-semibold">mode trader</span> :
-                    entrée au prochain open, stop technique, passage au breakeven, time-stop,
-                    et pénalité de frais / slippage intégrée.
+                    Les signaux sont évalués en conditions proches du réel&nbsp;:
+                    entrée au prochain open, Stop Loss technique, passage au breakeven après +1R,
+                    time-stop à J+10, et pénalité de frais / slippage intégrée.
                 </p>
 
                 <!-- Infos de mise à jour -->
@@ -62,10 +64,34 @@
                         <span>Dernière mise à jour : <span id="perf-last-update" class="text-slate-100 font-medium">–</span></span>
                     </div>
                     <div class="hidden sm:inline-flex text-[11px] text-slate-500">
-                        Hypothèses : entrée au prochain open, Stop Loss technique, passage au breakeven après +1R, sortie max J+10, slippage &amp; frais ±0,1%.
+                        Les statistiques se mettent à jour automatiquement après chaque nouvelle session de marché.
                     </div>
                 </div>
             </header>
+        </section>
+
+        <!-- SECTION COURBE DE PERFORMANCE CUMULÉE -->
+        <section class="max-w-6xl mx-auto px-4 md:px-8 lg:px-10 pt-8 md:pt-10">
+            <div class="bg-slate-950/85 border border-slate-800/80 rounded-2xl p-5 md:p-6 shadow-premium">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                    <div>
+                        <h2 class="text-base md:text-lg font-semibold text-slate-50">
+                            Courbe de performance cumulée
+                        </h2>
+                        <p class="text-[12px] md:text-sm text-slate-400 max-w-xl mt-1">
+                            Évolution des gains cumulés en pourcentage, en agrégeant tous les trades clôturés
+                            (S&amp;P 500 et Crypto, toutes stratégies confondues), calculés en mode trader.
+                        </p>
+                    </div>
+                    <p id="equity-no-data" class="text-[11px] text-slate-500 md:text-right">
+                        Pas encore assez de trades clôturés pour afficher une courbe de performance.
+                    </p>
+                </div>
+
+                <div id="equity-chart-container" class="mt-2 md:mt-3 h-56 md:h-64 hidden">
+                    <canvas id="equity-chart"></canvas>
+                </div>
+            </div>
         </section>
 
         <!-- SECTION CARTES DE PERFORMANCE -->
@@ -83,7 +109,7 @@
                 </div>
                 <div class="text-xs text-right text-slate-400 space-y-1">
                     <p class="text-[11px] text-slate-500">
-                        Les métriques sont mises à jour automatiquement après chaque session.
+                        Les métriques sont recalculées automatiquement à partir de l’historique des trades simulés.
                     </p>
                     <p>
                         <span class="font-semibold text-slate-100">Expectancy</span> :
@@ -341,12 +367,12 @@
                             <span class="font-semibold text-slate-100">1. Entrée réaliste :</span>
                             chaque signal est exécuté au <span class="font-semibold">prochain open</span> après son apparition,
                             avec une pénalité de <span class="font-semibold">+0,1&nbsp;%</span> sur le prix d’entrée
-                            pour simuler frais + slippage.
+                            pour simuler frais et slippage.
                         </p>
                         <p>
                             <span class="font-semibold text-slate-100">2. Stop &amp; breakeven :</span>
-                            le stop technique fourni par l’algo est utilisé comme Stop Loss initial.
-                            Quand le prix atteint <span class="font-semibold">+1R</span>, le stop est déplacé à l’entry (breakeven sécurisé).
+                            le Stop Loss est issu du signal technique. Quand le prix atteint <span class="font-semibold">+1R</span>,
+                            le stop est déplacé à l’entry pour sécuriser la position.
                         </p>
                     </div>
                     <div class="space-y-1.5">
@@ -357,10 +383,9 @@
                         </p>
                         <p>
                             <span class="font-semibold text-slate-100">4. Performance en R :</span>
-                            chaque trade est évalué en
-                            <span class="font-semibold">R</span> :
-                            gain ou perte par rapport au risque initial (Entry - Stop).
-                            L’expectancy indique l’espérance de R par trade sur la stratégie.
+                            chaque trade est évalué en <span class="font-semibold">R</span>
+                            (gain ou perte par rapport au risque initial).
+                            L’expectancy indique l’espérance de R par trade pour la stratégie.
                         </p>
                     </div>
                 </div>

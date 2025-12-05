@@ -10,8 +10,8 @@
     <meta property="og:description" content="Chaque jour de bourse, Momentum Strata scanne le S&P 500 et ne retient que les actions en breakout (Phoenix) ou en pullback propre sur tendance haussière.">
     <meta property="og:type" content="website">
 
-    <!-- CSS Tailwind compilé (avec cache-busting) -->
-    <link rel="stylesheet" href="assets/css/tailwind.css?v=20251206">
+    <!-- CSS Tailwind compilé -->
+    <link rel="stylesheet" href="assets/css/tailwind.css">
 
     <!-- JS du site -->
     <script src="assets/js/main.js" defer></script>
@@ -23,7 +23,6 @@
     <div id="navbar-container"></div>
 
     <main class="flex-1 pt-20">
-
         <!-- HERO -->
         <section class="border-b border-slate-800/70 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
 
@@ -55,7 +54,7 @@
                     Momentum Strata scanne chaque jour les 500 plus grandes actions US 
                     et ne remonte que les configurations qui comptent&nbsp;: 
                     <span class="text-amber-300 font-semibold">breakouts nets (Phoenix)</span> 
-                    et <span class="text-emerald-300 font-semibold">pullbacks propres</span>. 
+                    et <span class="text-emerald-300 font-semibold">pullbacks sur tendance</span>. 
                     Moins de bruit, plus de précision.
                 </p>
 
@@ -70,7 +69,7 @@
 
                     <!-- Boîte Pullback -->
                     <div class="px-4 py-3 rounded-xl bg-slate-900/70 border border-slate-800/80 backdrop-blur text-left shadow-lg">
-                        <p class="text-[11px] text-slate-400 uppercase tracking-wider mb-1">Pullback • Repli propre</p>
+                        <p class="text-[11px] text-slate-400 uppercase tracking-wider mb-1">Pullback • Correction technique</p>
                         <p class="text-xl font-bold text-emerald-300" id="hero-pullback-count">–</p>
                     </div>
 
@@ -103,8 +102,7 @@
             </div>
 
             <div class="bg-slate-950/80 backdrop-blur rounded-2xl border border-slate-800/80 shadow-premium overflow-hidden relative">
-                <!-- Table desktop -->
-                <div class="hidden md:block overflow-x-auto">
+                <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse">
                         <thead>
                             <tr class="bg-slate-950 text-[11px] uppercase tracking-[0.18em] text-slate-400 border-b border-slate-800">
@@ -124,11 +122,6 @@
                             </tr>
                         </tbody>
                     </table>
-                </div>
-
-                <!-- Cards mobile -->
-                <div id="cards-phoenix" class="md:hidden space-y-4 px-4 py-4">
-                    <!-- Rempli en JS -->
                 </div>
 
                 <p class="text-[11px] text-slate-500 mt-2 px-6 pb-3">
@@ -186,8 +179,7 @@
             </div>
 
             <div class="bg-slate-950/80 backdrop-blur rounded-2xl border border-slate-800/80 shadow-premium overflow-hidden relative">
-                <!-- Table desktop -->
-                <div class="hidden md:block overflow-x-auto">
+                <div class="overflow-x-auto">
                     <table class="w-full text-left border-collapse">
                         <thead>
                             <tr class="bg-slate-950 text-[11px] uppercase tracking-[0.18em] text-slate-400 border-b border-slate-800">
@@ -207,11 +199,6 @@
                             </tr>
                         </tbody>
                     </table>
-                </div>
-
-                <!-- Cards mobile -->
-                <div id="cards-pullback" class="md:hidden space-y-4 px-4 py-4">
-                    <!-- Rempli en JS -->
                 </div>
 
                 <p class="text-[11px] text-slate-500 mt-2 px-6 pb-3">
@@ -238,7 +225,7 @@
             </div>
         </section>
 
-        <!-- SECTION EXPLICATIVE -->
+        <!-- SECTION EXPLICATIVE : COMMENT LIRE LES SIGNAUX -->
         <section class="max-w-6xl mx-auto px-4 md:px-8 lg:px-10 pb-16">
             <div class="bg-slate-950/80 border border-slate-800/80 rounded-2xl p-5 md:p-6 text-sm text-slate-300 space-y-3">
                 <h2 class="text-base md:text-lg font-semibold text-slate-50">
@@ -274,7 +261,7 @@
         </section>
     </main>
 
-    <!-- Footer -->
+    <!-- Footer injecté dynamiquement -->
     <div id="footer-container"></div>
 
 </body>
