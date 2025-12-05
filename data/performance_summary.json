@@ -1,0 +1,39 @@
+{
+  "last_update": "2025-12-05",
+  "sp500_phoenix": {
+    "nb_trades": 0,
+    "avg_R": 0.0,
+    "winrate": 0.0,
+    "breakeven_rate": 0.0,
+    "expectancy_R": 0.0,
+    "avg_win_R": 0.0,
+    "avg_loss_R": 0.0
+  },
+  "sp500_pullback": {
+    "nb_trades": 0,
+    "avg_R": 0.0,
+    "winrate": 0.0,
+    "breakeven_rate": 0.0,
+    "expectancy_R": 0.0,
+    "avg_win_R": 0.0,
+    "avg_loss_R": 0.0
+  },
+  "crypto_phoenix": {
+    "nb_trades": 0,
+    "avg_R": 0.0,
+    "winrate": 0.0,
+    "breakeven_rate": 0.0,
+    "expectancy_R": 0.0,
+    "avg_win_R": 0.0,
+    "avg_loss_R": 0.0
+  },
+  "crypto_pullback": {
+    "nb_trades": 0,
+    "avg_R": 0.0,
+    "winrate": 0.0,
+    "breakeven_rate": 0.0,
+    "expectancy_R": 0.0,
+    "avg_win_R": 0.0,
+    "avg_loss_R": 0.0
+  }
+}
