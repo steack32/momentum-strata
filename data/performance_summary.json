@@ -35,5 +35,27 @@
     "expectancy_R": 0.0,
     "avg_win_R": 0.0,
     "avg_loss_R": 0.0
+  },
+  "equity_curve": {
+    "global": {
+      "dates": [],
+      "equity_pct": []
+    },
+    "sp500_phoenix": {
+      "dates": [],
+      "equity_pct": []
+    },
+    "sp500_pullback": {
+      "dates": [],
+      "equity_pct": []
+    },
+    "crypto_phoenix": {
+      "dates": [],
+      "equity_pct": []
+    },
+    "crypto_pullback": {
+      "dates": [],
+      "equity_pct": []
+    }
   }
 }
