@@ -59,7 +59,6 @@ function renderEquityChart(equityCurveAll) {
         return;
     }
 
-    // On utilise les courbes par stratégie (on peut garder la globale pour plus tard)
     const curves = {
         "sp500_phoenix": equityCurveAll.sp500_phoenix,
         "sp500_pullback": equityCurveAll.sp500_pullback,
@@ -67,7 +66,6 @@ function renderEquityChart(equityCurveAll) {
         "crypto_pullback": equityCurveAll.crypto_pullback,
     };
 
-    // Récupération de toutes les dates utilisées
     const dateSet = new Set();
     Object.values(curves).forEach((curve) => {
         if (curve && Array.isArray(curve.dates)) {
@@ -75,39 +73,37 @@ function renderEquityChart(equityCurveAll) {
         }
     });
 
-    const allDates = Array.from(dateSet).sort(); // format YYYY-MM-DD → tri lexicographique = tri chronologique
+    const allDates = Array.from(dateSet).sort();
 
-    // S'il n'y a aucune date / aucun trade, on masque le graphique
     if (allDates.length === 0) {
         container.classList.add("hidden");
         if (noDataEl) noDataEl.classList.remove("hidden");
         return;
     }
 
-    // Construction des datasets alignés sur allDates
     const datasetsMeta = [
         {
             key: "sp500_phoenix",
             label: "S&P 500 • Phoenix",
-            borderColor: "rgba(251, 191, 36, 1)",      // amber-400
+            borderColor: "rgba(251, 191, 36, 1)",
             backgroundColor: "rgba(251, 191, 36, 0.12)",
         },
         {
             key: "sp500_pullback",
             label: "S&P 500 • Pullback",
-            borderColor: "rgba(34, 197, 94, 1)",       // emerald-500
+            borderColor: "rgba(34, 197, 94, 1)",
             backgroundColor: "rgba(34, 197, 94, 0.12)",
         },
         {
             key: "crypto_phoenix",
             label: "Crypto • Phoenix",
-            borderColor: "rgba(56, 189, 248, 1)",      // sky-400
+            borderColor: "rgba(56, 189, 248, 1)",
             backgroundColor: "rgba(56, 189, 248, 0.12)",
         },
         {
             key: "crypto_pullback",
             label: "Crypto • Pullback",
-            borderColor: "rgba(244, 114, 182, 1)",     // pink-400
+            borderColor: "rgba(244, 114, 182, 1)",
             backgroundColor: "rgba(244, 114, 182, 0.12)",
         },
     ];
@@ -117,7 +113,7 @@ function renderEquityChart(equityCurveAll) {
     datasetsMeta.forEach((meta) => {
         const curve = curves[meta.key];
         if (!curve || !Array.isArray(curve.dates) || curve.dates.length === 0) {
-            return; // pas encore de trades pour cette stratégie
+            return;
         }
 
         const dateToValue = {};
@@ -246,18 +242,15 @@ async function loadPerformanceSummary() {
         if (loadingEl) loadingEl.classList.add("hidden");
         if (errorEl) errorEl.classList.add("hidden");
 
-        // Date de mise à jour
         if (data.last_update) {
             setText("perf-last-update", data.last_update);
         }
 
-        // Cartes stratégiques (live)
         updatePerfCard("sp500-phoenix", data.sp500_phoenix);
         updatePerfCard("sp500-pullback", data.sp500_pullback);
         updatePerfCard("crypto-phoenix", data.crypto_phoenix);
         updatePerfCard("crypto-pullback", data.crypto_pullback);
 
-        // Courbes de performance cumulée (par stratégie, live)
         renderEquityChart(data.equity_curve);
     } catch (error) {
         console.error("Erreur lors du chargement de performance_summary.json :", error);
@@ -266,9 +259,7 @@ async function loadPerformanceSummary() {
     }
 }
 
-// ===========================
-// BACKTEST 2 ANS
-// ===========================
+// ===== BACKTEST 2 ANS =====
 
 function renderBacktestEquityChart(globalCurve) {
     const container = document.getElementById("backtest-equity-container");
@@ -305,7 +296,7 @@ function renderBacktestEquityChart(globalCurve) {
                 {
                     label: "Équité cumulée (%) – toutes stratégies",
                     data: globalCurve.equity_pct,
-                    borderColor: "rgba(37, 99, 235, 1)",      // blue-600
+                    borderColor: "rgba(37, 99, 235, 1)",
                     backgroundColor: "rgba(37, 99, 235, 0.12)",
                     borderWidth: 2,
                     tension: 0.25,
@@ -326,4 +317,134 @@ function renderBacktestEquityChart(globalCurve) {
                     display: true,
                     labels: {
                         color: "#cbd5f5",
-                        font: { size: 1
+                        font: { size: 11 },
+                        usePointStyle: true,
+                    },
+                },
+                tooltip: {
+                    callbacks: {
+                        title: function (items) {
+                            if (!items || !items.length) return "";
+                            return "Date : " + items[0].label;
+                        },
+                        label: function (context) {
+                            const v = context.parsed.y;
+                            if (v === null || v === undefined) return "Équité : n.d.";
+                            return "Équité : " + v.toFixed(2) + " %";
+                        },
+                    },
+                },
+            },
+            scales: {
+                x: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: "Temps",
+                        color: "#94a3b8",
+                        font: { size: 11 },
+                    },
+                    ticks: {
+                        maxTicksLimit: 8,
+                        color: "#64748b",
+                        font: { size: 10 },
+                    },
+                    grid: {
+                        color: "rgba(148, 163, 184, 0.15)",
+                    },
+                },
+                y: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: "Gains cumulés (%)",
+                        color: "#94a3b8",
+                        font: { size: 11 },
+                    },
+                    ticks: {
+                        color: "#64748b",
+                        font: { size: 10 },
+                    },
+                    grid: {
+                        color: "rgba(148, 163, 184, 0.15)",
+                    },
+                },
+            },
+        },
+    });
+}
+
+function updateBacktestTable(summary) {
+    const tbody = document.getElementById("backtest-stats-body");
+    if (!tbody) return;
+
+    const strategies = [
+        { key: "sp500_phoenix", label: "S&P 500 • Phoenix" },
+        { key: "sp500_pullback", label: "S&P 500 • Pullback" },
+        { key: "crypto_phoenix", label: "Crypto • Phoenix" },
+        { key: "crypto_pullback", label: "Crypto • Pullback" },
+    ];
+
+    tbody.innerHTML = "";
+
+    strategies.forEach((s) => {
+        const stats = summary[s.key] || {};
+        const nb = stats.nb_trades || 0;
+
+        const avgR = nb > 0 ? formatNumber(stats.avg_R, 3) : "–";
+        const win = nb > 0 ? formatNumber(stats.winrate, 1) + " %" : "–";
+        const be = nb > 0 ? formatNumber(stats.breakeven_rate, 1) + " %" : "–";
+        const exp = nb > 0 ? formatNumber(stats.expectancy_R, 3) : "–";
+        const avgWin = nb > 0 ? formatNumber(stats.avg_win_R, 3) : "–";
+        const avgLoss = nb > 0 ? formatNumber(stats.avg_loss_R, 3) : "–";
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td class="py-2 pr-4 font-semibold text-slate-100">${s.label}</td>
+            <td class="py-2 px-4">${nb}</td>
+            <td class="py-2 px-4">${avgR}</td>
+            <td class="py-2 px-4">${win}</td>
+            <td class="py-2 px-4">${be}</td>
+            <td class="py-2 px-4">${exp}</td>
+            <td class="py-2 px-4">${avgWin}</td>
+            <td class="py-2 px-4">${avgLoss}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+async function loadBacktestSummary() {
+    try {
+        const response = await fetch("data/performance_backtest.json", { cache: "no-cache" });
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data.last_update) {
+            setText("backtest-last-update", data.last_update);
+        }
+
+        const globalCurve =
+            data.equity_curve && typeof data.equity_curve === "object"
+                ? data.equity_curve.global
+                : null;
+
+        renderBacktestEquityChart(globalCurve);
+        updateBacktestTable(data);
+    } catch (error) {
+        console.error("Erreur lors du chargement de performance_backtest.json :", error);
+        const errEl = document.getElementById("backtest-error-msg");
+        if (errEl) {
+            errEl.textContent =
+                "Erreur de chargement du backtest : " + (error && error.message ? error.message : error);
+            errEl.classList.remove("hidden");
+        }
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    loadPerformanceSummary();
+    loadBacktestSummary();
+});
