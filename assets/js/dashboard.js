@@ -1,6 +1,7 @@
 // assets/js/dashboard.js
 
 let equityChartInstance = null;
+let backtestChartInstance = null;
 
 function setText(id, value) {
     const el = document.getElementById(id);
@@ -250,13 +251,13 @@ async function loadPerformanceSummary() {
             setText("perf-last-update", data.last_update);
         }
 
-        // Cartes stratégiques
+        // Cartes stratégiques (live)
         updatePerfCard("sp500-phoenix", data.sp500_phoenix);
         updatePerfCard("sp500-pullback", data.sp500_pullback);
         updatePerfCard("crypto-phoenix", data.crypto_phoenix);
         updatePerfCard("crypto-pullback", data.crypto_pullback);
 
-        // Courbes de performance cumulée (par stratégie)
+        // Courbes de performance cumulée (par stratégie, live)
         renderEquityChart(data.equity_curve);
     } catch (error) {
         console.error("Erreur lors du chargement de performance_summary.json :", error);
@@ -265,6 +266,64 @@ async function loadPerformanceSummary() {
     }
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-    loadPerformanceSummary();
-});
+// ===========================
+// BACKTEST 2 ANS
+// ===========================
+
+function renderBacktestEquityChart(globalCurve) {
+    const container = document.getElementById("backtest-equity-container");
+    const noDataEl = document.getElementById("backtest-equity-nodata");
+    const canvas = document.getElementById("backtest-equity-chart");
+
+    if (!container || !canvas || !noDataEl) return;
+
+    if (
+        !globalCurve ||
+        !Array.isArray(globalCurve.dates) ||
+        globalCurve.dates.length === 0 ||
+        !Array.isArray(globalCurve.equity_pct)
+    ) {
+        container.classList.add("hidden");
+        noDataEl.classList.remove("hidden");
+        return;
+    }
+
+    container.classList.remove("hidden");
+    noDataEl.classList.add("hidden");
+
+    const ctx = canvas.getContext("2d");
+
+    if (backtestChartInstance) {
+        backtestChartInstance.destroy();
+    }
+
+    backtestChartInstance = new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: globalCurve.dates,
+            datasets: [
+                {
+                    label: "Équité cumulée (%) – toutes stratégies",
+                    data: globalCurve.equity_pct,
+                    borderColor: "rgba(37, 99, 235, 1)",      // blue-600
+                    backgroundColor: "rgba(37, 99, 235, 0.12)",
+                    borderWidth: 2,
+                    tension: 0.25,
+                    pointRadius: 0,
+                    fill: true,
+                },
+            ],
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+                mode: "index",
+                intersect: false,
+            },
+            plugins: {
+                legend: {
+                    display: true,
+                    labels: {
+                        color: "#cbd5f5",
+                        font: { size: 1
