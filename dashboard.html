@@ -13,7 +13,7 @@
     <!-- CSS Tailwind compilé -->
     <link rel="stylesheet" href="assets/css/tailwind.css">
 
-    <!-- Chart.js pour la courbe de performance -->
+    <!-- Chart.js pour les courbes -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <!-- JS du site -->
@@ -422,6 +422,7 @@
                     <p id="backtest-equity-nodata" class="text-[11px] text-slate-500">
                         Backtest en cours de calcul ou pas encore disponible.
                     </p>
+                    <p id="backtest-error-msg" class="mt-2 text-[11px] text-rose-400 hidden"></p>
                     <div id="backtest-equity-container" class="mt-2 h-56 md:h-64 hidden">
                         <canvas id="backtest-equity-chart"></canvas>
                     </div>
