@@ -1,5 +1,5 @@
 {
-  "last_update": "2025-12-10",
+  "last_update": "2025-12-11",
   "sp500_phoenix": {
     "nb_trades": 0,
     "avg_R": 0.0,
@@ -10,13 +10,13 @@
     "avg_loss_R": 0.0
   },
   "sp500_pullback": {
-    "nb_trades": 0,
-    "avg_R": 0.0,
+    "nb_trades": 6,
+    "avg_R": -1.047,
     "winrate": 0.0,
     "breakeven_rate": 0.0,
-    "expectancy_R": 0.0,
+    "expectancy_R": -1.047,
     "avg_win_R": 0.0,
-    "avg_loss_R": 0.0
+    "avg_loss_R": 1.047
   },
   "crypto_phoenix": {
     "nb_trades": 0,
@@ -38,16 +38,24 @@
   },
   "equity_curve": {
     "global": {
-      "dates": [],
-      "equity_pct": []
+      "dates": [
+        "2025-12-11"
+      ],
+      "equity_pct": [
+        -24.47
+      ]
     },
     "sp500_phoenix": {
       "dates": [],
       "equity_pct": []
     },
     "sp500_pullback": {
-      "dates": [],
-      "equity_pct": []
+      "dates": [
+        "2025-12-11"
+      ],
+      "equity_pct": [
+        -24.47
+      ]
     },
     "crypto_phoenix": {
       "dates": [],
