@@ -11459,7 +11459,7 @@
     },
     "trade_status": "ACTIVE",
     "execution": {
-      "entry_price": 37.43239545822143,
+      "entry_price": 37.43740152740478,
       "entry_date": "2025-12-31",
       "exit_price": null,
       "exit_date": null,
@@ -11483,7 +11483,7 @@
     },
     "trade_status": "ACTIVE",
     "execution": {
-      "entry_price": 181.24105755615233,
+      "entry_price": 181.3111348876953,
       "entry_date": "2025-12-31",
       "exit_price": null,
       "exit_date": null,
@@ -11600,6 +11600,126 @@
     "initial_data": {
       "close_j": 579.45,
       "stop_loss_technical": 545.61
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
+    "id": "sp500_pullback_CAT_2026-01-01",
+    "date_signal": "2026-01-01",
+    "ticker": "CAT",
+    "universe": "sp500",
+    "strategy": "pullback",
+    "initial_data": {
+      "close_j": 572.87,
+      "stop_loss_technical": 540.74
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
+    "id": "sp500_pullback_FIX_2026-01-01",
+    "date_signal": "2026-01-01",
+    "ticker": "FIX",
+    "universe": "sp500",
+    "strategy": "pullback",
+    "initial_data": {
+      "close_j": 933.29,
+      "stop_loss_technical": 901.5
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
+    "id": "sp500_pullback_FSLR_2026-01-01",
+    "date_signal": "2026-01-01",
+    "ticker": "FSLR",
+    "universe": "sp500",
+    "strategy": "pullback",
+    "initial_data": {
+      "close_j": 261.23,
+      "stop_loss_technical": 245.31
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
+    "id": "sp500_pullback_GLW_2026-01-01",
+    "date_signal": "2026-01-01",
+    "ticker": "GLW",
+    "universe": "sp500",
+    "strategy": "pullback",
+    "initial_data": {
+      "close_j": 87.56,
+      "stop_loss_technical": 82.12
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
+    "id": "sp500_pullback_NVDA_2026-01-01",
+    "date_signal": "2026-01-01",
+    "ticker": "NVDA",
+    "universe": "sp500",
+    "strategy": "pullback",
+    "initial_data": {
+      "close_j": 186.5,
+      "stop_loss_technical": 177.04
     },
     "trade_status": "PENDING",
     "execution": {
