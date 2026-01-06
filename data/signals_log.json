@@ -2649,14 +2649,14 @@
       "close_j": 137.24,
       "stop_loss_technical": 130.38
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 137.75761511230468,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 147.4524060974121,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -2673,13 +2673,13 @@
       "close_j": 273.67,
       "stop_loss_technical": 259.99
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 273.13284533691404,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 262.09762536621093,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -2697,14 +2697,14 @@
       "close_j": 145.88,
       "stop_loss_technical": 133.88
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 147.04689389038083,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 157.9918439025879,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -2721,13 +2721,13 @@
       "close_j": 256.41,
       "stop_loss_technical": 243.59
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 263.09281655883785,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 295.7139997558594,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -2745,14 +2745,14 @@
       "close_j": 203.29,
       "stop_loss_technical": 193.13
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 203.8136106109619,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 213.94584365844727,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -2769,13 +2769,13 @@
       "close_j": 327.38,
       "stop_loss_technical": 311.01
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 327.3370197753906,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 329.83984341430664,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -2793,14 +2793,14 @@
       "close_j": 78.29,
       "stop_loss_technical": 74.38
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 78.36829091644286,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 82.5273906097412,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -2817,13 +2817,13 @@
       "close_j": 340.36,
       "stop_loss_technical": 323.34
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 346.37602877807615,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 343.4262190246582,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -2841,13 +2841,13 @@
       "close_j": 376.51,
       "stop_loss_technical": 357.68
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 378.70831655883785,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 383.17643756103513,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -2865,13 +2865,13 @@
       "close_j": 174.8,
       "stop_loss_technical": 166.06
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 174.95477877807616,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 182.42739060974122,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -2889,13 +2889,13 @@
       "close_j": 44.71,
       "stop_loss_technical": 42.47
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 45.36531969451904,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 49.33062106704712,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -2913,13 +2913,13 @@
       "close_j": 114.86,
       "stop_loss_technical": 109.12
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 115.32520908355711,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 122.3775,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -2937,13 +2937,13 @@
       "close_j": 161.63,
       "stop_loss_technical": 153.55
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 161.78161511230468,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 166.75307817077638,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -2961,13 +2961,13 @@
       "close_j": 31.12,
       "stop_loss_technical": 27.98
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 31.281249999999996,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 32.267699237823486,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -2985,13 +2985,13 @@
       "close_j": 166.46,
       "stop_loss_technical": 158.14
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 166.97680755615232,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 167.49234365844725,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -3009,13 +3009,13 @@
       "close_j": 259.91,
       "stop_loss_technical": 246.91
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 260.88061511230467,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 262.6370939025879,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -3033,13 +3033,13 @@
       "close_j": 78.42,
       "stop_loss_technical": 74.5
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 79.09901663970946,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 75.15477335357666,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -3081,13 +3081,13 @@
       "close_j": 41.26,
       "stop_loss_technical": 39.2
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 41.55150831985473,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 43.396558628082275,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -3105,13 +3105,13 @@
       "close_j": 196.21,
       "stop_loss_technical": 186.4
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 196.51632733154295,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 203.2965,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -3129,13 +3129,13 @@
       "close_j": 203.92,
       "stop_loss_technical": 193.72
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 204.39419244384763,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 204.07571878051758,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -3153,13 +3153,13 @@
       "close_j": 84.66,
       "stop_loss_technical": 80.43
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 84.4243363342285,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 91.41849213409424,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -3177,13 +3177,13 @@
       "close_j": 132.98,
       "stop_loss_technical": 126.33
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 134.33419694519043,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 145.4743751220703,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -3201,13 +3201,13 @@
       "close_j": 209.17,
       "stop_loss_technical": 198.71
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 209.33913488769528,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 218.16162487792968,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -3225,13 +3225,13 @@
       "close_j": 148.13,
       "stop_loss_technical": 140.72
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 150.2601106109619,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 144.32553121948243,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -3249,14 +3249,14 @@
       "close_j": 288.78,
       "stop_loss_technical": 274.34
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 287.77748022460935,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 307.62206268310547,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -3273,13 +3273,13 @@
       "close_j": 63.6,
       "stop_loss_technical": 60.42
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 64.02395908355712,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 67.66227335357667,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -3297,13 +3297,13 @@
       "close_j": 71.77,
       "stop_loss_technical": 68.18
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 72.60252877807616,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 76.0338906097412,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -3345,13 +3345,13 @@
       "close_j": 87.86,
       "stop_loss_technical": 83.47
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 89.88980305480956,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 89.16075,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -3369,13 +3369,13 @@
       "close_j": 82.35,
       "stop_loss_technical": 78.23
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 82.6825984725952,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 82.09782030487061,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -3393,13 +3393,13 @@
       "close_j": 27.72,
       "stop_loss_technical": 26.33
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 28.038010229110714,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 30.799169923782348,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -3417,13 +3417,13 @@
       "close_j": 472.98,
       "stop_loss_technical": 449.33
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 471.4910090026855,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 483.1164060974121,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -3489,13 +3489,13 @@
       "close_j": 300.98,
       "stop_loss_technical": 285.93
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 301.33102877807613,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 302.16753121948244,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -3537,14 +3537,14 @@
       "close_j": 102.69,
       "stop_loss_technical": 97.01
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 102.04194244384765,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 106.55334365844726,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -3561,13 +3561,13 @@
       "close_j": 572.47,
       "stop_loss_technical": 543.85
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 576.5759999999999,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 592.2571256103515,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -3585,13 +3585,13 @@
       "close_j": 119.53,
       "stop_loss_technical": 113.55
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 120.08997122192382,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 113.43645,
+      "exit_date": "2026-01-06",
+      "exit_reason": "SL",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -3609,13 +3609,13 @@
       "close_j": 317.21,
       "stop_loss_technical": 301.35
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 317.8275197753906,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 334.27537536621094,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -3633,13 +3633,13 @@
       "close_j": 1245.67,
       "stop_loss_technical": 1183.39
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 1277.6463651123045,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 1393.605,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -3657,13 +3657,13 @@
       "close_j": 172.27,
       "stop_loss_technical": 162.0
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 175.855672668457,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 206.75304670715332,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -3681,13 +3681,13 @@
       "close_j": 76.26,
       "stop_loss_technical": 72.45
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 76.33626213836669,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 75.64428121948242,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -3705,13 +3705,13 @@
       "close_j": 937.11,
       "stop_loss_technical": 890.25
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 977.0260377807616,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 1004.3746248779297,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -3753,13 +3753,13 @@
       "close_j": 568.28,
       "stop_loss_technical": 539.87
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 567.6670755615233,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 586.3730619506836,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -3777,13 +3777,13 @@
       "close_j": 485.92,
       "stop_loss_technical": 461.62
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 486.6061151123046,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 478.0314997558594,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -3801,13 +3801,13 @@
       "close_j": 205.82,
       "stop_loss_technical": 195.53
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 205.4952832794189,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 211.11867182922364,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -3825,13 +3825,13 @@
       "close_j": 33.02,
       "stop_loss_technical": 31.37
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 33.11308183288574,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 32.697269542694094,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -3849,13 +3849,13 @@
       "close_j": 265.92,
       "stop_loss_technical": 245.0
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 277.4271438903808,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 343.08656268310546,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -3873,14 +3873,14 @@
       "close_j": 95.36,
       "stop_loss_technical": 90.59
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 95.4553606109619,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 100.58931243896484,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -3897,13 +3897,13 @@
       "close_j": 240.38,
       "stop_loss_technical": 228.36
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 240.70046672058103,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 251.748,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -3921,13 +3921,13 @@
       "close_j": 139.46,
       "stop_loss_technical": 132.49
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 139.78964389038083,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 143.9758751220703,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -3945,14 +3945,14 @@
       "close_j": 226.27,
       "stop_loss_technical": 214.96
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 229.9697454986572,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 245.70404695129395,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -3969,13 +3969,13 @@
       "close_j": 55.21,
       "stop_loss_technical": 52.45
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 55.715659847259516,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 61.69823832321167,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -3993,14 +3993,14 @@
       "close_j": 111.57,
       "stop_loss_technical": 105.99
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 112.00188938903807,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 116.96292182922363,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -4017,14 +4017,14 @@
       "close_j": 874.81,
       "stop_loss_technical": 831.07
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 877.9570971069335,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 927.8312497558594,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -4041,13 +4041,13 @@
       "close_j": 175.25,
       "stop_loss_technical": 166.49
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 177.73755755615232,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 182.26754695129395,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -4065,13 +4065,13 @@
       "close_j": 767.96,
       "stop_loss_technical": 729.56
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 766.6058668823241,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 775.7634380493164,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -4089,13 +4089,13 @@
       "close_j": 182.01,
       "stop_loss_technical": 172.91
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 183.0428606109619,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 190.2095939025879,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -4113,13 +4113,13 @@
       "close_j": 128.5,
       "stop_loss_technical": 122.07
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 129.24911511230468,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 134.18568731689453,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -4161,13 +4161,13 @@
       "close_j": 84.68,
       "stop_loss_technical": 80.45
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 85.55547122192382,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 88.38153121948243,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -4185,13 +4185,13 @@
       "close_j": 229.98,
       "stop_loss_technical": 218.48
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 233.00277427673336,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 231.07868756103517,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -4209,13 +4209,13 @@
       "close_j": 195.18,
       "stop_loss_technical": 185.42
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 201.25105305480955,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 228.61115634155274,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -4257,13 +4257,13 @@
       "close_j": 567.83,
       "stop_loss_technical": 539.44
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 569.3988471069335,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 620.0992507324219,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -4305,13 +4305,13 @@
       "close_j": 247.4,
       "stop_loss_technical": 235.03
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 247.64739389038084,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 254.0956560974121,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -4329,13 +4329,13 @@
       "close_j": 54.16,
       "stop_loss_technical": 51.45
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 54.164110610961906,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 56.02392182922363,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -4353,13 +4353,13 @@
       "close_j": 349.25,
       "stop_loss_technical": 331.79
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 350.34999999999997,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 357.20243756103514,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -4377,13 +4377,13 @@
       "close_j": 162.71,
       "stop_loss_technical": 154.57
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 164.6544954986572,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 178.09173426818847,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -4401,13 +4401,13 @@
       "close_j": 456.2,
       "stop_loss_technical": 433.39
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 454.7943363342285,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 467.9116248779297,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -4425,13 +4425,13 @@
       "close_j": 216.14,
       "stop_loss_technical": 205.33
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 217.11689389038082,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 220.71906243896484,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -4473,13 +4473,13 @@
       "close_j": 93.01,
       "stop_loss_technical": 88.36
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 93.29319694519042,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 96.2936093902588,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -4521,13 +4521,13 @@
       "close_j": 332.56,
       "stop_loss_technical": 315.93
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 331.31099099731443,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 335.76390609741213,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -4545,13 +4545,13 @@
       "close_j": 135.29,
       "stop_loss_technical": 127.95
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 137.13699999999997,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 141.23862487792968,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -4569,13 +4569,13 @@
       "close_j": 576.22,
       "stop_loss_technical": 533.08
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 585.0744802246093,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 622.4669368286133,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -4593,13 +4593,13 @@
       "close_j": 339.36,
       "stop_loss_technical": 323.53
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 339.20886511230464,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 360.3492814636231,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -4617,13 +4617,13 @@
       "close_j": 87.86,
       "stop_loss_technical": 81.62
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 89.88980305480956,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 89.16075,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -4641,13 +4641,13 @@
       "close_j": 229.98,
       "stop_loss_technical": 220.89
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 233.00277427673336,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 231.07868756103517,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -4665,13 +4665,13 @@
       "close_j": 273.67,
       "stop_loss_technical": 259.99
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 273.13284533691404,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 262.09762536621093,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -4689,13 +4689,13 @@
       "close_j": 226.82,
       "stop_loss_technical": 215.48
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 226.3361106109619,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 223.70606268310547,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -4713,14 +4713,14 @@
       "close_j": 145.88,
       "stop_loss_technical": 133.88
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 147.04689389038083,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 157.9918439025879,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -4737,13 +4737,13 @@
       "close_j": 205.0,
       "stop_loss_technical": 194.75
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 204.07386511230467,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 207.71207817077638,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -4761,13 +4761,13 @@
       "close_j": 160.0,
       "stop_loss_technical": 152.0
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 159.98983183288573,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 161.67815634155272,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -4785,13 +4785,13 @@
       "close_j": 256.41,
       "stop_loss_technical": 243.59
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 263.09281655883785,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 295.7139997558594,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -4809,14 +4809,14 @@
       "close_j": 203.29,
       "stop_loss_technical": 193.13
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 203.8136106109619,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 213.94584365844727,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -4833,13 +4833,13 @@
       "close_j": 327.38,
       "stop_loss_technical": 311.01
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 327.3370197753906,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 329.83984341430664,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -4857,14 +4857,14 @@
       "close_j": 227.35,
       "stop_loss_technical": 215.98
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 228.8386106109619,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 240.68906268310548,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -4881,13 +4881,13 @@
       "close_j": 135.29,
       "stop_loss_technical": 127.89
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 137.13699999999997,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 141.23862487792968,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -4905,14 +4905,14 @@
       "close_j": 78.29,
       "stop_loss_technical": 74.38
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 78.36829091644286,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 82.5273906097412,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -4929,13 +4929,13 @@
       "close_j": 340.36,
       "stop_loss_technical": 323.34
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 346.37602877807615,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 343.4262190246582,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -4953,13 +4953,13 @@
       "close_j": 376.51,
       "stop_loss_technical": 357.68
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 378.70831655883785,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 383.17643756103513,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -4977,13 +4977,13 @@
       "close_j": 195.59,
       "stop_loss_technical": 185.81
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 196.27608183288572,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 205.15464060974122,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -5001,13 +5001,13 @@
       "close_j": 174.8,
       "stop_loss_technical": 166.06
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 174.95477877807616,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 182.42739060974122,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -5025,13 +5025,13 @@
       "close_j": 115.84,
       "stop_loss_technical": 110.05
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 116.50638938903808,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 121.18868756103515,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -5049,13 +5049,13 @@
       "close_j": 44.71,
       "stop_loss_technical": 42.47
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 45.36531969451904,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 49.33062106704712,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -5073,13 +5073,13 @@
       "close_j": 54.19,
       "stop_loss_technical": 51.48
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 54.19413938903808,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 54.36557817077637,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -5097,13 +5097,13 @@
       "close_j": 114.86,
       "stop_loss_technical": 109.12
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 115.32520908355711,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 122.3775,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -5121,13 +5121,13 @@
       "close_j": 161.63,
       "stop_loss_technical": 153.55
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 161.78161511230468,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 166.75307817077638,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -5145,13 +5145,13 @@
       "close_j": 31.12,
       "stop_loss_technical": 27.98
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 31.281249999999996,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 32.267699237823486,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -5169,13 +5169,13 @@
       "close_j": 166.46,
       "stop_loss_technical": 158.14
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 166.97680755615232,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 167.49234365844725,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -5193,13 +5193,13 @@
       "close_j": 259.91,
       "stop_loss_technical": 246.91
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 260.88061511230467,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 262.6370939025879,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -5217,13 +5217,13 @@
       "close_j": 78.42,
       "stop_loss_technical": 74.5
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 79.09901663970946,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 75.15477335357666,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -5265,13 +5265,13 @@
       "close_j": 41.26,
       "stop_loss_technical": 39.2
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 41.55150831985473,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 43.396558628082275,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -5289,13 +5289,13 @@
       "close_j": 196.21,
       "stop_loss_technical": 186.4
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 196.51632733154295,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 203.2965,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -5313,13 +5313,13 @@
       "close_j": 35.84,
       "stop_loss_technical": 34.05
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 36.39636061096191,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 35.85410939025879,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -5337,13 +5337,13 @@
       "close_j": 203.92,
       "stop_loss_technical": 193.72
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 204.39419244384763,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 204.07571878051758,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -5361,13 +5361,13 @@
       "close_j": 84.66,
       "stop_loss_technical": 80.43
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 84.4243363342285,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 91.41849213409424,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -5385,13 +5385,13 @@
       "close_j": 132.98,
       "stop_loss_technical": 126.33
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 134.33419694519043,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 145.4743751220703,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -5409,13 +5409,13 @@
       "close_j": 209.17,
       "stop_loss_technical": 198.71
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 209.33913488769528,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 218.16162487792968,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -5433,13 +5433,13 @@
       "close_j": 152.87,
       "stop_loss_technical": 145.23
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 152.67252427673338,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 157.3425,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -5457,13 +5457,13 @@
       "close_j": 148.13,
       "stop_loss_technical": 140.72
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 150.2601106109619,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 144.32553121948243,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -5481,14 +5481,14 @@
       "close_j": 288.78,
       "stop_loss_technical": 274.34
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 287.77748022460935,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 307.62206268310547,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -5505,13 +5505,13 @@
       "close_j": 63.6,
       "stop_loss_technical": 60.42
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 64.02395908355712,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 67.66227335357667,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -5529,13 +5529,13 @@
       "close_j": 71.77,
       "stop_loss_technical": 68.18
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 72.60252877807616,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 76.0338906097412,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -5553,13 +5553,13 @@
       "close_j": 54.91,
       "stop_loss_technical": 52.16
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 55.05499999999999,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 55.394550762176515,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -5577,13 +5577,13 @@
       "close_j": 339.36,
       "stop_loss_technical": 322.39
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 339.20886511230464,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 360.3492814636231,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -5625,13 +5625,13 @@
       "close_j": 139.64,
       "stop_loss_technical": 132.66
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 139.4793363342285,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 139.50035939025878,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -5649,13 +5649,13 @@
       "close_j": 87.86,
       "stop_loss_technical": 83.47
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 89.88980305480956,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 89.16075,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -5673,13 +5673,13 @@
       "close_j": 82.35,
       "stop_loss_technical": 78.23
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 82.6825984725952,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 82.09782030487061,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -5697,13 +5697,13 @@
       "close_j": 893.48,
       "stop_loss_technical": 848.81
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 897.4165395507812,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 954.5145007324219,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -5721,13 +5721,13 @@
       "close_j": 1025.02,
       "stop_loss_technical": 973.77
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 1026.0249999999999,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 1027.9510004882814,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -5745,13 +5745,13 @@
       "close_j": 27.72,
       "stop_loss_technical": 26.33
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 28.038010229110714,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 30.799169923782348,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -5769,13 +5769,13 @@
       "close_j": 472.98,
       "stop_loss_technical": 449.33
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 471.4910090026855,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 483.1164060974121,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -5793,13 +5793,13 @@
       "close_j": 139.01,
       "stop_loss_technical": 132.06
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 138.33819694519042,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 136.79306268310546,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -5865,13 +5865,13 @@
       "close_j": 300.98,
       "stop_loss_technical": 285.93
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 301.33102877807613,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 302.16753121948244,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -5913,13 +5913,13 @@
       "close_j": 177.78,
       "stop_loss_technical": 168.89
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 178.81863938903805,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 183.6861251220703,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -5937,14 +5937,14 @@
       "close_j": 102.69,
       "stop_loss_technical": 97.01
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 102.04194244384765,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 106.55334365844726,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -5961,13 +5961,13 @@
       "close_j": 572.47,
       "stop_loss_technical": 543.85
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 576.5759999999999,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 592.2571256103515,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -5985,13 +5985,13 @@
       "close_j": 119.53,
       "stop_loss_technical": 113.55
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 120.08997122192382,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 113.43645,
+      "exit_date": "2026-01-06",
+      "exit_reason": "SL",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -6009,13 +6009,13 @@
       "close_j": 184.5,
       "stop_loss_technical": 175.28
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 184.58439389038085,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 185.37443756103517,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -6033,13 +6033,13 @@
       "close_j": 317.21,
       "stop_loss_technical": 301.35
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 317.8275197753906,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 334.27537536621094,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -6057,13 +6057,13 @@
       "close_j": 1245.67,
       "stop_loss_technical": 1183.39
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 1277.6463651123045,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 1393.605,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -6081,13 +6081,13 @@
       "close_j": 184.68,
       "stop_loss_technical": 175.45
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 185.37519244384762,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 197.3025,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -6105,13 +6105,13 @@
       "close_j": 172.27,
       "stop_loss_technical": 162.0
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 175.855672668457,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 206.75304670715332,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -6129,13 +6129,13 @@
       "close_j": 572.23,
       "stop_loss_technical": 543.62
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 572.8022104492187,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 579.7596868286133,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -6153,13 +6153,13 @@
       "close_j": 76.26,
       "stop_loss_technical": 72.45
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 76.33626213836669,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 75.64428121948242,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -6177,13 +6177,13 @@
       "close_j": 937.11,
       "stop_loss_technical": 890.25
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 977.0260377807616,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 1004.3746248779297,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -6201,13 +6201,13 @@
       "close_j": 101.09,
       "stop_loss_technical": 96.04
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 100.73062725067138,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 108.76113274383545,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -6249,13 +6249,13 @@
       "close_j": 568.28,
       "stop_loss_technical": 539.87
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 567.6670755615233,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 586.3730619506836,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -6273,13 +6273,13 @@
       "close_j": 485.92,
       "stop_loss_technical": 461.62
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 486.6061151123046,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 478.0314997558594,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -6297,13 +6297,13 @@
       "close_j": 205.82,
       "stop_loss_technical": 195.53
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 205.4952832794189,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 211.11867182922364,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -6321,13 +6321,13 @@
       "close_j": 33.02,
       "stop_loss_technical": 31.37
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 33.11308183288574,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 32.697269542694094,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -6345,14 +6345,14 @@
       "close_j": 1402.51,
       "stop_loss_technical": 1332.38
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 1413.2918848876952,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 1483.6648743896485,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -6369,13 +6369,13 @@
       "close_j": 265.92,
       "stop_loss_technical": 245.0
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 277.4271438903808,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 343.08656268310546,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -6393,14 +6393,14 @@
       "close_j": 95.36,
       "stop_loss_technical": 90.59
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 95.4553606109619,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 100.58931243896484,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -6417,13 +6417,13 @@
       "close_j": 240.38,
       "stop_loss_technical": 228.36
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 240.70046672058103,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 251.748,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -6441,13 +6441,13 @@
       "close_j": 101.29,
       "stop_loss_technical": 96.23
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 104.90480305480956,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 109.09079695129394,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -6465,13 +6465,13 @@
       "close_j": 156.2,
       "stop_loss_technical": 148.39
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 158.25810610961912,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 157.9419060974121,
+      "exit_date": "2026-01-06",
+      "exit_reason": "BE",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -6489,13 +6489,13 @@
       "close_j": 139.46,
       "stop_loss_technical": 132.49
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 139.78964389038083,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 143.9758751220703,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -6513,13 +6513,13 @@
       "close_j": 159.15,
       "stop_loss_technical": 151.19
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 160.23007733154296,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 169.1806560974121,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -6537,14 +6537,14 @@
       "close_j": 226.27,
       "stop_loss_technical": 214.96
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 229.9697454986572,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 245.70404695129395,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -6561,13 +6561,13 @@
       "close_j": 55.21,
       "stop_loss_technical": 52.45
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 55.715659847259516,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 61.69823832321167,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -6585,14 +6585,14 @@
       "close_j": 111.57,
       "stop_loss_technical": 105.99
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 112.00188938903807,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 116.96292182922363,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -6609,14 +6609,14 @@
       "close_j": 874.81,
       "stop_loss_technical": 831.07
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 877.9570971069335,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 927.8312497558594,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -6633,13 +6633,13 @@
       "close_j": 210.2,
       "stop_loss_technical": 199.69
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 210.4101969451904,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 217.82195329284667,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -6657,13 +6657,13 @@
       "close_j": 103.87,
       "stop_loss_technical": 98.68
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 103.9738727493286,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 104.36553121948242,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -6681,13 +6681,13 @@
       "close_j": 175.25,
       "stop_loss_technical": 166.49
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 177.73755755615232,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 182.26754695129395,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -6705,13 +6705,13 @@
       "close_j": 767.96,
       "stop_loss_technical": 729.56
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 766.6058668823241,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 775.7634380493164,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -6729,13 +6729,13 @@
       "close_j": 163.01,
       "stop_loss_technical": 154.86
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 163.81364389038083,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 168.6911406097412,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -6753,13 +6753,13 @@
       "close_j": 182.01,
       "stop_loss_technical": 172.91
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 183.0428606109619,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 190.2095939025879,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -6777,13 +6777,13 @@
       "close_j": 98.82,
       "stop_loss_technical": 93.88
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 99.65955755615234,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 103.46642969512939,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -6801,13 +6801,13 @@
       "close_j": 346.31,
       "stop_loss_technical": 328.99
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 346.526172668457,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 357.3722809753418,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -6825,13 +6825,13 @@
       "close_j": 81.59,
       "stop_loss_technical": 77.51
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 81.36127877807617,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 83.07684365844726,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -6849,13 +6849,13 @@
       "close_j": 254.34,
       "stop_loss_technical": 241.62
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 252.8125575561523,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 259.76996878051756,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -6873,13 +6873,13 @@
       "close_j": 128.5,
       "stop_loss_technical": 122.07
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 129.24911511230468,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 134.18568731689453,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -6921,13 +6921,13 @@
       "close_j": 84.68,
       "stop_loss_technical": 80.45
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 85.55547122192382,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 88.38153121948243,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -6945,13 +6945,13 @@
       "close_j": 229.98,
       "stop_loss_technical": 218.48
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 233.00277427673336,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 231.07868756103517,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -6969,13 +6969,13 @@
       "close_j": 195.18,
       "stop_loss_technical": 185.42
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 201.25105305480955,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 228.61115634155274,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -7017,13 +7017,13 @@
       "close_j": 567.83,
       "stop_loss_technical": 539.44
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 569.3988471069335,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 620.0992507324219,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -7041,13 +7041,13 @@
       "close_j": 178.93,
       "stop_loss_technical": 169.98
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 182.12194244384764,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 177.73209365844727,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -7089,13 +7089,13 @@
       "close_j": 247.4,
       "stop_loss_technical": 235.03
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 247.64739389038084,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 254.0956560974121,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -7113,13 +7113,13 @@
       "close_j": 54.16,
       "stop_loss_technical": 51.45
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 54.164110610961906,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 56.02392182922363,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -7137,13 +7137,13 @@
       "close_j": 349.25,
       "stop_loss_technical": 331.79
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 350.34999999999997,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 357.20243756103514,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -7161,13 +7161,13 @@
       "close_j": 162.71,
       "stop_loss_technical": 154.57
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 164.6544954986572,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 178.09173426818847,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -7185,13 +7185,13 @@
       "close_j": 291.87,
       "stop_loss_technical": 277.28
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 294.36407733154294,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 299.5501560974121,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -7209,13 +7209,13 @@
       "close_j": 456.2,
       "stop_loss_technical": 433.39
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 454.7943363342285,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 467.9116248779297,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -7233,13 +7233,13 @@
       "close_j": 216.14,
       "stop_loss_technical": 205.33
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 217.11689389038082,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 220.71906243896484,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -7257,14 +7257,14 @@
       "close_j": 378.03,
       "stop_loss_technical": 359.13
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 383.0726924438476,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 400.13946853637697,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -7305,13 +7305,13 @@
       "close_j": 93.01,
       "stop_loss_technical": 88.36
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 93.29319694519042,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 96.2936093902588,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -7353,14 +7353,14 @@
       "close_j": 272.54,
       "stop_loss_technical": 258.91
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 271.80152877807615,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 280.54915658569337,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -7377,13 +7377,13 @@
       "close_j": 332.56,
       "stop_loss_technical": 315.93
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 331.31099099731443,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 335.76390609741213,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -7401,13 +7401,13 @@
       "close_j": 116.69,
       "stop_loss_technical": 110.86
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 117.4573363342285,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 120.92895304870605,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -7425,13 +7425,13 @@
       "close_j": 135.29,
       "stop_loss_technical": 127.95
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 137.13699999999997,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 141.23862487792968,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -7449,13 +7449,13 @@
       "close_j": 576.22,
       "stop_loss_technical": 533.08
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 585.0744802246093,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 622.4669368286133,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -7473,13 +7473,13 @@
       "close_j": 339.36,
       "stop_loss_technical": 323.53
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 339.20886511230464,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 360.3492814636231,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -7497,13 +7497,13 @@
       "close_j": 87.86,
       "stop_loss_technical": 81.62
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 89.88980305480956,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 89.16075,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -7521,13 +7521,13 @@
       "close_j": 229.98,
       "stop_loss_technical": 220.74
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 233.00277427673336,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 231.07868756103517,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -7545,13 +7545,13 @@
       "close_j": 273.67,
       "stop_loss_technical": 259.99
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 273.13284533691404,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 262.09762536621093,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -7569,13 +7569,13 @@
       "close_j": 226.82,
       "stop_loss_technical": 215.48
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 226.3361106109619,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 223.70606268310547,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -7593,14 +7593,14 @@
       "close_j": 145.88,
       "stop_loss_technical": 133.88
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 147.04689389038083,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 157.9918439025879,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -7617,13 +7617,13 @@
       "close_j": 205.0,
       "stop_loss_technical": 194.75
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 204.07386511230467,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 207.71207817077638,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -7641,13 +7641,13 @@
       "close_j": 160.0,
       "stop_loss_technical": 152.0
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 159.98983183288573,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 161.67815634155272,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -7665,13 +7665,13 @@
       "close_j": 256.41,
       "stop_loss_technical": 243.59
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 263.09281655883785,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 295.7139997558594,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -7689,14 +7689,14 @@
       "close_j": 203.29,
       "stop_loss_technical": 193.13
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 203.8136106109619,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 213.94584365844727,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -7713,13 +7713,13 @@
       "close_j": 327.38,
       "stop_loss_technical": 311.01
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 327.3370197753906,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 329.83984341430664,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -7737,14 +7737,14 @@
       "close_j": 227.35,
       "stop_loss_technical": 215.98
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 228.8386106109619,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 240.68906268310548,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -7761,13 +7761,13 @@
       "close_j": 135.29,
       "stop_loss_technical": 127.89
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 137.13699999999997,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 141.23862487792968,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -7785,14 +7785,14 @@
       "close_j": 78.29,
       "stop_loss_technical": 74.38
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 78.36829091644286,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 82.5273906097412,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -7809,13 +7809,13 @@
       "close_j": 340.36,
       "stop_loss_technical": 323.34
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 346.37602877807615,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 343.4262190246582,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -7833,13 +7833,13 @@
       "close_j": 376.51,
       "stop_loss_technical": 357.68
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 378.70831655883785,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 383.17643756103513,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -7857,13 +7857,13 @@
       "close_j": 195.59,
       "stop_loss_technical": 185.81
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 196.27608183288572,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 205.15464060974122,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -7881,13 +7881,13 @@
       "close_j": 174.8,
       "stop_loss_technical": 166.06
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 174.95477877807616,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 182.42739060974122,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -7905,13 +7905,13 @@
       "close_j": 115.84,
       "stop_loss_technical": 110.05
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 116.50638938903808,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 121.18868756103515,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -7929,13 +7929,13 @@
       "close_j": 44.71,
       "stop_loss_technical": 42.47
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 45.36531969451904,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 49.33062106704712,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -7953,13 +7953,13 @@
       "close_j": 54.19,
       "stop_loss_technical": 51.48
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 54.19413938903808,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 54.36557817077637,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -7977,13 +7977,13 @@
       "close_j": 114.86,
       "stop_loss_technical": 109.12
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 115.32520908355711,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 122.3775,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -8001,13 +8001,13 @@
       "close_j": 161.63,
       "stop_loss_technical": 153.55
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 161.78161511230468,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 166.75307817077638,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -8025,13 +8025,13 @@
       "close_j": 31.12,
       "stop_loss_technical": 27.98
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 31.281249999999996,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 32.267699237823486,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -8049,13 +8049,13 @@
       "close_j": 166.46,
       "stop_loss_technical": 158.14
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 166.97680755615232,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 167.49234365844725,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -8073,13 +8073,13 @@
       "close_j": 259.91,
       "stop_loss_technical": 246.91
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 260.88061511230467,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 262.6370939025879,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -8097,13 +8097,13 @@
       "close_j": 78.42,
       "stop_loss_technical": 74.5
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 79.09901663970946,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 75.15477335357666,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -8145,13 +8145,13 @@
       "close_j": 41.26,
       "stop_loss_technical": 39.2
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 41.55150831985473,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 43.396558628082275,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -8169,13 +8169,13 @@
       "close_j": 196.21,
       "stop_loss_technical": 186.4
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 196.51632733154295,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 203.2965,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -8193,13 +8193,13 @@
       "close_j": 35.84,
       "stop_loss_technical": 34.05
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 36.39636061096191,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 35.85410939025879,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -8217,13 +8217,13 @@
       "close_j": 203.92,
       "stop_loss_technical": 193.72
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 204.39419244384763,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 204.07571878051758,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -8241,13 +8241,13 @@
       "close_j": 84.66,
       "stop_loss_technical": 80.43
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 84.4243363342285,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 91.41849213409424,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -8265,13 +8265,13 @@
       "close_j": 132.98,
       "stop_loss_technical": 126.33
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 134.33419694519043,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 145.4743751220703,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -8289,13 +8289,13 @@
       "close_j": 209.17,
       "stop_loss_technical": 198.71
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 209.33913488769528,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 218.16162487792968,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -8313,13 +8313,13 @@
       "close_j": 152.87,
       "stop_loss_technical": 145.23
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 152.67252427673338,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 157.3425,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -8337,13 +8337,13 @@
       "close_j": 148.13,
       "stop_loss_technical": 140.72
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 150.2601106109619,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 144.32553121948243,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -8361,14 +8361,14 @@
       "close_j": 288.78,
       "stop_loss_technical": 274.34
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 287.77748022460935,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 307.62206268310547,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -8385,13 +8385,13 @@
       "close_j": 63.6,
       "stop_loss_technical": 60.42
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 64.02395908355712,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 67.66227335357667,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -8409,13 +8409,13 @@
       "close_j": 71.77,
       "stop_loss_technical": 68.18
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 72.60252877807616,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 76.0338906097412,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -8433,13 +8433,13 @@
       "close_j": 54.91,
       "stop_loss_technical": 52.16
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 55.05499999999999,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 55.394550762176515,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -8457,13 +8457,13 @@
       "close_j": 339.36,
       "stop_loss_technical": 322.39
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 339.20886511230464,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 360.3492814636231,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -8505,13 +8505,13 @@
       "close_j": 139.64,
       "stop_loss_technical": 132.66
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 139.4793363342285,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 139.50035939025878,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -8529,13 +8529,13 @@
       "close_j": 87.86,
       "stop_loss_technical": 83.47
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 89.88980305480956,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 89.16075,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -8553,13 +8553,13 @@
       "close_j": 82.35,
       "stop_loss_technical": 78.23
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 82.6825984725952,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 82.09782030487061,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -8577,13 +8577,13 @@
       "close_j": 893.48,
       "stop_loss_technical": 848.81
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 897.4165395507812,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 954.5145007324219,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -8601,13 +8601,13 @@
       "close_j": 1025.02,
       "stop_loss_technical": 973.77
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 1026.0249999999999,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 1027.9510004882814,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -8625,13 +8625,13 @@
       "close_j": 27.72,
       "stop_loss_technical": 26.33
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 28.038010229110714,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 30.799169923782348,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -8649,13 +8649,13 @@
       "close_j": 472.98,
       "stop_loss_technical": 449.33
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 471.4910090026855,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 483.1164060974121,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -8673,13 +8673,13 @@
       "close_j": 139.01,
       "stop_loss_technical": 132.06
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 138.33819694519042,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 136.79306268310546,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -8745,13 +8745,13 @@
       "close_j": 300.98,
       "stop_loss_technical": 285.93
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 301.33102877807613,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 302.16753121948244,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -8793,13 +8793,13 @@
       "close_j": 177.78,
       "stop_loss_technical": 168.89
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 178.81863938903805,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 183.6861251220703,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -8817,14 +8817,14 @@
       "close_j": 102.69,
       "stop_loss_technical": 97.01
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 102.04194244384765,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 106.55334365844726,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -8841,13 +8841,13 @@
       "close_j": 572.47,
       "stop_loss_technical": 543.85
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 576.5759999999999,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 592.2571256103515,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -8865,13 +8865,13 @@
       "close_j": 119.53,
       "stop_loss_technical": 113.55
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 120.08997122192382,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 113.43645,
+      "exit_date": "2026-01-06",
+      "exit_reason": "SL",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -8889,13 +8889,13 @@
       "close_j": 184.5,
       "stop_loss_technical": 175.28
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 184.58439389038085,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 185.37443756103517,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -8913,13 +8913,13 @@
       "close_j": 317.21,
       "stop_loss_technical": 301.35
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 317.8275197753906,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 334.27537536621094,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -8937,13 +8937,13 @@
       "close_j": 1245.67,
       "stop_loss_technical": 1183.39
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 1277.6463651123045,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 1393.605,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -8961,13 +8961,13 @@
       "close_j": 184.68,
       "stop_loss_technical": 175.45
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 185.37519244384762,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 197.3025,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -8985,13 +8985,13 @@
       "close_j": 172.27,
       "stop_loss_technical": 162.0
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 175.855672668457,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 206.75304670715332,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -9009,13 +9009,13 @@
       "close_j": 572.23,
       "stop_loss_technical": 543.62
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 572.8022104492187,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 579.7596868286133,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -9033,13 +9033,13 @@
       "close_j": 76.26,
       "stop_loss_technical": 72.45
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 76.33626213836669,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 75.64428121948242,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -9057,13 +9057,13 @@
       "close_j": 937.11,
       "stop_loss_technical": 890.25
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 977.0260377807616,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 1004.3746248779297,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -9081,13 +9081,13 @@
       "close_j": 101.09,
       "stop_loss_technical": 96.04
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 100.73062725067138,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 108.76113274383545,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -9129,13 +9129,13 @@
       "close_j": 568.28,
       "stop_loss_technical": 539.87
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 567.6670755615233,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 586.3730619506836,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -9153,13 +9153,13 @@
       "close_j": 485.92,
       "stop_loss_technical": 461.62
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 486.6061151123046,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 478.0314997558594,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -9177,13 +9177,13 @@
       "close_j": 205.82,
       "stop_loss_technical": 195.53
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 205.4952832794189,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 211.11867182922364,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -9201,13 +9201,13 @@
       "close_j": 33.02,
       "stop_loss_technical": 31.37
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 33.11308183288574,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 32.697269542694094,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -9225,14 +9225,14 @@
       "close_j": 1402.51,
       "stop_loss_technical": 1332.38
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 1413.2918848876952,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 1483.6648743896485,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -9249,13 +9249,13 @@
       "close_j": 265.92,
       "stop_loss_technical": 245.0
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 277.4271438903808,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 343.08656268310546,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -9273,14 +9273,14 @@
       "close_j": 95.36,
       "stop_loss_technical": 90.59
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 95.4553606109619,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 100.58931243896484,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -9297,13 +9297,13 @@
       "close_j": 240.38,
       "stop_loss_technical": 228.36
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 240.70046672058103,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 251.748,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -9321,13 +9321,13 @@
       "close_j": 101.29,
       "stop_loss_technical": 96.23
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 104.90480305480956,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 109.09079695129394,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -9345,13 +9345,13 @@
       "close_j": 156.2,
       "stop_loss_technical": 148.39
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 158.25810610961912,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 157.9419060974121,
+      "exit_date": "2026-01-06",
+      "exit_reason": "BE",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -9369,13 +9369,13 @@
       "close_j": 139.46,
       "stop_loss_technical": 132.49
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 139.78964389038083,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 143.9758751220703,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -9393,13 +9393,13 @@
       "close_j": 159.15,
       "stop_loss_technical": 151.19
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 160.23007733154296,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 169.1806560974121,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -9417,14 +9417,14 @@
       "close_j": 226.27,
       "stop_loss_technical": 214.96
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 229.9697454986572,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 245.70404695129395,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -9441,13 +9441,13 @@
       "close_j": 55.21,
       "stop_loss_technical": 52.45
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 55.715659847259516,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 61.69823832321167,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -9465,14 +9465,14 @@
       "close_j": 111.57,
       "stop_loss_technical": 105.99
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 112.00188938903807,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 116.96292182922363,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -9489,14 +9489,14 @@
       "close_j": 874.81,
       "stop_loss_technical": 831.07
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 877.9570971069335,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 927.8312497558594,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -9513,13 +9513,13 @@
       "close_j": 210.2,
       "stop_loss_technical": 199.69
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 210.4101969451904,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 217.82195329284667,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -9537,13 +9537,13 @@
       "close_j": 103.87,
       "stop_loss_technical": 98.68
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 103.9738727493286,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 104.36553121948242,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -9561,13 +9561,13 @@
       "close_j": 175.25,
       "stop_loss_technical": 166.49
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 177.73755755615232,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 182.26754695129395,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -9585,13 +9585,13 @@
       "close_j": 767.96,
       "stop_loss_technical": 729.56
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 766.6058668823241,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 775.7634380493164,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -9609,13 +9609,13 @@
       "close_j": 163.01,
       "stop_loss_technical": 154.86
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 163.81364389038083,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 168.6911406097412,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -9633,13 +9633,13 @@
       "close_j": 182.01,
       "stop_loss_technical": 172.91
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 183.0428606109619,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 190.2095939025879,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -9657,13 +9657,13 @@
       "close_j": 98.82,
       "stop_loss_technical": 93.88
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 99.65955755615234,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 103.46642969512939,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -9681,13 +9681,13 @@
       "close_j": 346.31,
       "stop_loss_technical": 328.99
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 346.526172668457,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 357.3722809753418,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -9705,13 +9705,13 @@
       "close_j": 81.59,
       "stop_loss_technical": 77.51
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 81.36127877807617,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 83.07684365844726,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -9729,13 +9729,13 @@
       "close_j": 254.34,
       "stop_loss_technical": 241.62
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 252.8125575561523,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 259.76996878051756,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -9753,13 +9753,13 @@
       "close_j": 128.5,
       "stop_loss_technical": 122.07
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 129.24911511230468,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 134.18568731689453,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -9801,13 +9801,13 @@
       "close_j": 84.68,
       "stop_loss_technical": 80.45
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 85.55547122192382,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 88.38153121948243,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -9825,13 +9825,13 @@
       "close_j": 229.98,
       "stop_loss_technical": 218.48
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 233.00277427673336,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 231.07868756103517,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -9849,13 +9849,13 @@
       "close_j": 195.18,
       "stop_loss_technical": 185.42
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 201.25105305480955,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 228.61115634155274,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -9897,13 +9897,13 @@
       "close_j": 567.83,
       "stop_loss_technical": 539.44
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 569.3988471069335,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 620.0992507324219,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -9921,13 +9921,13 @@
       "close_j": 178.93,
       "stop_loss_technical": 169.98
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 182.12194244384764,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 177.73209365844727,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -9969,13 +9969,13 @@
       "close_j": 247.4,
       "stop_loss_technical": 235.03
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 247.64739389038084,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 254.0956560974121,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -9993,13 +9993,13 @@
       "close_j": 54.16,
       "stop_loss_technical": 51.45
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 54.164110610961906,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 56.02392182922363,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -10017,13 +10017,13 @@
       "close_j": 349.25,
       "stop_loss_technical": 331.79
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 350.34999999999997,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 357.20243756103514,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -10041,13 +10041,13 @@
       "close_j": 162.71,
       "stop_loss_technical": 154.57
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 164.6544954986572,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 178.09173426818847,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -10065,13 +10065,13 @@
       "close_j": 291.87,
       "stop_loss_technical": 277.28
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 294.36407733154294,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 299.5501560974121,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -10089,13 +10089,13 @@
       "close_j": 456.2,
       "stop_loss_technical": 433.39
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 454.7943363342285,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 467.9116248779297,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -10113,13 +10113,13 @@
       "close_j": 216.14,
       "stop_loss_technical": 205.33
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 217.11689389038082,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 220.71906243896484,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -10137,14 +10137,14 @@
       "close_j": 378.03,
       "stop_loss_technical": 359.13
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 383.0726924438476,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 400.13946853637697,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -10185,13 +10185,13 @@
       "close_j": 93.01,
       "stop_loss_technical": 88.36
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 93.29319694519042,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 96.2936093902588,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -10233,14 +10233,14 @@
       "close_j": 272.54,
       "stop_loss_technical": 258.91
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 271.80152877807615,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
-      "breakeven_activated": false,
+      "exit_price": 280.54915658569337,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -10257,13 +10257,13 @@
       "close_j": 332.56,
       "stop_loss_technical": 315.93
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 331.31099099731443,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 335.76390609741213,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -10281,13 +10281,13 @@
       "close_j": 116.69,
       "stop_loss_technical": 110.86
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 117.4573363342285,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 120.92895304870605,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -10305,13 +10305,13 @@
       "close_j": 135.29,
       "stop_loss_technical": 127.95
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 137.13699999999997,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 141.23862487792968,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -10329,13 +10329,13 @@
       "close_j": 576.22,
       "stop_loss_technical": 533.08
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 585.0744802246093,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 622.4669368286133,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -10353,13 +10353,13 @@
       "close_j": 339.36,
       "stop_loss_technical": 323.53
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 339.20886511230464,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 360.3492814636231,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -10377,13 +10377,13 @@
       "close_j": 87.86,
       "stop_loss_technical": 81.62
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 89.88980305480956,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 89.16075,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -10401,13 +10401,13 @@
       "close_j": 229.98,
       "stop_loss_technical": 220.89
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 233.00277427673336,
       "entry_date": "2025-12-22",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 231.07868756103517,
+      "exit_date": "2026-01-06",
+      "exit_reason": "TIME",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -10425,13 +10425,13 @@
       "close_j": 135.14,
       "stop_loss_technical": 128.2
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 133.79366366577148,
       "entry_date": "2025-12-23",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 133.52634365844727,
+      "exit_date": "2026-01-06",
+      "exit_reason": "BE",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -10528,7 +10528,7 @@
       "exit_price": null,
       "exit_date": null,
       "exit_reason": null,
-      "breakeven_activated": false,
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -10569,13 +10569,13 @@
       "close_j": 361.33,
       "stop_loss_technical": 345.26
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 360.98061511230463,
       "entry_date": "2025-12-24",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 360.2593751220703,
+      "exit_date": "2026-01-06",
+      "exit_reason": "BE",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -10641,13 +10641,13 @@
       "close_j": 232.69,
       "stop_loss_technical": 221.5
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 233.23299999999998,
       "entry_date": "2025-12-24",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 221.2785,
+      "exit_date": "2026-01-06",
+      "exit_reason": "SL",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -10720,7 +10720,7 @@
       "exit_price": null,
       "exit_date": null,
       "exit_reason": null,
-      "breakeven_activated": false,
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -10761,13 +10761,13 @@
       "close_j": 231.9,
       "stop_loss_technical": 221.71
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 233.1128848876953,
       "entry_date": "2025-12-26",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 221.48829,
+      "exit_date": "2026-01-06",
+      "exit_reason": "SL",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -10840,7 +10840,7 @@
       "exit_price": null,
       "exit_date": null,
       "exit_reason": null,
-      "breakeven_activated": false,
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -10881,13 +10881,13 @@
       "close_j": 231.9,
       "stop_loss_technical": 221.71
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 233.1128848876953,
       "entry_date": "2025-12-26",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 221.48829,
+      "exit_date": "2026-01-06",
+      "exit_reason": "SL",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -10936,7 +10936,7 @@
       "exit_price": null,
       "exit_date": null,
       "exit_reason": null,
-      "breakeven_activated": false,
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -10984,7 +10984,7 @@
       "exit_price": null,
       "exit_date": null,
       "exit_reason": null,
-      "breakeven_activated": false,
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -11001,13 +11001,13 @@
       "close_j": 232.49,
       "stop_loss_technical": 221.9
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 231.19096672058103,
       "entry_date": "2025-12-29",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 221.6781,
+      "exit_date": "2026-01-06",
+      "exit_reason": "SL",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -11056,7 +11056,7 @@
       "exit_price": null,
       "exit_date": null,
       "exit_reason": null,
-      "breakeven_activated": false,
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -11104,7 +11104,7 @@
       "exit_price": null,
       "exit_date": null,
       "exit_reason": null,
-      "breakeven_activated": false,
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -11121,13 +11121,13 @@
       "close_j": 232.49,
       "stop_loss_technical": 221.9
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 231.19096672058103,
       "entry_date": "2025-12-29",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 221.6781,
+      "exit_date": "2026-01-06",
+      "exit_reason": "SL",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -11176,7 +11176,7 @@
       "exit_price": null,
       "exit_date": null,
       "exit_reason": null,
-      "breakeven_activated": false,
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -11224,7 +11224,7 @@
       "exit_price": null,
       "exit_date": null,
       "exit_reason": null,
-      "breakeven_activated": false,
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -11241,13 +11241,13 @@
       "close_j": 232.49,
       "stop_loss_technical": 221.9
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 231.19096672058103,
       "entry_date": "2025-12-29",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 221.6781,
+      "exit_date": "2026-01-06",
+      "exit_reason": "SL",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -11265,13 +11265,13 @@
       "close_j": 134.15,
       "stop_loss_technical": 128.58
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
       "entry_price": 134.38424999999998,
       "entry_date": "2025-12-30",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 134.11575,
+      "exit_date": "2026-01-06",
+      "exit_reason": "BE",
       "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
@@ -11344,7 +11344,7 @@
       "exit_price": null,
       "exit_date": null,
       "exit_reason": null,
-      "breakeven_activated": false,
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -11368,7 +11368,7 @@
       "exit_price": null,
       "exit_date": null,
       "exit_reason": null,
-      "breakeven_activated": false,
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -11608,7 +11608,7 @@
       "exit_price": null,
       "exit_date": null,
       "exit_reason": null,
-      "breakeven_activated": false,
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -11745,13 +11745,13 @@
       "close_j": 223.47,
       "stop_loss_technical": 216.25
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
-      "entry_price": 230.54531744384764,
+      "entry_price": 230.48024999999998,
       "entry_date": "2026-01-05",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 216.03375,
+      "exit_date": "2026-01-06",
+      "exit_reason": "SL",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -11819,7 +11819,7 @@
     },
     "trade_status": "ACTIVE",
     "execution": {
-      "entry_price": 191.9067113342285,
+      "entry_price": 191.95175450134275,
       "entry_date": "2026-01-05",
       "exit_price": null,
       "exit_date": null,
@@ -11848,7 +11848,7 @@
       "exit_price": null,
       "exit_date": null,
       "exit_reason": null,
-      "breakeven_activated": false,
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -11865,13 +11865,13 @@
       "close_j": 223.47,
       "stop_loss_technical": 216.25
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
-      "entry_price": 230.54531744384764,
+      "entry_price": 230.48024999999998,
       "entry_date": "2026-01-05",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 216.03375,
+      "exit_date": "2026-01-06",
+      "exit_reason": "SL",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -11939,7 +11939,7 @@
     },
     "trade_status": "ACTIVE",
     "execution": {
-      "entry_price": 191.9067113342285,
+      "entry_price": 191.95175450134275,
       "entry_date": "2026-01-05",
       "exit_price": null,
       "exit_date": null,
@@ -11968,7 +11968,7 @@
       "exit_price": null,
       "exit_date": null,
       "exit_reason": null,
-      "breakeven_activated": false,
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -11985,13 +11985,13 @@
       "close_j": 223.47,
       "stop_loss_technical": 216.25
     },
-    "trade_status": "ACTIVE",
+    "trade_status": "CLOSED",
     "execution": {
-      "entry_price": 230.54531744384764,
+      "entry_price": 230.48024999999998,
       "entry_date": "2026-01-05",
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "exit_price": 216.03375,
+      "exit_date": "2026-01-06",
+      "exit_reason": "SL",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -12059,7 +12059,7 @@
     },
     "trade_status": "ACTIVE",
     "execution": {
-      "entry_price": 191.9067113342285,
+      "entry_price": 191.95175450134275,
       "entry_date": "2026-01-05",
       "exit_price": null,
       "exit_date": null,
@@ -12088,7 +12088,7 @@
       "exit_price": null,
       "exit_date": null,
       "exit_reason": null,
-      "breakeven_activated": false,
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -12105,10 +12105,10 @@
       "close_j": 163.85,
       "stop_loss_technical": 151.25
     },
-    "trade_status": "PENDING",
+    "trade_status": "ACTIVE",
     "execution": {
-      "entry_price": null,
-      "entry_date": null,
+      "entry_price": 165.91574999999997,
+      "entry_date": "2026-01-06",
       "exit_price": null,
       "exit_date": null,
       "exit_reason": null,
@@ -12129,14 +12129,14 @@
       "close_j": 142.85,
       "stop_loss_technical": 132.68
     },
-    "trade_status": "PENDING",
+    "trade_status": "ACTIVE",
     "execution": {
-      "entry_price": null,
-      "entry_date": null,
+      "entry_price": 138.21808183288573,
+      "entry_date": "2026-01-06",
       "exit_price": null,
       "exit_date": null,
       "exit_reason": null,
-      "breakeven_activated": false,
+      "breakeven_activated": true,
       "slippage": {
         "entry_factor": 1.001,
         "exit_factor": 0.999
@@ -12153,10 +12153,10 @@
       "close_j": 31.92,
       "stop_loss_technical": 28.21
     },
-    "trade_status": "PENDING",
+    "trade_status": "ACTIVE",
     "execution": {
-      "entry_price": null,
-      "entry_date": null,
+      "entry_price": 32.032,
+      "entry_date": "2026-01-06",
       "exit_price": null,
       "exit_date": null,
       "exit_reason": null,
@@ -12177,10 +12177,10 @@
       "close_j": 43.8,
       "stop_loss_technical": 38.07
     },
-    "trade_status": "PENDING",
+    "trade_status": "ACTIVE",
     "execution": {
-      "entry_price": null,
-      "entry_date": null,
+      "entry_price": 43.04299999999999,
+      "entry_date": "2026-01-06",
       "exit_price": null,
       "exit_date": null,
       "exit_reason": null,
@@ -12201,10 +12201,10 @@
       "close_j": 180.57,
       "stop_loss_technical": 162.08
     },
-    "trade_status": "PENDING",
+    "trade_status": "ACTIVE",
     "execution": {
-      "entry_price": null,
-      "entry_date": null,
+      "entry_price": 179.86969244384764,
+      "entry_date": "2026-01-06",
       "exit_price": null,
       "exit_date": null,
       "exit_reason": null,
@@ -12225,13 +12225,13 @@
       "close_j": 632.91,
       "stop_loss_technical": 604.53
     },
-    "trade_status": "PENDING",
+    "trade_status": "CLOSED",
     "execution": {
-      "entry_price": null,
-      "entry_date": null,
-      "exit_price": null,
-      "exit_date": null,
-      "exit_reason": null,
+      "entry_price": 630.4798255615234,
+      "entry_date": "2026-01-06",
+      "exit_price": 603.92547,
+      "exit_date": "2026-01-06",
+      "exit_reason": "SL",
       "breakeven_activated": false,
       "slippage": {
         "entry_factor": 1.001,
@@ -12249,10 +12249,10 @@
       "close_j": 204.36,
       "stop_loss_technical": 192.26
     },
-    "trade_status": "PENDING",
+    "trade_status": "ACTIVE",
     "execution": {
-      "entry_price": null,
-      "entry_date": null,
+      "entry_price": 204.58438488769528,
+      "entry_date": "2026-01-06",
       "exit_price": null,
       "exit_date": null,
       "exit_reason": null,
@@ -12273,10 +12273,10 @@
       "close_j": 88.69,
       "stop_loss_technical": 82.29
     },
-    "trade_status": "PENDING",
+    "trade_status": "ACTIVE",
     "execution": {
-      "entry_price": null,
-      "entry_date": null,
+      "entry_price": 92.13204091644286,
+      "entry_date": "2026-01-06",
       "exit_price": null,
       "exit_date": null,
       "exit_reason": null,
@@ -12297,10 +12297,10 @@
       "close_j": 64.64,
       "stop_loss_technical": 61.55
     },
-    "trade_status": "PENDING",
+    "trade_status": "ACTIVE",
     "execution": {
-      "entry_price": null,
-      "entry_date": null,
+      "entry_price": 65.08501663970947,
+      "entry_date": "2026-01-06",
       "exit_price": null,
       "exit_date": null,
       "exit_reason": null,
@@ -12320,6 +12320,246 @@
     "initial_data": {
       "close_j": 955.03,
       "stop_loss_technical": 909.84
+    },
+    "trade_status": "ACTIVE",
+    "execution": {
+      "entry_price": 946.4454999999999,
+      "entry_date": "2026-01-06",
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": true,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
+    "id": "sp500_phoenix_FCX_2026-01-06",
+    "date_signal": "2026-01-06",
+    "ticker": "FCX",
+    "universe": "sp500",
+    "strategy": "phoenix",
+    "initial_data": {
+      "close_j": 56.15,
+      "stop_loss_technical": 53.29
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
+    "id": "sp500_phoenix_LMT_2026-01-06",
+    "date_signal": "2026-01-06",
+    "ticker": "LMT",
+    "universe": "sp500",
+    "strategy": "phoenix",
+    "initial_data": {
+      "close_j": 522.04,
+      "stop_loss_technical": 495.94
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
+    "id": "sp500_phoenix_MCHP_2026-01-06",
+    "date_signal": "2026-01-06",
+    "ticker": "MCHP",
+    "universe": "sp500",
+    "strategy": "phoenix",
+    "initial_data": {
+      "close_j": 74.87,
+      "stop_loss_technical": 65.3
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
+    "id": "sp500_phoenix_SNDK_2026-01-06",
+    "date_signal": "2026-01-06",
+    "ticker": "SNDK",
+    "universe": "sp500",
+    "strategy": "phoenix",
+    "initial_data": {
+      "close_j": 349.63,
+      "stop_loss_technical": 266.33
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
+    "id": "sp500_phoenix_WDC_2026-01-06",
+    "date_signal": "2026-01-06",
+    "ticker": "WDC",
+    "universe": "sp500",
+    "strategy": "phoenix",
+    "initial_data": {
+      "close_j": 219.38,
+      "stop_loss_technical": 182.8
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
+    "id": "sp500_pullback_BG_2026-01-06",
+    "date_signal": "2026-01-06",
+    "ticker": "BG",
+    "universe": "sp500",
+    "strategy": "pullback",
+    "initial_data": {
+      "close_j": 94.36,
+      "stop_loss_technical": 89.03
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
+    "id": "sp500_pullback_EA_2026-01-06",
+    "date_signal": "2026-01-06",
+    "ticker": "EA",
+    "universe": "sp500",
+    "strategy": "pullback",
+    "initial_data": {
+      "close_j": 204.28,
+      "stop_loss_technical": 192.33
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
+    "id": "sp500_pullback_GLW_2026-01-06",
+    "date_signal": "2026-01-06",
+    "ticker": "GLW",
+    "universe": "sp500",
+    "strategy": "pullback",
+    "initial_data": {
+      "close_j": 89.25,
+      "stop_loss_technical": 82.36
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
+    "id": "sp500_pullback_HCA_2026-01-06",
+    "date_signal": "2026-01-06",
+    "ticker": "HCA",
+    "universe": "sp500",
+    "strategy": "pullback",
+    "initial_data": {
+      "close_j": 483.6,
+      "stop_loss_technical": 453.92
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
+    "id": "sp500_pullback_IDXX_2026-01-06",
+    "date_signal": "2026-01-06",
+    "ticker": "IDXX",
+    "universe": "sp500",
+    "strategy": "pullback",
+    "initial_data": {
+      "close_j": 706.83,
+      "stop_loss_technical": 662.99
     },
     "trade_status": "PENDING",
     "execution": {
