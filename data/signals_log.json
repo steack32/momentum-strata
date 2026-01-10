@@ -12755,7 +12755,7 @@
     },
     "trade_status": "ACTIVE",
     "execution": {
-      "entry_price": 14.36425014591217,
+      "entry_price": 14.364350381851194,
       "entry_date": "2026-01-09",
       "exit_price": null,
       "exit_date": null,
@@ -13202,6 +13202,246 @@
   {
     "id": "sp500_pullback_TEL_2026-01-09",
     "date_signal": "2026-01-09",
+    "ticker": "TEL",
+    "universe": "sp500",
+    "strategy": "pullback",
+    "initial_data": {
+      "close_j": 231.6,
+      "stop_loss_technical": 221.93
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
+    "id": "sp500_phoenix_BLDR_2026-01-10",
+    "date_signal": "2026-01-10",
+    "ticker": "BLDR",
+    "universe": "sp500",
+    "strategy": "phoenix",
+    "initial_data": {
+      "close_j": 124.66,
+      "stop_loss_technical": 103.5
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
+    "id": "sp500_phoenix_CEG_2026-01-10",
+    "date_signal": "2026-01-10",
+    "ticker": "CEG",
+    "universe": "sp500",
+    "strategy": "phoenix",
+    "initial_data": {
+      "close_j": 342.52,
+      "stop_loss_technical": 321.61
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
+    "id": "sp500_phoenix_DHI_2026-01-10",
+    "date_signal": "2026-01-10",
+    "ticker": "DHI",
+    "universe": "sp500",
+    "strategy": "phoenix",
+    "initial_data": {
+      "close_j": 157.28,
+      "stop_loss_technical": 137.7
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
+    "id": "sp500_phoenix_INTC_2026-01-10",
+    "date_signal": "2026-01-10",
+    "ticker": "INTC",
+    "universe": "sp500",
+    "strategy": "phoenix",
+    "initial_data": {
+      "close_j": 45.55,
+      "stop_loss_technical": 40.68
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
+    "id": "sp500_phoenix_PHM_2026-01-10",
+    "date_signal": "2026-01-10",
+    "ticker": "PHM",
+    "universe": "sp500",
+    "strategy": "phoenix",
+    "initial_data": {
+      "close_j": 132.2,
+      "stop_loss_technical": 116.05
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
+    "id": "sp500_pullback_APP_2026-01-10",
+    "date_signal": "2026-01-10",
+    "ticker": "APP",
+    "universe": "sp500",
+    "strategy": "pullback",
+    "initial_data": {
+      "close_j": 647.72,
+      "stop_loss_technical": 605.19
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
+    "id": "sp500_pullback_CAH_2026-01-10",
+    "date_signal": "2026-01-10",
+    "ticker": "CAH",
+    "universe": "sp500",
+    "strategy": "pullback",
+    "initial_data": {
+      "close_j": 201.11,
+      "stop_loss_technical": 192.34
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
+    "id": "sp500_pullback_IDXX_2026-01-10",
+    "date_signal": "2026-01-10",
+    "ticker": "IDXX",
+    "universe": "sp500",
+    "strategy": "pullback",
+    "initial_data": {
+      "close_j": 713.35,
+      "stop_loss_technical": 667.12
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
+    "id": "sp500_pullback_MPWR_2026-01-10",
+    "date_signal": "2026-01-10",
+    "ticker": "MPWR",
+    "universe": "sp500",
+    "strategy": "pullback",
+    "initial_data": {
+      "close_j": 958.97,
+      "stop_loss_technical": 901.2
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
+    "id": "sp500_pullback_TEL_2026-01-10",
+    "date_signal": "2026-01-10",
     "ticker": "TEL",
     "universe": "sp500",
     "strategy": "pullback",
