@@ -16438,5 +16438,29 @@
         "exit_factor": 0.999
       }
     }
+  },
+  {
+    "id": "sp500_phoenix_META_2026-01-29",
+    "date_signal": "2026-01-29",
+    "ticker": "META",
+    "universe": "sp500",
+    "strategy": "phoenix",
+    "initial_data": {
+      "close_j": 738.31,
+      "stop_loss_technical": 666.1
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
   }
 ]
