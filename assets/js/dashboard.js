@@ -1,0 +1,446 @@
+// assets/js/dashboard.js
+// Dépendances : shared.js (formatNumber)
+
+let equityChartInstance = null;
+let backtestChartInstance = null;
+
+function setText(id, value) {
+    const el = document.getElementById(id);
+    if (el) el.textContent = value;
+}
+
+function updatePerfCard(baseId, stats) {
+    const card = document.getElementById(baseId + "-card");
+    const noteId = baseId + "-note";
+
+    if (!card) return;
+
+    if (!stats || !stats.nb_trades || stats.nb_trades === 0) {
+        setText(baseId + "-nb", "0");
+        setText(baseId + "-avgR", "–");
+        setText(baseId + "-win", "–");
+        setText(baseId + "-be", "–");
+        setText(baseId + "-exp", "–");
+
+        const note = document.getElementById(noteId);
+        if (note) {
+            note.textContent = "Pas encore assez d'historique pour afficher des statistiques robustes.";
+        }
+        return;
+    }
+
+    setText(baseId + "-nb", stats.nb_trades);
+    setText(baseId + "-avgR", formatNumber(stats.avg_R, 3));
+    setText(baseId + "-win", formatNumber(stats.winrate, 1));
+    setText(baseId + "-be", formatNumber(stats.breakeven_rate, 1));
+    setText(baseId + "-exp", formatNumber(stats.expectancy_R, 3));
+
+    const note = document.getElementById(noteId);
+    if (note) {
+        note.textContent =
+            "Données issues de trades clôturés uniquement, en mode backtest trader (stop, breakeven, time-stop, slippage).";
+    }
+}
+
+function renderEquityChart(equityCurveAll) {
+    const container = document.getElementById("equity-chart-container");
+    const canvas = document.getElementById("equity-chart");
+    const noDataEl = document.getElementById("equity-no-data");
+
+    if (!container || !canvas) return;
+
+    if (!equityCurveAll || typeof equityCurveAll !== "object") {
+        container.classList.add("hidden");
+        if (noDataEl) noDataEl.classList.remove("hidden");
+        return;
+    }
+
+    const curves = {
+        "sp500_phoenix": equityCurveAll.sp500_phoenix,
+        "sp500_pullback": equityCurveAll.sp500_pullback,
+        "crypto_phoenix": equityCurveAll.crypto_phoenix,
+        "crypto_pullback": equityCurveAll.crypto_pullback,
+    };
+
+    const dateSet = new Set();
+    Object.values(curves).forEach((curve) => {
+        if (curve && Array.isArray(curve.dates)) {
+            curve.dates.forEach((d) => dateSet.add(d));
+        }
+    });
+
+    const allDates = Array.from(dateSet).sort();
+
+    if (allDates.length === 0) {
+        container.classList.add("hidden");
+        if (noDataEl) noDataEl.classList.remove("hidden");
+        return;
+    }
+
+    const datasetsMeta = [
+        {
+            key: "sp500_phoenix",
+            label: "S&P 500 • Phoenix",
+            borderColor: "rgba(251, 191, 36, 1)",
+            backgroundColor: "rgba(251, 191, 36, 0.12)",
+        },
+        {
+            key: "sp500_pullback",
+            label: "S&P 500 • Pullback",
+            borderColor: "rgba(34, 197, 94, 1)",
+            backgroundColor: "rgba(34, 197, 94, 0.12)",
+        },
+        {
+            key: "crypto_phoenix",
+            label: "Crypto • Phoenix",
+            borderColor: "rgba(56, 189, 248, 1)",
+            backgroundColor: "rgba(56, 189, 248, 0.12)",
+        },
+        {
+            key: "crypto_pullback",
+            label: "Crypto • Pullback",
+            borderColor: "rgba(244, 114, 182, 1)",
+            backgroundColor: "rgba(244, 114, 182, 0.12)",
+        },
+    ];
+
+    const datasets = [];
+
+    datasetsMeta.forEach((meta) => {
+        const curve = curves[meta.key];
+        if (!curve || !Array.isArray(curve.dates) || curve.dates.length === 0) {
+            return;
+        }
+
+        const dateToValue = {};
+        curve.dates.forEach((d, idx) => {
+            dateToValue[d] = curve.equity_pct[idx];
+        });
+
+        const serie = allDates.map((d) =>
+            Object.prototype.hasOwnProperty.call(dateToValue, d) ? dateToValue[d] : null
+        );
+
+        datasets.push({
+            label: meta.label,
+            data: serie,
+            borderColor: meta.borderColor,
+            backgroundColor: meta.backgroundColor,
+            borderWidth: 2,
+            tension: 0.25,
+            pointRadius: 0,
+            fill: false,
+        });
+    });
+
+    if (datasets.length === 0) {
+        container.classList.add("hidden");
+        if (noDataEl) noDataEl.classList.remove("hidden");
+        return;
+    }
+
+    container.classList.remove("hidden");
+    if (noDataEl) noDataEl.classList.add("hidden");
+
+    const ctx = canvas.getContext("2d");
+
+    if (equityChartInstance) {
+        equityChartInstance.destroy();
+    }
+
+    equityChartInstance = new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: allDates,
+            datasets,
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+                mode: "index",
+                intersect: false,
+            },
+            plugins: {
+                legend: {
+                    display: true,
+                    labels: {
+                        color: "#cbd5f5",
+                        font: { size: 11 },
+                        usePointStyle: true,
+                    },
+                },
+                tooltip: {
+                    callbacks: {
+                        title: function (items) {
+                            if (!items || !items.length) return "";
+                            return "Date : " + items[0].label;
+                        },
+                        label: function (context) {
+                            const v = context.parsed.y;
+                            if (v === null || v === undefined) return context.dataset.label + " : n.d.";
+                            return context.dataset.label + " : " + v.toFixed(2) + " %";
+                        },
+                    },
+                },
+            },
+            scales: {
+                x: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: "Temps",
+                        color: "#94a3b8",
+                        font: { size: 11 },
+                    },
+                    ticks: {
+                        maxTicksLimit: 8,
+                        color: "#64748b",
+                        font: { size: 10 },
+                    },
+                    grid: {
+                        color: "rgba(148, 163, 184, 0.15)",
+                    },
+                },
+                y: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: "Gains cumulés (%)",
+                        color: "#94a3b8",
+                        font: { size: 11 },
+                    },
+                    ticks: {
+                        color: "#64748b",
+                        font: { size: 10 },
+                    },
+                    grid: {
+                        color: "rgba(148, 163, 184, 0.15)",
+                    },
+                },
+            },
+        },
+    });
+}
+
+async function loadPerformanceSummary() {
+    const loadingEl = document.getElementById("perf-loading");
+    const errorEl = document.getElementById("perf-error");
+
+    try {
+        const response = await fetch("data/performance_summary.json", { cache: "no-cache" });
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (loadingEl) loadingEl.classList.add("hidden");
+        if (errorEl) errorEl.classList.add("hidden");
+
+        if (data.last_update) {
+            setText("perf-last-update", data.last_update);
+        }
+
+        updatePerfCard("sp500-phoenix", data.sp500_phoenix);
+        updatePerfCard("sp500-pullback", data.sp500_pullback);
+        updatePerfCard("crypto-phoenix", data.crypto_phoenix);
+        updatePerfCard("crypto-pullback", data.crypto_pullback);
+
+        renderEquityChart(data.equity_curve);
+    } catch (error) {
+        console.error("Erreur lors du chargement de performance_summary.json :", error);
+        if (loadingEl) loadingEl.classList.add("hidden");
+        if (errorEl) errorEl.classList.remove("hidden");
+    }
+}
+
+// ===== BACKTEST 2 ANS =====
+
+function renderBacktestEquityChart(globalCurve) {
+    const container = document.getElementById("backtest-equity-container");
+    const noDataEl = document.getElementById("backtest-equity-nodata");
+    const canvas = document.getElementById("backtest-equity-chart");
+
+    if (!container || !canvas || !noDataEl) return;
+
+    if (
+        !globalCurve ||
+        !Array.isArray(globalCurve.dates) ||
+        globalCurve.dates.length === 0 ||
+        !Array.isArray(globalCurve.equity_pct)
+    ) {
+        container.classList.add("hidden");
+        noDataEl.classList.remove("hidden");
+        return;
+    }
+
+    container.classList.remove("hidden");
+    noDataEl.classList.add("hidden");
+
+    const ctx = canvas.getContext("2d");
+
+    if (backtestChartInstance) {
+        backtestChartInstance.destroy();
+    }
+
+    backtestChartInstance = new Chart(ctx, {
+        type: "line",
+        data: {
+            labels: globalCurve.dates,
+            datasets: [
+                {
+                    label: "Équité cumulée (%) – toutes stratégies",
+                    data: globalCurve.equity_pct,
+                    borderColor: "rgba(37, 99, 235, 1)",
+                    backgroundColor: "rgba(37, 99, 235, 0.12)",
+                    borderWidth: 2,
+                    tension: 0.25,
+                    pointRadius: 0,
+                    fill: true,
+                },
+            ],
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            interaction: {
+                mode: "index",
+                intersect: false,
+            },
+            plugins: {
+                legend: {
+                    display: true,
+                    labels: {
+                        color: "#cbd5f5",
+                        font: { size: 11 },
+                        usePointStyle: true,
+                    },
+                },
+                tooltip: {
+                    callbacks: {
+                        title: function (items) {
+                            if (!items || !items.length) return "";
+                            return "Date : " + items[0].label;
+                        },
+                        label: function (context) {
+                            const v = context.parsed.y;
+                            if (v === null || v === undefined) return "Équité : n.d.";
+                            return "Équité : " + v.toFixed(2) + " %";
+                        },
+                    },
+                },
+            },
+            scales: {
+                x: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: "Temps",
+                        color: "#94a3b8",
+                        font: { size: 11 },
+                    },
+                    ticks: {
+                        maxTicksLimit: 8,
+                        color: "#64748b",
+                        font: { size: 10 },
+                    },
+                    grid: {
+                        color: "rgba(148, 163, 184, 0.15)",
+                    },
+                },
+                y: {
+                    display: true,
+                    title: {
+                        display: true,
+                        text: "Gains cumulés (%)",
+                        color: "#94a3b8",
+                        font: { size: 11 },
+                    },
+                    ticks: {
+                        color: "#64748b",
+                        font: { size: 10 },
+                    },
+                    grid: {
+                        color: "rgba(148, 163, 184, 0.15)",
+                    },
+                },
+            },
+        },
+    });
+}
+
+function updateBacktestTable(summary) {
+    const tbody = document.getElementById("backtest-stats-body");
+    if (!tbody) return;
+
+    const strategies = [
+        { key: "sp500_phoenix", label: "S&P 500 • Phoenix" },
+        { key: "sp500_pullback", label: "S&P 500 • Pullback" },
+        { key: "crypto_phoenix", label: "Crypto • Phoenix" },
+        { key: "crypto_pullback", label: "Crypto • Pullback" },
+    ];
+
+    tbody.innerHTML = "";
+
+    strategies.forEach((s) => {
+        const stats = summary[s.key] || {};
+        const nb = stats.nb_trades || 0;
+
+        const avgR = nb > 0 ? formatNumber(stats.avg_R, 3) : "–";
+        const win = nb > 0 ? formatNumber(stats.winrate, 1) + " %" : "–";
+        const be = nb > 0 ? formatNumber(stats.breakeven_rate, 1) + " %" : "–";
+        const exp = nb > 0 ? formatNumber(stats.expectancy_R, 3) : "–";
+        const avgWin = nb > 0 ? formatNumber(stats.avg_win_R, 3) : "–";
+        const avgLoss = nb > 0 ? formatNumber(stats.avg_loss_R, 3) : "–";
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td class="py-2 pr-4 font-semibold text-slate-100">${s.label}</td>
+            <td class="py-2 px-4">${nb}</td>
+            <td class="py-2 px-4">${avgR}</td>
+            <td class="py-2 px-4">${win}</td>
+            <td class="py-2 px-4">${be}</td>
+            <td class="py-2 px-4">${exp}</td>
+            <td class="py-2 px-4">${avgWin}</td>
+            <td class="py-2 px-4">${avgLoss}</td>
+        `;
+        tbody.appendChild(tr);
+    });
+}
+
+async function loadBacktestSummary() {
+    try {
+        const response = await fetch("data/performance_backtest.json", { cache: "no-cache" });
+        if (!response.ok) {
+            throw new Error(`HTTP ${response.status}`);
+        }
+
+        const data = await response.json();
+
+        if (data.last_update) {
+            setText("backtest-last-update", data.last_update);
+        }
+
+        const globalCurve =
+            data.equity_curve && typeof data.equity_curve === "object"
+                ? data.equity_curve.global
+                : null;
+
+        renderBacktestEquityChart(globalCurve);
+        updateBacktestTable(data);
+    } catch (error) {
+        console.error("Erreur lors du chargement de performance_backtest.json :", error);
+        const errEl = document.getElementById("backtest-error-msg");
+        if (errEl) {
+            errEl.textContent =
+                "Erreur de chargement du backtest : " + (error && error.message ? error.message : error);
+            errEl.classList.remove("hidden");
+        }
+    }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    loadPerformanceSummary();
+    loadBacktestSummary();
+});

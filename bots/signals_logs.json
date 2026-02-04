@@ -1,0 +1,26 @@
+[
+  {
+    "id": "sp500_phoenix_NVDA_2025-12-05",
+    "date_signal": "2025-12-05",
+    "ticker": "NVDA",
+    "universe": "sp500",
+    "strategy": "phoenix",
+    "initial_data": {
+      "close_j": 134.52,
+      "stop_loss_technical": 120.30
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  }
+]

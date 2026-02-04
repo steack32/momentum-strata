@@ -1,0 +1,70 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Import de la police Inter */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+/* Styles complémentaires spécifiques au site */
+
+/* Fond et texte global */
+body {
+  @apply bg-gradient-to-b from-slate-950 via-slate-900 to-slate-950 text-slate-50 antialiased;
+}
+
+/* Ombre premium pour les cartes principales */
+.shadow-premium {
+  box-shadow: 0 18px 45px rgba(15, 23, 42, 0.9);
+}
+
+/* Pour les tableaux responsives */
+.table-wrapper {
+  @apply overflow-x-auto;
+}
+
+/* NAVBAR PREMIUM ---------------------------------------------------- */
+
+/* Liens desktop */
+.nav-link {
+  @apply relative inline-flex items-center justify-center
+         text-[13px] md:text-sm font-medium tracking-wide
+         text-slate-200
+         px-3 py-1.5 rounded-full
+         border border-transparent
+         bg-transparent
+         transition-all duration-200;
+}
+
+/* Soulignement réservé à l'état actif */
+.nav-link::after {
+  content: "";
+  @apply absolute left-1/2 -bottom-[5px] h-[2px] w-0
+         rounded-full opacity-0
+         bg-gradient-to-r from-blue-400 via-sky-300 to-blue-500
+         transition-all duration-300;
+  transform: translateX(-50%);
+}
+
+.nav-link:hover {
+  @apply text-blue-200 bg-slate-900/70 border-slate-700/80;
+}
+
+.nav-link.active {
+  @apply text-blue-300 bg-slate-950/90 border-blue-500/40
+         shadow-[0_8px_30px_rgba(37,99,235,0.45)];
+}
+
+.nav-link.active::after {
+  @apply w-2/3 opacity-100;
+}
+
+/* Liens du menu mobile */
+.mobile-nav-link {
+  @apply block text-slate-100 text-sm font-medium
+         py-2.5 px-3 rounded-lg
+         border border-transparent bg-transparent
+         hover:bg-slate-800/70 hover:border-slate-700 hover:text-blue-300
+         transition-colors duration-200;
+}
+
+/* Tu peux ajouter ici d'autres règles custom si besoin plus tard */

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="fr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard & Performance | Momentum Strata</title>
+
+    <meta name="description" content="Dashboard Momentum Strata : performance historique des signaux S&P 500 et Crypto, backtestés en mode trader avec stops, breakeven et time-stop.">
+    <meta property="og:title" content="Momentum Strata – Dashboard & Performance">
+    <meta property="og:description" content="Suivez la performance réelle des signaux S&P 500 et Crypto : expectancy en R, winrate, breakeven rate, backtestés en conditions réalistes.">
+    <meta property="og:type" content="website">
+
+    <!-- CSS Tailwind compilé -->
+    <link rel="stylesheet" href="assets/css/tailwind.css">
+
+    <!-- Chart.js pour les courbes -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- JS du site -->
+    <script src="assets/js/main.js" defer></script>
+    <script src="assets/js/shared.js" defer></script>
+    <script src="assets/js/dashboard.js" defer></script>
+</head>
+<body class="min-h-screen flex flex-col">
+
+    <!-- Navbar injectée dynamiquement -->
+    <div id="navbar-container"></div>
+
+    <main class="flex-1 pt-20">
+        <!-- HERO DASHBOARD -->
+        <section class="border-b border-slate-800/70 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
+            <!-- Effets lumineux -->
+            <div class="absolute inset-0 pointer-events-none">
+                <div class="absolute -top-24 right-12 w-80 h-80 bg-blue-500/15 blur-3xl rounded-full"></div>
+                <div class="absolute bottom-[-4rem] left-[-3rem] w-80 h-80 bg-emerald-500/10 blur-3xl rounded-full"></div>
+            </div>
+
+            <header class="py-10 md:py-16 px-4 md:px-10 max-w-6xl mx-auto relative z-10">
+                <!-- Badge -->
+                <div class="inline-flex items-center mb-5 px-4 py-1.5 rounded-full bg-slate-900/70 border border-slate-700/60 text-[11px] font-semibold uppercase tracking-[0.22em] text-slate-300">
+                    <span class="relative flex h-2 w-2 mr-2">
+                        <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full h-2 w-2 bg-emerald-400"></span>
+                    </span>
+                    Trader Mode • Backtest temps réel
+                </div>
+
+                <!-- Titre -->
+                <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-4">
+                    Dashboard de performance
+                    <span class="text-blue-400">des signaux Momentum Strata</span>
+                </h1>
+
+                <!-- Sous-titre -->
+                <p class="text-sm md:text-base text-slate-300/90 leading-relaxed max-w-2xl">
+                    Les signaux sont évalués en conditions proches du réel&nbsp;:
+                    entrée au prochain open, Stop Loss technique, passage au breakeven après +1R,
+                    time-stop à J+10, et pénalité de frais / slippage intégrée.
+                </p>
+
+                <!-- Infos de mise à jour -->
+                <div class="mt-6 flex flex-wrap items-center gap-4 text-xs text-slate-400">
+                    <div class="flex items-center gap-2">
+                        <span class="inline-flex h-2 w-2 rounded-full bg-emerald-400"></span>
+                        <span>Dernière mise à jour : <span id="perf-last-update" class="text-slate-100 font-medium">–</span></span>
+                    </div>
+                    <div class="hidden sm:inline-flex text-[11px] text-slate-500">
+                        Les statistiques se mettent à jour automatiquement après chaque nouvelle session de marché.
+                    </div>
+                </div>
+            </header>
+        </section>
+
+        <!-- SECTION COURBES DE PERFORMANCE CUMULÉE (LIVE) -->
+        <section class="max-w-6xl mx-auto px-4 md:px-8 lg:px-10 pt-8 md:pt-10">
+            <div class="bg-slate-950/85 border border-slate-800/80 rounded-2xl p-5 md:p-6 shadow-premium">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                    <div>
+                        <h2 class="text-base md:text-lg font-semibold text-slate-50">
+                            Courbes de performance cumulée par stratégie
+                        </h2>
+                        <p class="text-[12px] md:text-sm text-slate-400 max-w-xl mt-1">
+                            Chaque ligne représente les gains cumulés en pourcentage d’une stratégie
+                            (S&amp;P 500 Phoenix / Pullback et Crypto Phoenix / Pullback),
+                            en agrégeant uniquement les trades clôturés. Survole la légende ou la courbe
+                            pour lire les valeurs.
+                        </p>
+                    </div>
+                    <p id="equity-no-data" class="text-[11px] text-slate-500 md:text-right">
+                        Pas encore assez de trades clôturés pour tracer les courbes de performance.
+                    </p>
+                </div>
+
+                <div id="equity-chart-container" class="mt-2 md:mt-3 h-56 md:h-64 hidden">
+                    <canvas id="equity-chart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION CARTES DE PERFORMANCE (LIVE) -->
+        <section class="max-w-6xl mx-auto px-4 md:px-8 lg:px-10 py-10 md:py-14 space-y-8">
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                <div>
+                    <h2 class="text-xl md:text-2xl font-bold text-slate-50 mb-1">
+                        Performance par univers et stratégie
+                    </h2>
+                    <p class="text-sm text-slate-400 max-w-xl">
+                        Chaque carte agrège tous les trades clôturés de la stratégie,
+                        exprimés en <span class="font-semibold text-slate-100">R</span> (risque unitaire)
+                        avec prise en compte des stop loss, breakeven et time-stop.
+                    </p>
+                </div>
+                <div class="text-xs text-right text-slate-400 space-y-1">
+                    <p class="text-[11px] text-slate-500">
+                        Les métriques sont recalculées automatiquement à partir de l’historique des trades simulés.
+                    </p>
+                    <p>
+                        <span class="font-semibold text-slate-100">Expectancy</span> :
+                        espérance en R par trade (Winrate × Gain moyen - Loss rate × Perte moyenne).
+                    </p>
+                </div>
+            </div>
+
+            <!-- État de chargement / erreur -->
+            <div id="perf-loading" class="text-xs text-slate-400 bg-slate-950/80 border border-slate-800 rounded-xl px-4 py-3 inline-flex items-center gap-2">
+                <span class="inline-flex h-2 w-2 rounded-full bg-blue-400 animate-pulse"></span>
+                <span>Chargement des statistiques de performance...</span>
+            </div>
+            <div id="perf-error" class="hidden text-xs text-rose-400 bg-rose-950/40 border border-rose-700/50 rounded-xl px-4 py-3">
+                Impossible de charger les statistiques de performance pour le moment.
+            </div>
+
+            <!-- Grille de cartes -->
+            <div class="grid md:grid-cols-2 gap-5 lg:gap-6">
+                <!-- S&P 500 Phoenix -->
+                <article id="sp500-phoenix-card" class="bg-slate-950/85 border border-slate-800/80 rounded-2xl p-5 md:p-6 shadow-premium flex flex-col justify-between">
+                    <div class="flex items-start justify-between gap-3 mb-4">
+                        <div>
+                            <div class="inline-flex items-center gap-2 mb-2">
+                                <span class="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-400/50 text-[10px] font-semibold uppercase tracking-[0.18em] text-amber-300">
+                                    S&amp;P 500 • Phoenix
+                                </span>
+                            </div>
+                            <h3 class="text-base md:text-lg font-semibold text-slate-50">
+                                Breakouts sur leaders US
+                            </h3>
+                            <p class="text-[12px] text-slate-400 mt-1.5">
+                                Stratégie momentum agressive sur les actions en phase d’expansion.
+                            </p>
+                        </div>
+                        <div class="text-right text-[11px] text-slate-500">
+                            <p>Trades clôturés</p>
+                            <p class="text-slate-100 font-semibold text-sm">
+                                <span id="sp500-phoenix-nb">–</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <dl class="grid grid-cols-2 gap-3 text-[12px] md:text-[13px] text-slate-300">
+                        <div>
+                            <dt class="text-slate-400 text-[11px] uppercase tracking-[0.14em] mb-1">R moyen / trade</dt>
+                            <dd class="text-sm md:text-base font-semibold text-emerald-300">
+                                <span id="sp500-phoenix-avgR">–</span> R
+                            </dd>
+                        </div>
+                        <div>
+                            <dt class="text-slate-400 text-[11px] uppercase tracking-[0.14em] mb-1">Winrate</dt>
+                            <dd class="text-sm md:text-base font-semibold text-emerald-300">
+                                <span id="sp500-phoenix-win">–</span>%
+                            </dd>
+                        </div>
+                        <div>
+                            <dt class="text-slate-400 text-[11px] uppercase tracking-[0.14em] mb-1">Breakeven rate</dt>
+                            <dd class="text-sm md:text-base font-semibold text-sky-300">
+                                <span id="sp500-phoenix-be">–</span>%
+                            </dd>
+                        </div>
+                        <div>
+                            <dt class="text-slate-400 text-[11px] uppercase tracking-[0.14em] mb-1">Expectancy</dt>
+                            <dd class="text-sm md:text-base font-semibold text-amber-300">
+                                <span id="sp500-phoenix-exp">–</span> R
+                            </dd>
+                        </div>
+                    </dl>
+
+                    <p id="sp500-phoenix-note" class="mt-3 text-[11px] text-slate-500">
+                        Pas encore assez d’historique pour afficher des statistiques robustes.
+                    </p>
+                </article>
+
+                <!-- S&P 500 Pullback -->
+                <article id="sp500-pullback-card" class="bg-slate-950/85 border border-slate-800/80 rounded-2xl p-5 md:p-6 shadow-premium flex flex-col justify-between">
+                    <div class="flex items-start justify-between gap-3 mb-4">
+                        <div>
+                            <div class="inline-flex items-center gap-2 mb-2">
+                                <span class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-400/50 text-[10px] font-semibold uppercase tracking-[0.18em] text-emerald-300">
+                                    S&amp;P 500 • Pullback
+                                </span>
+                            </div>
+                            <h3 class="text-base md:text-lg font-semibold text-slate-50">
+                                Pullbacks sur tendances établies
+                            </h3>
+                            <p class="text-[12px] text-slate-400 mt-1.5">
+                                Entrées sur repli contrôlé dans des tendances haussières fortes.
+                            </p>
+                        </div>
+                        <div class="text-right text-[11px] text-slate-500">
+                            <p>Trades clôturés</p>
+                            <p class="text-slate-100 font-semibold text-sm">
+                                <span id="sp500-pullback-nb">–</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <dl class="grid grid-cols-2 gap-3 text-[12px] md:text-[13px] text-slate-300">
+                        <div>
+                            <dt class="text-slate-400 text-[11px] uppercase tracking-[0.14em] mb-1">R moyen / trade</dt>
+                            <dd class="text-sm md:text-base font-semibold text-emerald-300">
+                                <span id="sp500-pullback-avgR">–</span> R
+                            </dd>
+                        </div>
+                        <div>
+                            <dt class="text-slate-400 text-[11px] uppercase tracking-[0.14em] mb-1">Winrate</dt>
+                            <dd class="text-sm md:text-base font-semibold text-emerald-300">
+                                <span id="sp500-pullback-win">–</span>%
+                            </dd>
+                        </div>
+                        <div>
+                            <dt class="text-slate-400 text-[11px] uppercase tracking-[0.14em] mb-1">Breakeven rate</dt>
+                            <dd class="text-sm md:text-base font-semibold text-sky-300">
+                                <span id="sp500-pullback-be">–</span>%
+                            </dd>
+                        </div>
+                        <div>
+                            <dt class="text-slate-400 text-[11px] uppercase tracking-[0.14em] mb-1">Expectancy</dt>
+                            <dd class="text-sm md:text-base font-semibold text-amber-300">
+                                <span id="sp500-pullback-exp">–</span> R
+                            </dd>
+                        </div>
+                    </dl>
+
+                    <p id="sp500-pullback-note" class="mt-3 text-[11px] text-slate-500">
+                        Pas encore assez d’historique pour afficher des statistiques robustes.
+                    </p>
+                </article>
+
+                <!-- Crypto Phoenix -->
+                <article id="crypto-phoenix-card" class="bg-slate-950/85 border border-slate-800/80 rounded-2xl p-5 md:p-6 shadow-premium flex flex-col justify-between">
+                    <div class="flex items-start justify-between gap-3 mb-4">
+                        <div>
+                            <div class="inline-flex items-center gap-2 mb-2">
+                                <span class="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-400/50 text-[10px] font-semibold uppercase tracking-[0.18em] text-amber-300">
+                                    Crypto • Phoenix
+                                </span>
+                            </div>
+                            <h3 class="text-base md:text-lg font-semibold text-slate-50">
+                                Breakouts sur altcoins liquides
+                            </h3>
+                            <p class="text-[12px] text-slate-400 mt-1.5">
+                                Focus sur les coins en impulsion avec filtrage volume / liquidité.
+                            </p>
+                        </div>
+                        <div class="text-right text-[11px] text-slate-500">
+                            <p>Trades clôturés</p>
+                            <p class="text-slate-100 font-semibold text-sm">
+                                <span id="crypto-phoenix-nb">–</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <dl class="grid grid-cols-2 gap-3 text-[12px] md:text-[13px] text-slate-300">
+                        <div>
+                            <dt class="text-slate-400 text-[11px] uppercase tracking-[0.14em] mb-1">R moyen / trade</dt>
+                            <dd class="text-sm md:text-base font-semibold text-emerald-300">
+                                <span id="crypto-phoenix-avgR">–</span> R
+                            </dd>
+                        </div>
+                        <div>
+                            <dt class="text-slate-400 text-[11px] uppercase tracking-[0.14em] mb-1">Winrate</dt>
+                            <dd class="text-sm md:text-base font-semibold text-emerald-300">
+                                <span id="crypto-phoenix-win">–</span>%
+                            </dd>
+                        </div>
+                        <div>
+                            <dt class="text-slate-400 text-[11px] uppercase tracking-[0.14em] mb-1">Breakeven rate</dt>
+                            <dd class="text-sm md:text-base font-semibold text-sky-300">
+                                <span id="crypto-phoenix-be">–</span>%
+                            </dd>
+                        </div>
+                        <div>
+                            <dt class="text-slate-400 text-[11px] uppercase tracking-[0.14em] mb-1">Expectancy</dt>
+                            <dd class="text-sm md:text-base font-semibold text-amber-300">
+                                <span id="crypto-phoenix-exp">–</span> R
+                            </dd>
+                        </div>
+                    </dl>
+
+                    <p id="crypto-phoenix-note" class="mt-3 text-[11px] text-slate-500">
+                        Pas encore assez d’historique pour afficher des statistiques robustes.
+                    </p>
+                </article>
+
+                <!-- Crypto Pullback -->
+                <article id="crypto-pullback-card" class="bg-slate-950/85 border border-slate-800/80 rounded-2xl p-5 md:p-6 shadow-premium flex flex-col justify-between">
+                    <div class="flex items-start justify-between gap-3 mb-4">
+                        <div>
+                            <div class="inline-flex items-center gap-2 mb-2">
+                                <span class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-400/50 text-[10px] font-semibold uppercase tracking-[0.18em] text-emerald-300">
+                                    Crypto • Pullback
+                                </span>
+                            </div>
+                            <h3 class="text-base md:text-lg font-semibold text-slate-50">
+                                Pullbacks sur tendances crypto
+                            </h3>
+                            <p class="text-[12px] text-slate-400 mt-1.5">
+                                Entrée sur repli dans les cycles haussiers des coins les plus actifs.
+                            </p>
+                        </div>
+                        <div class="text-right text-[11px] text-slate-500">
+                            <p>Trades clôturés</p>
+                            <p class="text-slate-100 font-semibold text-sm">
+                                <span id="crypto-pullback-nb">–</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <dl class="grid grid-cols-2 gap-3 text-[12px] md:text-[13px] text-slate-300">
+                        <div>
+                            <dt class="text-slate-400 text-[11px] uppercase tracking-[0.14em] mb-1">R moyen / trade</dt>
+                            <dd class="text-sm md:text-base font-semibold text-emerald-300">
+                                <span id="crypto-pullback-avgR">–</span> R
+                            </dd>
+                        </div>
+                        <div>
+                            <dt class="text-slate-400 text-[11px] uppercase tracking-[0.14em] mb-1">Winrate</dt>
+                            <dd class="text-sm md:text-base font-semibold text-emerald-300">
+                                <span id="crypto-pullback-win">–</span>%
+                            </dd>
+                        </div>
+                        <div>
+                            <dt class="text-slate-400 text-[11px] uppercase tracking-[0.14em] mb-1">Breakeven rate</dt>
+                            <dd class="text-sm md:text-base font-semibold text-sky-300">
+                                <span id="crypto-pullback-be">–</span>%
+                            </dd>
+                        </div>
+                        <div>
+                            <dt class="text-slate-400 text-[11px] uppercase tracking-[0.14em] mb-1">Expectancy</dt>
+                            <dd class="text-sm md:text-base font-semibold text-amber-300">
+                                <span id="crypto-pullback-exp">–</span> R
+                            </dd>
+                        </div>
+                    </dl>
+
+                    <p id="crypto-pullback-note" class="mt-3 text-[11px] text-slate-500">
+                        Pas encore assez d’historique pour afficher des statistiques robustes.
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <!-- SECTION EXPLICATION TRADER MODE -->
+        <section class="max-w-6xl mx-auto px-4 md:px-8 lg:px-10 pb-10 md:pb-12">
+            <div class="bg-slate-950/85 border border-slate-800/80 rounded-2xl p-5 md:p-6 text-sm text-slate-300 space-y-3">
+                <h2 class="text-base md:text-lg font-semibold text-slate-50">
+                    Comment sont calculées ces performances ?
+                </h2>
+                <div class="grid md:grid-cols-2 gap-4 text-[13px] md:text-sm">
+                    <div class="space-y-1.5">
+                        <p>
+                            <span class="font-semibold text-slate-100">1. Entrée réaliste :</span>
+                            chaque signal est exécuté au <span class="font-semibold">prochain open</span> après son apparition,
+                            avec une pénalité de <span class="font-semibold">+0,1&nbsp;%</span> sur le prix d’entrée
+                            pour simuler frais et slippage.
+                        </p>
+                        <p>
+                            <span class="font-semibold text-slate-100">2. Stop &amp; breakeven :</span>
+                            le Stop Loss est issu du signal technique. Quand le prix atteint <span class="font-semibold">+1R</span>,
+                            le stop est déplacé à l’entry pour sécuriser la position.
+                        </p>
+                    </div>
+                    <div class="space-y-1.5">
+                        <p>
+                            <span class="font-semibold text-slate-100">3. Time-stop :</span>
+                            si aucun stop (SL ou BE) n’est touché, le trade est clôturé
+                            au <span class="font-semibold">close de la 10ᵉ bougie</span> après l’entrée.
+                        </p>
+                        <p>
+                            <span class="font-semibold text-slate-100">4. Performance en R :</span>
+                            chaque trade est évalué en <span class="font-semibold">R</span>
+                            (gain ou perte par rapport au risque initial).
+                            L’expectancy indique l’espérance de R par trade pour la stratégie.
+                        </p>
+                    </div>
+                </div>
+                <p class="text-[11px] text-slate-500">
+                    Rappel&nbsp;: ces métriques sont fournies à titre informatif et ne constituent en aucun cas une recommandation d’investissement.
+                    Chaque trader reste responsable de son money management et de son exposition globale au risque.
+                </p>
+            </div>
+        </section>
+
+        <!-- SECTION BACKTEST 2 ANS -->
+        <section class="max-w-6xl mx-auto px-4 md:px-8 lg:px-10 pb-14 md:pb-16 space-y-6">
+            <div class="bg-slate-950/85 border border-slate-800/80 rounded-2xl p-5 md:p-6 shadow-premium">
+                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+                    <div>
+                        <h2 class="text-xl md:text-2xl font-bold text-slate-50 mb-1">
+                            Backtest 2 ans – Vue globale
+                        </h2>
+                        <p class="text-sm text-slate-400 max-w-xl">
+                            Performance cumulée de l’ensemble des stratégies sur les deux dernières années,
+                            en appliquant exactement le Trader Mode (entrée au prochain open, stop technique,
+                            breakeven après +1R, time-stop à J+10, slippage inclus).
+                        </p>
+                    </div>
+                    <div class="text-xs text-slate-400">
+                        <p>Dernière mise à jour backtest :</p>
+                        <p class="text-slate-100 font-semibold" id="backtest-last-update">–</p>
+                    </div>
+                </div>
+
+                <div id="backtest-equity-wrapper" class="mt-2 md:mt-3">
+                    <p id="backtest-equity-nodata" class="text-[11px] text-slate-500">
+                        Backtest en cours de calcul ou pas encore disponible.
+                    </p>
+                    <p id="backtest-error-msg" class="mt-2 text-[11px] text-rose-400 hidden"></p>
+                    <div id="backtest-equity-container" class="mt-2 h-56 md:h-64 hidden">
+                        <canvas id="backtest-equity-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-slate-950/85 border border-slate-800/80 rounded-2xl p-5 md:p-6 shadow-premium">
+                <h3 class="text-base md:text-lg font-semibold text-slate-50 mb-3">
+                    Statistiques détaillées par stratégie (backtest 2 ans)
+                </h3>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full text-left text-xs md:text-sm text-slate-300">
+                        <thead class="border-b border-slate-800 text-[11px] uppercase tracking-[0.14em] text-slate-500">
+                            <tr>
+                                <th class="py-2 pr-4">Stratégie</th>
+                                <th class="py-2 px-4">Trades</th>
+                                <th class="py-2 px-4">R moyen / trade</th>
+                                <th class="py-2 px-4">Winrate</th>
+                                <th class="py-2 px-4">Breakeven rate</th>
+                                <th class="py-2 px-4">Expectancy (R)</th>
+                                <th class="py-2 px-4">R moyen gagnant</th>
+                                <th class="py-2 px-4">R moyen perdant</th>
+                            </tr>
+                        </thead>
+                        <tbody id="backtest-stats-body" class="divide-y divide-slate-800/80">
+                            <!-- rempli en JS -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer injecté dynamiquement -->
+    <div id="footer-container"></div>
+
+</body>
+</html>
