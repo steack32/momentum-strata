@@ -2,6 +2,26 @@
 // Logique spécifique à la page Crypto (crypto.html)
 // Dépendances : shared.js (createSparkline, formatNumber, getScoreColor, getRsiColor, loadSignalsData)
 
+// Couleurs pour les avatars des tickers crypto
+const CRYPTO_AVATAR_COLORS = [
+    { bg: 'from-purple-400/20 to-pink-600/20', border: 'border-purple-500/20', text: 'text-purple-400' },
+    { bg: 'from-cyan-400/20 to-blue-600/20', border: 'border-cyan-500/20', text: 'text-cyan-400' },
+    { bg: 'from-amber-400/20 to-orange-600/20', border: 'border-amber-500/20', text: 'text-amber-400' },
+    { bg: 'from-emerald-400/20 to-teal-600/20', border: 'border-emerald-500/20', text: 'text-emerald-400' },
+    { bg: 'from-rose-400/20 to-red-600/20', border: 'border-rose-500/20', text: 'text-rose-400' },
+    { bg: 'from-indigo-400/20 to-violet-600/20', border: 'border-indigo-500/20', text: 'text-indigo-400' },
+    { bg: 'from-yellow-400/20 to-amber-600/20', border: 'border-yellow-500/20', text: 'text-yellow-400' },
+    { bg: 'from-pink-400/20 to-fuchsia-600/20', border: 'border-pink-500/20', text: 'text-pink-400' }
+];
+
+function getCryptoAvatarColor(symbol) {
+    let hash = 0;
+    for (let i = 0; i < symbol.length; i++) {
+        hash = symbol.charCodeAt(i) + ((hash << 5) - hash);
+    }
+    return CRYPTO_AVATAR_COLORS[Math.abs(hash) % CRYPTO_AVATAR_COLORS.length];
+}
+
 /**
  * Ajoute une ligne de signal crypto dans un tbody
  * + une carte mobile si un conteneur est fourni.
@@ -20,54 +40,62 @@ function appendCryptoRow(tbody, symbol, info, options) {
 
     const scoreColor = getScoreColor(score);
     const rsiColor = getRsiColor(rsi);
+    const avatarColor = getCryptoAvatarColor(symbol);
 
     const volText = `$${formatNumber(dollarVol, 0)} / jour`;
 
     const trendText =
         typeof trendPct === "number"
             ? (trendPct >= 0
-                ? `Trend : +${trendPct.toFixed(1)}% au-dessus de la SMA200`
-                : `Trend : ${trendPct.toFixed(1)}% sous la SMA200`)
-            : "Trend : n.d.";
+                ? `+${trendPct.toFixed(1)}% vs SMA200`
+                : `${trendPct.toFixed(1)}% vs SMA200`)
+            : "n.d.";
 
     const sparklineColor = variant === "phoenix" ? "#a855f7" : "#10b981";
+    const scoreBarColor = variant === "phoenix" ? "score-bar-fill-purple" : "score-bar-fill-emerald";
     const sparkline = history && history.length > 1
         ? createSparkline(history, 120, 40, sparklineColor)
         : "";
 
     const tradingViewUrl = `https://www.tradingview.com/chart/?symbol=${encodeURIComponent(symbol)}`;
 
-    // Ligne de tableau (desktop)
+    // Ligne de tableau (desktop) - Premium Glass style
     const rowHtml = `
-        <tr class="hover:bg-slate-800/50 border-b border-slate-800/50 transition-colors">
-            <td class="px-6 py-4 align-top">
-                <div class="font-bold text-slate-100 leading-snug">${name}</div>
-                <div class="text-[11px] text-slate-500 mt-0.5">${symbol}</div>
+        <tr class="table-row-hover group">
+            <td class="px-6 py-5">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-br ${avatarColor.bg} ${avatarColor.border} border flex items-center justify-center">
+                        <span class="font-bold ${avatarColor.text}">${symbol.charAt(0)}</span>
+                    </div>
+                    <div>
+                        <p class="font-semibold text-white">${symbol}</p>
+                        <p class="text-xs text-slate-500">${name}</p>
+                    </div>
+                </div>
             </td>
-            <td class="px-6 py-4 hidden md:table-cell align-top">
+            <td class="px-6 py-5 hidden md:table-cell">
                 <div class="flex flex-col gap-1">
-                    <span class="text-xs font-medium text-purple-300">${trendText}</span>
-                    <span class="text-[10px] text-slate-400">Vol moyen 20j : ${volText}</span>
+                    <span class="text-sm font-medium ${variant === 'phoenix' ? 'text-purple-400' : 'text-emerald-400'}">${trendText}</span>
+                    <span class="text-xs text-slate-500">${volText}</span>
                 </div>
             </td>
-            <td class="px-6 py-4 align-top">
-                <div class="flex flex-col items-start gap-1">
-                    <span class="text-xs ${scoreColor} font-semibold">Score : ${score.toFixed(1)}</span>
-                    <span class="text-[10px] ${rsiColor}">RSI : ${typeof rsi === "number" ? rsi.toFixed(1) : "-"}</span>
+            <td class="px-6 py-5">
+                <div class="flex items-center gap-3">
+                    <div class="w-20 h-2.5 score-bar">
+                        <div class="score-bar-fill ${scoreBarColor}" style="width: ${Math.min(score, 100)}%"></div>
+                    </div>
+                    <span class="text-sm font-bold ${variant === 'phoenix' ? 'text-purple-400' : 'text-emerald-400'}">${score.toFixed(0)}</span>
                 </div>
+                <p class="text-xs text-slate-500 mt-1">RSI: <span class="${rsiColor}">${typeof rsi === "number" ? rsi.toFixed(1) : "-"}</span></p>
             </td>
-            <td class="px-6 py-4 hidden sm:table-cell align-top text-slate-300 font-mono text-xs">
-                $${formatNumber(price, 4)}
-            </td>
-            <td class="px-6 py-4 hidden sm:table-cell align-top text-rose-400 font-mono text-xs">
-                $${formatNumber(stop, 4)}
-            </td>
-            <td class="px-6 py-4 text-right align-top">
+            <td class="px-6 py-5 text-right font-medium hidden sm:table-cell">$${formatNumber(price, 4)}</td>
+            <td class="px-6 py-5 text-right text-rose-400 hidden sm:table-cell">$${formatNumber(stop, 4)}</td>
+            <td class="px-6 py-5 text-right">
                 <div class="flex flex-col items-end gap-2">
-                    ${sparkline ? `<div class="w-[120px] h-[40px] inline-block">${sparkline}</div>` : ""}
+                    ${sparkline ? `<div class="w-[120px] h-[40px]">${sparkline}</div>` : ""}
                     <a href="${tradingViewUrl}" target="_blank" rel="noopener"
-                       class="inline-flex items-center text-[11px] font-medium text-purple-300 hover:text-purple-200">
-                        Voir &rarr;
+                       class="btn-ghost">
+                        TradingView →
                     </a>
                 </div>
             </td>
@@ -76,62 +104,65 @@ function appendCryptoRow(tbody, symbol, info, options) {
 
     tbody.insertAdjacentHTML("beforeend", rowHtml);
 
-    // Carte mobile
+    // Carte mobile - Premium Glass style
     if (cardContainer) {
-        const badgeClass =
-            variant === "phoenix"
-                ? "bg-purple-500/10 text-purple-300 border border-purple-400/40"
-                : "bg-emerald-500/10 text-emerald-300 border border-emerald-400/40";
+        const badgeClass = variant === "phoenix" ? "badge-crypto" : "badge-pullback";
 
         const cardHtml = `
-            <article class="bg-slate-950/90 border border-slate-800/80 rounded-2xl p-4 flex flex-col gap-3 shadow-md">
-                <div class="flex items-center justify-between gap-2">
-                    <div>
-                        <div class="font-semibold text-slate-100 text-sm">${name}</div>
-                        <div class="text-[11px] text-slate-500 mt-0.5">${symbol}</div>
+            <article class="glass-card-solid rounded-2xl p-4 flex flex-col gap-4">
+                <div class="flex items-center justify-between gap-3">
+                    <div class="flex items-center gap-3">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br ${avatarColor.bg} ${avatarColor.border} border flex items-center justify-center">
+                            <span class="font-bold text-sm ${avatarColor.text}">${symbol.charAt(0)}</span>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-white text-sm">${symbol}</p>
+                            <p class="text-[11px] text-slate-500">${name}</p>
+                        </div>
                     </div>
-                    <span class="text-[11px] px-2 py-0.5 rounded-full ${badgeClass}">
+                    <span class="badge ${badgeClass}">
                         ${variant === "phoenix" ? "Breakout" : "Pullback"}
                     </span>
                 </div>
 
-                <div class="text-[11px] text-slate-400 flex flex-col gap-1">
-                    <span>${trendText}</span>
-                    <span>Vol moyen 20j : ${volText}</span>
+                <div class="flex items-center gap-3">
+                    <div class="flex-1">
+                        <div class="w-full h-2 score-bar">
+                            <div class="score-bar-fill ${scoreBarColor}" style="width: ${Math.min(score, 100)}%"></div>
+                        </div>
+                    </div>
+                    <span class="text-sm font-bold ${variant === 'phoenix' ? 'text-purple-400' : 'text-emerald-400'}">${score.toFixed(0)}</span>
                 </div>
 
-                <div class="grid grid-cols-2 gap-3 text-[11px]">
-                    <div>
-                        <div class="uppercase tracking-wide text-slate-500">Score</div>
-                        <div class="mt-0.5 font-mono ${scoreColor}">${score.toFixed(1)}</div>
+                <div class="grid grid-cols-2 gap-3 text-xs">
+                    <div class="glass-card rounded-lg p-2">
+                        <p class="text-[10px] text-slate-500 uppercase">Entrée</p>
+                        <p class="font-medium text-slate-100">$${formatNumber(price, 4)}</p>
                     </div>
-                    <div>
-                        <div class="uppercase tracking-wide text-slate-500">RSI</div>
-                        <div class="mt-0.5 font-mono ${rsiColor}">${typeof rsi === "number" ? rsi.toFixed(1) : "-"}</div>
-                    </div>
-                </div>
-
-                <div class="grid grid-cols-2 gap-3 text-[11px]">
-                    <div>
-                        <div class="uppercase tracking-wide text-slate-500">Prix</div>
-                        <div class="mt-0.5 font-mono text-slate-100">$${formatNumber(price, 4)}</div>
-                    </div>
-                    <div>
-                        <div class="uppercase tracking-wide text-slate-500">Stop</div>
-                        <div class="mt-0.5 font-mono text-rose-400">$${formatNumber(stop, 4)}</div>
+                    <div class="glass-card rounded-lg p-2">
+                        <p class="text-[10px] text-slate-500 uppercase">Stop Loss</p>
+                        <p class="font-medium text-rose-400">$${formatNumber(stop, 4)}</p>
                     </div>
                 </div>
 
                 <div class="flex items-end justify-between gap-3">
-                    ${sparkline ? `<div class="w-[120px] h-[40px]">${sparkline}</div>` : ""}
+                    ${sparkline ? `<div class="w-[100px] h-[32px]">${sparkline}</div>` : '<div></div>'}
                     <a href="${tradingViewUrl}" target="_blank" rel="noopener"
-                       class="inline-flex items-center text-[11px] font-medium text-purple-300 hover:text-purple-200">
-                        Voir sur TradingView &rarr;
+                       class="text-xs font-medium ${variant === 'phoenix' ? 'text-purple-400' : 'text-emerald-400'}">
+                        Voir sur TradingView →
                     </a>
                 </div>
             </article>
         `;
         cardContainer.insertAdjacentHTML("beforeend", cardHtml);
+    }
+}
+
+// Mise à jour des compteurs de badges
+function updateCryptoBadgeCount(badgeId, count) {
+    const badge = document.getElementById(badgeId);
+    if (badge) {
+        badge.textContent = `${count} signal${count > 1 ? 's' : ''}`;
     }
 }
 
@@ -147,6 +178,12 @@ async function loadCryptoPhoenix() {
         emptyMessage: "Aucune opportunité haute qualité détectée aujourd'hui.",
         errorContext: "Crypto Phoenix"
     });
+
+    // Mettre à jour le badge
+    const count = document.getElementById("hero-crypto-phoenix-count")?.textContent;
+    if (count && count !== "–") {
+        updateCryptoBadgeCount("crypto-phoenix-count-badge", parseInt(count, 10));
+    }
 }
 
 async function loadCryptoPullback() {
@@ -161,6 +198,12 @@ async function loadCryptoPullback() {
         emptyMessage: "Aucune consolidation haussière détectée aujourd'hui.",
         errorContext: "Crypto Pullback"
     });
+
+    // Mettre à jour le badge
+    const count = document.getElementById("hero-crypto-pullback-count")?.textContent;
+    if (count && count !== "–") {
+        updateCryptoBadgeCount("crypto-pullback-count-badge", parseInt(count, 10));
+    }
 }
 
 document.addEventListener("DOMContentLoaded", () => {

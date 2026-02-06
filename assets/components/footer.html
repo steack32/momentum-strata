@@ -1,34 +1,43 @@
-<!-- assets/components/footer.html -->
-<footer class="mt-8 border-t border-slate-800 bg-slate-950/95">
-  <div class="max-w-6xl mx-auto px-4 md:px-8 lg:px-10 py-6 md:py-8">
-    <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-      <div class="space-y-1 text-xs text-slate-400">
-        <p class="font-medium text-slate-300">Momentum Strata</p>
-        <p>
-          Sélection quotidienne de configurations sur S&amp;P 500 et crypto.
-          Filtrage par tendance de fond, volume et dynamique de prix.
-        </p>
-        <p class="text-[11px] text-slate-500">
-          Informations fournies à des fins éducatives uniquement. Elles ne constituent pas un conseil en investissement.
-        </p>
-      </div>
+<footer class="relative z-10 border-t border-slate-800/50 glass mt-12">
+    <div class="max-w-6xl mx-auto px-4 md:px-8 py-8">
+        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-6">
 
-      <div class="flex flex-col items-start md:items-end gap-2 text-xs text-slate-400">
-        <div class="flex gap-3">
-          <a href="index.html" class="hover:text-slate-200 transition-colors">S&amp;P 500</a>
-          <a href="crypto.html" class="hover:text-slate-200 transition-colors">Crypto</a>
-          <a href="dashboard.html" class="hover:text-slate-200 transition-colors">Dashboard</a>
+            <!-- Brand -->
+            <div class="space-y-3">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center">
+                        <span class="text-white font-bold text-sm">M</span>
+                    </div>
+                    <span class="font-semibold text-slate-100">Momentum Strata</span>
+                </div>
+                <p class="text-sm text-slate-400 max-w-sm">
+                    Signaux de trading quotidiens sur S&P 500 et crypto.
+                    Filtrage algorithmique par tendance, volume et momentum.
+                </p>
+                <p class="text-xs text-slate-500">
+                    Informations fournies à des fins éducatives uniquement.
+                    Elles ne constituent pas un conseil en investissement.
+                </p>
+            </div>
+
+            <!-- Links -->
+            <div class="flex flex-col items-start md:items-end gap-4">
+                <div class="flex gap-4 text-sm">
+                    <a href="index.html" class="text-slate-400 hover:text-slate-100 transition-colors">S&P 500</a>
+                    <a href="crypto.html" class="text-slate-400 hover:text-slate-100 transition-colors">Crypto</a>
+                    <a href="dashboard.html" class="text-slate-400 hover:text-slate-100 transition-colors">Dashboard</a>
+                </div>
+                <p class="text-xs text-slate-500">
+                    © <span id="footer-year"></span> Momentum Strata. Tous droits réservés.
+                </p>
+            </div>
         </div>
-        <p class="text-[11px] text-slate-500">© <span id="footer-year"></span> Momentum Strata. Tous droits réservés.</p>
-      </div>
     </div>
-  </div>
 
-  <script>
-    // mise à jour de l'année de manière simple
-    (function() {
-      var el = document.getElementById('footer-year');
-      if (el) el.textContent = new Date().getFullYear();
-    })();
-  </script>
+    <script>
+        (function() {
+            var el = document.getElementById('footer-year');
+            if (el) el.textContent = new Date().getFullYear();
+        })();
+    </script>
 </footer>

@@ -9,8 +9,8 @@ venv/
 # Node
 node_modules/
 
-# Data files (generated)
-data/*.json
+# Data files - exclude logs only (large files)
+data/signals_log*.json
 
 # IDE
 .vscode/

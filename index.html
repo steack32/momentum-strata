@@ -10,253 +10,256 @@
     <meta property="og:description" content="Chaque jour de bourse, Momentum Strata scanne le S&P 500 et ne retient que les actions en breakout (Phoenix) ou en pullback propre sur tendance haussière.">
     <meta property="og:type" content="website">
 
-    <!-- CSS Tailwind compilé -->
     <link rel="stylesheet" href="assets/css/tailwind.css">
 
-    <!-- JS du site -->
     <script src="assets/js/main.js" defer></script>
     <script src="assets/js/shared.js" defer></script>
     <script src="assets/js/sp500.js" defer></script>
 </head>
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col overflow-x-hidden">
 
-    <!-- Navbar injectée dynamiquement -->
+    <!-- Animated background -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-indigo-500/20 blur-[120px] animate-float"></div>
+        <div class="absolute bottom-[-20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-purple-500/15 blur-[100px] animate-float" style="animation-delay: -3s;"></div>
+        <div class="absolute top-[40%] left-[30%] w-[300px] h-[300px] rounded-full bg-blue-500/10 blur-[80px] animate-float" style="animation-delay: -1.5s;"></div>
+    </div>
+
+    <!-- Navbar -->
     <div id="navbar-container"></div>
 
-    <main class="flex-1 pt-20">
+    <main class="flex-1 pt-24 relative z-10">
+
         <!-- HERO -->
-        <section class="border-b border-slate-800/70 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
+        <header class="text-center px-4 md:px-8 pb-16 max-w-4xl mx-auto">
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-xs font-medium text-slate-300 mb-6">
+                <span class="w-2 h-2 rounded-full bg-blue-400 animate-pulse"></span>
+                Signaux S&P 500 • Mis à jour quotidiennement
+            </div>
 
-            <!-- Décor minimal -->
-            <div class="absolute inset-0 pointer-events-none"></div>
+            <!-- Title -->
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
+                Identifiez les meilleures<br>
+                opportunités sur le <span class="gradient-text">S&P 500</span>
+            </h1>
 
-            <header class="py-14 md:py-20 px-4 md:px-10 text-center max-w-4xl mx-auto relative z-10">
+            <!-- Subtitle -->
+            <p class="text-lg text-slate-400 max-w-2xl mx-auto mb-10">
+                Momentum Strata scanne quotidiennement les 500 plus grandes actions américaines
+                et ne retient que les configurations <span class="text-amber-400 font-medium">breakouts (Phoenix)</span>
+                et <span class="text-emerald-400 font-medium">pullbacks</span> les plus pertinentes.
+            </p>
 
-                <!-- Badge algo -->
-                <div class="inline-flex items-center mb-6 px-4 py-1.5 rounded-full bg-slate-900/70 border border-slate-700/60 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-300">
-                    <span class="relative flex h-2 w-2 mr-2">
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-blue-400"></span>
-                    </span>
-                    Signaux • S&amp;P 500
+            <!-- Hero stats -->
+            <div id="hero-stats" class="flex flex-wrap items-center justify-center gap-4">
+                <div class="stat-card shine glow-amber">
+                    <p class="text-xs text-slate-400 uppercase tracking-wider mb-1">Phoenix</p>
+                    <p class="text-3xl font-bold gradient-text-amber" id="hero-phoenix-count">–</p>
+                    <p class="text-xs text-slate-500 mt-1">Breakouts</p>
                 </div>
-
-                <!-- Titre -->
-                <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-6">
-                    Identifiez rapidement des opportunités sur le 
-                    <span class="text-blue-400">S&amp;P 500</span>
-                </h1>
-
-                <!-- Sous-titre -->
-                <p class="text-sm md:text-base text-slate-300/90 leading-relaxed max-w-2xl mx-auto mb-8">
-                    Momentum Strata scanne quotidiennement les 500 plus grandes actions américaines et ne retient que les configurations pertinentes&nbsp;:
-                    <span class="text-amber-300 font-semibold">breakouts (Phoenix)</span> et <span class="text-emerald-300 font-semibold">pullbacks sur tendance</span>.
-                    Objectif&nbsp;: signaler l’essentiel, sans bruit.
-                </p>
-
-                <!-- Stats du jour -->
-                <div id="hero-stats" class="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-
-                    <!-- Boîte Phoenix -->
-                    <div class="px-4 py-3 rounded-xl bg-slate-900/70 border border-slate-800/80 backdrop-blur text-left shadow-lg">
-                        <p class="text-[11px] text-slate-400 uppercase tracking-wider mb-1">Phoenix • Breakout</p>
-                        <p class="text-xl font-bold text-amber-300" id="hero-phoenix-count">–</p>
-                    </div>
-
-                    <!-- Boîte Pullback -->
-                    <div class="px-4 py-3 rounded-xl bg-slate-900/70 border border-slate-800/80 backdrop-blur text-left shadow-lg">
-                        <p class="text-[11px] text-slate-400 uppercase tracking-wider mb-1">Pullback • Correction technique</p>
-                        <p class="text-xl font-bold text-emerald-300" id="hero-pullback-count">–</p>
-                    </div>
-
+                <div class="stat-card shine glow-emerald">
+                    <p class="text-xs text-slate-400 uppercase tracking-wider mb-1">Pullback</p>
+                    <p class="text-3xl font-bold gradient-text-emerald" id="hero-pullback-count">–</p>
+                    <p class="text-xs text-slate-500 mt-1">Corrections techniques</p>
                 </div>
+            </div>
+        </header>
 
-            </header>
-        </section>
-
-        <!-- SECTION PHOENIX (BREAKOUT) -->
-        <section id="phoenix" class="max-w-6xl mx-auto px-4 md:px-8 lg:px-10 py-10 md:py-12 space-y-6">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+        <!-- SECTION PHOENIX -->
+        <section id="phoenix" class="max-w-6xl mx-auto px-4 md:px-8 pb-16">
+            <!-- Section header -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                 <div>
-                    <div class="inline-flex items-center gap-2 mb-4">
-                        <span class="px-3 py-1 rounded-full bg-amber-500/10 border border-amber-500/40 text-[11px] font-semibold tracking-[0.16em] uppercase text-amber-300">
-                            Stratégie Phoenix • Breakout
-                        </span>
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-3 h-3 rounded-full bg-gradient-to-r from-amber-400 to-orange-500"></div>
+                        <h2 class="text-xl font-bold">Phoenix — Breakout</h2>
+                        <span class="badge badge-phoenix" id="phoenix-count-badge">– signaux</span>
                     </div>
-                    <h2 class="text-xl md:text-2xl font-bold text-slate-50 mb-1">
-                        Actions en breakout sur tendance haussière
-                    </h2>
                     <p class="text-sm text-slate-400 max-w-xl">
-                        Détection des actions au-dessus de leur SMA 200, avec volume explosif et structure de bougie haussière.
-                        Objectif&nbsp;: capter les impulsions puissantes sur les leaders du moment plutôt que courir après tout le marché.
+                        Actions en cassure haussière au-dessus de leur SMA 200, avec volume explosif et structure de bougie favorable.
                     </p>
                 </div>
-                <div class="text-xs text-right text-slate-400">
-                    <p class="mb-1">Dernière mise à jour : <span id="date-phoenix" class="text-slate-100 font-medium">...</span></p>
-                    <p class="text-[11px] text-slate-500">Heure de Paris – données fin de séance.</p>
+                <div class="text-xs text-slate-500 text-right">
+                    <p>Dernière mise à jour</p>
+                    <p class="text-slate-300 font-medium" id="date-phoenix">...</p>
                 </div>
             </div>
 
-            <div class="bg-slate-950/80 backdrop-blur rounded-2xl border border-slate-800/80 shadow-premium overflow-hidden relative">
+            <!-- Table -->
+            <div class="glass-card-solid rounded-3xl overflow-hidden shadow-premium mb-6">
                 <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
+                    <table class="w-full">
                         <thead>
-                            <tr class="bg-slate-950 text-[11px] uppercase tracking-[0.18em] text-slate-400 border-b border-slate-800">
-                                <th class="px-6 py-3.5">Action</th>
-                                <th class="px-6 py-3.5 hidden md:table-cell">Tendance &amp; volume</th>
-                                <th class="px-6 py-3.5">Score &amp; RSI</th>
-                                <th class="px-6 py-3.5 hidden sm:table-cell">Prix d'entrée</th>
-                                <th class="px-6 py-3.5 hidden sm:table-cell">Stop Loss</th>
-                                <th class="px-6 py-3.5 text-right">Chart</th>
+                            <tr class="border-b border-slate-800/50 text-xs text-slate-500 uppercase tracking-wider">
+                                <th class="text-left px-6 py-4 font-medium">Action</th>
+                                <th class="text-left px-6 py-4 font-medium hidden md:table-cell">Tendance & Volume</th>
+                                <th class="text-left px-6 py-4 font-medium">Score & RSI</th>
+                                <th class="text-right px-6 py-4 font-medium hidden sm:table-cell">Entrée</th>
+                                <th class="text-right px-6 py-4 font-medium hidden sm:table-cell">Stop Loss</th>
+                                <th class="text-right px-6 py-4 font-medium">Chart</th>
                             </tr>
                         </thead>
-                        <tbody id="table-phoenix" class="text-sm divide-y divide-slate-800">
+                        <tbody id="table-phoenix" class="divide-y divide-slate-800/30">
                             <tr>
-                                <td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">
+                                <td colspan="6" class="px-6 py-8 text-center text-sm text-slate-500">
                                     Chargement des données...
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-
-                <p class="text-[11px] text-slate-500 mt-2 px-6 pb-3">
-                    Les signaux Phoenix mettent en avant des breakouts nets. Ils n’intègrent pas votre taille de position ni votre money management&nbsp;:
-                    à adapter à votre propre plan de trading.
+                <p class="text-xs text-slate-500 px-6 py-4 border-t border-slate-800/30">
+                    Les signaux Phoenix mettent en avant des breakouts nets. Ils n'intègrent pas votre taille de position ni votre money management : à adapter à votre propre plan de trading.
                 </p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-4 text-xs text-slate-400">
-                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+            <!-- Info boxes -->
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="info-box">
+                    <div class="info-box-icon bg-gradient-to-br from-amber-500/20 to-orange-500/20">
+                        <span class="text-amber-400">📊</span>
+                    </div>
                     <h3 class="font-semibold text-slate-100 mb-1.5 text-sm">Filtre de volume</h3>
-                    <p>
+                    <p class="text-xs text-slate-400">
                         Seules les actions avec un volume du jour nettement supérieur à la moyenne 20 jours sont retenues.
-                        L’objectif est d’éviter les faux signaux sur des dossiers peu liquides.
                     </p>
                 </div>
-                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                <div class="info-box">
+                    <div class="info-box-icon bg-gradient-to-br from-blue-500/20 to-indigo-500/20">
+                        <span class="text-blue-400">📈</span>
+                    </div>
                     <h3 class="font-semibold text-slate-100 mb-1.5 text-sm">Tendance long terme</h3>
-                    <p>
-                        Le prix doit évoluer au-dessus de la <span class="font-medium text-slate-100">SMA 200</span>&nbsp;:
-                        seules les configurations alignées avec la tendance dominante sont retenues.
+                    <p class="text-xs text-slate-400">
+                        Le prix doit évoluer au-dessus de la SMA 200 : seules les configurations alignées avec la tendance dominante.
                     </p>
                 </div>
-                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                <div class="info-box">
+                    <div class="info-box-icon bg-gradient-to-br from-purple-500/20 to-pink-500/20">
+                        <span class="text-purple-400">⭐</span>
+                    </div>
                     <h3 class="font-semibold text-slate-100 mb-1.5 text-sm">Score global</h3>
-                    <p>
-                        Le score combine intensité de la tendance, position par rapport aux moyennes, RSI et volume
-                        pour trier les opportunités de la plus forte à la plus faible.
+                    <p class="text-xs text-slate-400">
+                        Le score combine intensité de la tendance, position par rapport aux moyennes, RSI et volume.
                     </p>
                 </div>
             </div>
         </section>
 
         <!-- SECTION PULLBACK -->
-        <section id="pullback" class="max-w-6xl mx-auto px-4 md:px-8 lg:px-10 pb-14 md:pb-16 space-y-6">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+        <section id="pullback" class="max-w-6xl mx-auto px-4 md:px-8 pb-16">
+            <!-- Section header -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                 <div>
-                    <div class="inline-flex items-center gap-2 mb-4">
-                        <span class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/40 text-[11px] font-semibold tracking-[0.16em] uppercase text-emerald-300">
-                            Stratégie Pullback • Sur tendance
-                        </span>
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-3 h-3 rounded-full bg-gradient-to-r from-emerald-400 to-teal-500"></div>
+                        <h2 class="text-xl font-bold">Pullback — Correction technique</h2>
+                        <span class="badge badge-pullback" id="pullback-count-badge">– signaux</span>
                     </div>
-                    <h2 class="text-xl md:text-2xl font-bold text-slate-50 mb-1">
-                        Pullbacks propres sur tendances établies
-                    </h2>
                     <p class="text-sm text-slate-400 max-w-xl">
                         Sélection des actions en forte tendance haussière qui corrigent vers la SMA 50 sans casser la structure de fond.
-                        Vous entrez sur repli, tout en restant aligné avec la dynamique de marché.
                     </p>
                 </div>
-                <div class="text-xs text-right text-slate-400">
-                    <p class="mb-1">Dernière mise à jour : <span id="date-pullback" class="text-slate-100 font-medium">...</span></p>
-                    <p class="text-[11px] text-slate-500">Heure de Paris – données fin de séance.</p>
+                <div class="text-xs text-slate-500 text-right">
+                    <p>Dernière mise à jour</p>
+                    <p class="text-slate-300 font-medium" id="date-pullback">...</p>
                 </div>
             </div>
 
-            <div class="bg-slate-950/80 backdrop-blur rounded-2xl border border-slate-800/80 shadow-premium overflow-hidden relative">
+            <!-- Table -->
+            <div class="glass-card-solid rounded-3xl overflow-hidden shadow-premium mb-6">
                 <div class="overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
+                    <table class="w-full">
                         <thead>
-                            <tr class="bg-slate-950 text-[11px] uppercase tracking-[0.18em] text-slate-400 border-b border-slate-800">
-                                <th class="px-6 py-3.5">Action</th>
-                                <th class="px-6 py-3.5 hidden md:table-cell">Tendance &amp; contexte</th>
-                                <th class="px-6 py-3.5">Score &amp; RSI</th>
-                                <th class="px-6 py-3.5 hidden sm:table-cell">Prix d'entrée</th>
-                                <th class="px-6 py-3.5 hidden sm:table-cell">Stop Loss</th>
-                                <th class="px-6 py-3.5 text-right">Chart</th>
+                            <tr class="border-b border-slate-800/50 text-xs text-slate-500 uppercase tracking-wider">
+                                <th class="text-left px-6 py-4 font-medium">Action</th>
+                                <th class="text-left px-6 py-4 font-medium hidden md:table-cell">Tendance & Contexte</th>
+                                <th class="text-left px-6 py-4 font-medium">Score & RSI</th>
+                                <th class="text-right px-6 py-4 font-medium hidden sm:table-cell">Entrée</th>
+                                <th class="text-right px-6 py-4 font-medium hidden sm:table-cell">Stop Loss</th>
+                                <th class="text-right px-6 py-4 font-medium">Chart</th>
                             </tr>
                         </thead>
-                        <tbody id="table-pullback" class="text-sm divide-y divide-slate-800">
+                        <tbody id="table-pullback" class="divide-y divide-slate-800/30">
                             <tr>
-                                <td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">
+                                <td colspan="6" class="px-6 py-8 text-center text-sm text-slate-500">
                                     Chargement des données...
                                 </td>
                             </tr>
                         </tbody>
                     </table>
                 </div>
-
-                <p class="text-[11px] text-slate-500 mt-2 px-6 pb-3">
-                    Les pullbacks sont pensés pour des entrées plus “confortables” que les breakouts.
-                    Comme toujours, le stop et la taille de position restent à adapter à ta gestion du risque.
+                <p class="text-xs text-slate-500 px-6 py-4 border-t border-slate-800/30">
+                    Les pullbacks sont pensés pour des entrées plus "confortables" que les breakouts. Comme toujours, le stop et la taille de position restent à adapter à ta gestion du risque.
                 </p>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-4 text-xs text-slate-400">
-                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+            <!-- Info boxes -->
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="info-box">
+                    <div class="info-box-icon bg-gradient-to-br from-emerald-500/20 to-teal-500/20">
+                        <span class="text-emerald-400">🎯</span>
+                    </div>
                     <h3 class="font-semibold text-slate-100 mb-1.5 text-sm">Pullback contrôlé</h3>
-                    <p>
-                        Le prix revient vers la <span class="font-medium text-slate-100">SMA 50</span> mais reste au-dessus de la SMA 200&nbsp;:
-                        la tendance de fond reste haussière, la correction est utilisée comme opportunité d’entrée.
+                    <p class="text-xs text-slate-400">
+                        Le prix revient vers la SMA 50 mais reste au-dessus de la SMA 200 : la tendance de fond reste haussière.
                     </p>
                 </div>
-                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
-                    <h3 class="font-semibold text-emerald-300 mb-1.5 text-sm">Stop Loss discipliné</h3>
-                    <p>
-                        Le stop proposé est calculé à partir de la volatilité. Il sert de repère technique,
-                        pas de recommandation figée&nbsp;: à calibrer selon ton horizon de temps et ton exposition globale.
+                <div class="info-box">
+                    <div class="info-box-icon bg-gradient-to-br from-rose-500/20 to-red-500/20">
+                        <span class="text-rose-400">🛡️</span>
+                    </div>
+                    <h3 class="font-semibold text-emerald-400 mb-1.5 text-sm">Stop Loss discipliné</h3>
+                    <p class="text-xs text-slate-400">
+                        Le stop proposé est calculé à partir de la volatilité. Il sert de repère technique, pas de recommandation figée.
                     </p>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION EXPLICATIVE : COMMENT LIRE LES SIGNAUX -->
-        <section class="max-w-6xl mx-auto px-4 md:px-8 lg:px-10 pb-16">
-            <div class="bg-slate-950/80 border border-slate-800/80 rounded-2xl p-5 md:p-6 text-sm text-slate-300 space-y-3">
-                <h2 class="text-base md:text-lg font-semibold text-slate-50">
-                    Comment lire ces signaux ?
-                </h2>
-                <ul class="list-disc list-inside space-y-1.5 text-[13px] md:text-sm">
-                    <li>
-                        <span class="font-semibold text-slate-100">Score :</span>
-                        plus il est élevé, plus la configuration coche de critères favorables
-                        (tendance, position par rapport aux moyennes, RSI, volume).
-                    </li>
-                    <li>
-                        <span class="font-semibold text-slate-100">RSI :</span>
-                        un RSI élevé peut signaler une tension à court terme, même sur une bonne tendance.
-                        À utiliser comme filtre supplémentaire, pas comme signal isolé.
-                    </li>
-                    <li>
-                        <span class="font-semibold text-slate-100">Stop Loss :</span>
-                        niveau indicatif basé sur la volatilité (type ATR). Il te donne un ordre de grandeur
-                        du risque par trade, mais ne remplace pas ta propre gestion de position.
-                    </li>
-                    <li>
-                        <span class="font-semibold text-slate-100">Lien TradingView :</span>
-                        toujours valider sur le graphique avant d’agir. Momentum Strata sert à
-                        filtrer et prioriser, pas à se substituer à votre jugement.
-                    </li>
-                </ul>
-                <p class="text-[11px] text-slate-500">
-                    Rappel&nbsp;: rien ici ne constitue un conseil en investissement. Les signaux sont fournis à titre informatif
-                    pour t’aider à gagner du temps dans ton process de sélection.
+        <!-- SECTION EXPLICATIVE -->
+        <section class="max-w-6xl mx-auto px-4 md:px-8 pb-16">
+            <div class="glass-card-solid rounded-3xl p-6 md:p-8">
+                <h2 class="text-lg font-bold mb-4 gradient-text">Comment lire ces signaux ?</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 text-sm text-slate-400">
+                    <div class="space-y-2">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500/20 to-purple-500/20 flex items-center justify-center mb-3">
+                            <span class="text-indigo-400">📊</span>
+                        </div>
+                        <p class="font-medium text-white">Score</p>
+                        <p>Plus il est élevé, plus la configuration coche de critères favorables (tendance, position, RSI, volume).</p>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500/20 to-orange-500/20 flex items-center justify-center mb-3">
+                            <span class="text-amber-400">⚡</span>
+                        </div>
+                        <p class="font-medium text-white">RSI</p>
+                        <p>Un RSI élevé peut signaler une tension à court terme. À utiliser comme filtre supplémentaire.</p>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-500/20 to-red-500/20 flex items-center justify-center mb-3">
+                            <span class="text-rose-400">🛡️</span>
+                        </div>
+                        <p class="font-medium text-white">Stop Loss</p>
+                        <p>Niveau indicatif basé sur la volatilité (ATR). Ordre de grandeur du risque par trade.</p>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 flex items-center justify-center mb-3">
+                            <span class="text-emerald-400">✅</span>
+                        </div>
+                        <p class="font-medium text-white">Validation</p>
+                        <p>Toujours valider sur le graphique avant d'agir. Momentum Strata filtre, ne remplace pas votre jugement.</p>
+                    </div>
+                </div>
+                <p class="text-xs text-slate-500 mt-6 pt-4 border-t border-slate-800/50">
+                    Rappel : rien ici ne constitue un conseil en investissement. Les signaux sont fournis à titre informatif pour t'aider à gagner du temps dans ton process de sélection.
                 </p>
             </div>
         </section>
+
     </main>
 
-    <!-- Footer injecté dynamiquement -->
+    <!-- Footer -->
     <div id="footer-container"></div>
 
 </body>

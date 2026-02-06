@@ -10,114 +10,111 @@
     <meta property="og:description" content="Scan quotidien des cryptos les plus liquides pour repérer les meilleurs breakouts (Phoenix) et pullbacks propres sur tendance haussière.">
     <meta property="og:type" content="website">
 
-    <!-- CSS Tailwind compilé -->
-    <link rel="stylesheet" href="assets/css/tailwind.css?v=20251206">
+    <link rel="stylesheet" href="assets/css/tailwind.css">
 
-    <!-- JS du site -->
     <script src="assets/js/main.js" defer></script>
     <script src="assets/js/shared.js" defer></script>
     <script src="assets/js/crypto.js" defer></script>
 </head>
-<body class="min-h-screen flex flex-col">
+<body class="min-h-screen flex flex-col overflow-x-hidden">
 
-    <!-- Navbar injectée dynamiquement -->
+    <!-- Animated background -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+        <div class="absolute top-[-20%] right-[-10%] w-[600px] h-[600px] rounded-full bg-purple-500/20 blur-[120px] animate-float"></div>
+        <div class="absolute bottom-[-20%] left-[-10%] w-[500px] h-[500px] rounded-full bg-pink-500/15 blur-[100px] animate-float" style="animation-delay: -3s;"></div>
+        <div class="absolute top-[40%] left-[30%] w-[300px] h-[300px] rounded-full bg-indigo-500/10 blur-[80px] animate-float" style="animation-delay: -1.5s;"></div>
+    </div>
+
+    <!-- Navbar -->
     <div id="navbar-container"></div>
 
-    <main class="flex-1 pt-20">
+    <main class="flex-1 pt-24 relative z-10">
 
         <!-- HERO -->
-        <section class="border-b border-slate-800/70 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 relative overflow-hidden">
-            <!-- Décor minimal -->
-            <div class="absolute inset-0 pointer-events-none"></div>
+        <header class="text-center px-4 md:px-8 pb-16 max-w-4xl mx-auto">
+            <!-- Badge -->
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full glass-card text-xs font-medium text-slate-300 mb-6">
+                <span class="w-2 h-2 rounded-full bg-purple-400 animate-pulse"></span>
+                Signaux Crypto • Actifs liquides uniquement
+            </div>
 
-            <header class="py-12 md:py-16 px-4 md:px-10 text-center max-w-4xl mx-auto relative z-10">
-                <div class="inline-flex items-center mb-6 px-4 py-1.5 rounded-full bg-slate-900/70 border border-slate-700/60 text-[11px] font-semibold uppercase tracking-[0.2em] text-slate-300">
-                    <span class="relative flex h-2 w-2 mr-2">
-                        <span class="relative inline-flex rounded-full h-2 w-2 bg-purple-400"></span>
-                    </span>
-                    Signaux • Crypto (actifs liquides)
+            <!-- Title -->
+            <h1 class="text-4xl md:text-6xl font-extrabold mb-6 leading-tight">
+                Configurations crypto<br>
+                <span class="gradient-text">à fort potentiel</span>
+            </h1>
+
+            <!-- Subtitle -->
+            <p class="text-lg text-slate-400 max-w-2xl mx-auto mb-10">
+                Momentum Strata passe au crible les principales cryptos liquides et ne retient que les configurations
+                <span class="text-purple-400 font-medium">breakouts (Phoenix)</span> et
+                <span class="text-emerald-400 font-medium">pullbacks</span>, pondérées par volume et RSI.
+            </p>
+
+            <!-- Hero stats -->
+            <div id="hero-stats-crypto" class="flex flex-wrap items-center justify-center gap-4">
+                <div class="stat-card shine glow-purple">
+                    <p class="text-xs text-slate-400 uppercase tracking-wider mb-1">Phoenix</p>
+                    <p class="text-3xl font-bold text-purple-400" id="hero-crypto-phoenix-count">–</p>
+                    <p class="text-xs text-slate-500 mt-1">Breakouts crypto</p>
                 </div>
-
-                <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-5">
-                    Identifiez des <span class="text-purple-400">configurations crypto</span> à fort potentiel
-                </h1>
-
-                <p class="text-sm md:text-base text-slate-300/90 leading-relaxed max-w-2xl mx-auto mb-8">
-                    Momentum Strata passe au crible les principales cryptos liquides et ne retient
-                    que les configurations pertinentes&nbsp;:
-                    <span class="text-purple-300 font-semibold">breakouts (Phoenix)</span> et
-                    <span class="text-emerald-300 font-semibold">pullbacks</span>, pondérés par le volume en dollars et le RSI.
-                </p>
-
-                <!-- Stats hero crypto -->
-                <div id="hero-stats-crypto" class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
-                    <!-- Boîte Phoenix -->
-                    <div class="px-4 py-3 rounded-xl bg-slate-900/75 border border-slate-800/80 backdrop-blur text-left shadow-lg">
-                        <p class="text-[11px] text-slate-400 uppercase tracking-wider mb-1">Phoenix • Breakout Crypto</p>
-                        <p class="text-xl font-bold text-purple-300" id="hero-crypto-phoenix-count">–</p>
-                    </div>
-
-                    <!-- Boîte Pullback -->
-                    <div class="px-4 py-3 rounded-xl bg-slate-900/75 border border-slate-800/80 backdrop-blur text-left shadow-lg">
-                        <p class="text-[11px] text-slate-400 uppercase tracking-wider mb-1">Pullback • Repli propre</p>
-                        <p class="text-xl font-bold text-emerald-300" id="hero-crypto-pullback-count">–</p>
-                    </div>
-                </div>
-
-                <div class="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3 text-xs text-slate-400">
-                    <div class="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-slate-700/80 bg-slate-900/80">
-                        <span class="h-2 w-2 rounded-full bg-purple-400 shadow-[0_0_10px_rgba(168,85,247,0.8)]"></span>
-                        Cryptos filtrées par volume et liquidité
-                    </div>
-                    <div class="inline-flex items-center gap-2 px-3 py-2 rounded-full border border-slate-700/80 bg-slate-900/80">
-                        <span class="h-2 w-2 rounded-full bg-emerald-400 shadow-[0_0_10px_rgba(52,211,153,0.8)]"></span>
-                        Signaux recalculés chaque jour en heure UTC
-                    </div>
-                </div>
-            </header>
-        </section>
-
-        <!-- SECTION PHOENIX CRYPTO -->
-        <section id="phoenix" class="max-w-6xl mx-auto px-4 md:px-8 lg:px-10 py-10 md:py-12 space-y-6">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
-                <div>
-                    <div class="inline-flex items-center gap-2 mb-4">
-                        <span class="px-3 py-1 rounded-full bg-purple-500/10 border border-purple-500/40 text-[11px] font-semibold tracking-[0.16em] uppercase text-purple-300">
-                            Stratégie Phoenix • Breakout
-                        </span>
-                    </div>
-                    <h2 class="text-xl md:text-2xl font-bold text-slate-50 mb-1">
-                        Breakouts crypto sur forte impulsion
-                    </h2>
-                    <p class="text-sm text-slate-400 max-w-xl">
-                        Cryptos en tendance haussière au-dessus de leur moyenne long terme, avec volume anormalement élevé
-                        et rupture de consolidation. Objectif&nbsp;: capter les mouvements explosifs sur les actifs liquides,
-                        pas les micro-caps illiquides.
-                    </p>
-                </div>
-                <div class="text-xs text-right text-slate-400">
-                    <p class="mb-1">Dernière mise à jour : <span id="date-phoenix" class="text-slate-100 font-medium">...</span></p>
-                    <p class="text-[11px] text-slate-500">Heure UTC – données agrégées multi-exchange.</p>
+                <div class="stat-card shine glow-emerald">
+                    <p class="text-xs text-slate-400 uppercase tracking-wider mb-1">Pullback</p>
+                    <p class="text-3xl font-bold gradient-text-emerald" id="hero-crypto-pullback-count">–</p>
+                    <p class="text-xs text-slate-500 mt-1">Replis propres</p>
                 </div>
             </div>
 
-            <div class="bg-slate-950/80 backdrop-blur rounded-2xl border border-slate-800/80 shadow-premium overflow-hidden relative">
-                <!-- Table desktop -->
+            <!-- Tags -->
+            <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+                <div class="inline-flex items-center gap-2 px-3 py-2 rounded-full glass-card text-xs text-slate-400">
+                    <span class="h-2 w-2 rounded-full bg-purple-400"></span>
+                    Cryptos filtrées par volume et liquidité
+                </div>
+                <div class="inline-flex items-center gap-2 px-3 py-2 rounded-full glass-card text-xs text-slate-400">
+                    <span class="h-2 w-2 rounded-full bg-emerald-400"></span>
+                    Signaux recalculés chaque jour (UTC)
+                </div>
+            </div>
+        </header>
+
+        <!-- SECTION PHOENIX CRYPTO -->
+        <section id="phoenix" class="max-w-6xl mx-auto px-4 md:px-8 pb-16">
+            <!-- Section header -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
+                <div>
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-3 h-3 rounded-full bg-gradient-to-r from-purple-400 to-pink-500"></div>
+                        <h2 class="text-xl font-bold">Phoenix — Breakout Crypto</h2>
+                        <span class="badge badge-crypto" id="crypto-phoenix-count-badge">– signaux</span>
+                    </div>
+                    <p class="text-sm text-slate-400 max-w-xl">
+                        Cryptos en tendance haussière avec volume anormalement élevé et rupture de consolidation. Focus sur les actifs liquides.
+                    </p>
+                </div>
+                <div class="text-xs text-slate-500 text-right">
+                    <p>Dernière mise à jour</p>
+                    <p class="text-slate-300 font-medium" id="date-phoenix">...</p>
+                </div>
+            </div>
+
+            <!-- Table desktop -->
+            <div class="glass-card-solid rounded-3xl overflow-hidden shadow-premium mb-6">
                 <div class="hidden md:block overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
+                    <table class="w-full">
                         <thead>
-                            <tr class="bg-slate-950 text-[11px] uppercase tracking-[0.18em] text-slate-400 border-b border-slate-800">
-                                <th class="px-6 py-3.5">Actif</th>
-                                <th class="px-6 py-3.5 hidden md:table-cell">Tendance &amp; volume</th>
-                                <th class="px-6 py-3.5">Score &amp; RSI</th>
-                                <th class="px-6 py-3.5 hidden sm:table-cell">Prix</th>
-                                <th class="px-6 py-3.5 hidden sm:table-cell">Stop Loss</th>
-                                <th class="px-6 py-3.5 text-right">Chart</th>
+                            <tr class="border-b border-slate-800/50 text-xs text-slate-500 uppercase tracking-wider">
+                                <th class="text-left px-6 py-4 font-medium">Actif</th>
+                                <th class="text-left px-6 py-4 font-medium">Tendance & Volume</th>
+                                <th class="text-left px-6 py-4 font-medium">Score & RSI</th>
+                                <th class="text-right px-6 py-4 font-medium">Prix</th>
+                                <th class="text-right px-6 py-4 font-medium">Stop Loss</th>
+                                <th class="text-right px-6 py-4 font-medium">Chart</th>
                             </tr>
                         </thead>
-                        <tbody id="table-phoenix" class="text-sm divide-y divide-slate-800">
+                        <tbody id="table-phoenix" class="divide-y divide-slate-800/30">
                             <tr>
-                                <td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">
+                                <td colspan="6" class="px-6 py-8 text-center text-sm text-slate-500">
                                     Chargement des données...
                                 </td>
                             </tr>
@@ -126,81 +123,82 @@
                 </div>
 
                 <!-- Cards mobile -->
-                <div id="cards-crypto-phoenix" class="md:hidden space-y-4 px-4 py-4">
-                    <!-- Rempli en JS -->
-                </div>
+                <div id="cards-crypto-phoenix" class="md:hidden space-y-4 px-4 py-4"></div>
 
-                <p class="text-[11px] text-slate-500 mt-2 px-6 pb-3">
-                    Les signaux Phoenix Crypto ciblent des breakouts puissants sur des cryptos déjà liquides.
-                    Ils ne remplacent pas une gestion stricte du risque (taille de position, exposition globale, etc.).
+                <p class="text-xs text-slate-500 px-6 py-4 border-t border-slate-800/30">
+                    Les signaux Phoenix Crypto ciblent des breakouts puissants sur des cryptos déjà liquides. Ils ne remplacent pas une gestion stricte du risque.
                 </p>
             </div>
 
-            <div class="grid md:grid-cols-3 gap-4 text-xs text-slate-400">
-                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+            <!-- Info boxes -->
+            <div class="grid md:grid-cols-3 gap-4">
+                <div class="info-box">
+                    <div class="info-box-icon bg-gradient-to-br from-purple-500/20 to-pink-500/20">
+                        <span class="text-purple-400">💧</span>
+                    </div>
                     <h3 class="font-semibold text-slate-100 mb-1.5 text-sm">Filtre de liquidité</h3>
-                    <p>
-                        Les cryptos sont filtrées par <span class="font-medium text-slate-100">volume en dollars</span>
-                        pour éviter les carnets creux et les moves artificiels sur des tokens exotiques.
+                    <p class="text-xs text-slate-400">
+                        Les cryptos sont filtrées par volume en dollars pour éviter les carnets creux et les moves artificiels.
                     </p>
                 </div>
-                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                <div class="info-box">
+                    <div class="info-box-icon bg-gradient-to-br from-indigo-500/20 to-blue-500/20">
+                        <span class="text-indigo-400">📈</span>
+                    </div>
                     <h3 class="font-semibold text-slate-100 mb-1.5 text-sm">Tendance structurée</h3>
-                    <p>
-                        Les breakouts sont privilégiés quand la tendance de fond est déjà établie
-                        (prix au-dessus des moyennes de long terme, structure haussière claire).
+                    <p class="text-xs text-slate-400">
+                        Les breakouts sont privilégiés quand la tendance de fond est déjà établie (prix au-dessus des MAs long terme).
                     </p>
                 </div>
-                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+                <div class="info-box">
+                    <div class="info-box-icon bg-gradient-to-br from-amber-500/20 to-orange-500/20">
+                        <span class="text-amber-400">⭐</span>
+                    </div>
                     <h3 class="font-semibold text-slate-100 mb-1.5 text-sm">Score crypto</h3>
-                    <p>
-                        Le score prend en compte la dynamique de prix, le RSI et le volume pour classer les opportunités
-                        plutôt que tout traiter de la même manière.
+                    <p class="text-xs text-slate-400">
+                        Le score prend en compte la dynamique de prix, le RSI et le volume pour classer les opportunités.
                     </p>
                 </div>
             </div>
         </section>
 
         <!-- SECTION PULLBACK CRYPTO -->
-        <section id="pullback" class="max-w-6xl mx-auto px-4 md:px-8 lg:px-10 pb-14 md:pb-16 space-y-6">
-            <div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+        <section id="pullback" class="max-w-6xl mx-auto px-4 md:px-8 pb-16">
+            <!-- Section header -->
+            <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
                 <div>
-                    <div class="inline-flex items-center gap-2 mb-4">
-                        <span class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/40 text-[11px] font-semibold tracking-[0.16em] uppercase text-emerald-300">
-                            Stratégie Pullback • Sur tendance
-                        </span>
+                    <div class="flex items-center gap-3 mb-3">
+                        <div class="w-3 h-3 rounded-full bg-gradient-to-r from-emerald-400 to-teal-500"></div>
+                        <h2 class="text-xl font-bold">Pullback — Correction technique</h2>
+                        <span class="badge badge-pullback" id="crypto-pullback-count-badge">– signaux</span>
                     </div>
-                    <h2 class="text-xl md:text-2xl font-bold text-slate-50 mb-1">
-                        Pullbacks propres sur cryptos tendancielles
-                    </h2>
                     <p class="text-sm text-slate-400 max-w-xl">
                         Cryptos en forte tendance haussière qui corrigent vers des zones techniques clés sans casser la structure.
-                        Objectif&nbsp;: entrer sur repli, dans le sens de la tendance, plutôt que poursuivre un plus haut.
                     </p>
                 </div>
-                <div class="text-xs text-right text-slate-400">
-                    <p class="mb-1">Dernière mise à jour : <span id="date-pullback" class="text-slate-100 font-medium">...</span></p>
-                    <p class="text-[11px] text-slate-500">Heure UTC – données agrégées multi-exchange.</p>
+                <div class="text-xs text-slate-500 text-right">
+                    <p>Dernière mise à jour</p>
+                    <p class="text-slate-300 font-medium" id="date-pullback">...</p>
                 </div>
             </div>
 
-            <div class="bg-slate-950/80 backdrop-blur rounded-2xl border border-slate-800/80 shadow-premium overflow-hidden relative">
-                <!-- Table desktop -->
+            <!-- Table desktop -->
+            <div class="glass-card-solid rounded-3xl overflow-hidden shadow-premium mb-6">
                 <div class="hidden md:block overflow-x-auto">
-                    <table class="w-full text-left border-collapse">
+                    <table class="w-full">
                         <thead>
-                            <tr class="bg-slate-950 text-[11px] uppercase tracking-[0.18em] text-slate-400 border-b border-slate-800">
-                                <th class="px-6 py-3.5">Actif</th>
-                                <th class="px-6 py-3.5 hidden md:table-cell">Tendance &amp; contexte</th>
-                                <th class="px-6 py-3.5">Score &amp; RSI</th>
-                                <th class="px-6 py-3.5 hidden sm:table-cell">Prix</th>
-                                <th class="px-6 py-3.5 hidden sm:table-cell">Stop Loss</th>
-                                <th class="px-6 py-3.5 text-right">Chart</th>
+                            <tr class="border-b border-slate-800/50 text-xs text-slate-500 uppercase tracking-wider">
+                                <th class="text-left px-6 py-4 font-medium">Actif</th>
+                                <th class="text-left px-6 py-4 font-medium">Tendance & Contexte</th>
+                                <th class="text-left px-6 py-4 font-medium">Score & RSI</th>
+                                <th class="text-right px-6 py-4 font-medium">Prix</th>
+                                <th class="text-right px-6 py-4 font-medium">Stop Loss</th>
+                                <th class="text-right px-6 py-4 font-medium">Chart</th>
                             </tr>
                         </thead>
-                        <tbody id="table-pullback" class="text-sm divide-y divide-slate-800">
+                        <tbody id="table-pullback" class="divide-y divide-slate-800/30">
                             <tr>
-                                <td colspan="6" class="px-6 py-6 text-center text-xs text-slate-500">
+                                <td colspan="6" class="px-6 py-8 text-center text-sm text-slate-500">
                                     Chargement des données...
                                 </td>
                             </tr>
@@ -209,72 +207,79 @@
                 </div>
 
                 <!-- Cards mobile -->
-                <div id="cards-crypto-pullback" class="md:hidden space-y-4 px-4 py-4">
-                    <!-- Rempli en JS -->
-                </div>
+                <div id="cards-crypto-pullback" class="md:hidden space-y-4 px-4 py-4"></div>
 
-            <p class="text-[11px] text-slate-500 mt-2 px-6 pb-3">
-                Les pullbacks crypto sont pensés pour des entrées plus “posées” que les breakouts,
-                mais la volatilité reste élevée&nbsp;: stop et taille de position doivent rester cohérents avec ton profil de risque.
-            </p>
+                <p class="text-xs text-slate-500 px-6 py-4 border-t border-slate-800/30">
+                    Les pullbacks crypto sont pensés pour des entrées plus "posées" que les breakouts, mais la volatilité reste élevée.
+                </p>
             </div>
 
-            <div class="grid md:grid-cols-2 gap-4 text-xs text-slate-400">
-                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
+            <!-- Info boxes -->
+            <div class="grid md:grid-cols-2 gap-4">
+                <div class="info-box">
+                    <div class="info-box-icon bg-gradient-to-br from-emerald-500/20 to-teal-500/20">
+                        <span class="text-emerald-400">🎯</span>
+                    </div>
                     <h3 class="font-semibold text-slate-100 mb-1.5 text-sm">Repli sur zone technique</h3>
-                    <p>
-                        Le prix revient vers des niveaux de moyenne mobile ou de support,
-                        sans casser la structure haussière globale. Le repli est utilisé comme point d’entrée,
-                        pas comme signal de panique.
+                    <p class="text-xs text-slate-400">
+                        Le prix revient vers des niveaux de moyenne mobile ou de support, sans casser la structure haussière globale.
                     </p>
                 </div>
-                <div class="bg-slate-900/60 p-4 rounded-xl border border-slate-800">
-                    <h3 class="font-semibold text-emerald-300 mb-1.5 text-sm">Volatilité crypto intégrée</h3>
-                    <p>
-                        Le niveau de stop suggéré tient compte de la volatilité crypto, plus violente que sur actions.
-                        Il sert de base de travail, à ajuster selon ton horizon (swing, moyen terme, etc.).
+                <div class="info-box">
+                    <div class="info-box-icon bg-gradient-to-br from-rose-500/20 to-red-500/20">
+                        <span class="text-rose-400">🛡️</span>
+                    </div>
+                    <h3 class="font-semibold text-emerald-400 mb-1.5 text-sm">Volatilité crypto intégrée</h3>
+                    <p class="text-xs text-slate-400">
+                        Le niveau de stop tient compte de la volatilité crypto, plus violente que sur actions.
                     </p>
                 </div>
             </div>
         </section>
 
-        <!-- SECTION EXPLICATIVE : COMMENT LIRE LES SIGNAUX CRYPTO -->
-        <section class="max-w-6xl mx-auto px-4 md:px-8 lg:px-10 pb-16">
-            <div class="bg-slate-950/80 border border-slate-800/80 rounded-2xl p-5 md:p-6 text-sm text-slate-300 space-y-3">
-                <h2 class="text-base md:text-lg font-semibold text-slate-50">
-                    Comment lire ces signaux crypto ?
-                </h2>
-                <ul class="list-disc list-inside space-y-1.5 text-[13px] md:text-sm">
-                    <li>
-                        <span class="font-semibold text-slate-100">Score :</span>
-                        plus il est élevé, plus la configuration combine tendance, structure de prix,
-                        RSI et volume cohérents avec un mouvement intéressant.
-                    </li>
-                    <li>
-                        <span class="font-semibold text-slate-100">RSI :</span>
-                        en crypto, les excès de RSI sont fréquents. Un RSI élevé ne suffit pas à invalider un signal,
-                        mais il peut inciter à alléger la taille de position ou à attendre un léger repli.
-                    </li>
-                    <li>
-                        <span class="font-semibold text-slate-100">Stop Loss :</span>
-                        niveau indicatif basé sur la volatilité. Sur crypto, il peut être plus large que sur actions&nbsp;:
-                        à calibrer selon ton levier et ton exposition globale.
-                    </li>
-                    <li>
-                        <span class="font-semibold text-slate-100">Lien TradingView :</span>
-                        toujours vérifier le contexte (liquidité, carnet, news, heure de la journée) avant d’agir.
-                        L’objectif est d’accélérer votre screening, pas de remplacer votre jugement.
-                    </li>
-                </ul>
-                <p class="text-[11px] text-slate-500">
-                    Rappel&nbsp;: les signaux sont fournis à titre purement informatif et ne constituent pas un conseil en investissement.
-                    La gestion du risque et des positions reste de ta responsabilité.
+        <!-- SECTION EXPLICATIVE -->
+        <section class="max-w-6xl mx-auto px-4 md:px-8 pb-16">
+            <div class="glass-card-solid rounded-3xl p-6 md:p-8">
+                <h2 class="text-lg font-bold mb-4 gradient-text">Comment lire ces signaux crypto ?</h2>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 text-sm text-slate-400">
+                    <div class="space-y-2">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 flex items-center justify-center mb-3">
+                            <span class="text-purple-400">📊</span>
+                        </div>
+                        <p class="font-medium text-white">Score</p>
+                        <p>Plus il est élevé, plus la configuration combine tendance, structure de prix, RSI et volume cohérents.</p>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500/20 to-orange-500/20 flex items-center justify-center mb-3">
+                            <span class="text-amber-400">⚡</span>
+                        </div>
+                        <p class="font-medium text-white">RSI</p>
+                        <p>En crypto, les excès de RSI sont fréquents. Un RSI élevé peut inciter à alléger la taille de position.</p>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-rose-500/20 to-red-500/20 flex items-center justify-center mb-3">
+                            <span class="text-rose-400">🛡️</span>
+                        </div>
+                        <p class="font-medium text-white">Stop Loss</p>
+                        <p>Niveau basé sur la volatilité. Sur crypto, il peut être plus large : à calibrer selon ton levier.</p>
+                    </div>
+                    <div class="space-y-2">
+                        <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500/20 to-teal-500/20 flex items-center justify-center mb-3">
+                            <span class="text-emerald-400">✅</span>
+                        </div>
+                        <p class="font-medium text-white">Validation</p>
+                        <p>Toujours vérifier le contexte (liquidité, carnet, news) avant d'agir.</p>
+                    </div>
+                </div>
+                <p class="text-xs text-slate-500 mt-6 pt-4 border-t border-slate-800/50">
+                    Rappel : les signaux sont fournis à titre purement informatif et ne constituent pas un conseil en investissement. La gestion du risque reste de ta responsabilité.
                 </p>
             </div>
         </section>
+
     </main>
 
-    <!-- Footer injecté dynamiquement -->
+    <!-- Footer -->
     <div id="footer-container"></div>
 
 </body>

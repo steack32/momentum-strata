@@ -1,39 +1,36 @@
-<nav class="fixed top-0 left-0 right-0 z-50" aria-label="Navigation principale">
-    <div class="relative bg-slate-950/85 backdrop-blur border-b border-slate-800">
-        <div class="relative max-w-6xl mx-auto px-4 md:px-8 py-3.5 flex items-center justify-between">
-            <!-- Logo / marque -->
-            <a href="index.html" class="flex items-center gap-2 group" aria-label="Accueil Momentum Strata">
-                <div class="w-2.5 h-2.5 rounded-full bg-blue-400"></div>
-                <span class="font-semibold text-slate-100 text-sm tracking-wide group-hover:text-blue-300 transition-colors">
-                    Momentum Strata
-                </span>
-            </a>
+<nav class="fixed top-0 left-0 right-0 z-50 glass border-b border-slate-800/50" aria-label="Navigation principale">
+    <div class="max-w-6xl mx-auto px-4 md:px-8 py-4 flex items-center justify-between">
 
-            <!-- Menu desktop -->
-            <div class="hidden md:flex items-center">
-                <div class="flex items-center gap-2 px-2.5 py-1.5 rounded-full bg-slate-900/70 border border-slate-800">
-                    <a href="index.html" class="nav-link">S&amp;P 500</a>
-                    <a href="crypto.html" class="nav-link">Crypto</a>
-                    <a href="dashboard.html" class="nav-link">Dashboard</a>
-                </div>
+        <!-- Logo -->
+        <a href="index.html" class="flex items-center gap-3 group" aria-label="Accueil Momentum Strata">
+            <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow-lg shadow-indigo-500/25 group-hover:shadow-indigo-500/40 transition-shadow">
+                <span class="text-white font-bold">M</span>
             </div>
+            <span class="font-semibold text-lg text-slate-100">
+                Momentum <span class="gradient-text">Strata</span>
+            </span>
+        </a>
 
-            <!-- Menu mobile → hamburger -->
-            <button id="mobile-menu-btn" class="md:hidden inline-flex items-center justify-center rounded-full border border-slate-700/70 bg-slate-900/60 px-2.5 py-1.5 text-slate-200 hover:text-blue-300 hover:border-blue-400/70 hover:bg-slate-900 transition-colors" aria-expanded="false" aria-controls="mobile-menu">
-                <span class="sr-only">Ouvrir le menu</span>
-                <span class="flex flex-col gap-0.5" aria-hidden="true">
-                    <span class="block w-4 h-[1.5px] bg-slate-200 rounded"></span>
-                    <span class="block w-3 h-[1.5px] bg-slate-400 rounded ml-1"></span>
-                    <span class="block w-4 h-[1.5px] bg-slate-200 rounded"></span>
-                </span>
-            </button>
+        <!-- Menu desktop -->
+        <div class="hidden md:flex items-center gap-2 p-1.5 rounded-2xl glass-card">
+            <a href="index.html" class="nav-link" data-page="sp500">S&P 500</a>
+            <a href="crypto.html" class="nav-link" data-page="crypto">Crypto</a>
+            <a href="dashboard.html" class="nav-link" data-page="dashboard">Dashboard</a>
         </div>
 
-        <!-- Menu mobile -->
-        <div id="mobile-menu" class="hidden md:hidden flex-col gap-1 bg-slate-950/95 border-t border-slate-800 px-4 pb-4 pt-3">
-            <a href="index.html" class="mobile-nav-link">S&amp;P 500</a>
-            <a href="crypto.html" class="mobile-nav-link">Crypto</a>
-            <a href="dashboard.html" class="mobile-nav-link">Dashboard</a>
-        </div>
+        <!-- Menu mobile hamburger -->
+        <button id="mobile-menu-btn" class="md:hidden inline-flex items-center justify-center w-10 h-10 rounded-xl glass-card text-slate-300 hover:text-white transition-colors" aria-expanded="false" aria-controls="mobile-menu">
+            <span class="sr-only">Ouvrir le menu</span>
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Menu mobile panel -->
+    <div id="mobile-menu" class="hidden md:hidden glass border-t border-slate-800/50 px-4 pb-4 pt-3 space-y-1">
+        <a href="index.html" class="mobile-nav-link" data-page="sp500">S&P 500</a>
+        <a href="crypto.html" class="mobile-nav-link" data-page="crypto">Crypto</a>
+        <a href="dashboard.html" class="mobile-nav-link" data-page="dashboard">Dashboard</a>
     </div>
 </nav>
