@@ -1,16 +1,15 @@
 {
-    "date_mise_a_jour": "12/02/2026",
+    "date_mise_a_jour": "13/02/2026",
     "picks": {
         "NVDA": {
             "name": "Nvidia",
             "ticker": "NVDA",
-            "score": 27.73,
-            "entry_price": 186.94,
-            "stop_loss": 175.16,
-            "rsi": 49.3,
-            "trend_pct": 9.13,
+            "score": 25.71,
+            "entry_price": 182.81,
+            "stop_loss": 175.18,
+            "rsi": 46.7,
+            "trend_pct": 6.49,
             "history": [
-                186.5,
                 188.85,
                 188.12,
                 187.24,
@@ -39,7 +38,8 @@
                 190.04,
                 188.54,
                 190.05,
-                186.94
+                186.94,
+                182.81
             ]
         }
     }
