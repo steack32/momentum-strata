@@ -1,16 +1,15 @@
 {
-    "date_mise_a_jour": "07/04/2026",
+    "date_mise_a_jour": "08/04/2026",
     "picks": {
         "GOOGL": {
             "name": "Alphabet",
             "ticker": "GOOGL",
-            "score": 33.13,
-            "entry_price": 305.46,
-            "stop_loss": 293.89,
-            "rsi": 46.4,
-            "trend_pct": 14.72,
+            "score": 37.25,
+            "entry_price": 317.32,
+            "stop_loss": 293.59,
+            "rsi": 55.7,
+            "trend_pct": 18.83,
             "history": [
-                310.9,
                 312.9,
                 307.38,
                 311.76,
@@ -39,7 +38,8 @@
                 297.39,
                 295.77,
                 299.99,
-                305.46
+                305.46,
+                317.32
             ]
         }
     }
