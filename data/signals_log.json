@@ -17974,5 +17974,29 @@
         "exit_factor": 0.999
       }
     }
+  },
+  {
+    "id": "sp500_phoenix_GOOGL_2026-04-30",
+    "date_signal": "2026-04-30",
+    "ticker": "GOOGL",
+    "universe": "sp500",
+    "strategy": "phoenix",
+    "initial_data": {
+      "close_j": 384.8,
+      "stop_loss_technical": 344.21
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
   }
 ]
