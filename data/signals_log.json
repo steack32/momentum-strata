@@ -17998,5 +17998,53 @@
         "exit_factor": 0.999
       }
     }
+  },
+  {
+    "id": "sp500_pullback_AMZN_2026-06-04",
+    "date_signal": "2026-06-04",
+    "ticker": "AMZN",
+    "universe": "sp500",
+    "strategy": "pullback",
+    "initial_data": {
+      "close_j": 250.02,
+      "stop_loss_technical": 237.06
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
+    "id": "sp500_pullback_GOOGL_2026-06-04",
+    "date_signal": "2026-06-04",
+    "ticker": "GOOGL",
+    "universe": "sp500",
+    "strategy": "pullback",
+    "initial_data": {
+      "close_j": 358.99,
+      "stop_loss_technical": 333.75
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
   }
 ]
