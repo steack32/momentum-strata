@@ -18094,5 +18094,53 @@
         "exit_factor": 0.999
       }
     }
+  },
+  {
+    "id": "sp500_pullback_AMZN_2026-06-06",
+    "date_signal": "2026-06-06",
+    "ticker": "AMZN",
+    "universe": "sp500",
+    "strategy": "pullback",
+    "initial_data": {
+      "close_j": 246.03,
+      "stop_loss_technical": 238.6
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
+    "id": "sp500_pullback_NVDA_2026-06-06",
+    "date_signal": "2026-06-06",
+    "ticker": "NVDA",
+    "universe": "sp500",
+    "strategy": "pullback",
+    "initial_data": {
+      "close_j": 205.1,
+      "stop_loss_technical": 193.27
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
   }
 ]
