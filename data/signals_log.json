@@ -18334,5 +18334,77 @@
         "exit_factor": 0.999
       }
     }
+  },
+  {
+    "id": "sp500_pullback_AAPL_2026-06-10",
+    "date_signal": "2026-06-10",
+    "ticker": "AAPL",
+    "universe": "sp500",
+    "strategy": "pullback",
+    "initial_data": {
+      "close_j": 291.58,
+      "stop_loss_technical": 269.75
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
+    "id": "sp500_pullback_GOOGL_2026-06-10",
+    "date_signal": "2026-06-10",
+    "ticker": "GOOGL",
+    "universe": "sp500",
+    "strategy": "pullback",
+    "initial_data": {
+      "close_j": 356.38,
+      "stop_loss_technical": 341.63
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
+  },
+  {
+    "id": "sp500_pullback_NVDA_2026-06-10",
+    "date_signal": "2026-06-10",
+    "ticker": "NVDA",
+    "universe": "sp500",
+    "strategy": "pullback",
+    "initial_data": {
+      "close_j": 200.42,
+      "stop_loss_technical": 195.43
+    },
+    "trade_status": "PENDING",
+    "execution": {
+      "entry_price": null,
+      "entry_date": null,
+      "exit_price": null,
+      "exit_date": null,
+      "exit_reason": null,
+      "breakeven_activated": false,
+      "slippage": {
+        "entry_factor": 1.001,
+        "exit_factor": 0.999
+      }
+    }
   }
 ]
