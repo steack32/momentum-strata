@@ -4,13 +4,12 @@
         "GOOGL": {
             "name": "Alphabet",
             "ticker": "GOOGL",
-            "score": 46.47,
-            "entry_price": 357.75,
-            "stop_loss": 339.34,
-            "rsi": 54.4,
-            "trend_pct": 8.86,
+            "score": 35.52,
+            "entry_price": 354.3,
+            "stop_loss": 338.68,
+            "rsi": 50.9,
+            "trend_pct": 7.65,
             "history": [
-                343.71,
                 337.39,
                 353.65,
                 357.37,
@@ -39,19 +38,19 @@
                 373.51,
                 377.65,
                 362.43,
-                357.75
+                357.75,
+                354.3
             ]
         },
         "AAPL": {
             "name": "Apple Inc.",
             "ticker": "AAPL",
-            "score": 31.24,
-            "entry_price": 312.41,
-            "stop_loss": 294.25,
-            "rsi": 36.4,
-            "trend_pct": 11.91,
+            "score": 28.76,
+            "entry_price": 313.33,
+            "stop_loss": 294.3,
+            "rsi": 40.8,
+            "trend_pct": 12.14,
             "history": [
-                275.15,
                 283.78,
                 281.74,
                 289.36,
@@ -80,7 +79,8 @@
                 303.42,
                 309.38,
                 311.0,
-                312.41
+                312.41,
+                313.33
             ]
         }
     }
