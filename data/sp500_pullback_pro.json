@@ -1,16 +1,15 @@
 {
-    "date_mise_a_jour": "09/08/2026",
+    "date_mise_a_jour": "10/08/2026",
     "picks": {
         "GOOGL": {
             "name": "Alphabet",
             "ticker": "GOOGL",
-            "score": 35.52,
-            "entry_price": 354.3,
-            "stop_loss": 338.68,
-            "rsi": 50.9,
-            "trend_pct": 7.65,
+            "score": 42.58,
+            "entry_price": 357.52,
+            "stop_loss": 338.06,
+            "rsi": 54.2,
+            "trend_pct": 8.46,
             "history": [
-                337.39,
                 353.65,
                 357.37,
                 361.21,
@@ -39,19 +38,19 @@
                 377.65,
                 362.43,
                 357.75,
-                354.3
+                354.3,
+                357.52
             ]
         },
         "AAPL": {
             "name": "Apple Inc.",
             "ticker": "AAPL",
-            "score": 28.76,
-            "entry_price": 313.33,
-            "stop_loss": 294.3,
-            "rsi": 40.8,
-            "trend_pct": 12.14,
+            "score": 32.83,
+            "entry_price": 308.26,
+            "stop_loss": 294.22,
+            "rsi": 37.2,
+            "trend_pct": 10.23,
             "history": [
-                283.78,
                 281.74,
                 289.36,
                 294.38,
@@ -80,7 +79,8 @@
                 309.38,
                 311.0,
                 312.41,
-                313.33
+                313.33,
+                308.26
             ]
         }
     }
