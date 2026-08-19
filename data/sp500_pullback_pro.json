@@ -1,16 +1,15 @@
 {
-    "date_mise_a_jour": "18/08/2026",
+    "date_mise_a_jour": "19/08/2026",
     "picks": {
         "AAPL": {
             "name": "Apple Inc.",
             "ticker": "AAPL",
-            "score": 34.78,
-            "entry_price": 310.03,
-            "stop_loss": 293.68,
-            "rsi": 28.1,
-            "trend_pct": 10.38,
+            "score": 17.13,
+            "entry_price": 316.83,
+            "stop_loss": 293.97,
+            "rsi": 37.5,
+            "trend_pct": 12.71,
             "history": [
-                313.39,
                 316.22,
                 315.32,
                 317.31,
@@ -39,7 +38,8 @@
                 305.26,
                 305.93,
                 305.59,
-                310.03
+                310.03,
+                316.83
             ]
         }
     }
