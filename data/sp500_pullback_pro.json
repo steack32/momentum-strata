@@ -1,16 +1,15 @@
 {
-    "date_mise_a_jour": "03/11/2026",
+    "date_mise_a_jour": "04/11/2026",
     "picks": {
         "MSFT": {
             "name": "Microsoft",
             "ticker": "MSFT",
-            "score": 33.12,
-            "entry_price": 507.12,
-            "stop_loss": 487.72,
-            "rsi": 27.8,
-            "trend_pct": 15.73,
+            "score": 36.26,
+            "entry_price": 520.99,
+            "stop_loss": 488.36,
+            "rsi": 42.6,
+            "trend_pct": 18.82,
             "history": [
-                498.0,
                 500.59,
                 497.93,
                 516.17,
@@ -39,19 +38,19 @@
                 531.01,
                 530.14,
                 521.91,
-                507.12
+                507.12,
+                520.99
             ]
         },
         "AAPL": {
             "name": "Apple Inc.",
             "ticker": "AAPL",
-            "score": 30.79,
-            "entry_price": 338.32,
-            "stop_loss": 316.94,
-            "rsi": 46.6,
-            "trend_pct": 13.93,
+            "score": 33.02,
+            "entry_price": 331.9,
+            "stop_loss": 317.35,
+            "rsi": 38.5,
+            "trend_pct": 11.62,
             "history": [
-                339.75,
                 337.02,
                 335.92,
                 341.07,
@@ -80,7 +79,8 @@
                 343.83,
                 348.91,
                 344.63,
-                338.32
+                338.32,
+                331.9
             ]
         }
     }
